@@ -2,406 +2,425 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Kharvie Admin Dashboard</title>
+<title>Kharvie | Admin Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f5f7;
-  color: #111;
+body{
+  background:#070707;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.5
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit
+}
+
+button{
+  cursor:pointer
+}
+
+a{
+  color:inherit;
+  text-decoration:none
 }
 
 /* LOGIN */
 
-#loginPage {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+#loginPage{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+  background:
+    radial-gradient(circle at 50% 20%,#25252a,transparent 40%),
+    #070707
 }
 
-.login-box {
-  background: white;
-  width: 100%;
-  max-width: 420px;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0,0,0,.08);
+.login-box{
+  width:100%;
+  max-width:430px;
+  background:#111113;
+  border:1px solid #29292d;
+  padding:35px
 }
 
-.logo {
-  text-align: center;
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 5px;
+.logo{
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:5px;
+  margin-bottom:8px
 }
 
-.login-subtitle {
-  text-align: center;
-  color: #777;
-  margin-bottom: 25px;
+.logo span{
+  color:#777;
+  font-size:10px
 }
 
-label {
-  display: block;
-  font-weight: bold;
-  font-size: 14px;
-  margin-bottom: 7px;
+.login-box h1{
+  font-size:34px;
+  margin:20px 0 8px
 }
 
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  font-size: 14px;
-  font-family: inherit;
-}
-
-textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-color: #111;
-}
-
-button {
-  border: 0;
-  border-radius: 8px;
-  padding: 11px 16px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.login-btn {
-  width: 100%;
-  background: #111;
-  color: white;
-  font-size: 16px;
-}
-
-.message {
-  display: none;
-  padding: 12px;
-  margin-top: 15px;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.error {
-  background: #ffe5e5;
-  color: #b00020;
-}
-
-.success {
-  background: #e5f8ea;
-  color: #176b2c;
-}
-
-/* ADMIN */
-
-#adminPage {
-  display: none;
-}
-
-.header {
-  height: 65px;
-  background: #111;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 22px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-logo {
-  font-size: 21px;
-  font-weight: bold;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.header-email {
-  font-size: 12px;
-  opacity: .8;
-}
-
-.logout-btn {
-  background: #e53935;
-  color: white;
-}
-
-.layout {
-  display: flex;
-  min-height: calc(100vh - 65px);
-}
-
-.sidebar {
-  width: 240px;
-  background: white;
-  border-right: 1px solid #ddd;
-  padding: 15px;
-}
-
-.nav-btn {
-  width: 100%;
-  text-align: left;
-  background: transparent;
-  margin-bottom: 5px;
-  padding: 13px;
-  font-size: 14px;
-}
-
-.nav-btn:hover,
-.nav-btn.active {
-  background: #111;
-  color: white;
-}
-
-.main {
-  flex: 1;
-  padding: 25px;
-  max-width: 1400px;
-}
-
-.section {
-  display: none;
-}
-
-.section.active {
-  display: block;
-}
-
-.page-title {
-  font-size: 28px;
-  margin-bottom: 6px;
-}
-
-.page-description {
-  color: #777;
-  margin-bottom: 25px;
-}
-
-/* CARDS */
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.stat-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,.04);
-}
-
-.stat-label {
-  color: #777;
-  font-size: 13px;
-  margin-bottom: 8px;
-}
-
-.stat-number {
-  font-size: 30px;
-  font-weight: bold;
-}
-
-/* PANELS */
-
-.panel {
-  background: white;
-  padding: 22px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,.04);
-}
-
-.panel-title {
-  font-size: 19px;
-  margin-bottom: 18px;
+.login-box p{
+  color:#777;
+  margin-bottom:25px
 }
 
 /* FORM */
 
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0 15px;
+.form-group{
+  margin-bottom:16px
 }
 
-.full {
-  grid-column: 1 / -1;
+.form-group label{
+  display:block;
+  font-size:11px;
+  color:#888;
+  letter-spacing:1px;
+  margin-bottom:7px;
+  text-transform:uppercase
 }
 
-.primary-btn {
-  background: #111;
-  color: white;
+input,
+textarea,
+select{
+  width:100%;
+  background:#080808;
+  color:#fff;
+  border:1px solid #333;
+  padding:13px;
+  outline:none
 }
 
-.secondary-btn {
-  background: #eee;
-  color: #111;
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#aaa
 }
 
-.danger-btn {
-  background: #e53935;
-  color: white;
+textarea{
+  min-height:120px;
+  resize:vertical
 }
 
-/* TABLE */
-
-.table-wrap {
-  overflow-x: auto;
+.btn{
+  border:1px solid #fff;
+  background:#fff;
+  color:#000;
+  padding:12px 18px;
+  font-weight:800
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 700px;
+.btn:hover{
+  opacity:.85
 }
 
-th,
-td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-  text-align: left;
-  font-size: 13px;
+.btn-dark{
+  background:#151515;
+  color:#fff;
+  border-color:#333
 }
 
-th {
-  background: #f7f7f7;
+.btn-danger{
+  background:#180909;
+  color:#ff7777;
+  border-color:#492020
 }
 
-.badge {
-  display: inline-block;
-  padding: 5px 8px;
-  border-radius: 20px;
-  background: #eee;
-  font-size: 11px;
+.full{
+  width:100%
 }
 
-/* MONEY */
-
-.money-summary {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-bottom: 20px;
+.message{
+  margin-top:15px;
+  padding:12px;
+  display:none;
+  border:1px solid #333;
+  color:#aaa
 }
 
-.money-card {
-  padding: 20px;
-  border-radius: 12px;
-  background: white;
+.message.show{
+  display:block
 }
 
-.money-card h3 {
-  font-size: 13px;
-  color: #777;
-  margin-bottom: 8px;
+/* APP */
+
+#app{
+  display:none;
+  min-height:100vh
 }
 
-.money-card strong {
-  font-size: 24px;
+header{
+  height:70px;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 30px;
+  background:rgba(7,7,7,.94);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #252525
+}
+
+.header-title{
+  font-size:17px;
+  font-weight:900;
+  letter-spacing:3px
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:12px
+}
+
+.admin-email{
+  color:#777;
+  font-size:12px
+}
+
+.logout{
+  padding:8px 12px;
+  border:1px solid #333;
+  background:#111;
+  color:#fff;
+  font-size:11px;
+  font-weight:bold
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  position:fixed;
+  top:70px;
+  left:0;
+  bottom:0;
+  width:235px;
+  background:#0b0b0b;
+  border-right:1px solid #252525;
+  padding:25px 15px
+}
+
+.sidebar button{
+  width:100%;
+  text-align:left;
+  background:none;
+  color:#777;
+  border:0;
+  padding:13px;
+  margin-bottom:4px;
+  font-weight:bold;
+  font-size:13px
+}
+
+.sidebar button:hover,
+.sidebar button.active{
+  background:#161616;
+  color:#fff
+}
+
+/* MAIN */
+
+main{
+  margin-left:235px;
+  padding:100px 35px 50px
+}
+
+.page{
+  display:none
+}
+
+.page.active{
+  display:block
+}
+
+.page-title{
+  font-size:45px;
+  letter-spacing:-2px;
+  margin-bottom:8px
+}
+
+.page-description{
+  color:#777;
+  margin-bottom:30px
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:35px
+}
+
+.stat-card{
+  background:#111113;
+  border:1px solid #29292d;
+  padding:22px
+}
+
+.stat-card strong{
+  display:block;
+  font-size:32px
+}
+
+.stat-card span{
+  color:#777;
+  font-size:12px
+}
+
+/* CONTENT */
+
+.content-layout{
+  display:grid;
+  grid-template-columns:1fr 1.4fr;
+  gap:20px
+}
+
+.panel{
+  background:#111113;
+  border:1px solid #29292d;
+  padding:25px;
+  margin-bottom:20px
+}
+
+.panel h2{
+  font-size:21px;
+  margin-bottom:20px
+}
+
+.items{
+  display:flex;
+  flex-direction:column;
+  gap:10px
+}
+
+.item{
+  background:#0b0b0b;
+  border:1px solid #29292d;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px
+}
+
+.item-info{
+  min-width:0
+}
+
+.item-title{
+  font-weight:bold;
+  word-break:break-word
+}
+
+.item-meta{
+  color:#777;
+  font-size:11px;
+  margin-top:3px
+}
+
+.item-actions{
+  display:flex;
+  gap:7px;
+  flex-shrink:0
+}
+
+.item-actions button{
+  padding:7px 10px;
+  background:#151515;
+  color:#fff;
+  border:1px solid #333;
+  font-size:10px
+}
+
+.item-actions .delete{
+  color:#ff7777
+}
+
+.empty{
+  color:#666;
+  padding:20px 0
 }
 
 /* MOBILE */
 
-.mobile-menu {
-  display: none;
-  background: #111;
-  color: white;
-  padding: 10px 15px;
-  width: 100%;
+.mobile-menu{
+  display:none;
+  background:none;
+  border:0;
+  color:#fff;
+  font-size:25px
 }
 
-@media(max-width: 900px) {
+@media(max-width:900px){
 
-  .sidebar {
-    width: 190px;
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+    z-index:200
   }
 
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
+  .sidebar.open{
+    transform:translateX(0)
+  }
+
+  .mobile-menu{
+    display:block
+  }
+
+  main{
+    margin-left:0;
+    padding:95px 18px 40px
+  }
+
+  header{
+    padding:0 18px
+  }
+
+  .admin-email{
+    display:none
+  }
+
+  .dashboard-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .content-layout{
+    grid-template-columns:1fr
   }
 }
 
-@media(max-width: 700px) {
+@media(max-width:550px){
 
-  .layout {
-    display: block;
+  .dashboard-grid{
+    grid-template-columns:1fr
   }
 
-  .mobile-menu {
-    display: block;
+  .page-title{
+    font-size:36px
   }
 
-  .sidebar {
-    width: 100%;
-    display: none;
-    border-right: 0;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .sidebar.open {
-    display: block;
-  }
-
-  .main {
-    padding: 15px;
-  }
-
-  .header {
-    padding: 0 15px;
-  }
-
-  .header-email {
-    display: none;
-  }
-
-  .stats {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .full {
-    grid-column: auto;
-  }
-
-  .money-summary {
-    grid-template-columns: 1fr;
+  .login-box{
+    padding:25px
   }
 }
 </style>
@@ -409,54 +428,57 @@ th {
 
 <body>
 
+
 <!-- =========================================================
      LOGIN
-========================================================= -->
+========================================================== -->
 
 <section id="loginPage">
 
   <div class="login-box">
 
-    <div class="logo">KHARVIE</div>
-
-    <div class="login-subtitle">
-      Artist Administration
+    <div class="logo">
+      KHARVIE<span>® ADMIN</span>
     </div>
+
+    <h1>Admin Login</h1>
+
+    <p>
+      Sign in to manage Kharvie's official website.
+    </p>
 
     <form id="loginForm">
 
-      <label>Email</label>
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="Admin email"
+          required>
+      </div>
 
-      <input
-        type="email"
-        id="email"
-        placeholder="Admin email"
-        required
-      >
-
-      <label>Password</label>
-
-      <input
-        type="password"
-        id="password"
-        placeholder="Password"
-        required
-      >
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Password"
+          required>
+      </div>
 
       <button
-        class="login-btn"
-        id="loginButton"
         type="submit"
-      >
-        Login
+        class="btn full">
+        LOGIN
       </button>
 
     </form>
 
     <div
       id="loginMessage"
-      class="message"
-    ></div>
+      class="message">
+    </div>
 
   </div>
 
@@ -464,1102 +486,794 @@ th {
 
 
 <!-- =========================================================
-     ADMIN
-========================================================= -->
+     ADMIN APP
+========================================================== -->
 
-<section id="adminPage">
+<section id="app">
 
-  <header class="header">
+<header>
 
-    <div class="header-logo">
+  <div style="display:flex;align-items:center;gap:15px">
+
+    <button
+      class="mobile-menu"
+      id="mobileMenu">
+      ☰
+    </button>
+
+    <div class="header-title">
       KHARVIE ADMIN
     </div>
 
-    <div class="header-right">
+  </div>
 
-      <span
-        class="header-email"
-        id="adminEmail"
-      ></span>
+  <div class="header-right">
 
-      <button
-        class="logout-btn"
-        id="logoutButton"
-      >
-        Logout
-      </button>
+    <span
+      class="admin-email"
+      id="adminEmail">
+    </span>
+
+    <button
+      class="logout"
+      id="logoutBtn">
+      LOGOUT
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- SIDEBAR -->
+
+<aside
+  class="sidebar"
+  id="sidebar">
+
+  <button
+    class="active"
+    data-page="dashboard">
+    Dashboard
+  </button>
+
+  <button data-page="songs">
+    🎵 Songs
+  </button>
+
+  <button data-page="releases">
+    💿 Releases
+  </button>
+
+  <button data-page="videos">
+    🎬 Videos
+  </button>
+
+  <button data-page="gallery">
+    📸 Gallery
+  </button>
+
+  <button data-page="posts">
+    📰 News
+  </button>
+
+  <button data-page="events">
+    📅 Events
+  </button>
+
+  <button data-page="monetization">
+    💰 Monetization
+  </button>
+
+  <a
+    href="index.html"
+    target="_blank"
+    style="
+      display:block;
+      padding:13px;
+      color:#777;
+      font-size:13px;
+      font-weight:bold;
+      margin-top:15px;
+    ">
+    ↗ View Website
+  </a>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main>
+
+
+<!-- =======================================================
+     DASHBOARD
+======================================================== -->
+
+<section
+  class="page active"
+  id="page-dashboard">
+
+  <h1 class="page-title">
+    Dashboard
+  </h1>
+
+  <p class="page-description">
+    Welcome to the Kharvie website control panel.
+  </p>
+
+  <div class="dashboard-grid">
+
+    <div class="stat-card">
+      <strong id="countSongs">0</strong>
+      <span>Songs</span>
+    </div>
+
+    <div class="stat-card">
+      <strong id="countReleases">0</strong>
+      <span>Releases</span>
+    </div>
+
+    <div class="stat-card">
+      <strong id="countVideos">0</strong>
+      <span>Videos</span>
+    </div>
+
+    <div class="stat-card">
+      <strong id="countGallery">0</strong>
+      <span>Gallery Photos</span>
+    </div>
+
+  </div>
+
+  <div class="dashboard-grid">
+
+    <div class="stat-card">
+      <strong id="countPosts">0</strong>
+      <span>News Posts</span>
+    </div>
+
+    <div class="stat-card">
+      <strong id="countEvents">0</strong>
+      <span>Events</span>
+    </div>
+
+    <div class="stat-card">
+      <strong id="countMoney">0</strong>
+      <span>Monetization Items</span>
+    </div>
+
+  </div>
+
+  <div class="panel">
+
+    <h2>Quick Start</h2>
+
+    <p style="color:#888">
+      Use the menu on the left to add and manage Kharvie's
+      music, releases, videos, gallery, news, events and
+      monetization information.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     SONGS
+======================================================== -->
+
+<section
+  class="page"
+  id="page-songs">
+
+  <h1 class="page-title">Songs</h1>
+
+  <p class="page-description">
+    Add music that visitors can listen to directly on the website.
+  </p>
+
+  <div class="content-layout">
+
+    <div class="panel">
+
+      <h2>Add Song</h2>
+
+      <form id="songForm">
+
+        <div class="form-group">
+          <label>Song Title</label>
+          <input id="songTitle" required>
+        </div>
+
+        <div class="form-group">
+          <label>Artist</label>
+          <input
+            id="songArtist"
+            value="Kharvie">
+        </div>
+
+        <div class="form-group">
+          <label>Genre</label>
+          <input id="songGenre">
+        </div>
+
+        <div class="form-group">
+          <label>Release Date</label>
+          <input
+            id="songReleaseDate"
+            placeholder="2026-08-28">
+        </div>
+
+        <div class="form-group">
+          <label>Cover Image URL</label>
+          <input
+            id="songCover"
+            placeholder="https://...">
+        </div>
+
+        <div class="form-group">
+          <label>Audio URL</label>
+          <input
+            id="songAudio"
+            placeholder="https://...mp3">
+        </div>
+
+        <div class="form-group">
+          <label>Spotify URL</label>
+          <input id="songSpotify">
+        </div>
+
+        <div class="form-group">
+          <label>Apple Music URL</label>
+          <input id="songApple">
+        </div>
+
+        <div class="form-group">
+          <label>YouTube URL</label>
+          <input id="songYoutube">
+        </div>
+
+        <div class="form-group">
+          <label>Audiomack URL</label>
+          <input id="songAudiomack">
+        </div>
+
+        <button class="btn full">
+          ADD SONG
+        </button>
+
+      </form>
+
+      <div id="songMessage" class="message"></div>
 
     </div>
 
-  </header>
+    <div class="panel">
 
+      <h2>Existing Songs</h2>
 
-  <button
-    class="mobile-menu"
-    onclick="toggleSidebar()"
-  >
-    ☰ Menu
-  </button>
+      <div
+        class="items"
+        id="songsList">
+      </div>
 
-
-  <div class="layout">
-
-    <!-- SIDEBAR -->
-
-    <aside
-      class="sidebar"
-      id="sidebar"
-    >
-
-      <button class="nav-btn active" onclick="showSection('dashboard', this)">
-        📊 Dashboard
-      </button>
-
-      <button class="nav-btn" onclick="showSection('songs', this)">
-        🎵 Songs
-      </button>
-
-      <button class="nav-btn" onclick="showSection('releases', this)">
-        💿 Albums / EPs
-      </button>
-
-      <button class="nav-btn" onclick="showSection('videos', this)">
-        🎬 Music Videos
-      </button>
-
-      <button class="nav-btn" onclick="showSection('gallery', this)">
-        📸 Gallery
-      </button>
-
-      <button class="nav-btn" onclick="showSection('posts', this)">
-        📰 News / Blog
-      </button>
-
-      <button class="nav-btn" onclick="showSection('events', this)">
-        🎤 Events
-      </button>
-
-      <button class="nav-btn" onclick="showSection('messages', this)">
-        💬 Messages
-      </button>
-
-      <button class="nav-btn" onclick="showSection('monetization', this)">
-        💰 Monetization
-      </button>
-
-      <button class="nav-btn" onclick="showSection('settings', this)">
-        ⚙️ Settings
-      </button>
-
-    </aside>
-
-
-    <!-- MAIN -->
-
-    <main class="main">
-
-
-      <!-- =====================================================
-           DASHBOARD
-      ====================================================== -->
-
-      <section
-        id="dashboard"
-        class="section active"
-      >
-
-        <h1 class="page-title">
-          Dashboard
-        </h1>
-
-        <p class="page-description">
-          Welcome to Kharvie's administration panel.
-        </p>
-
-
-        <div class="stats">
-
-          <div class="stat-card">
-            <div class="stat-label">Songs</div>
-            <div class="stat-number" id="songsCount">0</div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-label">Releases</div>
-            <div class="stat-number" id="releasesCount">0</div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-label">Videos</div>
-            <div class="stat-number" id="videosCount">0</div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-label">Messages</div>
-            <div class="stat-number" id="messagesCount">0</div>
-          </div>
-
-        </div>
-
-
-        <div class="panel">
-
-          <h2 class="panel-title">
-            Kharvie Artist Administration
-          </h2>
-
-          <p>
-            Use the menu to manage Kharvie's music,
-            releases, videos, gallery, news, events,
-            messages and monetization records.
-          </p>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
-           SONGS
-      ====================================================== -->
-
-      <section
-        id="songs"
-        class="section"
-      >
-
-        <h1 class="page-title">🎵 Songs</h1>
-
-        <p class="page-description">
-          Add songs that visitors can listen to and stream.
-        </p>
-
-
-        <div class="panel">
-
-          <h2 class="panel-title">
-            Add New Song
-          </h2>
-
-          <form id="songForm">
-
-            <div class="form-grid">
-
-              <div>
-                <label>Song Title</label>
-                <input id="songTitle" required>
-              </div>
-
-              <div>
-                <label>Artist</label>
-                <input id="songArtist" value="Kharvie">
-              </div>
-
-              <div class="full">
-                <label>Description</label>
-                <textarea id="songDescription"></textarea>
-              </div>
-
-              <div>
-                <label>Audio URL</label>
-                <input
-                  id="audioUrl"
-                  placeholder="Direct audio file URL"
-                >
-              </div>
-
-              <div>
-                <label>Cover Image URL</label>
-                <input id="coverUrl">
-              </div>
-
-              <div>
-                <label>Spotify URL</label>
-                <input id="spotifyUrl">
-              </div>
-
-              <div>
-                <label>Apple Music URL</label>
-                <input id="appleMusicUrl">
-              </div>
-
-              <div>
-                <label>YouTube URL</label>
-                <input id="songYoutubeUrl">
-              </div>
-
-              <div>
-                <label>Audiomack URL</label>
-                <input id="audiomackUrl">
-              </div>
-
-              <div>
-                <label>Genre</label>
-                <input id="genre">
-              </div>
-
-              <div>
-                <label>Release Date</label>
-                <input
-                  type="date"
-                  id="songReleaseDate"
-                >
-              </div>
-
-              <div>
-                <label>Duration (seconds)</label>
-                <input
-                  type="number"
-                  id="duration"
-                  min="0"
-                >
-              </div>
-
-            </div>
-
-            <button
-              class="primary-btn"
-              type="submit"
-            >
-              Add Song
-            </button>
-
-          </form>
-
-        </div>
-
-
-        <div class="panel">
-
-          <h2 class="panel-title">
-            Songs
-          </h2>
-
-          <div class="table-wrap">
-
-            <table>
-
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Artist</th>
-                  <th>Genre</th>
-                  <th>Release Date</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-
-              <tbody id="songsTable"></tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
-           RELEASES
-      ====================================================== -->
-
-      <section
-        id="releases"
-        class="section"
-      >
-
-        <h1 class="page-title">💿 Albums / EPs</h1>
-
-        <p class="page-description">
-          Manage singles, EPs, albums and mixtapes.
-        </p>
-
-
-        <div class="panel">
-
-          <h2 class="panel-title">
-            Add Release
-          </h2>
-
-          <form id="releaseForm">
-
-            <div class="form-grid">
-
-              <div>
-                <label>Title</label>
-                <input id="releaseTitle" required>
-              </div>
-
-              <div>
-                <label>Type</label>
-
-                <select id="releaseType">
-
-                  <option value="single">Single</option>
-                  <option value="ep">EP</option>
-                  <option value="album">Album</option>
-                  <option value="mixtape">Mixtape</option>
-
-                </select>
-              </div>
-
-              <div class="full">
-                <label>Description</label>
-                <textarea id="releaseDescription"></textarea>
-              </div>
-
-              <div>
-                <label>Cover URL</label>
-                <input id="releaseCover">
-              </div>
-
-              <div>
-                <label>Release Date</label>
-                <input type="date" id="releaseDate">
-              </div>
-
-              <div>
-                <label>Spotify URL</label>
-                <input id="releaseSpotify">
-              </div>
-
-              <div>
-                <label>Apple Music URL</label>
-                <input id="releaseApple">
-              </div>
-
-              <div>
-                <label>YouTube URL</label>
-                <input id="releaseYoutube">
-              </div>
-
-              <div>
-                <label>Audiomack URL</label>
-                <input id="releaseAudiomack">
-              </div>
-
-            </div>
-
-            <button class="primary-btn">
-              Add Release
-            </button>
-
-          </form>
-
-        </div>
-
-
-        <div class="panel">
-
-          <div class="table-wrap">
-
-            <table>
-
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Type</th>
-                  <th>Date</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-
-              <tbody id="releasesTable"></tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
-           VIDEOS
-      ====================================================== -->
-
-      <section
-        id="videos"
-        class="section"
-      >
-
-        <h1 class="page-title">🎬 Music Videos</h1>
-
-        <p class="page-description">
-          Add Kharvie's music videos.
-        </p>
-
-
-        <div class="panel">
-
-          <form id="videoForm">
-
-            <div class="form-grid">
-
-              <div>
-                <label>Video Title</label>
-                <input id="videoTitle" required>
-              </div>
-
-              <div>
-                <label>Platform</label>
-                <select id="videoPlatform">
-                  <option value="youtube">YouTube</option>
-                  <option value="vimeo">Vimeo</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div class="full">
-                <label>Description</label>
-                <textarea id="videoDescription"></textarea>
-              </div>
-
-              <div>
-                <label>Video URL</label>
-                <input id="videoUrl" required>
-              </div>
-
-              <div>
-                <label>Thumbnail URL</label>
-                <input id="videoThumbnail">
-              </div>
-
-              <div>
-                <label>Release Date</label>
-                <input type="date" id="videoDate">
-              </div>
-
-            </div>
-
-            <button class="primary-btn">
-              Add Video
-            </button>
-
-          </form>
-
-        </div>
-
-
-        <div class="panel">
-
-          <div class="table-wrap">
-
-            <table>
-
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Platform</th>
-                  <th>Date</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-
-              <tbody id="videosTable"></tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
-           GALLERY
-      ====================================================== -->
-
-      <section
-        id="gallery"
-        class="section"
-      >
-
-        <h1 class="page-title">📸 Gallery</h1>
-
-        <p class="page-description">
-          Add photos to Kharvie's website gallery.
-        </p>
-
-
-        <div class="panel">
-
-          <form id="galleryForm">
-
-            <div class="form-grid">
-
-              <div>
-                <label>Photo Title</label>
-                <input id="galleryTitle">
-              </div>
-
-              <div>
-                <label>Category</label>
-                <input
-                  id="galleryCategory"
-                  placeholder="Concert, Studio, Photoshoot..."
-                >
-              </div>
-
-              <div class="full">
-                <label>Image URL</label>
-                <input id="galleryImage" required>
-              </div>
-
-              <div class="full">
-                <label>Description</label>
-                <textarea id="galleryDescription"></textarea>
-              </div>
-
-            </div>
-
-            <button class="primary-btn">
-              Add Photo
-            </button>
-
-          </form>
-
-        </div>
-
-
-        <div class="panel">
-
-          <div class="table-wrap">
-
-            <table>
-
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Image</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-
-              <tbody id="galleryTable"></tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
-           POSTS
-      ====================================================== -->
-
-      <section
-        id="posts"
-        class="section"
-      >
-
-        <h1 class="page-title">📰 News / Blog</h1>
-
-        <p class="page-description">
-          Publish announcements and artist updates.
-        </p>
-
-
-        <div class="panel">
-
-          <form id="postForm">
-
-            <div class="form-grid">
-
-              <div>
-                <label>Title</label>
-                <input id="postTitle" required>
-              </div>
-
-              <div>
-                <label>Slug</label>
-                <input
-                  id="postSlug"
-                  placeholder="new-single-announcement"
-                >
-              </div>
-
-              <div class="full">
-                <label>Excerpt</label>
-                <textarea id="postExcerpt"></textarea>
-              </div>
-
-              <div class="full">
-                <label>Content</label>
-                <textarea id="postContent"></textarea>
-              </div>
-
-              <div>
-                <label>Featured Image URL</label>
-                <input id="postImage">
-              </div>
-
-              <div>
-                <label>Author</label>
-                <input id="postAuthor" value="Kharvie">
-              </div>
-
-            </div>
-
-            <button class="primary-btn">
-              Publish / Save News
-            </button>
-
-          </form>
-
-        </div>
-
-
-        <div class="panel">
-
-          <div class="table-wrap">
-
-            <table>
-
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Author</th>
-                  <th>Published</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-
-              <tbody id="postsTable"></tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
-           EVENTS
-      ====================================================== -->
-
-      <section
-        id="events"
-        class="section"
-      >
-
-        <h1 class="page-title">🎤 Events / Shows</h1>
-
-        <p class="page-description">
-          Manage Kharvie's concerts and appearances.
-        </p>
-
-
-        <div class="panel">
-
-          <form id="eventForm">
-
-            <div class="form-grid">
-
-              <div>
-                <label>Event Title</label>
-                <input id="eventTitle" required>
-              </div>
-
-              <div>
-                <label>Venue</label>
-                <input id="eventVenue">
-              </div>
-
-              <div>
-                <label>City</label>
-                <input id="eventCity">
-              </div>
-
-              <div>
-                <label>Country</label>
-                <input id="eventCountry" value="Nigeria">
-              </div>
-
-              <div>
-                <label>Event Date</label>
-                <input type="date" id="eventDate">
-              </div>
-
-              <div>
-                <label>Event Time</label>
-                <input type="time" id="eventTime">
-              </div>
-
-              <div>
-                <label>Ticket URL</label>
-                <input id="ticketUrl">
-              </div>
-
-              <div>
-                <label>Image URL</label>
-                <input id="eventImage">
-              </div>
-
-              <div class="full">
-                <label>Description</label>
-                <textarea id="eventDescription"></textarea>
-              </div>
-
-            </div>
-
-            <button class="primary-btn">
-              Add Event
-            </button>
-
-          </form>
-
-        </div>
-
-
-        <div class="panel">
-
-          <div class="table-wrap">
-
-            <table>
-
-              <thead>
-                <tr>
-                  <th>Event</th>
-                  <th>Venue</th>
-                  <th>City</th>
-                  <th>Date</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-
-              <tbody id="eventsTable"></tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
-           MESSAGES
-      ====================================================== -->
-
-      <section
-        id="messages"
-        class="section"
-      >
-
-        <h1 class="page-title">💬 Messages</h1>
-
-        <p class="page-description">
-          View messages submitted through the website.
-        </p>
-
-
-        <div class="panel">
-
-          <div class="table-wrap">
-
-            <table>
-
-              <thead>
-
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Subject</th>
-                  <th>Message</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-
-              </thead>
-
-              <tbody id="messagesTable"></tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
-           MONETIZATION
-      ====================================================== -->
-
-      <section
-        id="monetization"
-        class="section"
-      >
-
-        <h1 class="page-title">💰 Monetization Board</h1>
-
-        <p class="page-description">
-          Keep track of Kharvie's income and expenses.
-        </p>
-
-
-        <div class="money-summary">
-
-          <div class="money-card">
-
-            <h3>Total Income</h3>
-
-            <strong id="totalIncome">
-              ₦0.00
-            </strong>
-
-          </div>
-
-          <div class="money-card">
-
-            <h3>Total Expenses</h3>
-
-            <strong id="totalExpenses">
-              ₦0.00
-            </strong>
-
-          </div>
-
-          <div class="money-card">
-
-            <h3>Net Earnings</h3>
-
-            <strong id="netEarnings">
-              ₦0.00
-            </strong>
-
-          </div>
-
-        </div>
-
-
-        <div class="panel">
-
-          <h2 class="panel-title">
-            Add Financial Record
-          </h2>
-
-
-          <form id="moneyForm">
-
-            <div class="form-grid">
-
-              <div>
-                <label>Type</label>
-
-                <select id="moneyType">
-
-                  <option value="income">
-                    Income
-                  </option>
-
-                  <option value="expense">
-                    Expense
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <div>
-
-                <label>Category</label>
-
-                <select id="moneyCategory">
-
-                  <option>Streaming</option>
-                  <option>YouTube</option>
-                  <option>Music Sales</option>
-                  <option>Shows / Events</option>
-                  <option>Sponsorship</option>
-                  <option>Brand Deal</option>
-                  <option>Other Income</option>
-                  <option>Studio</option>
-                  <option>Promotion</option>
-                  <option>Travel</option>
-                  <option>Production</option>
-                  <option>Other Expense</option>
-
-                </select>
-
-              </div>
-
-
-              <div>
-
-                <label>Amount (NGN)</label>
-
-                <input
-                  type="number"
-                  id="moneyAmount"
-                  min="0"
-                  step="0.01"
-                  required
-                >
-
-              </div>
-
-
-              <div>
-
-                <label>Date</label>
-
-                <input
-                  type="date"
-                  id="moneyDate"
-                  required
-                >
-
-              </div>
-
-
-              <div>
-
-                <label>Source</label>
-
-                <input
-                  id="moneySource"
-                  placeholder="Spotify, YouTube, promoter..."
-                >
-
-              </div>
-
-
-              <div>
-
-                <label>Reference</label>
-
-                <input id="moneyReference">
-
-              </div>
-
-
-              <div class="full">
-
-                <label>Description</label>
-
-                <textarea id="moneyDescription"></textarea>
-
-              </div>
-
-
-              <div class="full">
-
-                <label>Notes</label>
-
-                <textarea id="moneyNotes"></textarea>
-
-              </div>
-
-            </div>
-
-
-            <button class="primary-btn">
-              Add Financial Record
-            </button>
-
-          </form>
-
-        </div>
-
-
-        <div class="panel">
-
-          <h2 class="panel-title">
-            Financial Records
-          </h2>
-
-          <div class="table-wrap">
-
-            <table>
-
-              <thead>
-
-                <tr>
-                  <th>Date</th>
-                  <th>Type</th>
-                  <th>Category</th>
-                  <th>Source</th>
-                  <th>Amount</th>
-                  <th>Action</th>
-                </tr>
-
-              </thead>
-
-              <tbody id="moneyTable"></tbody>
-
-            </table>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =====================================================
-           SETTINGS
-      ====================================================== -->
-
-      <section
-        id="settings"
-        class="section"
-      >
-
-        <h1 class="page-title">⚙️ Website Settings</h1>
-
-        <p class="page-description">
-          Manage basic artist information.
-        </p>
-
-
-        <div class="panel">
-
-          <form id="settingsForm">
-
-            <label>Artist Name</label>
-
-            <input
-              id="artistName"
-              value="Kharvie"
-            >
-
-
-            <label>Artist Role</label>
-
-            <input
-              id="artistRole"
-              value="Singer & Songwriter"
-            >
-
-
-            <button class="primary-btn">
-              Save Settings
-            </button>
-
-          </form>
-
-        </div>
-
-      </section>
-
-
-    </main>
+    </div>
 
   </div>
+
+</section>
+
+
+<!-- =======================================================
+     RELEASES
+======================================================== -->
+
+<section
+  class="page"
+  id="page-releases">
+
+  <h1 class="page-title">Releases</h1>
+
+  <p class="page-description">
+    Manage albums, EPs, singles and mixtapes.
+  </p>
+
+  <div class="content-layout">
+
+    <div class="panel">
+
+      <h2>Add Release</h2>
+
+      <form id="releaseForm">
+
+        <div class="form-group">
+          <label>Title</label>
+          <input id="releaseTitle" required>
+        </div>
+
+        <div class="form-group">
+          <label>Release Type</label>
+          <select id="releaseType">
+            <option>Single</option>
+            <option>EP</option>
+            <option>Album</option>
+            <option>Mixtape</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Release Date</label>
+          <input id="releaseDate">
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="releaseDescription"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Cover Image URL</label>
+          <input id="releaseCover">
+        </div>
+
+        <div class="form-group">
+          <label>Spotify URL</label>
+          <input id="releaseSpotify">
+        </div>
+
+        <div class="form-group">
+          <label>Apple Music URL</label>
+          <input id="releaseApple">
+        </div>
+
+        <div class="form-group">
+          <label>YouTube URL</label>
+          <input id="releaseYoutube">
+        </div>
+
+        <div class="form-group">
+          <label>Audiomack URL</label>
+          <input id="releaseAudiomack">
+        </div>
+
+        <button class="btn full">
+          ADD RELEASE
+        </button>
+
+      </form>
+
+      <div id="releaseMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>Existing Releases</h2>
+
+      <div
+        class="items"
+        id="releasesList">
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     VIDEOS
+======================================================== -->
+
+<section
+  class="page"
+  id="page-videos">
+
+  <h1 class="page-title">Videos</h1>
+
+  <p class="page-description">
+    Add official videos and YouTube links.
+  </p>
+
+  <div class="content-layout">
+
+    <div class="panel">
+
+      <h2>Add Video</h2>
+
+      <form id="videoForm">
+
+        <div class="form-group">
+          <label>Video Title</label>
+          <input id="videoTitle" required>
+        </div>
+
+        <div class="form-group">
+          <label>Platform</label>
+          <input
+            id="videoPlatform"
+            value="YouTube">
+        </div>
+
+        <div class="form-group">
+          <label>Video URL</label>
+          <input
+            id="videoUrl"
+            placeholder="https://youtube.com/..."
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Release Date</label>
+          <input id="videoDate">
+        </div>
+
+        <button class="btn full">
+          ADD VIDEO
+        </button>
+
+      </form>
+
+      <div id="videoMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>Existing Videos</h2>
+
+      <div
+        class="items"
+        id="videosList">
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     GALLERY
+======================================================== -->
+
+<section
+  class="page"
+  id="page-gallery">
+
+  <h1 class="page-title">Gallery</h1>
+
+  <p class="page-description">
+    Add Kharvie photos to the official gallery.
+  </p>
+
+  <div class="content-layout">
+
+    <div class="panel">
+
+      <h2>Add Photo</h2>
+
+      <form id="galleryForm">
+
+        <div class="form-group">
+          <label>Photo Title</label>
+          <input id="galleryTitle">
+        </div>
+
+        <div class="form-group">
+          <label>Image URL</label>
+          <input
+            id="galleryUrl"
+            placeholder="https://..."
+            required>
+        </div>
+
+        <button class="btn full">
+          ADD PHOTO
+        </button>
+
+      </form>
+
+      <div id="galleryMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>Existing Photos</h2>
+
+      <div
+        class="items"
+        id="galleryList">
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     NEWS
+======================================================== -->
+
+<section
+  class="page"
+  id="page-posts">
+
+  <h1 class="page-title">News</h1>
+
+  <p class="page-description">
+    Publish official Kharvie news and updates.
+  </p>
+
+  <div class="content-layout">
+
+    <div class="panel">
+
+      <h2>Add News</h2>
+
+      <form id="postForm">
+
+        <div class="form-group">
+          <label>Title</label>
+          <input id="postTitle" required>
+        </div>
+
+        <div class="form-group">
+          <label>Short Excerpt</label>
+          <textarea id="postExcerpt"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Full Content</label>
+          <textarea id="postContent"></textarea>
+        </div>
+
+        <div class="form-group">
+
+          <label>Published</label>
+
+          <select id="postPublished">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+
+        </div>
+
+        <button class="btn full">
+          ADD NEWS
+        </button>
+
+      </form>
+
+      <div id="postMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>Existing News</h2>
+
+      <div
+        class="items"
+        id="postsList">
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     EVENTS
+======================================================== -->
+
+<section
+  class="page"
+  id="page-events">
+
+  <h1 class="page-title">Events</h1>
+
+  <p class="page-description">
+    Add upcoming shows, concerts and appearances.
+  </p>
+
+  <div class="content-layout">
+
+    <div class="panel">
+
+      <h2>Add Event</h2>
+
+      <form id="eventForm">
+
+        <div class="form-group">
+          <label>Event Title</label>
+          <input id="eventTitle" required>
+        </div>
+
+        <div class="form-group">
+          <label>Event Date</label>
+          <input
+            type="date"
+            id="eventDate">
+        </div>
+
+        <div class="form-group">
+          <label>Event Time</label>
+          <input
+            type="time"
+            id="eventTime">
+        </div>
+
+        <div class="form-group">
+          <label>Venue</label>
+          <input id="eventVenue">
+        </div>
+
+        <div class="form-group">
+          <label>City</label>
+          <input id="eventCity">
+        </div>
+
+        <div class="form-group">
+          <label>Country</label>
+          <input
+            id="eventCountry"
+            value="Nigeria">
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="eventDescription"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Ticket URL</label>
+          <input id="eventTicket">
+        </div>
+
+        <button class="btn full">
+          ADD EVENT
+        </button>
+
+      </form>
+
+      <div id="eventMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>Existing Events</h2>
+
+      <div
+        class="items"
+        id="eventsList">
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     MONETIZATION
+======================================================== -->
+
+<section
+  class="page"
+  id="page-monetization">
+
+  <h1 class="page-title">
+    Monetization
+  </h1>
+
+  <p class="page-description">
+    Keep track of Kharvie's monetization platforms,
+    links, earnings and opportunities.
+  </p>
+
+  <div class="content-layout">
+
+    <div class="panel">
+
+      <h2>Add Monetization</h2>
+
+      <form id="moneyForm">
+
+        <div class="form-group">
+          <label>Title</label>
+          <input
+            id="moneyTitle"
+            placeholder="YouTube Monetization"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Platform</label>
+          <input
+            id="moneyPlatform"
+            placeholder="YouTube">
+        </div>
+
+        <div class="form-group">
+          <label>URL</label>
+          <input
+            id="moneyUrl"
+            placeholder="https://...">
+        </div>
+
+        <div class="form-group">
+          <label>Amount</label>
+          <input
+            type="number"
+            step="0.01"
+            id="moneyAmount"
+            value="0">
+        </div>
+
+        <div class="form-group">
+          <label>Currency</label>
+          <select id="moneyCurrency">
+            <option>NGN</option>
+            <option>USD</option>
+            <option>GBP</option>
+            <option>EUR</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Status</label>
+          <select id="moneyStatus">
+            <option>Active</option>
+            <option>Pending</option>
+            <option>Inactive</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="moneyDescription"></textarea>
+        </div>
+
+        <button class="btn full">
+          ADD MONETIZATION
+        </button>
+
+      </form>
+
+      <div id="moneyMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>Monetization Board</h2>
+
+      <div
+        class="items"
+        id="moneyList">
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
 
 </section>
 
@@ -1567,14 +1281,14 @@ th {
 <script>
 
 /* ============================================================
-   SUPABASE
+   SUPABASE CONNECTION
 ============================================================ */
 
 const SUPABASE_URL =
-  "https://dprulohylwgzmetgrywj.supabase.co";
+"https://dprulohylwgzmetgrywj.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
+"sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4K";
 
 const { createClient } = supabase;
 
@@ -1585,105 +1299,37 @@ const db = createClient(
 
 
 /* ============================================================
-   ELEMENTS
+   BASIC HELPERS
 ============================================================ */
 
-const loginPage =
-  document.getElementById("loginPage");
-
-const adminPage =
-  document.getElementById("adminPage");
-
-const loginForm =
-  document.getElementById("loginForm");
-
-const loginMessage =
-  document.getElementById("loginMessage");
-
-const loginButton =
-  document.getElementById("loginButton");
-
-const logoutButton =
-  document.getElementById("logoutButton");
-
-
-/* ============================================================
-   MESSAGE
-============================================================ */
-
-function showLoginMessage(text, type) {
-
-  loginMessage.textContent = text;
-
-  loginMessage.className =
-    "message " + type;
-
-  loginMessage.style.display = "block";
-
+function $(id){
+  return document.getElementById(id);
 }
 
+function escapeHtml(value){
 
-/* ============================================================
-   ADMIN CHECK
-============================================================ */
-
-async function verifyAdmin(user) {
-
-  if (!user) {
-    return false;
+  if(value === null || value === undefined){
+    return "";
   }
 
-  const { data, error } =
-    await db
-      .from("admin_users")
-      .select("user_id")
-      .eq("user_id", user.id)
-      .maybeSingle();
-
-  if (error) {
-
-    console.error(error);
-
-    return false;
-
-  }
-
-  return !!data;
-
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
+function showMessage(id,text){
 
-/* ============================================================
-   SHOW ADMIN
-============================================================ */
+  const box = $(id);
 
-async function showAdmin(user) {
+  box.textContent = text;
+  box.classList.add("show");
 
-  const allowed =
-    await verifyAdmin(user);
-
-  if (!allowed) {
-
-    await db.auth.signOut();
-
-    showLoginMessage(
-      "This account is not authorized as an administrator.",
-      "error"
-    );
-
-    return;
-
-  }
-
-  loginPage.style.display = "none";
-
-  adminPage.style.display = "block";
-
-  document.getElementById("adminEmail")
-    .textContent = user.email || "";
-
-  loadEverything();
-
+  setTimeout(function(){
+    box.classList.remove("show");
+  },4000);
 }
 
 
@@ -1691,339 +1337,333 @@ async function showAdmin(user) {
    LOGIN
 ============================================================ */
 
-loginForm.addEventListener(
+$("loginForm").addEventListener(
   "submit",
-  async function(event) {
+  async function(e){
 
-    event.preventDefault();
-
-    loginButton.disabled = true;
-
-    loginButton.textContent =
-      "Logging in...";
-
-    loginMessage.style.display =
-      "none";
-
+    e.preventDefault();
 
     const email =
-      document.getElementById("email")
-        .value.trim();
+    $("loginEmail").value.trim();
 
     const password =
-      document.getElementById("password")
-        .value;
+    $("loginPassword").value;
 
+    const button =
+    this.querySelector("button");
 
-    const { data, error } =
-      await db.auth.signInWithPassword({
-        email,
-        password
-      });
+    button.disabled = true;
+    button.textContent = "LOGGING IN...";
 
+    const {data,error} =
+    await db.auth.signInWithPassword({
+      email:email,
+      password:password
+    });
 
-    if (error) {
+    button.disabled = false;
+    button.textContent = "LOGIN";
 
-      showLoginMessage(
-        error.message,
-        "error"
+    if(error){
+
+      console.error(error);
+
+      showMessage(
+        "loginMessage",
+        "Login failed: " + error.message
       );
-
-      loginButton.disabled = false;
-
-      loginButton.textContent =
-        "Login";
 
       return;
 
     }
 
-
-    if (data.user) {
-
-      await showAdmin(data.user);
-
-    }
-
-
-    loginButton.disabled = false;
-
-    loginButton.textContent =
-      "Login";
+    openDashboard(data.user);
 
   }
 );
+
+
+/* ============================================================
+   AUTH STATE
+============================================================ */
+
+async function checkLogin(){
+
+  const {
+    data:{
+      session
+    }
+  } =
+  await db.auth.getSession();
+
+  if(session && session.user){
+
+    openDashboard(session.user);
+
+  }else{
+
+    showLogin();
+
+  }
+
+}
+
+
+db.auth.onAuthStateChange(
+  function(event,session){
+
+    if(session && session.user){
+
+      openDashboard(session.user);
+
+    }
+
+  }
+);
+
+
+/* ============================================================
+   SHOW LOGIN
+============================================================ */
+
+function showLogin(){
+
+  $("loginPage").style.display = "flex";
+  $("app").style.display = "none";
+
+}
+
+
+/* ============================================================
+   OPEN DASHBOARD
+============================================================ */
+
+function openDashboard(user){
+
+  $("loginPage").style.display = "none";
+  $("app").style.display = "block";
+
+  $("adminEmail").textContent =
+  user.email || "";
+
+  loadAll();
+
+}
 
 
 /* ============================================================
    LOGOUT
 ============================================================ */
 
-logoutButton.addEventListener(
+$("logoutBtn").addEventListener(
   "click",
-  async function() {
+  async function(){
 
     await db.auth.signOut();
 
-    adminPage.style.display =
-      "none";
-
-    loginPage.style.display =
-      "flex";
-
-    document.getElementById("password")
-      .value = "";
+    showLogin();
 
   }
 );
 
 
 /* ============================================================
-   NAVIGATION
-============================================================ */
-
-function showSection(
-  sectionId,
-  button
-) {
-
-  document
-    .querySelectorAll(".section")
-    .forEach(section => {
-      section.classList.remove("active");
-    });
-
-
-  document
-    .getElementById(sectionId)
-    .classList.add("active");
-
-
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(btn => {
-      btn.classList.remove("active");
-    });
-
-
-  if (button) {
-    button.classList.add("active");
-  }
-
-
-  document
-    .getElementById("sidebar")
-    .classList.remove("open");
-
-}
-
-
-/* ============================================================
    MOBILE MENU
 ============================================================ */
 
-function toggleSidebar() {
+$("mobileMenu").addEventListener(
+  "click",
+  function(){
 
-  document
-    .getElementById("sidebar")
+    $("sidebar")
     .classList.toggle("open");
 
-}
+  }
+);
 
 
 /* ============================================================
-   DELETE HELPER
+   PAGE NAVIGATION
 ============================================================ */
 
-async function deleteRecord(
-  table,
-  id
-) {
+document
+.querySelectorAll(".sidebar button[data-page]")
+.forEach(function(button){
 
-  if (
-    !confirm(
-      "Are you sure you want to delete this item?"
-    )
-  ) {
-    return;
-  }
+  button.addEventListener(
+    "click",
+    function(){
 
+      document
+      .querySelectorAll(".sidebar button")
+      .forEach(function(item){
+        item.classList.remove("active");
+      });
 
-  const { error } =
-    await db
-      .from(table)
-      .delete()
-      .eq("id", id);
+      button.classList.add("active");
 
+      document
+      .querySelectorAll(".page")
+      .forEach(function(page){
+        page.classList.remove("active");
+      });
 
-  if (error) {
+      const page =
+      $("page-" + button.dataset.page);
 
-    alert(
-      "Delete failed: " +
-      error.message
-    );
+      if(page){
+        page.classList.add("active");
+      }
 
-    return;
+      $("sidebar").classList.remove("open");
 
-  }
+    }
+  );
 
-
-  loadEverything();
-
-}
+});
 
 
 /* ============================================================
    SONGS
 ============================================================ */
 
-document
-  .getElementById("songForm")
-  .addEventListener(
-    "submit",
-    async function(event) {
+$("songForm").addEventListener(
+  "submit",
+  async function(e){
 
-      event.preventDefault();
+    e.preventDefault();
 
+    const {error} =
+    await db
+    .from("songs")
+    .insert({
 
-      const record = {
+      title:$("songTitle").value.trim(),
 
-        title:
-          document.getElementById("songTitle").value.trim(),
+      artist:
+      $("songArtist").value.trim() ||
+      "Kharvie",
 
-        artist:
-          document.getElementById("songArtist").value.trim() ||
-          "Kharvie",
+      genre:
+      $("songGenre").value.trim(),
 
-        description:
-          document.getElementById("songDescription").value.trim(),
+      release_date:
+      $("songReleaseDate").value.trim(),
 
-        audio_url:
-          document.getElementById("audioUrl").value.trim() || null,
+      cover_url:
+      $("songCover").value.trim(),
 
-        cover_url:
-          document.getElementById("coverUrl").value.trim() || null,
+      audio_url:
+      $("songAudio").value.trim(),
 
-        spotify_url:
-          document.getElementById("spotifyUrl").value.trim() || null,
+      spotify_url:
+      $("songSpotify").value.trim(),
 
-        apple_music_url:
-          document.getElementById("appleMusicUrl").value.trim() || null,
+      apple_music_url:
+      $("songApple").value.trim(),
 
-        youtube_url:
-          document.getElementById("songYoutubeUrl").value.trim() || null,
+      youtube_url:
+      $("songYoutube").value.trim(),
 
-        audiomack_url:
-          document.getElementById("audiomackUrl").value.trim() || null,
+      audiomack_url:
+      $("songAudiomack").value.trim()
 
-        genre:
-          document.getElementById("genre").value.trim() || null,
+    });
 
-        release_date:
-          document.getElementById("songReleaseDate").value || null,
+    if(error){
 
-        duration_seconds:
-          Number(
-            document.getElementById("duration").value
-          ) || null
+      showMessage(
+        "songMessage",
+        error.message
+      );
 
-      };
-
-
-      const { error } =
-        await db
-          .from("songs")
-          .insert(record);
-
-
-      if (error) {
-
-        alert(
-          "Could not add song: " +
-          error.message
-        );
-
-        return;
-
-      }
-
-
-      alert("Song added successfully.");
-
-      this.reset();
-
-      document.getElementById("songArtist")
-        .value = "Kharvie";
-
-      loadSongs();
-
-      loadDashboard();
+      return;
 
     }
-  );
+
+    this.reset();
+
+    $("songArtist").value =
+    "Kharvie";
+
+    showMessage(
+      "songMessage",
+      "Song added successfully."
+    );
+
+    loadSongs();
+    loadCounts();
+
+  }
+);
 
 
-async function loadSongs() {
+async function loadSongs(){
 
-  const { data, error } =
-    await db
-      .from("songs")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
+  const list =
+  $("songsList");
 
+  const {data,error} =
+  await db
+  .from("songs")
+  .select("*")
+  .order("created_at",{ascending:false});
 
-  if (error) {
+  if(error){
 
-    console.error(error);
+    list.innerHTML =
+    `<div class="empty">${escapeHtml(error.message)}</div>`;
 
     return;
 
   }
 
+  if(!data || data.length === 0){
 
-  const table =
-    document.getElementById("songsTable");
+    list.innerHTML =
+    `<div class="empty">No songs yet.</div>`;
 
-  table.innerHTML = "";
+    return;
 
+  }
 
-  data.forEach(song => {
+  list.innerHTML = "";
+
+  data.forEach(function(item){
 
     const row =
-      document.createElement("tr");
+    document.createElement("div");
 
+    row.className = "item";
 
     row.innerHTML = `
 
-      <td>${escapeHtml(song.title)}</td>
+      <div class="item-info">
 
-      <td>${escapeHtml(song.artist || "Kharvie")}</td>
+        <div class="item-title">
+          ${escapeHtml(item.title)}
+        </div>
 
-      <td>
-        <span class="badge">
-          ${escapeHtml(song.genre || "—")}
-        </span>
-      </td>
+        <div class="item-meta">
+          ${escapeHtml(item.artist || "Kharvie")}
+          ${item.genre ? " • " + escapeHtml(item.genre) : ""}
+        </div>
 
-      <td>
-        ${song.release_date || "—"}
-      </td>
+      </div>
 
-      <td>
+      <div class="item-actions">
+
         <button
-          class="danger-btn"
-          onclick="deleteRecord('songs','${song.id}')"
-        >
-          Delete
+          class="delete"
+          onclick="deleteItem('songs',${item.id},loadSongs)">
+          DELETE
         </button>
-      </td>
+
+      </div>
 
     `;
 
-
-    table.appendChild(row);
+    list.appendChild(row);
 
   });
 
@@ -2034,134 +1674,136 @@ async function loadSongs() {
    RELEASES
 ============================================================ */
 
-document
-  .getElementById("releaseForm")
-  .addEventListener(
-    "submit",
-    async function(event) {
+$("releaseForm").addEventListener(
+  "submit",
+  async function(e){
 
-      event.preventDefault();
+    e.preventDefault();
 
+    const {error} =
+    await db
+    .from("releases")
+    .insert({
 
-      const record = {
+      title:
+      $("releaseTitle").value.trim(),
 
-        title:
-          document.getElementById("releaseTitle").value.trim(),
+      release_type:
+      $("releaseType").value,
 
-        release_type:
-          document.getElementById("releaseType").value,
+      release_date:
+      $("releaseDate").value.trim(),
 
-        description:
-          document.getElementById("releaseDescription").value.trim(),
+      description:
+      $("releaseDescription").value.trim(),
 
-        cover_url:
-          document.getElementById("releaseCover").value.trim() || null,
+      cover_url:
+      $("releaseCover").value.trim(),
 
-        release_date:
-          document.getElementById("releaseDate").value || null,
+      spotify_url:
+      $("releaseSpotify").value.trim(),
 
-        spotify_url:
-          document.getElementById("releaseSpotify").value.trim() || null,
+      apple_music_url:
+      $("releaseApple").value.trim(),
 
-        apple_music_url:
-          document.getElementById("releaseApple").value.trim() || null,
+      youtube_url:
+      $("releaseYoutube").value.trim(),
 
-        youtube_url:
-          document.getElementById("releaseYoutube").value.trim() || null,
+      audiomack_url:
+      $("releaseAudiomack").value.trim()
 
-        audiomack_url:
-          document.getElementById("releaseAudiomack").value.trim() || null
+    });
 
-      };
+    if(error){
 
+      showMessage(
+        "releaseMessage",
+        error.message
+      );
 
-      const { error } =
-        await db
-          .from("releases")
-          .insert(record);
-
-
-      if (error) {
-
-        alert(
-          "Could not add release: " +
-          error.message
-        );
-
-        return;
-
-      }
-
-
-      alert("Release added successfully.");
-
-      this.reset();
-
-      loadReleases();
-
-      loadDashboard();
+      return;
 
     }
-  );
+
+    this.reset();
+
+    showMessage(
+      "releaseMessage",
+      "Release added successfully."
+    );
+
+    loadReleases();
+    loadCounts();
+
+  }
+);
 
 
-async function loadReleases() {
+async function loadReleases(){
 
-  const { data, error } =
-    await db
-      .from("releases")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
+  const list =
+  $("releasesList");
 
+  const {data,error} =
+  await db
+  .from("releases")
+  .select("*")
+  .order("created_at",{ascending:false});
 
-  if (error) {
+  if(error){
 
-    console.error(error);
+    list.innerHTML =
+    `<div class="empty">${escapeHtml(error.message)}</div>`;
 
     return;
 
   }
 
+  if(!data || data.length === 0){
 
-  const table =
-    document.getElementById("releasesTable");
+    list.innerHTML =
+    `<div class="empty">No releases yet.</div>`;
 
-  table.innerHTML = "";
+    return;
 
+  }
 
-  data.forEach(item => {
+  list.innerHTML = "";
+
+  data.forEach(function(item){
 
     const row =
-      document.createElement("tr");
+    document.createElement("div");
 
+    row.className = "item";
 
     row.innerHTML = `
 
-      <td>${escapeHtml(item.title)}</td>
+      <div class="item-info">
 
-      <td>
-        <span class="badge">
-          ${escapeHtml(item.release_type)}
-        </span>
-      </td>
+        <div class="item-title">
+          ${escapeHtml(item.title)}
+        </div>
 
-      <td>${item.release_date || "—"}</td>
+        <div class="item-meta">
+          ${escapeHtml(item.release_type || "Release")}
+        </div>
 
-      <td>
+      </div>
+
+      <div class="item-actions">
+
         <button
-          class="danger-btn"
-          onclick="deleteRecord('releases','${item.id}')"
-        >
-          Delete
+          class="delete"
+          onclick="deleteItem('releases',${item.id},loadReleases)">
+          DELETE
         </button>
-      </td>
+
+      </div>
 
     `;
 
-
-    table.appendChild(row);
+    list.appendChild(row);
 
   });
 
@@ -2172,125 +1814,125 @@ async function loadReleases() {
    VIDEOS
 ============================================================ */
 
-document
-  .getElementById("videoForm")
-  .addEventListener(
-    "submit",
-    async function(event) {
+$("videoForm").addEventListener(
+  "submit",
+  async function(e){
 
-      event.preventDefault();
+    e.preventDefault();
 
+    const {error} =
+    await db
+    .from("videos")
+    .insert({
 
-      const record = {
+      title:
+      $("videoTitle").value.trim(),
 
-        title:
-          document.getElementById("videoTitle").value.trim(),
+      platform:
+      $("videoPlatform").value.trim() ||
+      "YouTube",
 
-        description:
-          document.getElementById("videoDescription").value.trim(),
+      video_url:
+      $("videoUrl").value.trim(),
 
-        video_url:
-          document.getElementById("videoUrl").value.trim(),
+      release_date:
+      $("videoDate").value.trim()
 
-        thumbnail_url:
-          document.getElementById("videoThumbnail").value.trim() || null,
+    });
 
-        platform:
-          document.getElementById("videoPlatform").value,
+    if(error){
 
-        release_date:
-          document.getElementById("videoDate").value || null
+      showMessage(
+        "videoMessage",
+        error.message
+      );
 
-      };
-
-
-      const { error } =
-        await db
-          .from("videos")
-          .insert(record);
-
-
-      if (error) {
-
-        alert(
-          "Could not add video: " +
-          error.message
-        );
-
-        return;
-
-      }
-
-
-      alert("Video added successfully.");
-
-      this.reset();
-
-      loadVideos();
-
-      loadDashboard();
+      return;
 
     }
-  );
+
+    this.reset();
+
+    $("videoPlatform").value =
+    "YouTube";
+
+    showMessage(
+      "videoMessage",
+      "Video added successfully."
+    );
+
+    loadVideos();
+    loadCounts();
+
+  }
+);
 
 
-async function loadVideos() {
+async function loadVideos(){
 
-  const { data, error } =
-    await db
-      .from("videos")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
+  const list =
+  $("videosList");
 
+  const {data,error} =
+  await db
+  .from("videos")
+  .select("*")
+  .order("created_at",{ascending:false});
 
-  if (error) {
+  if(error){
 
-    console.error(error);
+    list.innerHTML =
+    `<div class="empty">${escapeHtml(error.message)}</div>`;
 
     return;
 
   }
 
+  if(!data || data.length === 0){
 
-  const table =
-    document.getElementById("videosTable");
+    list.innerHTML =
+    `<div class="empty">No videos yet.</div>`;
 
-  table.innerHTML = "";
+    return;
 
+  }
 
-  data.forEach(item => {
+  list.innerHTML = "";
+
+  data.forEach(function(item){
 
     const row =
-      document.createElement("tr");
+    document.createElement("div");
 
+    row.className = "item";
 
     row.innerHTML = `
 
-      <td>${escapeHtml(item.title)}</td>
+      <div class="item-info">
 
-      <td>
-        ${escapeHtml(item.platform || "—")}
-      </td>
+        <div class="item-title">
+          ${escapeHtml(item.title)}
+        </div>
 
-      <td>
-        ${item.release_date || "—"}
-      </td>
+        <div class="item-meta">
+          ${escapeHtml(item.platform || "Official Video")}
+        </div>
 
-      <td>
+      </div>
+
+      <div class="item-actions">
+
         <button
-          class="danger-btn"
-          onclick="deleteRecord('videos','${item.id}')"
-        >
-          Delete
+          class="delete"
+          onclick="deleteItem('videos',${item.id},loadVideos)">
+          DELETE
         </button>
-      </td>
+
+      </div>
 
     `;
 
-
-    table.appendChild(row);
+    list.appendChild(row);
 
   });
 
@@ -2301,120 +1943,115 @@ async function loadVideos() {
    GALLERY
 ============================================================ */
 
-document
-  .getElementById("galleryForm")
-  .addEventListener(
-    "submit",
-    async function(event) {
+$("galleryForm").addEventListener(
+  "submit",
+  async function(e){
 
-      event.preventDefault();
+    e.preventDefault();
 
+    const {error} =
+    await db
+    .from("gallery")
+    .insert({
 
-      const record = {
+      title:
+      $("galleryTitle").value.trim(),
 
-        title:
-          document.getElementById("galleryTitle").value.trim() || null,
+      image_url:
+      $("galleryUrl").value.trim()
 
-        image_url:
-          document.getElementById("galleryImage").value.trim(),
+    });
 
-        description:
-          document.getElementById("galleryDescription").value.trim() || null,
+    if(error){
 
-        category:
-          document.getElementById("galleryCategory").value.trim() || null
+      showMessage(
+        "galleryMessage",
+        error.message
+      );
 
-      };
-
-
-      const { error } =
-        await db
-          .from("gallery")
-          .insert(record);
-
-
-      if (error) {
-
-        alert(
-          "Could not add photo: " +
-          error.message
-        );
-
-        return;
-
-      }
-
-
-      alert("Photo added successfully.");
-
-      this.reset();
-
-      loadGallery();
+      return;
 
     }
-  );
+
+    this.reset();
+
+    showMessage(
+      "galleryMessage",
+      "Photo added successfully."
+    );
+
+    loadGallery();
+    loadCounts();
+
+  }
+);
 
 
-async function loadGallery() {
+async function loadGallery(){
 
-  const { data, error } =
-    await db
-      .from("gallery")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
+  const list =
+  $("galleryList");
 
+  const {data,error} =
+  await db
+  .from("gallery")
+  .select("*")
+  .order("created_at",{ascending:false});
 
-  if (error) {
+  if(error){
 
-    console.error(error);
+    list.innerHTML =
+    `<div class="empty">${escapeHtml(error.message)}</div>`;
 
     return;
 
   }
 
+  if(!data || data.length === 0){
 
-  const table =
-    document.getElementById("galleryTable");
+    list.innerHTML =
+    `<div class="empty">No gallery photos yet.</div>`;
 
-  table.innerHTML = "";
+    return;
 
+  }
 
-  data.forEach(item => {
+  list.innerHTML = "";
+
+  data.forEach(function(item){
 
     const row =
-      document.createElement("tr");
+    document.createElement("div");
 
+    row.className = "item";
 
     row.innerHTML = `
 
-      <td>${escapeHtml(item.title || "Untitled")}</td>
+      <div class="item-info">
 
-      <td>${escapeHtml(item.category || "—")}</td>
+        <div class="item-title">
+          ${escapeHtml(item.title || "Gallery Photo")}
+        </div>
 
-      <td>
-        <a
-          href="${escapeAttribute(item.image_url)}"
-          target="_blank"
-        >
-          View
-        </a>
-      </td>
+        <div class="item-meta">
+          Image added
+        </div>
 
-      <td>
+      </div>
+
+      <div class="item-actions">
+
         <button
-          class="danger-btn"
-          onclick="deleteRecord('gallery','${item.id}')"
-        >
-          Delete
+          class="delete"
+          onclick="deleteItem('gallery',${item.id},loadGallery)">
+          DELETE
         </button>
-      </td>
+
+      </div>
 
     `;
 
-
-    table.appendChild(row);
+    list.appendChild(row);
 
   });
 
@@ -2422,136 +2059,139 @@ async function loadGallery() {
 
 
 /* ============================================================
-   POSTS
+   NEWS
 ============================================================ */
 
-document
-  .getElementById("postForm")
-  .addEventListener(
-    "submit",
-    async function(event) {
+$("postForm").addEventListener(
+  "submit",
+  async function(e){
 
-      event.preventDefault();
+    e.preventDefault();
 
+    const published =
+    $("postPublished").value === "true";
 
-      const record = {
+    const {error} =
+    await db
+    .from("posts")
+    .insert({
 
-        title:
-          document.getElementById("postTitle").value.trim(),
+      title:
+      $("postTitle").value.trim(),
 
-        slug:
-          document.getElementById("postSlug").value.trim() || null,
+      excerpt:
+      $("postExcerpt").value.trim(),
 
-        excerpt:
-          document.getElementById("postExcerpt").value.trim() || null,
+      content:
+      $("postContent").value.trim(),
 
-        content:
-          document.getElementById("postContent").value.trim() || null,
+      is_published:
+      published,
 
-        featured_image_url:
-          document.getElementById("postImage").value.trim() || null,
+      published_at:
+      published
+      ? new Date().toISOString()
+      : null
 
-        author:
-          document.getElementById("postAuthor").value.trim() ||
-          "Kharvie",
+    });
 
-        published_at:
-          new Date().toISOString(),
+    if(error){
 
-        is_published:
-          true
+      showMessage(
+        "postMessage",
+        error.message
+      );
 
-      };
-
-
-      const { error } =
-        await db
-          .from("posts")
-          .insert(record);
-
-
-      if (error) {
-
-        alert(
-          "Could not add post: " +
-          error.message
-        );
-
-        return;
-
-      }
-
-
-      alert("News post published.");
-
-      this.reset();
-
-      document.getElementById("postAuthor")
-        .value = "Kharvie";
-
-      loadPosts();
+      return;
 
     }
-  );
+
+    this.reset();
+
+    $("postPublished").value =
+    "true";
+
+    showMessage(
+      "postMessage",
+      "News post added successfully."
+    );
+
+    loadPosts();
+    loadCounts();
+
+  }
+);
 
 
-async function loadPosts() {
+async function loadPosts(){
 
-  const { data, error } =
-    await db
-      .from("posts")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
+  const list =
+  $("postsList");
 
+  const {data,error} =
+  await db
+  .from("posts")
+  .select("*")
+  .order("created_at",{ascending:false});
 
-  if (error) {
+  if(error){
 
-    console.error(error);
+    list.innerHTML =
+    `<div class="empty">${escapeHtml(error.message)}</div>`;
 
     return;
 
   }
 
+  if(!data || data.length === 0){
 
-  const table =
-    document.getElementById("postsTable");
+    list.innerHTML =
+    `<div class="empty">No news posts yet.</div>`;
 
-  table.innerHTML = "";
+    return;
 
+  }
 
-  data.forEach(item => {
+  list.innerHTML = "";
+
+  data.forEach(function(item){
 
     const row =
-      document.createElement("tr");
+    document.createElement("div");
 
+    row.className = "item";
 
     row.innerHTML = `
 
-      <td>${escapeHtml(item.title)}</td>
+      <div class="item-info">
 
-      <td>${escapeHtml(item.author || "Kharvie")}</td>
+        <div class="item-title">
+          ${escapeHtml(item.title)}
+        </div>
 
-      <td>
-        ${item.is_published ? "Yes" : "No"}
-      </td>
+        <div class="item-meta">
+          ${
+            item.is_published
+            ? "Published"
+            : "Draft"
+          }
+        </div>
 
-      <td>
+      </div>
+
+      <div class="item-actions">
 
         <button
-          class="danger-btn"
-          onclick="deleteRecord('posts','${item.id}')"
-        >
-          Delete
+          class="delete"
+          onclick="deleteItem('posts',${item.id},loadPosts)">
+          DELETE
         </button>
 
-      </td>
+      </div>
 
     `;
 
-
-    table.appendChild(row);
+    list.appendChild(row);
 
   });
 
@@ -2562,210 +2202,148 @@ async function loadPosts() {
    EVENTS
 ============================================================ */
 
-document
-  .getElementById("eventForm")
-  .addEventListener(
-    "submit",
-    async function(event) {
+$("eventForm").addEventListener(
+  "submit",
+  async function(e){
 
-      event.preventDefault();
+    e.preventDefault();
 
+    const {error} =
+    await db
+    .from("events")
+    .insert({
 
-      const record = {
+      title:
+      $("eventTitle").value.trim(),
 
-        title:
-          document.getElementById("eventTitle").value.trim(),
+      event_date:
+      $("eventDate").value || null,
 
-        venue:
-          document.getElementById("eventVenue").value.trim() || null,
+      event_time:
+      $("eventTime").value || null,
 
-        city:
-          document.getElementById("eventCity").value.trim() || null,
+      venue:
+      $("eventVenue").value.trim(),
 
-        country:
-          document.getElementById("eventCountry").value.trim() || null,
+      city:
+      $("eventCity").value.trim(),
 
-        event_date:
-          document.getElementById("eventDate").value || null,
+      country:
+      $("eventCountry").value.trim(),
 
-        event_time:
-          document.getElementById("eventTime").value || null,
+      description:
+      $("eventDescription").value.trim(),
 
-        ticket_url:
-          document.getElementById("ticketUrl").value.trim() || null,
+      ticket_url:
+      $("eventTicket").value.trim()
 
-        image_url:
-          document.getElementById("eventImage").value.trim() || null,
+    });
 
-        description:
-          document.getElementById("eventDescription").value.trim() || null
+    if(error){
 
-      };
+      showMessage(
+        "eventMessage",
+        error.message
+      );
 
-
-      const { error } =
-        await db
-          .from("events")
-          .insert(record);
-
-
-      if (error) {
-
-        alert(
-          "Could not add event: " +
-          error.message
-        );
-
-        return;
-
-      }
-
-
-      alert("Event added successfully.");
-
-      this.reset();
-
-      document.getElementById("eventCountry")
-        .value = "Nigeria";
-
-      loadEvents();
+      return;
 
     }
-  );
+
+    this.reset();
+
+    $("eventCountry").value =
+    "Nigeria";
+
+    showMessage(
+      "eventMessage",
+      "Event added successfully."
+    );
+
+    loadEvents();
+    loadCounts();
+
+  }
+);
 
 
-async function loadEvents() {
+async function loadEvents(){
 
-  const { data, error } =
-    await db
-      .from("events")
-      .select("*")
-      .order("event_date", {
-        ascending: true
-      });
+  const list =
+  $("eventsList");
 
+  const {data,error} =
+  await db
+  .from("events")
+  .select("*")
+  .order("event_date",{ascending:true});
 
-  if (error) {
+  if(error){
 
-    console.error(error);
+    list.innerHTML =
+    `<div class="empty">${escapeHtml(error.message)}</div>`;
 
     return;
 
   }
 
+  if(!data || data.length === 0){
 
-  const table =
-    document.getElementById("eventsTable");
-
-  table.innerHTML = "";
-
-
-  data.forEach(item => {
-
-    const row =
-      document.createElement("tr");
-
-
-    row.innerHTML = `
-
-      <td>${escapeHtml(item.title)}</td>
-
-      <td>${escapeHtml(item.venue || "—")}</td>
-
-      <td>${escapeHtml(item.city || "—")}</td>
-
-      <td>${item.event_date || "—"}</td>
-
-      <td>
-
-        <button
-          class="danger-btn"
-          onclick="deleteRecord('events','${item.id}')"
-        >
-          Delete
-        </button>
-
-      </td>
-
-    `;
-
-
-    table.appendChild(row);
-
-  });
-
-}
-
-
-/* ============================================================
-   MESSAGES
-============================================================ */
-
-async function loadMessages() {
-
-  const { data, error } =
-    await db
-      .from("messages")
-      .select("*")
-      .order("created_at", {
-        ascending: false
-      });
-
-
-  if (error) {
-
-    console.error(error);
+    list.innerHTML =
+    `<div class="empty">No events yet.</div>`;
 
     return;
 
   }
 
+  list.innerHTML = "";
 
-  const table =
-    document.getElementById("messagesTable");
-
-  table.innerHTML = "";
-
-
-  data.forEach(item => {
+  data.forEach(function(item){
 
     const row =
-      document.createElement("tr");
+    document.createElement("div");
 
+    row.className = "item";
 
     row.innerHTML = `
 
-      <td>${escapeHtml(item.name)}</td>
+      <div class="item-info">
 
-      <td>${escapeHtml(item.email)}</td>
+        <div class="item-title">
+          ${escapeHtml(item.title)}
+        </div>
 
-      <td>${escapeHtml(item.subject || "—")}</td>
+        <div class="item-meta">
 
-      <td>
-        ${escapeHtml(item.message)}
-      </td>
+          ${
+            item.event_date
+            ? escapeHtml(item.event_date)
+            : "Date TBA"
+          }
 
-      <td>
-        <span class="badge">
-          ${escapeHtml(item.status)}
-        </span>
-      </td>
+          ${
+            item.city
+            ? " • " + escapeHtml(item.city)
+            : ""
+          }
 
-      <td>
+        </div>
+
+      </div>
+
+      <div class="item-actions">
 
         <button
-          class="danger-btn"
-          onclick="deleteRecord('messages','${item.id}')"
-        >
-          Delete
+          class="delete"
+          onclick="deleteItem('events',${item.id},loadEvents)">
+          DELETE
         </button>
 
-      </td>
+      </div>
 
     `;
 
-
-    table.appendChild(row);
+    list.appendChild(row);
 
   });
 
@@ -2776,195 +2354,154 @@ async function loadMessages() {
    MONETIZATION
 ============================================================ */
 
-document
-  .getElementById("moneyForm")
-  .addEventListener(
-    "submit",
-    async function(event) {
+$("moneyForm").addEventListener(
+  "submit",
+  async function(e){
 
-      event.preventDefault();
+    e.preventDefault();
 
+    const {error} =
+    await db
+    .from("monetization")
+    .insert({
 
-      const record = {
+      title:
+      $("moneyTitle").value.trim(),
 
-        type:
-          document.getElementById("moneyType").value,
+      platform:
+      $("moneyPlatform").value.trim(),
 
-        category:
-          document.getElementById("moneyCategory").value,
+      url:
+      $("moneyUrl").value.trim(),
 
-        amount:
-          Number(
-            document.getElementById("moneyAmount").value
-          ),
+      amount:
+      Number($("moneyAmount").value) || 0,
 
-        currency:
-          "NGN",
+      currency:
+      $("moneyCurrency").value,
 
-        source:
-          document.getElementById("moneySource").value.trim() ||
-          null,
+      status:
+      $("moneyStatus").value,
 
-        transaction_date:
-          document.getElementById("moneyDate").value,
+      description:
+      $("moneyDescription").value.trim()
 
-        reference:
-          document.getElementById("moneyReference").value.trim() ||
-          null,
+    });
 
-        description:
-          document.getElementById("moneyDescription").value.trim() ||
-          null,
+    if(error){
 
-        notes:
-          document.getElementById("moneyNotes").value.trim() ||
-          null,
-
-        status:
-          "recorded"
-
-      };
-
-
-      const { error } =
-        await db
-          .from("monetization")
-          .insert(record);
-
-
-      if (error) {
-
-        alert(
-          "Could not save financial record: " +
-          error.message
-        );
-
-        return;
-
-      }
-
-
-      alert(
-        "Financial record saved."
+      showMessage(
+        "moneyMessage",
+        "Monetization table may not be created yet. " +
+        error.message
       );
 
-      this.reset();
-
-      loadMonetization();
+      return;
 
     }
-  );
+
+    this.reset();
+
+    $("moneyAmount").value = "0";
+
+    showMessage(
+      "moneyMessage",
+      "Monetization item added successfully."
+    );
+
+    loadMonetization();
+    loadCounts();
+
+  }
+);
 
 
-async function loadMonetization() {
+async function loadMonetization(){
 
-  const { data, error } =
-    await db
-      .from("monetization")
-      .select("*")
-      .order("transaction_date", {
-        ascending: false
-      });
+  const list =
+  $("moneyList");
 
+  const {data,error} =
+  await db
+  .from("monetization")
+  .select("*")
+  .order("created_at",{ascending:false});
 
-  if (error) {
+  if(error){
 
-    console.error(error);
+    list.innerHTML =
+    `<div class="empty">
+      Monetization table is not ready yet.
+    </div>`;
 
     return;
 
   }
 
+  if(!data || data.length === 0){
 
-  let income = 0;
-  let expenses = 0;
+    list.innerHTML =
+    `<div class="empty">
+      No monetization items yet.
+    </div>`;
 
+    return;
 
-  data.forEach(item => {
+  }
 
-    const amount =
-      Number(item.amount) || 0;
+  list.innerHTML = "";
 
-
-    if (item.type === "income") {
-
-      income += amount;
-
-    } else {
-
-      expenses += amount;
-
-    }
-
-  });
-
-
-  document.getElementById("totalIncome")
-    .textContent =
-      formatMoney(income);
-
-
-  document.getElementById("totalExpenses")
-    .textContent =
-      formatMoney(expenses);
-
-
-  document.getElementById("netEarnings")
-    .textContent =
-      formatMoney(income - expenses);
-
-
-  const table =
-    document.getElementById("moneyTable");
-
-  table.innerHTML = "";
-
-
-  data.forEach(item => {
+  data.forEach(function(item){
 
     const row =
-      document.createElement("tr");
+    document.createElement("div");
 
+    row.className = "item";
 
     row.innerHTML = `
 
-      <td>
-        ${item.transaction_date || "—"}
-      </td>
+      <div class="item-info">
 
-      <td>
-        <span class="badge">
-          ${escapeHtml(item.type)}
-        </span>
-      </td>
+        <div class="item-title">
+          ${escapeHtml(item.title)}
+        </div>
 
-      <td>
-        ${escapeHtml(item.category)}
-      </td>
+        <div class="item-meta">
 
-      <td>
-        ${escapeHtml(item.source || "—")}
-      </td>
+          ${escapeHtml(item.platform || "")}
 
-      <td>
-        ${formatMoney(Number(item.amount))}
-      </td>
+          ${
+            item.amount
+            ? " • " +
+              escapeHtml(item.currency || "NGN") +
+              " " +
+              escapeHtml(item.amount)
+            : ""
+          }
 
-      <td>
+          ${
+            item.status
+            ? " • " + escapeHtml(item.status)
+            : ""
+          }
+
+        </div>
+
+      </div>
+
+      <div class="item-actions">
 
         <button
-          class="danger-btn"
-          onclick="deleteRecord('monetization','${item.id}')"
-        >
-          Delete
+          class="delete"
+          onclick="deleteItem('monetization',${item.id},loadMonetization)">
+          DELETE
         </button>
 
-      </td>
+      </div>
 
     `;
 
-
-    table.appendChild(row);
+    list.appendChild(row);
 
   });
 
@@ -2972,102 +2509,110 @@ async function loadMonetization() {
 
 
 /* ============================================================
-   SETTINGS
+   DELETE
 ============================================================ */
 
-document
-  .getElementById("settingsForm")
-  .addEventListener(
-    "submit",
-    async function(event) {
+async function deleteItem(
+  table,
+  id,
+  reloadFunction
+){
 
-      event.preventDefault();
-
-
-      const settings = [
-
-        {
-          setting_key: "artist_name",
-          setting_value:
-            document.getElementById("artistName").value.trim()
-        },
-
-        {
-          setting_key: "artist_role",
-          setting_value:
-            document.getElementById("artistRole").value.trim()
-        }
-
-      ];
-
-
-      for (const setting of settings) {
-
-        const { error } =
-          await db
-            .from("site_settings")
-            .upsert(
-              setting,
-              {
-                onConflict: "setting_key"
-              }
-            );
-
-
-        if (error) {
-
-          alert(
-            "Could not save settings: " +
-            error.message
-          );
-
-          return;
-
-        }
-
-      }
-
-
-      alert("Website settings saved.");
-
-    }
+  const confirmed =
+  confirm(
+    "Are you sure you want to delete this item?"
   );
+
+  if(!confirmed){
+    return;
+  }
+
+  const {error} =
+  await db
+  .from(table)
+  .delete()
+  .eq("id",id);
+
+  if(error){
+
+    alert(
+      "Delete failed: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+  reloadFunction();
+  loadCounts();
+
+}
 
 
 /* ============================================================
-   DASHBOARD COUNTS
+   COUNTS
 ============================================================ */
 
-async function loadDashboard() {
+async function getCount(table){
 
-  const tables = [
-    ["songs", "songsCount"],
-    ["releases", "releasesCount"],
-    ["videos", "videosCount"],
-    ["messages", "messagesCount"]
-  ];
+  const {count,error} =
+  await db
+  .from(table)
+  .select("*",{count:"exact",head:true});
 
-
-  for (const item of tables) {
-
-    const { count, error } =
-      await db
-        .from(item[0])
-        .select("*", {
-          count: "exact",
-          head: true
-        });
-
-
-    if (!error) {
-
-      document
-        .getElementById(item[1])
-        .textContent = count || 0;
-
-    }
-
+  if(error){
+    return 0;
   }
+
+  return count || 0;
+
+}
+
+
+async function loadCounts(){
+
+  const [
+    songs,
+    releases,
+    videos,
+    gallery,
+    posts,
+    events,
+    money
+  ] =
+  await Promise.all([
+
+    getCount("songs"),
+    getCount("releases"),
+    getCount("videos"),
+    getCount("gallery"),
+    getCount("posts"),
+    getCount("events"),
+    getCount("monetization")
+
+  ]);
+
+  $("countSongs").textContent =
+  songs;
+
+  $("countReleases").textContent =
+  releases;
+
+  $("countVideos").textContent =
+  videos;
+
+  $("countGallery").textContent =
+  gallery;
+
+  $("countPosts").textContent =
+  posts;
+
+  $("countEvents").textContent =
+  events;
+
+  $("countMoney").textContent =
+  money;
 
 }
 
@@ -3076,11 +2621,9 @@ async function loadDashboard() {
    LOAD EVERYTHING
 ============================================================ */
 
-async function loadEverything() {
+async function loadAll(){
 
-  await Promise.all([
-
-    loadDashboard(),
+  await Promise.allSettled([
 
     loadSongs(),
 
@@ -3094,11 +2637,9 @@ async function loadEverything() {
 
     loadEvents(),
 
-    loadMessages(),
-
     loadMonetization(),
 
-    loadSettings()
+    loadCounts()
 
   ]);
 
@@ -3106,167 +2647,10 @@ async function loadEverything() {
 
 
 /* ============================================================
-   LOAD SETTINGS
-============================================================ */
-
-async function loadSettings() {
-
-  const { data, error } =
-    await db
-      .from("site_settings")
-      .select("*");
-
-
-  if (error) {
-
-    console.error(error);
-
-    return;
-
-  }
-
-
-  data.forEach(setting => {
-
-    if (
-      setting.setting_key ===
-      "artist_name"
-    ) {
-
-      document.getElementById("artistName")
-        .value =
-          setting.setting_value || "Kharvie";
-
-    }
-
-
-    if (
-      setting.setting_key ===
-      "artist_role"
-    ) {
-
-      document.getElementById("artistRole")
-        .value =
-          setting.setting_value ||
-          "Singer & Songwriter";
-
-    }
-
-  });
-
-}
-
-
-/* ============================================================
-   FORMAT MONEY
-============================================================ */
-
-function formatMoney(amount) {
-
-  return new Intl.NumberFormat(
-    "en-NG",
-    {
-      style: "currency",
-      currency: "NGN",
-      minimumFractionDigits: 2
-    }
-  ).format(amount || 0);
-
-}
-
-
-/* ============================================================
-   SECURITY / DISPLAY HELPERS
-============================================================ */
-
-function escapeHtml(value) {
-
-  if (value === null ||
-      value === undefined) {
-
-    return "";
-
-  }
-
-
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
-}
-
-
-function escapeAttribute(value) {
-
-  return escapeHtml(value);
-
-}
-
-
-/* ============================================================
-   SESSION CHECK
-============================================================ */
-
-async function checkSession() {
-
-  const { data, error } =
-    await db.auth.getSession();
-
-
-  if (
-    !error &&
-    data &&
-    data.session &&
-    data.session.user
-  ) {
-
-    await showAdmin(
-      data.session.user
-    );
-
-  } else {
-
-    loginPage.style.display =
-      "flex";
-
-    adminPage.style.display =
-      "none";
-
-  }
-
-}
-
-
-/* ============================================================
-   AUTH STATE
-============================================================ */
-
-db.auth.onAuthStateChange(
-  async function(event, session) {
-
-    if (
-      session &&
-      session.user
-    ) {
-
-      await showAdmin(
-        session.user
-      );
-
-    }
-
-  }
-);
-
-
-/* ============================================================
    START
 ============================================================ */
 
-checkSession();
+checkLogin();
 
 </script>
 
