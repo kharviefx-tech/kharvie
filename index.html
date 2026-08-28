@@ -7,405 +7,552 @@
 <title>Kharvie | Official Website</title>
 
 <meta name="description"
-content="Kharvie — Nigerian Afrobeat-fusion artist. Official music, biography, videos and links.">
+content="Kharvie — Nigerian singer and songwriter. Official music, videos, news, events and updates.">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
 html{scroll-behavior:smooth}
-
 body{
-background:#070707;
-color:#fff;
-font-family:Arial,Helvetica,sans-serif;
-line-height:1.6;
-overflow-x:hidden
+  background:#070707;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.6;
+  overflow-x:hidden
 }
-
 a{text-decoration:none;color:inherit}
 
 header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:74px;
-z-index:1000;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 7%;
-background:rgba(7,7,7,.88);
-backdrop-filter:blur(18px);
-border-bottom:1px solid #252525
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:74px;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 7%;
+  background:rgba(7,7,7,.92);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid #252525
 }
-
 .logo{
-font-size:21px;
-font-weight:900;
-letter-spacing:5px
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:5px
 }
-
 .logo small{font-size:8px}
 
 nav{display:flex;gap:28px}
-
 nav a{
-font-size:14px;
-color:#aaa;
-transition:.2s
+  font-size:14px;
+  color:#aaa;
+  transition:.2s
 }
-
 nav a:hover{color:#fff}
 
 .menu{
-display:none;
-background:none;
-border:0;
-color:#fff;
-font-size:28px
+  display:none;
+  background:none;
+  border:0;
+  color:#fff;
+  font-size:28px
 }
 
 .hero{
-min-height:100vh;
-display:grid;
-grid-template-columns:1fr 1fr;
-align-items:center;
-padding:110px 7% 60px;
-background:
-radial-gradient(circle at 75% 45%,#34343b,transparent 35%),
-#070707
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:110px 7% 60px;
+  background:
+    radial-gradient(circle at 75% 45%,#34343b,transparent 35%),
+    #070707
 }
-
 .hero-content{position:relative;z-index:2}
 
 .label{
-font-size:11px;
-font-weight:800;
-letter-spacing:5px;
-color:#888;
-margin-bottom:18px
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:5px;
+  color:#888;
+  margin-bottom:18px
 }
 
 h1{
-font-size:clamp(70px,12vw,155px);
-line-height:.82;
-letter-spacing:-8px;
-margin-bottom:28px
+  font-size:clamp(70px,12vw,155px);
+  line-height:.82;
+  letter-spacing:-8px;
+  margin-bottom:28px
 }
 
 .tagline{
-font-size:21px;
-color:#aaa;
-margin-bottom:30px
+  font-size:21px;
+  color:#aaa;
+  margin-bottom:30px
 }
 
 .buttons{
-display:flex;
-gap:12px;
-flex-wrap:wrap
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap
 }
 
 .btn{
-display:inline-block;
-padding:13px 21px;
-border:1px solid #fff;
-font-size:13px;
-font-weight:800
+  display:inline-block;
+  padding:13px 21px;
+  border:1px solid #fff;
+  font-size:13px;
+  font-weight:800
 }
-
-.white{
-background:#fff;
-color:#000
-}
-
+.white{background:#fff;color:#000}
 .outline{border-color:#444}
 
 .hero-photo{
-height:min(78vh,720px);
-overflow:hidden
+  height:min(78vh,720px);
+  overflow:hidden
 }
-
 .hero-photo img{
-width:100%;
-height:100%;
-object-fit:cover;
-object-position:center;
-filter:saturate(.85) contrast(1.08)
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  filter:saturate(.85) contrast(1.08)
 }
 
 .section{
-max-width:1250px;
-margin:auto;
-padding:105px 7%;
-scroll-margin-top:75px
+  max-width:1250px;
+  margin:auto;
+  padding:105px 7%;
+  scroll-margin-top:75px
 }
 
 .section h2{
-font-size:clamp(45px,7vw,80px);
-line-height:.95;
-letter-spacing:-5px;
-margin-bottom:40px
+  font-size:clamp(45px,7vw,80px);
+  line-height:.95;
+  letter-spacing:-5px;
+  margin-bottom:40px
 }
 
 .section-head{
-display:flex;
-justify-content:space-between;
-align-items:end;
-gap:30px;
-margin-bottom:40px
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:30px;
+  margin-bottom:40px
 }
 
-.note{color:#777;max-width:320px}
+.note{color:#777;max-width:360px}
+
+.loading{
+  color:#777;
+  padding:30px 0
+}
+
+.empty{
+  padding:30px;
+  background:#111;
+  border:1px solid #29292d;
+  color:#777
+}
+
+/* MUSIC */
 
 .music-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:20px
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px
 }
 
 .music-card{
-background:#121214;
-border:1px solid #29292d;
-padding:20px;
-transition:.3s
+  background:#121214;
+  border:1px solid #29292d;
+  padding:20px;
+  transition:.3s
 }
-
 .music-card:hover{
-transform:translateY(-5px);
-border-color:#666
+  transform:translateY(-5px);
+  border-color:#666
 }
 
 .cover{
-aspect-ratio:1/1;
-background:
-radial-gradient(circle at 50% 30%,#555,#121214 65%);
-display:grid;
-place-items:center;
-margin-bottom:22px;
-font-size:110px;
-font-weight:900;
-overflow:hidden
+  aspect-ratio:1/1;
+  background:
+    radial-gradient(circle at 50% 30%,#555,#121214 65%);
+  display:grid;
+  place-items:center;
+  margin-bottom:22px;
+  font-size:110px;
+  font-weight:900;
+  overflow:hidden
 }
 
 .cover img{
-width:100%;
-height:100%;
-object-fit:cover
+  width:100%;
+  height:100%;
+  object-fit:cover
 }
 
 .music-card h3{font-size:25px}
-
 .meta{
-font-size:13px;
-color:#777;
-margin:4px 0 18px
+  font-size:13px;
+  color:#777;
+  margin:4px 0 18px
 }
 
+.audio{
+  width:100%;
+  margin:0 0 15px
+}
+
+.links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px
+}
+
+.small-btn{
+  display:inline-block;
+  padding:9px 12px;
+  border:1px solid #333;
+  color:#aaa;
+  font-size:11px;
+  font-weight:bold
+}
+.small-btn:hover{
+  color:#fff;
+  border-color:#777
+}
+
+/* ABOUT */
+
 .about{
-border-top:1px solid #252525;
-border-bottom:1px solid #252525
+  border-top:1px solid #252525;
+  border-bottom:1px solid #252525
 }
 
 .about-grid{
-display:grid;
-grid-template-columns:1fr 1.25fr;
-gap:70px
+  display:grid;
+  grid-template-columns:1fr 1.25fr;
+  gap:70px
 }
 
 .about-photo{
-height:570px;
-overflow:hidden
+  height:570px;
+  overflow:hidden
 }
 
 .about-photo img{
-width:100%;
-height:100%;
-object-fit:cover
+  width:100%;
+  height:100%;
+  object-fit:cover
 }
 
 .about-copy{
-font-size:18px;
-color:#c8c8ca;
-line-height:1.9
+  font-size:18px;
+  color:#c8c8ca;
+  line-height:1.9
 }
-
 .about-copy p{margin-bottom:20px}
 
 .stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin-top:30px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:30px
 }
 
 .stat{
-padding:18px;
-background:#111;
-border:1px solid #29292d
+  padding:18px;
+  background:#111;
+  border:1px solid #29292d
 }
-
 .stat strong{
-display:block;
-font-size:30px
+  display:block;
+  font-size:30px
+}
+.stat span{
+  font-size:12px;
+  color:#777
 }
 
-.stat span{
-font-size:12px;
-color:#777
+/* RELEASES */
+
+.release-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px
 }
+
+.release-card{
+  background:#121214;
+  border:1px solid #29292d;
+  padding:20px
+}
+
+.release-cover{
+  aspect-ratio:1/1;
+  background:#202024;
+  margin-bottom:18px;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  font-size:70px;
+  font-weight:bold
+}
+
+.release-cover img{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
+.release-card h3{font-size:22px}
+
+/* VIDEOS */
 
 .video-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:20px
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px
 }
 
 .video{
-min-height:300px;
-padding:28px;
-display:flex;
-align-items:end;
-border:1px solid #29292d;
-background:
-radial-gradient(circle at 75% 20%,#3a3a41,#111113 65%)
+  min-height:300px;
+  padding:28px;
+  display:flex;
+  align-items:end;
+  border:1px solid #29292d;
+  background:
+    radial-gradient(circle at 75% 20%,#3a3a41,#111113 65%)
 }
 
 .play{
-width:60px;
-height:60px;
-border:1px solid #fff;
-border-radius:50%;
-display:grid;
-place-items:center;
-margin-bottom:18px
+  width:60px;
+  height:60px;
+  border:1px solid #fff;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  margin-bottom:18px
 }
 
 .video h3{font-size:23px}
-
 .video p{color:#777}
 
+/* GALLERY */
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px
+}
+
+.gallery-item{
+  aspect-ratio:1/1;
+  background:#111;
+  overflow:hidden;
+  border:1px solid #29292d
+}
+
+.gallery-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.3s
+}
+
+.gallery-item:hover img{
+  transform:scale(1.04)
+}
+
+/* NEWS */
+
 .news{
-border-top:1px solid #252525
+  border-top:1px solid #252525
 }
 
 .news-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px
 }
 
 .news-card{
-background:#121214;
-border:1px solid #29292d;
-padding:25px
+  background:#121214;
+  border:1px solid #29292d;
+  padding:25px
 }
 
 .news-date{
-font-size:11px;
-color:#777;
-letter-spacing:2px
+  font-size:11px;
+  color:#777;
+  letter-spacing:2px
 }
 
 .news-card h3{
-font-size:21px;
-margin:10px 0
+  font-size:21px;
+  margin:10px 0
 }
 
 .news-card p{color:#999}
 
+/* EVENTS */
+
+.events-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px
+}
+
+.event-card{
+  background:#111;
+  border:1px solid #29292d;
+  padding:25px
+}
+
+.event-date{
+  font-size:12px;
+  letter-spacing:2px;
+  color:#888;
+  margin-bottom:10px
+}
+
+.event-card h3{
+  font-size:25px;
+  margin-bottom:8px
+}
+
+.event-location{
+  color:#aaa;
+  margin-bottom:15px
+}
+
+/* CONTACT */
+
 .contact{text-align:center}
 
 .contact-box{
-max-width:700px;
-margin:auto;
-padding:30px;
-background:#111;
-border:1px solid #29292d
+  max-width:700px;
+  margin:auto;
+  padding:30px;
+  background:#111;
+  border:1px solid #29292d
 }
 
 .email{
-font-size:21px;
-font-weight:800
+  font-size:21px;
+  font-weight:800
 }
 
 .socials{
-display:flex;
-justify-content:center;
-gap:25px;
-flex-wrap:wrap;
-margin-top:30px
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  flex-wrap:wrap;
+  margin-top:30px
 }
 
 .socials a{color:#888}
-
 .socials a:hover{color:#fff}
 
+/* FOOTER */
+
 footer{
-border-top:1px solid #252525;
-padding:28px 7%;
-display:flex;
-justify-content:space-between;
-color:#777;
-font-size:13px
+  border-top:1px solid #252525;
+  padding:28px 7%;
+  display:flex;
+  justify-content:space-between;
+  color:#777;
+  font-size:13px
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+  .release-grid{grid-template-columns:repeat(2,1fr)}
 }
 
 @media(max-width:800px){
 
-header{padding:0 6%}
+  header{padding:0 6%}
 
-.menu{display:block}
+  .menu{
+    display:block
+  }
 
-nav{
-display:none;
-position:absolute;
-top:74px;
-left:0;
-width:100%;
-padding:22px 6%;
-background:#080808;
-flex-direction:column;
-gap:16px;
-border-bottom:1px solid #252525
-}
+  nav{
+    display:none;
+    position:absolute;
+    top:74px;
+    left:0;
+    width:100%;
+    padding:22px 6%;
+    background:#080808;
+    flex-direction:column;
+    gap:16px;
+    border-bottom:1px solid #252525
+  }
 
-nav.open{display:flex}
+  nav.open{display:flex}
 
-.hero{
-grid-template-columns:1fr;
-padding:115px 6% 50px
-}
+  .hero{
+    grid-template-columns:1fr;
+    padding:115px 6% 50px
+  }
 
-.hero h1{letter-spacing:-5px}
+  .hero h1{
+    letter-spacing:-5px
+  }
 
-.hero-photo{
-height:58vh;
-margin-top:30px
-}
+  .hero-photo{
+    height:58vh;
+    margin-top:30px
+  }
 
-.section{padding:80px 6%}
+  .section{
+    padding:80px 6%
+  }
 
-.section-head{display:block}
+  .section-head{
+    display:block
+  }
 
-.note{margin-top:15px}
+  .note{
+    margin-top:15px
+  }
 
-.music-grid,
-.video-grid,
-.about-grid,
-.news-grid{
-grid-template-columns:1fr
-}
+  .music-grid,
+  .video-grid,
+  .about-grid,
+  .news-grid,
+  .events-grid{
+    grid-template-columns:1fr
+  }
 
-.about-photo{height:520px}
+  .release-grid{
+    grid-template-columns:1fr
+  }
 
-.stats{grid-template-columns:1fr}
+  .gallery-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
 
-footer{
-padding:25px 6%;
-flex-direction:column;
-gap:10px
-}
+  .about-photo{
+    height:520px
+  }
 
+  .stats{
+    grid-template-columns:1fr
+  }
+
+  footer{
+    padding:25px 6%;
+    flex-direction:column;
+    gap:10px
+  }
 }
 </style>
 </head>
@@ -423,13 +570,17 @@ KHARVIE<small>®</small>
 <nav id="nav">
 <a href="#home">Home</a>
 <a href="#music">Music</a>
+<a href="#releases">Releases</a>
 <a href="#about">About</a>
 <a href="#videos">Videos</a>
+<a href="#gallery">Gallery</a>
 <a href="#news">News</a>
+<a href="#events">Events</a>
 <a href="#contact">Contact</a>
 </nav>
 
 </header>
+
 
 <!-- HOME -->
 
@@ -471,6 +622,7 @@ alt="Kharvie">
 
 </section>
 
+
 <!-- MUSIC -->
 
 <section class="section" id="music">
@@ -478,66 +630,54 @@ alt="Kharvie">
 <div class="section-head">
 
 <div>
-
 <p class="label">MUSIC</p>
-
-<h2>Latest Releases</h2>
-
+<h2>Latest Music</h2>
 </div>
 
 <p class="note">
-Listen to the latest music from Kharvie.
+Listen to Kharvie's music directly on the website or use the official streaming links.
 </p>
 
 </div>
 
-<div class="music-grid">
+<div class="music-grid" id="musicGrid">
 
-<article class="music-card">
-
-<div class="cover">
-K
+<div class="loading">
+Loading Kharvie's music...
 </div>
-
-<h3>Imole</h3>
-
-<p class="meta">
-Single • 2026
-</p>
-
-<a
-class="btn white"
-href="#"
-target="_blank">
-LISTEN NOW
-</a>
-
-</article>
-
-<article class="music-card">
-
-<div class="cover">
-K
-</div>
-
-<h3>Sweet Love</h3>
-
-<p class="meta">
-Single • 2026
-</p>
-
-<a
-class="btn white"
-href="#"
-target="_blank">
-LISTEN NOW
-</a>
-
-</article>
 
 </div>
 
 </section>
+
+
+<!-- RELEASES -->
+
+<section class="section" id="releases">
+
+<div class="section-head">
+
+<div>
+<p class="label">RELEASES</p>
+<h2>Albums & EPs</h2>
+</div>
+
+<p class="note">
+Explore Kharvie's singles, EPs, albums and mixtapes.
+</p>
+
+</div>
+
+<div class="release-grid" id="releaseGrid">
+
+<div class="loading">
+Loading releases...
+</div>
+
+</div>
+
+</section>
+
 
 <!-- ABOUT -->
 
@@ -566,7 +706,7 @@ About Kharvie
 <div class="about-copy">
 
 <p>
-Kharvie is a Nigerian Afrobeat-fusion artist creating music rooted in rhythm, identity and authentic expression.
+Kharvie is a Nigerian singer and songwriter creating music rooted in rhythm, identity and authentic expression.
 </p>
 
 <p>
@@ -587,8 +727,8 @@ This official website is the home of Kharvie's music, videos, news, releases and
 </div>
 
 <div class="stat">
-<strong>2</strong>
-<span>Latest Releases</span>
+<strong id="releaseStat">0</strong>
+<span>Releases</span>
 </div>
 
 <div class="stat">
@@ -604,6 +744,7 @@ This official website is the home of Kharvie's music, videos, news, releases and
 
 </section>
 
+
 <!-- VIDEOS -->
 
 <section class="section" id="videos">
@@ -616,57 +757,39 @@ WATCH
 Videos
 </h2>
 
-<div class="video-grid">
+<div class="video-grid" id="videoGrid">
 
-<a
-class="video"
-href="#"
-target="_blank">
-
-<div>
-
-<div class="play">
-▶
+<div class="loading">
+Loading videos...
 </div>
-
-<h3>
-Official Music Video
-</h3>
-
-<p>
-Watch Kharvie's official videos.
-</p>
-
-</div>
-
-</a>
-
-<a
-class="video"
-href="#"
-target="_blank">
-
-<div>
-
-<div class="play">
-▶
-</div>
-
-<h3>
-Behind The Music
-</h3>
-
-<p>
-More official content coming soon.
-</p>
-
-</div>
-
-</a>
 
 </div>
 
 </section>
+
+
+<!-- GALLERY -->
+
+<section class="section" id="gallery">
+
+<p class="label">
+VISUALS
+</p>
+
+<h2>
+Gallery
+</h2>
+
+<div class="gallery-grid" id="galleryGrid">
+
+<div class="loading">
+Loading gallery...
+</div>
+
+</div>
+
+</section>
+
 
 <!-- NEWS -->
 
@@ -680,59 +803,39 @@ UPDATES
 Latest News
 </h2>
 
-<div class="news-grid">
+<div class="news-grid" id="newsGrid">
 
-<article class="news-card">
-
-<p class="news-date">
-2026
-</p>
-
-<h3>
-Welcome To Kharvie Official Website
-</h3>
-
-<p>
-The official home for Kharvie's music, news, videos and updates.
-</p>
-
-</article>
-
-<article class="news-card">
-
-<p class="news-date">
-NEW MUSIC
-</p>
-
-<h3>
-Imole
-</h3>
-
-<p>
-Kharvie's latest release is now available on streaming platforms.
-</p>
-
-</article>
-
-<article class="news-card">
-
-<p class="news-date">
-COMING SOON
-</p>
-
-<h3>
-More Music Is Coming
-</h3>
-
-<p>
-Follow Kharvie's official channels for new announcements.
-</p>
-
-</article>
+<div class="loading">
+Loading news...
+</div>
 
 </div>
 
 </section>
+
+
+<!-- EVENTS -->
+
+<section class="section" id="events">
+
+<p class="label">
+LIVE
+</p>
+
+<h2>
+Events
+</h2>
+
+<div class="events-grid" id="eventsGrid">
+
+<div class="loading">
+Loading events...
+</div>
+
+</div>
+
+</section>
+
 
 <!-- CONTACT -->
 
@@ -755,22 +858,22 @@ For bookings, collaborations and official enquiries.
 <a
 class="email"
 href="mailto:avannahvictor3@gmail.com">
-
 avannahvictor3@gmail.com
-
 </a>
 
 <div class="socials">
 
 <a
 href="https://www.instagram.com/kharvie__/"
-target="_blank">
+target="_blank"
+rel="noopener">
 Instagram
 </a>
 
 <a
 href="https://www.tiktok.com/@_kharvie"
-target="_blank">
+target="_blank"
+rel="noopener">
 TikTok
 </a>
 
@@ -810,6 +913,7 @@ Boomplay
 
 </section>
 
+
 <footer>
 
 <p>
@@ -823,7 +927,30 @@ Back to top ↑
 
 </footer>
 
+
 <script>
+
+/* ============================================================
+   SUPABASE
+============================================================ */
+
+const SUPABASE_URL =
+"https://dprulohylwgzmetgrywj.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
+
+const { createClient } = supabase;
+
+const db = createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+
+/* ============================================================
+   MENU
+============================================================ */
 
 const menu =
 document.getElementById("menu");
@@ -833,7 +960,7 @@ document.getElementById("nav");
 
 menu.addEventListener("click",function(){
 
-nav.classList.toggle("open");
+  nav.classList.toggle("open");
 
 });
 
@@ -841,16 +968,799 @@ document
 .querySelectorAll("#nav a")
 .forEach(function(link){
 
-link.addEventListener("click",function(){
+  link.addEventListener("click",function(){
 
-nav.classList.remove("open");
+    nav.classList.remove("open");
+
+  });
 
 });
 
-});
+
+/* ============================================================
+   YEAR
+============================================================ */
 
 document.getElementById("year").textContent =
 new Date().getFullYear();
+
+
+/* ============================================================
+   HELPERS
+============================================================ */
+
+function escapeHtml(value){
+
+  if(value === null || value === undefined){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+function safeUrl(url){
+
+  if(!url){
+    return "";
+  }
+
+  try{
+
+    const parsed =
+    new URL(url,window.location.href);
+
+    if(
+      parsed.protocol === "http:" ||
+      parsed.protocol === "https:"
+    ){
+      return parsed.href;
+    }
+
+  }catch(error){
+
+    return "";
+
+  }
+
+  return "";
+}
+
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  const date =
+  new Date(value);
+
+  if(Number.isNaN(date.getTime())){
+    return value;
+  }
+
+  return date.toLocaleDateString(
+    "en-NG",
+    {
+      year:"numeric",
+      month:"short",
+      day:"numeric"
+    }
+  );
+}
+
+
+function showEmpty(element,message){
+
+  element.innerHTML =
+  `<div class="empty">${escapeHtml(message)}</div>`;
+
+}
+
+
+/* ============================================================
+   SONGS
+============================================================ */
+
+async function loadSongs(){
+
+  const grid =
+  document.getElementById("musicGrid");
+
+  const {data,error} =
+  await db
+  .from("songs")
+  .select("*")
+  .order("created_at",{ascending:false});
+
+  if(error){
+
+    console.error("Songs:",error);
+
+    showEmpty(
+      grid,
+      "Music is currently being updated. Please check back soon."
+    );
+
+    return;
+
+  }
+
+  if(!data || data.length === 0){
+
+    showEmpty(
+      grid,
+      "Kharvie's music will appear here soon."
+    );
+
+    return;
+
+  }
+
+  grid.innerHTML = "";
+
+  data.forEach(song => {
+
+    const card =
+    document.createElement("article");
+
+    card.className =
+    "music-card";
+
+    const cover =
+    safeUrl(song.cover_url);
+
+    const audio =
+    safeUrl(song.audio_url);
+
+    const spotify =
+    safeUrl(song.spotify_url);
+
+    const apple =
+    safeUrl(song.apple_music_url);
+
+    const youtube =
+    safeUrl(song.youtube_url);
+
+    const audiomack =
+    safeUrl(song.audiomack_url);
+
+    let coverHtml =
+    `<div class="cover">K</div>`;
+
+    if(cover){
+
+      coverHtml =
+      `<div class="cover">
+        <img src="${escapeHtml(cover)}"
+        alt="${escapeHtml(song.title || "Kharvie song")}">
+      </div>`;
+
+    }
+
+    let audioHtml = "";
+
+    if(audio){
+
+      audioHtml =
+      `<audio class="audio" controls preload="none">
+        <source src="${escapeHtml(audio)}">
+        Your browser does not support audio playback.
+      </audio>`;
+
+    }
+
+    let links = "";
+
+    if(spotify){
+      links +=
+      `<a class="small-btn"
+      href="${escapeHtml(spotify)}"
+      target="_blank"
+      rel="noopener">SPOTIFY</a>`;
+    }
+
+    if(apple){
+      links +=
+      `<a class="small-btn"
+      href="${escapeHtml(apple)}"
+      target="_blank"
+      rel="noopener">APPLE MUSIC</a>`;
+    }
+
+    if(youtube){
+      links +=
+      `<a class="small-btn"
+      href="${escapeHtml(youtube)}"
+      target="_blank"
+      rel="noopener">YOUTUBE</a>`;
+    }
+
+    if(audiomack){
+      links +=
+      `<a class="small-btn"
+      href="${escapeHtml(audiomack)}"
+      target="_blank"
+      rel="noopener">AUDIOMACK</a>`;
+    }
+
+    card.innerHTML = `
+
+      ${coverHtml}
+
+      <h3>
+        ${escapeHtml(song.title || "Untitled")}
+      </h3>
+
+      <p class="meta">
+        ${escapeHtml(song.artist || "Kharvie")}
+        ${song.genre ? " • " + escapeHtml(song.genre) : ""}
+        ${song.release_date ? " • " + escapeHtml(song.release_date) : ""}
+      </p>
+
+      ${audioHtml}
+
+      ${
+        links
+        ? `<div class="links">${links}</div>`
+        : ""
+      }
+
+    `;
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+/* ============================================================
+   RELEASES
+============================================================ */
+
+async function loadReleases(){
+
+  const grid =
+  document.getElementById("releaseGrid");
+
+  const {data,error} =
+  await db
+  .from("releases")
+  .select("*")
+  .order("created_at",{ascending:false});
+
+  if(error){
+
+    console.error("Releases:",error);
+
+    showEmpty(
+      grid,
+      "Releases are currently being updated."
+    );
+
+    return;
+
+  }
+
+  document.getElementById("releaseStat")
+  .textContent =
+  data ? data.length : 0;
+
+  if(!data || data.length === 0){
+
+    showEmpty(
+      grid,
+      "Kharvie's releases will appear here soon."
+    );
+
+    return;
+
+  }
+
+  grid.innerHTML = "";
+
+  data.forEach(item => {
+
+    const card =
+    document.createElement("article");
+
+    card.className =
+    "release-card";
+
+    const cover =
+    safeUrl(item.cover_url);
+
+    let coverHtml =
+    `<div class="release-cover">K</div>`;
+
+    if(cover){
+
+      coverHtml =
+      `<div class="release-cover">
+        <img
+        src="${escapeHtml(cover)}"
+        alt="${escapeHtml(item.title || "Kharvie release")}">
+      </div>`;
+
+    }
+
+    const spotify =
+    safeUrl(item.spotify_url);
+
+    const apple =
+    safeUrl(item.apple_music_url);
+
+    const youtube =
+    safeUrl(item.youtube_url);
+
+    const audiomack =
+    safeUrl(item.audiomack_url);
+
+    let links = "";
+
+    if(spotify){
+      links +=
+      `<a class="small-btn"
+      href="${escapeHtml(spotify)}"
+      target="_blank"
+      rel="noopener">SPOTIFY</a>`;
+    }
+
+    if(apple){
+      links +=
+      `<a class="small-btn"
+      href="${escapeHtml(apple)}"
+      target="_blank"
+      rel="noopener">APPLE MUSIC</a>`;
+    }
+
+    if(youtube){
+      links +=
+      `<a class="small-btn"
+      href="${escapeHtml(youtube)}"
+      target="_blank"
+      rel="noopener">YOUTUBE</a>`;
+    }
+
+    if(audiomack){
+      links +=
+      `<a class="small-btn"
+      href="${escapeHtml(audiomack)}"
+      target="_blank"
+      rel="noopener">AUDIOMACK</a>`;
+    }
+
+    card.innerHTML = `
+
+      ${coverHtml}
+
+      <h3>
+        ${escapeHtml(item.title || "Untitled")}
+      </h3>
+
+      <p class="meta">
+        ${escapeHtml(item.release_type || "Release")}
+        ${item.release_date ? " • " + escapeHtml(item.release_date) : ""}
+      </p>
+
+      ${
+        item.description
+        ? `<p class="meta">${escapeHtml(item.description)}</p>`
+        : ""
+      }
+
+      ${
+        links
+        ? `<div class="links">${links}</div>`
+        : ""
+      }
+
+    `;
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+/* ============================================================
+   VIDEOS
+============================================================ */
+
+async function loadVideos(){
+
+  const grid =
+  document.getElementById("videoGrid");
+
+  const {data,error} =
+  await db
+  .from("videos")
+  .select("*")
+  .order("created_at",{ascending:false});
+
+  if(error){
+
+    console.error("Videos:",error);
+
+    showEmpty(
+      grid,
+      "Videos are currently being updated."
+    );
+
+    return;
+
+  }
+
+  if(!data || data.length === 0){
+
+    showEmpty(
+      grid,
+      "Kharvie's official videos will appear here soon."
+    );
+
+    return;
+
+  }
+
+  grid.innerHTML = "";
+
+  data.forEach(item => {
+
+    const url =
+    safeUrl(item.video_url);
+
+    const card =
+    document.createElement("a");
+
+    card.className =
+    "video";
+
+    if(url){
+
+      card.href = url;
+      card.target = "_blank";
+      card.rel = "noopener";
+
+    }else{
+
+      card.href = "#";
+
+    }
+
+    card.innerHTML = `
+
+      <div>
+
+        <div class="play">
+          ▶
+        </div>
+
+        <h3>
+          ${escapeHtml(item.title || "Kharvie Video")}
+        </h3>
+
+        <p>
+          ${escapeHtml(item.platform || "Official Video")}
+          ${item.release_date ? " • " + escapeHtml(item.release_date) : ""}
+        </p>
+
+      </div>
+
+    `;
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+/* ============================================================
+   GALLERY
+============================================================ */
+
+async function loadGallery(){
+
+  const grid =
+  document.getElementById("galleryGrid");
+
+  const {data,error} =
+  await db
+  .from("gallery")
+  .select("*")
+  .order("created_at",{ascending:false});
+
+  if(error){
+
+    console.error("Gallery:",error);
+
+    showEmpty(
+      grid,
+      "Gallery is currently being updated."
+    );
+
+    return;
+
+  }
+
+  if(!data || data.length === 0){
+
+    showEmpty(
+      grid,
+      "Kharvie's gallery will appear here soon."
+    );
+
+    return;
+
+  }
+
+  grid.innerHTML = "";
+
+  data.forEach(item => {
+
+    const url =
+    safeUrl(item.image_url);
+
+    if(!url){
+      return;
+    }
+
+    const link =
+    document.createElement("a");
+
+    link.className =
+    "gallery-item";
+
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener";
+
+    link.innerHTML = `
+
+      <img
+      src="${escapeHtml(url)}"
+      alt="${escapeHtml(item.title || "Kharvie photo")}">
+
+    `;
+
+    grid.appendChild(link);
+
+  });
+
+}
+
+
+/* ============================================================
+   NEWS
+============================================================ */
+
+async function loadNews(){
+
+  const grid =
+  document.getElementById("newsGrid");
+
+  const {data,error} =
+  await db
+  .from("posts")
+  .select("*")
+  .eq("is_published",true)
+  .order("created_at",{ascending:false});
+
+  if(error){
+
+    console.error("Posts:",error);
+
+    showEmpty(
+      grid,
+      "News is currently being updated."
+    );
+
+    return;
+
+  }
+
+  if(!data || data.length === 0){
+
+    showEmpty(
+      grid,
+      "Kharvie's latest news will appear here soon."
+    );
+
+    return;
+
+  }
+
+  grid.innerHTML = "";
+
+  data.forEach(item => {
+
+    const article =
+    document.createElement("article");
+
+    article.className =
+    "news-card";
+
+    article.innerHTML = `
+
+      <p class="news-date">
+        ${
+          item.published_at
+          ? escapeHtml(formatDate(item.published_at))
+          : "KHARVIE"
+        }
+      </p>
+
+      <h3>
+        ${escapeHtml(item.title || "Kharvie News")}
+      </h3>
+
+      <p>
+        ${escapeHtml(
+          item.excerpt ||
+          item.content ||
+          ""
+        )}
+      </p>
+
+    `;
+
+    grid.appendChild(article);
+
+  });
+
+}
+
+
+/* ============================================================
+   EVENTS
+============================================================ */
+
+async function loadEvents(){
+
+  const grid =
+  document.getElementById("eventsGrid");
+
+  const {data,error} =
+  await db
+  .from("events")
+  .select("*")
+  .order("event_date",{ascending:true});
+
+  if(error){
+
+    console.error("Events:",error);
+
+    showEmpty(
+      grid,
+      "Events are currently being updated."
+    );
+
+    return;
+
+  }
+
+  if(!data || data.length === 0){
+
+    showEmpty(
+      grid,
+      "No upcoming Kharvie events have been announced yet."
+    );
+
+    return;
+
+  }
+
+  grid.innerHTML = "";
+
+  data.forEach(item => {
+
+    const card =
+    document.createElement("article");
+
+    card.className =
+    "event-card";
+
+    const ticket =
+    safeUrl(item.ticket_url);
+
+    let location = "";
+
+    if(item.venue){
+      location += escapeHtml(item.venue);
+    }
+
+    if(item.city){
+      location +=
+      (location ? " • " : "") +
+      escapeHtml(item.city);
+    }
+
+    if(item.country){
+      location +=
+      (location ? " • " : "") +
+      escapeHtml(item.country);
+    }
+
+    card.innerHTML = `
+
+      <p class="event-date">
+        ${
+          item.event_date
+          ? escapeHtml(formatDate(item.event_date))
+          : "DATE TBA"
+        }
+        ${
+          item.event_time
+          ? " • " + escapeHtml(item.event_time)
+          : ""
+        }
+      </p>
+
+      <h3>
+        ${escapeHtml(item.title || "Kharvie Event")}
+      </h3>
+
+      <p class="event-location">
+        ${location || "Location TBA"}
+      </p>
+
+      ${
+        item.description
+        ? `<p class="meta">${escapeHtml(item.description)}</p>`
+        : ""
+      }
+
+      ${
+        ticket
+        ? `<a class="small-btn"
+        href="${escapeHtml(ticket)}"
+        target="_blank"
+        rel="noopener">GET TICKETS</a>`
+        : ""
+      }
+
+    `;
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+/* ============================================================
+   START WEBSITE
+============================================================ */
+
+async function loadWebsite(){
+
+  await Promise.allSettled([
+
+    loadSongs(),
+
+    loadReleases(),
+
+    loadVideos(),
+
+    loadGallery(),
+
+    loadNews(),
+
+    loadEvents()
+
+  ]);
+
+}
+
+loadWebsite();
 
 </script>
 
