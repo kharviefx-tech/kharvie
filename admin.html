@@ -30,7 +30,10 @@
       padding: 20px;
     }
 
-    /* LOGIN */
+    /* =========================
+       LOGIN PAGE
+    ========================= */
+
     #loginPage {
       min-height: 100vh;
       display: flex;
@@ -45,7 +48,7 @@
       max-width: 420px;
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
     }
 
     .logo {
@@ -101,12 +104,18 @@
       background: #333;
     }
 
+    .login-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .message {
       margin-top: 15px;
-      padding: 10px;
+      padding: 12px;
       border-radius: 7px;
       display: none;
       font-size: 14px;
+      line-height: 1.5;
     }
 
     .error {
@@ -119,7 +128,10 @@
       color: #176b2c;
     }
 
-    /* ADMIN */
+    /* =========================
+       ADMIN PAGE
+    ========================= */
+
     #adminPage {
       display: none;
     }
@@ -150,6 +162,10 @@
       padding: 10px 15px;
     }
 
+    .logout:hover {
+      background: #c62828;
+    }
+
     .welcome {
       margin: 25px 0;
     }
@@ -174,7 +190,7 @@
       background: white;
       padding: 22px;
       border-radius: 12px;
-      box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
     }
 
     .card-title {
@@ -184,7 +200,7 @@
     }
 
     .card-number {
-      font-size: 30px;
+      font-size: 25px;
       font-weight: bold;
     }
 
@@ -193,7 +209,7 @@
       border-radius: 12px;
       padding: 25px;
       margin-bottom: 20px;
-      box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
     }
 
     .panel h2 {
@@ -208,9 +224,54 @@
     .user-email {
       font-weight: bold;
       word-break: break-all;
+      color: #222 !important;
+      margin-top: 5px;
     }
 
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      background: #e4f8e9;
+      color: #176b2c;
+    }
+
+    /* =========================
+       LOADING
+    ========================= */
+
+    #loadingPage {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .loading-box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .loading-box h2 {
+      margin-bottom: 10px;
+    }
+
+    .loading-box p {
+      color: #777;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
     @media (max-width: 750px) {
+
       .cards {
         grid-template-columns: 1fr;
       }
@@ -223,6 +284,10 @@
       .logout {
         width: 100%;
       }
+
+      .welcome h1 {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
@@ -230,13 +295,35 @@
 <body>
 
   <!-- =========================
+       LOADING PAGE
+  ========================= -->
+
+  <section id="loadingPage">
+
+    <div class="loading-box">
+
+      <h2>KHARVIE</h2>
+
+      <p>
+        Checking your account...
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
        LOGIN PAGE
-  ========================== -->
+  ========================= -->
+
   <section id="loginPage">
 
     <div class="login-box">
 
-      <div class="logo">KHARVIE</div>
+      <div class="logo">
+        KHARVIE
+      </div>
 
       <div class="subtitle">
         Admin Login
@@ -244,21 +331,27 @@
 
       <form id="loginForm">
 
-        <label for="email">Email</label>
+        <label for="email">
+          Email
+        </label>
 
         <input
           type="email"
           id="email"
           placeholder="Admin email"
+          autocomplete="email"
           required
         >
 
-        <label for="password">Password</label>
+        <label for="password">
+          Password
+        </label>
 
         <input
           type="password"
           id="password"
           placeholder="Password"
+          autocomplete="current-password"
           required
         >
 
@@ -272,7 +365,10 @@
 
       </form>
 
-      <div id="loginMessage" class="message"></div>
+      <div
+        id="loginMessage"
+        class="message"
+      ></div>
 
     </div>
 
@@ -281,7 +377,8 @@
 
   <!-- =========================
        ADMIN DASHBOARD
-  ========================== -->
+  ========================= -->
+
   <section id="adminPage">
 
     <header class="topbar">
@@ -308,7 +405,9 @@
 
       <div class="welcome">
 
-        <h1>Admin Dashboard</h1>
+        <h1>
+          Admin Dashboard
+        </h1>
 
         <p>
           Welcome to your Kharvie administration panel.
@@ -316,6 +415,8 @@
 
       </div>
 
+
+      <!-- DASHBOARD CARDS -->
 
       <div class="cards">
 
@@ -326,7 +427,9 @@
           </div>
 
           <div class="card-number">
-            Active
+            <span class="status">
+              Active
+            </span>
           </div>
 
         </div>
@@ -348,11 +451,11 @@
         <div class="card">
 
           <div class="card-title">
-            Dashboard
+            Access
           </div>
 
           <div class="card-number">
-            Ready
+            Admin
           </div>
 
         </div>
@@ -360,38 +463,67 @@
       </div>
 
 
+      <!-- ADMIN ACCOUNT -->
+
       <div class="panel">
 
-        <h2>Admin Account</h2>
+        <h2>
+          Admin Account
+        </h2>
 
         <p>
           You are currently logged in as:
         </p>
 
-        <p class="user-email" id="userEmail">
+        <p
+          class="user-email"
+          id="userEmail"
+        >
           Loading...
         </p>
 
       </div>
 
 
+      <!-- ADMIN ACCESS -->
+
       <div class="panel">
 
-        <h2>Welcome to Kharvie</h2>
+        <h2>
+          Administrator Access
+        </h2>
 
         <p>
-          Your Supabase authentication is connected successfully.
-          This dashboard is now ready for us to add the actual
-          administrative features for your website.
+          Your account has been verified against the
+          Kharvie administrator list.
         </p>
 
       </div>
 
 
+      <!-- NEXT FEATURES -->
+
+      <div class="panel">
+
+        <h2>
+          Kharvie Management
+        </h2>
+
+        <p>
+          The secure admin area is ready.
+          Management features can now be added here.
+        </p>
+
+      </div>
+
     </main>
 
   </section>
 
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
 
   <script>
 
@@ -406,19 +538,23 @@
       "sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
 
 
-    const { createClient } =
-      supabase;
+    /* =========================================
+       CREATE SUPABASE CLIENT
+    ========================================== */
 
     const supabaseClient =
-      createClient(
+      window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_PUBLISHABLE_KEY
       );
 
 
     /* =========================================
-       ELEMENTS
+       PAGE ELEMENTS
     ========================================== */
+
+    const loadingPage =
+      document.getElementById("loadingPage");
 
     const loginPage =
       document.getElementById("loginPage");
@@ -443,12 +579,72 @@
 
 
     /* =========================================
-       MESSAGE FUNCTION
+       HIDE LOADING
     ========================================== */
 
-    function showMessage(message, type) {
+    function hideLoading() {
 
-      loginMessage.textContent = message;
+      loadingPage.style.display =
+        "none";
+
+    }
+
+
+    /* =========================================
+       SHOW LOGIN
+    ========================================== */
+
+    function showLogin() {
+
+      hideLoading();
+
+      loginPage.style.display =
+        "flex";
+
+      adminPage.style.display =
+        "none";
+
+    }
+
+
+    /* =========================================
+       SHOW ADMIN
+    ========================================== */
+
+    function showAdmin(user) {
+
+      hideLoading();
+
+      loginPage.style.display =
+        "none";
+
+      adminPage.style.display =
+        "block";
+
+      if (
+        user &&
+        user.email
+      ) {
+
+        userEmail.textContent =
+          user.email;
+
+      }
+
+    }
+
+
+    /* =========================================
+       SHOW LOGIN MESSAGE
+    ========================================== */
+
+    function showMessage(
+      message,
+      type
+    ) {
+
+      loginMessage.textContent =
+        message;
 
       loginMessage.className =
         "message " + type;
@@ -460,41 +656,120 @@
 
 
     /* =========================================
-       SHOW ADMIN
+       CHECK WHETHER USER IS AN ADMIN
     ========================================== */
 
-    function showAdmin(user) {
+    async function checkAdmin(
+      userId
+    ) {
 
-      loginPage.style.display =
-        "none";
+      const {
+        data,
+        error
+      } = await supabaseClient
+        .from("admin_users")
+        .select("user_id")
+        .eq("user_id", userId)
+        .maybeSingle();
 
-      adminPage.style.display =
-        "block";
 
-      if (user && user.email) {
+      if (error) {
 
-        userEmail.textContent =
-          user.email;
+        console.error(
+          "Admin check error:",
+          error
+        );
+
+        return false;
 
       }
+
+
+      return !!data;
 
     }
 
 
     /* =========================================
-       SHOW LOGIN
+       VERIFY CURRENT SESSION
     ========================================== */
 
-    function showLogin() {
+    async function checkSession() {
 
-      loginPage.style.display =
-        "flex";
+      try {
 
-      adminPage.style.display =
-        "none";
+        const {
+          data,
+          error
+        } = await supabaseClient.auth.getSession();
 
-      userEmail.textContent =
-        "Loading...";
+
+        if (error) {
+
+          console.error(error);
+
+          showLogin();
+
+          return;
+
+        }
+
+
+        const session =
+          data.session;
+
+
+        if (
+          !session ||
+          !session.user
+        ) {
+
+          showLogin();
+
+          return;
+
+        }
+
+
+        const isAdmin =
+          await checkAdmin(
+            session.user.id
+          );
+
+
+        if (!isAdmin) {
+
+          await supabaseClient.auth.signOut();
+
+          showLogin();
+
+          showMessage(
+            "Access denied. This account is not an administrator.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        showAdmin(
+          session.user
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showLogin();
+
+        showMessage(
+          "Something went wrong while checking your account.",
+          "error"
+        );
+
+      }
 
     }
 
@@ -509,20 +784,25 @@
 
         event.preventDefault();
 
+
         const email =
-          document.getElementById("email")
-          .value
-          .trim();
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
 
         const password =
-          document.getElementById("password")
-          .value;
+          document
+            .getElementById("password")
+            .value;
+
 
         loginButton.disabled =
           true;
 
         loginButton.textContent =
-          "Logging in...";
+          "Checking...";
 
         loginMessage.style.display =
           "none";
@@ -530,14 +810,22 @@
 
         try {
 
-          const { data, error } =
-            await supabaseClient.auth.signInWithPassword({
+          /* -------------------------
+             SIGN IN
+          ------------------------- */
 
-              email: email,
+          const {
+            data,
+            error
+          } =
+            await supabaseClient.auth
+              .signInWithPassword({
 
-              password: password
+                email: email,
 
-            });
+                password: password
+
+              });
 
 
           if (error) {
@@ -547,17 +835,59 @@
           }
 
 
-          if (data.user) {
+          if (
+            !data ||
+            !data.user
+          ) {
 
-            showAdmin(data.user);
+            throw new Error(
+              "Login failed. No user account was returned."
+            );
 
           }
 
 
+          /* -------------------------
+             CHECK ADMIN TABLE
+          ------------------------- */
+
+          const isAdmin =
+            await checkAdmin(
+              data.user.id
+            );
+
+
+          if (!isAdmin) {
+
+            await supabaseClient.auth.signOut();
+
+            throw new Error(
+              "Your account is not registered as a Kharvie administrator."
+            );
+
+          }
+
+
+          /* -------------------------
+             ADMIN VERIFIED
+          ------------------------- */
+
+          showAdmin(
+            data.user
+          );
+
+
         } catch (error) {
 
+          console.error(
+            "Login error:",
+            error
+          );
+
+
           showMessage(
-            error.message || "Login failed. Please check your email and password.",
+            error.message ||
+            "Login failed. Please check your details.",
             "error"
           );
 
@@ -583,63 +913,28 @@
       "click",
       async function() {
 
-        await supabaseClient.auth.signOut();
+        logoutButton.disabled =
+          true;
 
-        showLogin();
-
-        document.getElementById("password").value =
-          "";
-
-      }
-    );
+        logoutButton.textContent =
+          "Logging out...";
 
 
-    /* =========================================
-       CHECK EXISTING SESSION
-    ========================================== */
+        try {
 
-    async function checkSession() {
+          await supabaseClient.auth.signOut();
 
-      const { data } =
-        await supabaseClient.auth.getSession();
+        } finally {
 
+          logoutButton.disabled =
+            false;
 
-      if (
-        data &&
-        data.session &&
-        data.session.user
-      ) {
+          logoutButton.textContent =
+            "Logout";
 
-        showAdmin(
-          data.session.user
-        );
-
-      } else {
-
-        showLogin();
-
-      }
-
-    }
-
-
-    /* =========================================
-       WATCH AUTHENTICATION CHANGES
-    ========================================== */
-
-    supabaseClient.auth.onAuthStateChange(
-      function(event, session) {
-
-        if (
-          session &&
-          session.user
-        ) {
-
-          showAdmin(
-            session.user
-          );
-
-        } else {
+          document
+            .getElementById("password")
+            .value = "";
 
           showLogin();
 
@@ -650,7 +945,64 @@
 
 
     /* =========================================
-       START
+       AUTH STATE CHANGES
+    ========================================== */
+
+    supabaseClient.auth.onAuthStateChange(
+      async function(
+        event,
+        session
+      ) {
+
+        if (
+          event === "SIGNED_OUT"
+        ) {
+
+          showLogin();
+
+          return;
+
+        }
+
+
+        if (
+          session &&
+          session.user
+        ) {
+
+          const isAdmin =
+            await checkAdmin(
+              session.user.id
+            );
+
+
+          if (isAdmin) {
+
+            showAdmin(
+              session.user
+            );
+
+          } else {
+
+            await supabaseClient.auth.signOut();
+
+            showLogin();
+
+            showMessage(
+              "Access denied. You are not an administrator.",
+              "error"
+            );
+
+          }
+
+        }
+
+      }
+    );
+
+
+    /* =========================================
+       START APPLICATION
     ========================================== */
 
     checkSession();
@@ -658,4 +1010,4 @@
   </script>
 
 </body>
-  </html>
+</html>
