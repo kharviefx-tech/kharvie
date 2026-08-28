@@ -3,17 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
 <title>Kharvie Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
   background:#070707;
@@ -22,24 +17,11 @@ body{
   padding:20px
 }
 
-button,input,textarea,select{
-  font:inherit
-}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
 
-button{
-  cursor:pointer
-}
-
-.container{
-  max-width:1100px;
-  margin:auto
-}
-
-.login,
-.admin{
-  max-width:1000px;
-  margin:40px auto
-}
+.container{max-width:1100px;margin:auto}
+.login,.admin{max-width:1000px;margin:40px auto}
 
 .card{
   background:#111;
@@ -48,22 +30,10 @@ button{
   margin-bottom:20px
 }
 
-h1{
-  font-size:42px;
-  margin-bottom:10px
-}
-
-h2{
-  margin-bottom:20px
-}
-
-h3{
-  margin-bottom:8px
-}
-
-p{
-  color:#999
-}
+h1{font-size:42px;margin-bottom:10px}
+h2{margin-bottom:20px}
+h3{margin-bottom:8px}
+p{color:#999}
 
 label{
   display:block;
@@ -72,9 +42,7 @@ label{
   font-size:13px
 }
 
-input,
-textarea,
-select{
+input,textarea,select{
   width:100%;
   background:#080808;
   color:#fff;
@@ -88,9 +56,7 @@ textarea{
   resize:vertical
 }
 
-input:focus,
-textarea:focus,
-select:focus{
+input:focus,textarea:focus,select:focus{
   border-color:#fff
 }
 
@@ -147,9 +113,7 @@ select:focus{
   gap:15px
 }
 
-.full{
-  grid-column:1/-1
-}
+.full{grid-column:1/-1}
 
 .item{
   background:#0b0b0b;
@@ -158,9 +122,7 @@ select:focus{
   margin-top:12px
 }
 
-.item strong{
-  font-size:18px
-}
+.item strong{font-size:18px}
 
 .item-actions{
   display:flex;
@@ -176,17 +138,9 @@ select:focus{
   color:#aaa
 }
 
-.success{
-  color:#8cff8c
-}
-
-.error{
-  color:#ff7777
-}
-
-.hidden{
-  display:none!important
-}
+.success{color:#8cff8c}
+.error{color:#ff7777}
+.hidden{display:none!important}
 
 .small{
   font-size:12px;
@@ -216,9 +170,7 @@ select:focus{
   margin-bottom:8px
 }
 
-.money-card strong{
-  font-size:30px
-}
+.money-card strong{font-size:30px}
 
 .revenue-item{
   display:flex;
@@ -244,30 +196,20 @@ select:focus{
 
 @media(max-width:700px){
 
-  body{
-    padding:12px
-  }
+  body{padding:12px}
 
-  .form-grid{
-    grid-template-columns:1fr
-  }
+  .form-grid{grid-template-columns:1fr}
 
-  .full{
-    grid-column:auto
-  }
+  .full{grid-column:auto}
 
-  h1{
-    font-size:32px
-  }
+  h1{font-size:32px}
 
   .top{
     align-items:flex-start;
     flex-direction:column
   }
 
-  .money-grid{
-    grid-template-columns:1fr
-  }
+  .money-grid{grid-template-columns:1fr}
 
   .revenue-item{
     flex-direction:column;
@@ -288,7 +230,6 @@ select:focus{
 <div class="card">
 
 <h1>KHARVIE</h1>
-
 <p>Admin Dashboard</p>
 
 <form id="loginForm">
@@ -317,10 +258,7 @@ LOGIN
 
 </form>
 
-<div
-id="loginStatus"
-class="status hidden">
-</div>
+<div id="loginStatus" class="status hidden"></div>
 
 </div>
 
@@ -329,9 +267,7 @@ class="status hidden">
 
 <!-- ADMIN -->
 
-<section
-id="adminSection"
-class="admin hidden">
+<section id="adminSection" class="admin hidden">
 
 <div class="top">
 
@@ -345,12 +281,8 @@ Manage Kharvie's official website.
 
 </div>
 
-<button
-class="btn dark"
-id="logoutBtn">
-
+<button class="btn dark" id="logoutBtn">
 LOG OUT
-
 </button>
 
 </div>
@@ -360,62 +292,43 @@ LOG OUT
 
 <div class="tabs">
 
-<button
-class="tab active"
-data-tab="songs">
+<button class="tab active" data-tab="songs">
 Songs
 </button>
 
-<button
-class="tab"
-data-tab="releases">
+<button class="tab" data-tab="releases">
 Releases
 </button>
 
-<button
-class="tab"
-data-tab="videos">
+<button class="tab" data-tab="videos">
 Videos
 </button>
 
-<button
-class="tab"
-data-tab="gallery">
+<button class="tab" data-tab="gallery">
 Gallery
 </button>
 
-<button
-class="tab"
-data-tab="posts">
+<button class="tab" data-tab="posts">
 News
 </button>
 
-<button
-class="tab"
-data-tab="events">
+<button class="tab" data-tab="events">
 Events
 </button>
 
-<button
-class="tab"
-data-tab="monetization">
+<button class="tab" data-tab="monetization">
 💰 Monetization
 </button>
 
 </div>
 
 
-<div
-id="globalStatus"
-class="status hidden">
-</div>
+<div id="globalStatus" class="status hidden"></div>
 
 
 <!-- SONGS -->
 
-<div
-class="panel"
-id="panel-songs">
+<div class="panel" id="panel-songs">
 
 <div class="card">
 
@@ -432,9 +345,7 @@ id="panel-songs">
 
 <div>
 <label>Artist</label>
-<input
-id="song_artist"
-value="Kharvie">
+<input id="song_artist" value="Kharvie">
 </div>
 
 <div>
@@ -444,51 +355,37 @@ value="Kharvie">
 
 <div>
 <label>Release Date</label>
-<input
-id="song_release_date"
-type="date">
+<input id="song_release_date" type="date">
 </div>
 
 <div class="full">
 <label>Cover Image URL</label>
-<input
-id="song_cover_url"
-type="url">
+<input id="song_cover_url" type="url">
 </div>
 
 <div class="full">
 <label>Audio URL</label>
-<input
-id="song_audio_url"
-type="url">
+<input id="song_audio_url" type="url">
 </div>
 
 <div>
 <label>Spotify URL</label>
-<input
-id="song_spotify_url"
-type="url">
+<input id="song_spotify_url" type="url">
 </div>
 
 <div>
 <label>Apple Music URL</label>
-<input
-id="song_apple_music_url"
-type="url">
+<input id="song_apple_music_url" type="url">
 </div>
 
 <div>
 <label>YouTube URL</label>
-<input
-id="song_youtube_url"
-type="url">
+<input id="song_youtube_url" type="url">
 </div>
 
 <div>
 <label>Audiomack URL</label>
-<input
-id="song_audiomack_url"
-type="url">
+<input id="song_audiomack_url" type="url">
 </div>
 
 </div>
@@ -505,9 +402,7 @@ ADD SONG
 
 <h2>Existing Songs</h2>
 
-<div id="songsList">
-Loading...
-</div>
+<div id="songsList">Loading...</div>
 
 </div>
 
@@ -516,9 +411,7 @@ Loading...
 
 <!-- RELEASES -->
 
-<div
-class="panel hidden"
-id="panel-releases">
+<div class="panel hidden" id="panel-releases">
 
 <div class="card">
 
@@ -538,21 +431,10 @@ id="panel-releases">
 
 <select id="release_type">
 
-<option value="Single">
-Single
-</option>
-
-<option value="EP">
-EP
-</option>
-
-<option value="Album">
-Album
-</option>
-
-<option value="Mixtape">
-Mixtape
-</option>
+<option value="Single">Single</option>
+<option value="EP">EP</option>
+<option value="Album">Album</option>
+<option value="Mixtape">Mixtape</option>
 
 </select>
 
@@ -560,50 +442,37 @@ Mixtape
 
 <div>
 <label>Release Date</label>
-<input
-id="release_date"
-type="date">
+<input id="release_date" type="date">
 </div>
 
 <div>
 <label>Cover Image URL</label>
-<input
-id="release_cover_url"
-type="url">
+<input id="release_cover_url" type="url">
 </div>
 
 <div class="full">
 <label>Description</label>
-<textarea
-id="release_description"></textarea>
+<textarea id="release_description"></textarea>
 </div>
 
 <div>
 <label>Spotify URL</label>
-<input
-id="release_spotify_url"
-type="url">
+<input id="release_spotify_url" type="url">
 </div>
 
 <div>
 <label>Apple Music URL</label>
-<input
-id="release_apple_music_url"
-type="url">
+<input id="release_apple_music_url" type="url">
 </div>
 
 <div>
 <label>YouTube URL</label>
-<input
-id="release_youtube_url"
-type="url">
+<input id="release_youtube_url" type="url">
 </div>
 
 <div>
 <label>Audiomack URL</label>
-<input
-id="release_audiomack_url"
-type="url">
+<input id="release_audiomack_url" type="url">
 </div>
 
 </div>
@@ -620,9 +489,7 @@ ADD RELEASE
 
 <h2>Existing Releases</h2>
 
-<div id="releasesList">
-Loading...
-</div>
+<div id="releasesList">Loading...</div>
 
 </div>
 
@@ -631,9 +498,7 @@ Loading...
 
 <!-- VIDEOS -->
 
-<div
-class="panel hidden"
-id="panel-videos">
+<div class="panel hidden" id="panel-videos">
 
 <div class="card">
 
@@ -645,20 +510,13 @@ id="panel-videos">
 <input id="video_title" required>
 
 <label>Platform</label>
-<input
-id="video_platform"
-placeholder="YouTube">
+<input id="video_platform" placeholder="YouTube">
 
 <label>Video URL</label>
-<input
-id="video_url"
-type="url"
-required>
+<input id="video_url" type="url" required>
 
 <label>Release Date</label>
-<input
-id="video_release_date"
-type="date">
+<input id="video_release_date" type="date">
 
 <button class="btn" type="submit">
 ADD VIDEO
@@ -672,9 +530,7 @@ ADD VIDEO
 
 <h2>Existing Videos</h2>
 
-<div id="videosList">
-Loading...
-</div>
+<div id="videosList">Loading...</div>
 
 </div>
 
@@ -683,9 +539,7 @@ Loading...
 
 <!-- GALLERY -->
 
-<div
-class="panel hidden"
-id="panel-gallery">
+<div class="panel hidden" id="panel-gallery">
 
 <div class="card">
 
@@ -698,7 +552,8 @@ id="panel-gallery">
 <input
 id="gallery_image_url"
 type="url"
-required>
+required
+>
 
 <label>Title</label>
 
@@ -716,9 +571,7 @@ ADD PHOTO
 
 <h2>Existing Gallery</h2>
 
-<div id="galleryList">
-Loading...
-</div>
+<div id="galleryList">Loading...</div>
 
 </div>
 
@@ -727,9 +580,7 @@ Loading...
 
 <!-- NEWS -->
 
-<div
-class="panel hidden"
-id="panel-posts">
+<div class="panel hidden" id="panel-posts">
 
 <div class="card">
 
@@ -738,22 +589,16 @@ id="panel-posts">
 <form id="postForm">
 
 <label>Title</label>
-
 <input id="post_title" required>
 
 <label>Excerpt</label>
-
 <textarea id="post_excerpt"></textarea>
 
 <label>Content</label>
-
 <textarea id="post_content"></textarea>
 
 <label>Published Date</label>
-
-<input
-id="post_published_at"
-type="date">
+<input id="post_published_at" type="date">
 
 <label>
 
@@ -761,7 +606,8 @@ type="date">
 id="post_is_published"
 type="checkbox"
 checked
-style="width:auto">
+style="width:auto"
+>
 
 Publish immediately
 
@@ -779,9 +625,7 @@ ADD NEWS
 
 <h2>Existing News</h2>
 
-<div id="postsList">
-Loading...
-</div>
+<div id="postsList">Loading...</div>
 
 </div>
 
@@ -790,9 +634,7 @@ Loading...
 
 <!-- EVENTS -->
 
-<div
-class="panel hidden"
-id="panel-events">
+<div class="panel hidden" id="panel-events">
 
 <div class="card">
 
@@ -809,10 +651,7 @@ id="panel-events">
 
 <div>
 <label>Event Date</label>
-<input
-id="event_date"
-type="date"
-required>
+<input id="event_date" type="date" required>
 </div>
 
 <div>
@@ -832,9 +671,7 @@ required>
 
 <div>
 <label>Country</label>
-<input
-id="event_country"
-value="Nigeria">
+<input id="event_country" value="Nigeria">
 </div>
 
 <div class="full">
@@ -844,9 +681,7 @@ value="Nigeria">
 
 <div class="full">
 <label>Ticket URL</label>
-<input
-id="event_ticket_url"
-type="url">
+<input id="event_ticket_url" type="url">
 </div>
 
 </div>
@@ -863,20 +698,18 @@ ADD EVENT
 
 <h2>Existing Events</h2>
 
-<div id="eventsList">
-Loading...
-</div>
+<div id="eventsList">Loading...</div>
 
 </div>
 
 </div>
 
 
-<!-- MONETIZATION -->
+<!-- =====================================================
+     MONETIZATION
+===================================================== -->
 
-<div
-class="panel hidden"
-id="panel-monetization">
+<div class="panel hidden" id="panel-monetization">
 
 <div class="card">
 
@@ -890,33 +723,27 @@ Track Kharvie's music and website revenue.
 
 <div class="money-card">
 
-<span>
-TOTAL REVENUE
-</span>
+<span>TOTAL REVENUE</span>
 
 <strong id="totalRevenue">
-₦0
+₦0.00
 </strong>
 
 </div>
 
 <div class="money-card">
 
-<span>
-THIS MONTH
-</span>
+<span>THIS MONTH</span>
 
 <strong id="monthlyRevenue">
-₦0
+₦0.00
 </strong>
 
 </div>
 
 <div class="money-card">
 
-<span>
-RECORDS
-</span>
+<span>RECORDS</span>
 
 <strong id="revenueCount">
 0
@@ -939,59 +766,22 @@ RECORDS
 
 <div>
 
-<label>
-Revenue Source
-</label>
+<label>Revenue Type</label>
 
-<select id="revenue_source">
+<select id="revenue_type" required>
 
-<option value="Streaming">
-Streaming
-</option>
-
-<option value="YouTube">
-YouTube
-</option>
-
-<option value="Audiomack">
-Audiomack
-</option>
-
-<option value="Spotify">
-Spotify
-</option>
-
-<option value="Apple Music">
-Apple Music
-</option>
-
-<option value="Boomplay">
-Boomplay
-</option>
-
-<option value="Music Sales">
-Music Sales
-</option>
-
-<option value="Shows">
-Shows / Performances
-</option>
-
-<option value="Bookings">
-Bookings
-</option>
-
-<option value="Brand Deal">
-Brand Deal
-</option>
-
-<option value="Website">
-Website
-</option>
-
-<option value="Other">
-Other
-</option>
+<option value="Streaming">Streaming</option>
+<option value="YouTube">YouTube</option>
+<option value="Audiomack">Audiomack</option>
+<option value="Spotify">Spotify</option>
+<option value="Apple Music">Apple Music</option>
+<option value="Boomplay">Boomplay</option>
+<option value="Music Sales">Music Sales</option>
+<option value="Shows">Shows / Performances</option>
+<option value="Bookings">Bookings</option>
+<option value="Brand Deal">Brand Deal</option>
+<option value="Website">Website</option>
+<option value="Other">Other</option>
 
 </select>
 
@@ -1000,44 +790,54 @@ Other
 
 <div>
 
-<label>
-Amount
-</label>
+<label>Revenue Source</label>
+
+<select id="revenue_source" required>
+
+<option value="Streaming">Streaming</option>
+<option value="YouTube">YouTube</option>
+<option value="Audiomack">Audiomack</option>
+<option value="Spotify">Spotify</option>
+<option value="Apple Music">Apple Music</option>
+<option value="Boomplay">Boomplay</option>
+<option value="Music Sales">Music Sales</option>
+<option value="Shows">Shows / Performances</option>
+<option value="Bookings">Bookings</option>
+<option value="Brand Deal">Brand Deal</option>
+<option value="Website">Website</option>
+<option value="Other">Other</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Amount</label>
 
 <input
 id="revenue_amount"
 type="number"
 step="0.01"
 min="0"
-placeholder="0"
-required>
+placeholder="0.00"
+required
+>
 
 </div>
 
 
 <div>
 
-<label>
-Currency
-</label>
+<label>Currency</label>
 
 <select id="revenue_currency">
 
-<option value="NGN">
-NGN ₦
-</option>
-
-<option value="USD">
-USD $
-</option>
-
-<option value="GBP">
-GBP £
-</option>
-
-<option value="EUR">
-EUR €
-</option>
+<option value="NGN">NGN ₦</option>
+<option value="USD">USD $</option>
+<option value="GBP">GBP £</option>
+<option value="EUR">EUR €</option>
 
 </select>
 
@@ -1046,38 +846,32 @@ EUR €
 
 <div>
 
-<label>
-Revenue Date
-</label>
+<label>Revenue Date</label>
 
 <input
 id="revenue_date"
 type="date"
-required>
+required
+>
 
 </div>
 
 
 <div class="full">
 
-<label>
-Description
-</label>
+<label>Description</label>
 
 <textarea
 id="revenue_description"
-placeholder="Example: Spotify earnings for July 2026"></textarea>
+placeholder="Example: Spotify earnings for July 2026">
+</textarea>
 
 </div>
 
 </div>
 
-<button
-class="btn"
-type="submit">
-
+<button class="btn" type="submit">
 ADD REVENUE
-
 </button>
 
 </form>
@@ -1104,9 +898,9 @@ Loading...
 
 <script>
 
-/* ============================================================
+/* =====================================================
    SUPABASE
-============================================================ */
+===================================================== */
 
 const SUPABASE_URL =
 "https://dprulohylwgzmetgrywj.supabase.co";
@@ -1122,9 +916,9 @@ const db = createClient(
 );
 
 
-/* ============================================================
+/* =====================================================
    ELEMENTS
-============================================================ */
+===================================================== */
 
 const loginSection =
 document.getElementById("loginSection");
@@ -1142,25 +936,22 @@ const globalStatus =
 document.getElementById("globalStatus");
 
 
-/* ============================================================
+/* =====================================================
    STATUS
-============================================================ */
+===================================================== */
 
 function status(message,type=""){
 
   globalStatus.textContent = message;
 
   globalStatus.className =
-  "status " + type;
+    "status " + type;
 
   globalStatus.classList.remove("hidden");
 
   setTimeout(() => {
-
     globalStatus.classList.add("hidden");
-
   },5000);
-
 }
 
 
@@ -1169,32 +960,26 @@ function loginMessage(message,type=""){
   loginStatus.textContent = message;
 
   loginStatus.className =
-  "status " + type;
+    "status " + type;
 
   loginStatus.classList.remove("hidden");
-
 }
 
 
-/* ============================================================
+/* =====================================================
    AUTH
-============================================================ */
+===================================================== */
 
 async function checkUser(){
 
   const {data} =
-  await db.auth.getSession();
+    await db.auth.getSession();
 
   if(data && data.session){
-
     showAdmin();
-
   }else{
-
     showLogin();
-
   }
-
 }
 
 
@@ -1205,7 +990,6 @@ function showAdmin(){
   adminSection.classList.remove("hidden");
 
   loadAll();
-
 }
 
 
@@ -1214,140 +998,131 @@ function showLogin(){
   adminSection.classList.add("hidden");
 
   loginSection.classList.remove("hidden");
-
 }
 
 
 loginForm.addEventListener(
-"submit",
-async function(event){
+  "submit",
+  async function(event){
 
-  event.preventDefault();
+    event.preventDefault();
 
-  loginMessage("Logging in...");
+    loginMessage("Logging in...");
 
-  const email =
-  document.getElementById("email").value.trim();
+    const email =
+      document.getElementById("email")
+      .value.trim();
 
-  const password =
-  document.getElementById("password").value;
+    const password =
+      document.getElementById("password")
+      .value;
 
-  const {error} =
-  await db.auth.signInWithPassword({
+    const {error} =
+      await db.auth.signInWithPassword({
+        email,
+        password
+      });
 
-    email,
-    password
+    if(error){
 
-  });
+      loginMessage(
+        error.message,
+        "error"
+      );
 
-  if(error){
+      return;
+    }
 
     loginMessage(
-      error.message,
-      "error"
+      "Login successful.",
+      "success"
     );
 
-    return;
-
+    showAdmin();
   }
-
-  loginMessage(
-    "Login successful.",
-    "success"
-  );
-
-  showAdmin();
-
-});
+);
 
 
 document
 .getElementById("logoutBtn")
 .addEventListener(
-"click",
-async function(){
+  "click",
+  async function(){
 
-  await db.auth.signOut();
+    await db.auth.signOut();
 
-  showLogin();
-
-});
+    showLogin();
+  }
+);
 
 
 db.auth.onAuthStateChange(
-function(event,session){
+  function(event,session){
 
-  if(session){
-
-    showAdmin();
-
-  }else{
-
-    showLogin();
-
+    if(session){
+      showAdmin();
+    }else{
+      showLogin();
+    }
   }
+);
 
-});
 
-
-/* ============================================================
+/* =====================================================
    TABS
-============================================================ */
+===================================================== */
 
 document
 .querySelectorAll(".tab")
 .forEach(button => {
 
   button.addEventListener(
-  "click",
-  function(){
+    "click",
+    function(){
 
-    document
-    .querySelectorAll(".tab")
-    .forEach(b =>
-      b.classList.remove("active")
-    );
+      document
+      .querySelectorAll(".tab")
+      .forEach(b =>
+        b.classList.remove("active")
+      );
 
-    this.classList.add("active");
+      this.classList.add("active");
 
-    document
-    .querySelectorAll(".panel")
-    .forEach(panel =>
-      panel.classList.add("hidden")
-    );
+      document
+      .querySelectorAll(".panel")
+      .forEach(panel =>
+        panel.classList.add("hidden")
+      );
 
-    document
-    .getElementById(
-      "panel-" + this.dataset.tab
-    )
-    .classList.remove("hidden");
+      document
+      .getElementById(
+        "panel-" + this.dataset.tab
+      )
+      .classList.remove("hidden");
 
-  });
+    }
+  );
 
 });
 
 
-/* ============================================================
+/* =====================================================
    DELETE
-============================================================ */
+===================================================== */
 
 async function deleteRow(table,id){
 
-  if(
-    !confirm(
-      "Are you sure you want to delete this item?"
-    )
-  ){
-
+  if(!confirm(
+    "Are you sure you want to delete this item?"
+  )){
     return;
-
   }
 
   const {error} =
-  await db
-  .from(table)
-  .delete()
-  .eq("id",id);
+    await db
+    .from(table)
+    .delete()
+    .eq("id",id);
 
   if(error){
 
@@ -1357,7 +1132,6 @@ async function deleteRow(table,id){
     );
 
     return;
-
   }
 
   status(
@@ -1366,561 +1140,636 @@ async function deleteRow(table,id){
   );
 
   loadAll();
-
 }
 
 
-/* ============================================================
+/* =====================================================
    SONGS
-============================================================ */
+===================================================== */
 
 document
 .getElementById("songForm")
 .addEventListener(
-"submit",
-async function(event){
+  "submit",
+  async function(event){
 
-  event.preventDefault();
+    event.preventDefault();
 
-  const {error} =
-  await db
-  .from("songs")
-  .insert({
+    const {error} =
+      await db
+      .from("songs")
+      .insert({
 
-    title:
-    document.getElementById(
-      "song_title"
-    ).value.trim(),
+        title:
+          document.getElementById(
+            "song_title"
+          ).value.trim(),
 
-    artist:
+        artist:
+          document.getElementById(
+            "song_artist"
+          ).value.trim() || "Kharvie",
+
+        genre:
+          document.getElementById(
+            "song_genre"
+          ).value.trim(),
+
+        release_date:
+          document.getElementById(
+            "song_release_date"
+          ).value || null,
+
+        cover_url:
+          document.getElementById(
+            "song_cover_url"
+          ).value.trim(),
+
+        audio_url:
+          document.getElementById(
+            "song_audio_url"
+          ).value.trim(),
+
+        spotify_url:
+          document.getElementById(
+            "song_spotify_url"
+          ).value.trim(),
+
+        apple_music_url:
+          document.getElementById(
+            "song_apple_music_url"
+          ).value.trim(),
+
+        youtube_url:
+          document.getElementById(
+            "song_youtube_url"
+          ).value.trim(),
+
+        audiomack_url:
+          document.getElementById(
+            "song_audiomack_url"
+          ).value.trim()
+
+      });
+
+    if(error){
+
+      status(
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    this.reset();
+
     document.getElementById(
       "song_artist"
-    ).value.trim() || "Kharvie",
-
-    genre:
-    document.getElementById(
-      "song_genre"
-    ).value.trim(),
-
-    release_date:
-    document.getElementById(
-      "song_release_date"
-    ).value || null,
-
-    cover_url:
-    document.getElementById(
-      "song_cover_url"
-    ).value.trim(),
-
-    audio_url:
-    document.getElementById(
-      "song_audio_url"
-    ).value.trim(),
-
-    spotify_url:
-    document.getElementById(
-      "song_spotify_url"
-    ).value.trim(),
-
-    apple_music_url:
-    document.getElementById(
-      "song_apple_music_url"
-    ).value.trim(),
-
-    youtube_url:
-    document.getElementById(
-      "song_youtube_url"
-    ).value.trim(),
-
-    audiomack_url:
-    document.getElementById(
-      "song_audiomack_url"
-    ).value.trim()
-
-  });
-
-  if(error){
+    ).value = "Kharvie";
 
     status(
-      error.message,
-      "error"
+      "Song added successfully.",
+      "success"
     );
 
-    return;
-
+    loadSongs();
   }
-
-  this.reset();
-
-  document.getElementById(
-    "song_artist"
-  ).value = "Kharvie";
-
-  status(
-    "Song added successfully.",
-    "success"
-  );
-
-  loadSongs();
-
-});
+);
 
 
-/* ============================================================
+/* =====================================================
    RELEASES
-============================================================ */
+===================================================== */
 
 document
 .getElementById("releaseForm")
 .addEventListener(
-"submit",
-async function(event){
+  "submit",
+  async function(event){
 
-  event.preventDefault();
+    event.preventDefault();
 
-  const {error} =
-  await db
-  .from("releases")
-  .insert({
+    const {error} =
+      await db
+      .from("releases")
+      .insert({
 
-    title:
-    document.getElementById(
-      "release_title"
-    ).value.trim(),
+        title:
+          document.getElementById(
+            "release_title"
+          ).value.trim(),
 
-    release_type:
-    document.getElementById(
-      "release_type"
-    ).value,
+        release_type:
+          document.getElementById(
+            "release_type"
+          ).value,
 
-    release_date:
-    document.getElementById(
-      "release_date"
-    ).value || null,
+        release_date:
+          document.getElementById(
+            "release_date"
+          ).value || null,
 
-    cover_url:
-    document.getElementById(
-      "release_cover_url"
-    ).value.trim(),
+        cover_url:
+          document.getElementById(
+            "release_cover_url"
+          ).value.trim(),
 
-    description:
-    document.getElementById(
-      "release_description"
-    ).value.trim(),
+        description:
+          document.getElementById(
+            "release_description"
+          ).value.trim(),
 
-    spotify_url:
-    document.getElementById(
-      "release_spotify_url"
-    ).value.trim(),
+        spotify_url:
+          document.getElementById(
+            "release_spotify_url"
+          ).value.trim(),
 
-    apple_music_url:
-    document.getElementById(
-      "release_apple_music_url"
-    ).value.trim(),
+        apple_music_url:
+          document.getElementById(
+            "release_apple_music_url"
+          ).value.trim(),
 
-    youtube_url:
-    document.getElementById(
-      "release_youtube_url"
-    ).value.trim(),
+        youtube_url:
+          document.getElementById(
+            "release_youtube_url"
+          ).value.trim(),
 
-    audiomack_url:
-    document.getElementById(
-      "release_audiomack_url"
-    ).value.trim()
+        audiomack_url:
+          document.getElementById(
+            "release_audiomack_url"
+          ).value.trim()
 
-  });
+      });
 
-  if(error){
+    if(error){
+
+      status(
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    this.reset();
 
     status(
-      error.message,
-      "error"
+      "Release added successfully.",
+      "success"
     );
 
-    return;
-
+    loadReleases();
   }
-
-  this.reset();
-
-  status(
-    "Release added successfully.",
-    "success"
-  );
-
-  loadReleases();
-
-});
+);
 
 
-/* ============================================================
+/* =====================================================
    VIDEOS
-============================================================ */
+===================================================== */
 
 document
 .getElementById("videoForm")
 .addEventListener(
-"submit",
-async function(event){
+  "submit",
+  async function(event){
 
-  event.preventDefault();
+    event.preventDefault();
 
-  const {error} =
-  await db
-  .from("videos")
-  .insert({
+    const {error} =
+      await db
+      .from("videos")
+      .insert({
 
-    title:
-    document.getElementById(
-      "video_title"
-    ).value.trim(),
+        title:
+          document.getElementById(
+            "video_title"
+          ).value.trim(),
 
-    platform:
-    document.getElementById(
-      "video_platform"
-    ).value.trim(),
+        platform:
+          document.getElementById(
+            "video_platform"
+          ).value.trim(),
 
-    video_url:
-    document.getElementById(
-      "video_url"
-    ).value.trim(),
+        video_url:
+          document.getElementById(
+            "video_url"
+          ).value.trim(),
 
-    release_date:
-    document.getElementById(
-      "video_release_date"
-    ).value || null
+        release_date:
+          document.getElementById(
+            "video_release_date"
+          ).value || null
 
-  });
+      });
 
-  if(error){
+    if(error){
+
+      status(
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    this.reset();
 
     status(
-      error.message,
-      "error"
+      "Video added successfully.",
+      "success"
     );
 
-    return;
-
+    loadVideos();
   }
-
-  this.reset();
-
-  status(
-    "Video added successfully.",
-    "success"
-  );
-
-  loadVideos();
-
-});
+);
 
 
-/* ============================================================
+/* =====================================================
    GALLERY
-============================================================ */
+===================================================== */
 
 document
 .getElementById("galleryForm")
 .addEventListener(
-"submit",
-async function(event){
+  "submit",
+  async function(event){
 
-  event.preventDefault();
+    event.preventDefault();
 
-  const {error} =
-  await db
-  .from("gallery")
-  .insert({
+    const {error} =
+      await db
+      .from("gallery")
+      .insert({
 
-    image_url:
-    document.getElementById(
-      "gallery_image_url"
-    ).value.trim(),
+        image_url:
+          document.getElementById(
+            "gallery_image_url"
+          ).value.trim(),
 
-    title:
-    document.getElementById(
-      "gallery_title"
-    ).value.trim()
+        title:
+          document.getElementById(
+            "gallery_title"
+          ).value.trim()
 
-  });
+      });
 
-  if(error){
+    if(error){
+
+      status(
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    this.reset();
 
     status(
-      error.message,
-      "error"
+      "Photo added successfully.",
+      "success"
     );
 
-    return;
-
+    loadGallery();
   }
-
-  this.reset();
-
-  status(
-    "Photo added successfully.",
-    "success"
-  );
-
-  loadGallery();
-
-});
+);
 
 
-/* ============================================================
+/* =====================================================
    NEWS
-============================================================ */
+===================================================== */
 
 document
 .getElementById("postForm")
 .addEventListener(
-"submit",
-async function(event){
+  "submit",
+  async function(event){
 
-  event.preventDefault();
+    event.preventDefault();
 
-  const {error} =
-  await db
-  .from("posts")
-  .insert({
+    const {error} =
+      await db
+      .from("posts")
+      .insert({
 
-    title:
-    document.getElementById(
-      "post_title"
-    ).value.trim(),
+        title:
+          document.getElementById(
+            "post_title"
+          ).value.trim(),
 
-    excerpt:
-    document.getElementById(
-      "post_excerpt"
-    ).value.trim(),
+        excerpt:
+          document.getElementById(
+            "post_excerpt"
+          ).value.trim(),
 
-    content:
-    document.getElementById(
-      "post_content"
-    ).value.trim(),
+        content:
+          document.getElementById(
+            "post_content"
+          ).value.trim(),
 
-    published_at:
-    document.getElementById(
-      "post_published_at"
-    ).value || null,
+        published_at:
+          document.getElementById(
+            "post_published_at"
+          ).value || null,
 
-    is_published:
+        is_published:
+          document.getElementById(
+            "post_is_published"
+          ).checked
+
+      });
+
+    if(error){
+
+      status(
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    this.reset();
+
     document.getElementById(
       "post_is_published"
-    ).checked
-
-  });
-
-  if(error){
+    ).checked = true;
 
     status(
-      error.message,
-      "error"
+      "News added successfully.",
+      "success"
     );
 
-    return;
-
+    loadPosts();
   }
-
-  this.reset();
-
-  document.getElementById(
-    "post_is_published"
-  ).checked = true;
-
-  status(
-    "News added successfully.",
-    "success"
-  );
-
-  loadPosts();
-
-});
+);
 
 
-/* ============================================================
+/* =====================================================
    EVENTS
-============================================================ */
+===================================================== */
 
 document
 .getElementById("eventForm")
 .addEventListener(
-"submit",
-async function(event){
+  "submit",
+  async function(event){
 
-  event.preventDefault();
+    event.preventDefault();
 
-  const {error} =
-  await db
-  .from("events")
-  .insert({
+    const {error} =
+      await db
+      .from("events")
+      .insert({
 
-    title:
-    document.getElementById(
-      "event_title"
-    ).value.trim(),
+        title:
+          document.getElementById(
+            "event_title"
+          ).value.trim(),
 
-    event_date:
-    document.getElementById(
-      "event_date"
-    ).value,
+        event_date:
+          document.getElementById(
+            "event_date"
+          ).value,
 
-    event_time:
-    document.getElementById(
-      "event_time"
-    ).value.trim(),
+        event_time:
+          document.getElementById(
+            "event_time"
+          ).value.trim(),
 
-    venue:
-    document.getElementById(
-      "event_venue"
-    ).value.trim(),
+        venue:
+          document.getElementById(
+            "event_venue"
+          ).value.trim(),
 
-    city:
-    document.getElementById(
-      "event_city"
-    ).value.trim(),
+        city:
+          document.getElementById(
+            "event_city"
+          ).value.trim(),
 
-    country:
+        country:
+          document.getElementById(
+            "event_country"
+          ).value.trim(),
+
+        description:
+          document.getElementById(
+            "event_description"
+          ).value.trim(),
+
+        ticket_url:
+          document.getElementById(
+            "event_ticket_url"
+          ).value.trim()
+
+      });
+
+    if(error){
+
+      status(
+        error.message,
+        "error"
+      );
+
+      return;
+    }
+
+    this.reset();
+
     document.getElementById(
       "event_country"
-    ).value.trim(),
-
-    description:
-    document.getElementById(
-      "event_description"
-    ).value.trim(),
-
-    ticket_url:
-    document.getElementById(
-      "event_ticket_url"
-    ).value.trim()
-
-  });
-
-  if(error){
+    ).value = "Nigeria";
 
     status(
-      error.message,
-      "error"
+      "Event added successfully.",
+      "success"
     );
 
-    return;
-
+    loadEvents();
   }
-
-  this.reset();
-
-  document.getElementById(
-    "event_country"
-  ).value = "Nigeria";
-
-  status(
-    "Event added successfully.",
-    "success"
-  );
-
-  loadEvents();
-
-});
+);
 
 
-/* ============================================================
+/* =====================================================
    MONETIZATION
-============================================================ */
+===================================================== */
 
 document
 .getElementById("revenueForm")
 .addEventListener(
-"submit",
-async function(event){
+  "submit",
+  async function(event){
 
-  event.preventDefault();
+    event.preventDefault();
 
-  const amount =
-  Number(
+    const amount =
+      Number(
+        document.getElementById(
+          "revenue_amount"
+        ).value
+      );
+
+    if(
+      !Number.isFinite(amount) ||
+      amount < 0
+    ){
+
+      status(
+        "Enter a valid revenue amount.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    const type =
+      document.getElementById(
+        "revenue_type"
+      ).value;
+
+
+    const source =
+      document.getElementById(
+        "revenue_source"
+      ).value;
+
+
+    const currency =
+      document.getElementById(
+        "revenue_currency"
+      ).value;
+
+
+    const revenueDate =
+      document.getElementById(
+        "revenue_date"
+      ).value;
+
+
+    const description =
+      document.getElementById(
+        "revenue_description"
+      ).value.trim();
+
+
+    /*
+      IMPORTANT:
+      The monetization table requires "type".
+      We now send it explicitly.
+    */
+
+    const {error} =
+      await db
+      .from("monetization")
+      .insert({
+
+        type: type,
+
+        source: source,
+
+        amount: amount,
+
+        currency: currency,
+
+        revenue_date:
+          revenueDate || null,
+
+        description:
+          description || null
+
+      });
+
+
+    if(error){
+
+      status(
+        error.message,
+        "error"
+      );
+
+      console.error(
+        "Monetization error:",
+        error
+      );
+
+      return;
+    }
+
+
+    this.reset();
+
+
+    /*
+      Restore useful defaults
+    */
+
     document.getElementById(
-      "revenue_amount"
-    ).value
-  );
+      "revenue_type"
+    ).value = "Streaming";
 
-  if(
-    !Number.isFinite(amount) ||
-    amount < 0
-  ){
-
-    status(
-      "Enter a valid revenue amount.",
-      "error"
-    );
-
-    return;
-
-  }
-
-  /*
-    IMPORTANT:
-    The monetization table requires
-    the "type" column.
-  */
-
-  const {error} =
-  await db
-  .from("monetization")
-  .insert({
-
-    type: "revenue",
-
-    source:
     document.getElementById(
       "revenue_source"
-    ).value,
+    ).value = "Streaming";
 
-    amount:
-    amount,
-
-    currency:
     document.getElementById(
       "revenue_currency"
-    ).value,
+    ).value = "NGN";
 
-    revenue_date:
-    document.getElementById(
-      "revenue_date"
-    ).value,
 
-    description:
-    document.getElementById(
-      "revenue_description"
-    ).value.trim()
+    setToday();
 
-  });
-
-  if(error){
 
     status(
-      error.message,
-      "error"
+      "Revenue added successfully.",
+      "success"
     );
 
-    return;
+
+    loadMonetization();
 
   }
-
-  this.reset();
-
-  status(
-    "Revenue added successfully.",
-    "success"
-  );
-
-  loadMonetization();
-
-});
+);
 
 
-/* ============================================================
+/* =====================================================
+   SET TODAY
+===================================================== */
+
+function setToday(){
+
+  const today =
+    new Date();
+
+  const year =
+    today.getFullYear();
+
+  const month =
+    String(
+      today.getMonth() + 1
+    ).padStart(2,"0");
+
+  const day =
+    String(
+      today.getDate()
+    ).padStart(2,"0");
+
+  const input =
+    document.getElementById(
+      "revenue_date"
+    );
+
+  if(input){
+    input.value =
+      `${year}-${month}-${day}`;
+  }
+}
+
+
+/* =====================================================
    RENDER LIST
-============================================================ */
+===================================================== */
 
 function renderList(
   elementId,
@@ -1930,9 +1779,9 @@ function renderList(
 ){
 
   const element =
-  document.getElementById(
-    elementId
-  );
+    document.getElementById(
+      elementId
+    );
 
   if(
     !data ||
@@ -1940,24 +1789,27 @@ function renderList(
   ){
 
     element.innerHTML =
-    "<p>No items yet.</p>";
+      "<p>No items yet.</p>";
 
     return;
-
   }
 
+
   element.innerHTML = "";
+
 
   data.forEach(item => {
 
     const div =
-    document.createElement("div");
+      document.createElement("div");
 
     div.className = "item";
 
+
     const title =
-    item[titleField] ||
-    "Untitled";
+      item[titleField] ||
+      "Untitled";
+
 
     div.innerHTML = `
 
@@ -1987,6 +1839,7 @@ function renderList(
 
     `;
 
+
     element.appendChild(div);
 
   });
@@ -1996,47 +1849,42 @@ function renderList(
 
 function escapeHtml(value){
 
-  return String(value ?? "")
-
+  return String(
+    value ?? ""
+  )
   .replace(/&/g,"&amp;")
-
   .replace(/</g,"&lt;")
-
   .replace(/>/g,"&gt;")
-
   .replace(/"/g,"&quot;")
-
   .replace(/'/g,"&#039;");
-
 }
 
 
-/* ============================================================
+/* =====================================================
    LOAD SONGS
-============================================================ */
+===================================================== */
 
 async function loadSongs(){
 
   const {data,error} =
-  await db
-  .from("songs")
-  .select("*")
-  .order(
-    "created_at",
-    {ascending:false}
-  );
+    await db
+    .from("songs")
+    .select("*")
+    .order(
+      "created_at",
+      {ascending:false}
+    );
 
   if(error){
 
     document.getElementById(
       "songsList"
     ).innerHTML =
-    `<p class="error">
-      ${escapeHtml(error.message)}
-    </p>`;
+      `<p class="error">
+        ${escapeHtml(error.message)}
+      </p>`;
 
     return;
-
   }
 
   renderList(
@@ -2045,36 +1893,34 @@ async function loadSongs(){
     "songs",
     "title"
   );
-
 }
 
 
-/* ============================================================
+/* =====================================================
    LOAD RELEASES
-============================================================ */
+===================================================== */
 
 async function loadReleases(){
 
   const {data,error} =
-  await db
-  .from("releases")
-  .select("*")
-  .order(
-    "created_at",
-    {ascending:false}
-  );
+    await db
+    .from("releases")
+    .select("*")
+    .order(
+      "created_at",
+      {ascending:false}
+    );
 
   if(error){
 
     document.getElementById(
       "releasesList"
     ).innerHTML =
-    `<p class="error">
-      ${escapeHtml(error.message)}
-    </p>`;
+      `<p class="error">
+        ${escapeHtml(error.message)}
+      </p>`;
 
     return;
-
   }
 
   renderList(
@@ -2083,36 +1929,34 @@ async function loadReleases(){
     "releases",
     "title"
   );
-
 }
 
 
-/* ============================================================
+/* =====================================================
    LOAD VIDEOS
-============================================================ */
+===================================================== */
 
 async function loadVideos(){
 
   const {data,error} =
-  await db
-  .from("videos")
-  .select("*")
-  .order(
-    "created_at",
-    {ascending:false}
-  );
+    await db
+    .from("videos")
+    .select("*")
+    .order(
+      "created_at",
+      {ascending:false}
+    );
 
   if(error){
 
     document.getElementById(
       "videosList"
     ).innerHTML =
-    `<p class="error">
-      ${escapeHtml(error.message)}
-    </p>`;
+      `<p class="error">
+        ${escapeHtml(error.message)}
+      </p>`;
 
     return;
-
   }
 
   renderList(
@@ -2121,36 +1965,34 @@ async function loadVideos(){
     "videos",
     "title"
   );
-
 }
 
 
-/* ============================================================
+/* =====================================================
    LOAD GALLERY
-============================================================ */
+===================================================== */
 
 async function loadGallery(){
 
   const {data,error} =
-  await db
-  .from("gallery")
-  .select("*")
-  .order(
-    "created_at",
-    {ascending:false}
-  );
+    await db
+    .from("gallery")
+    .select("*")
+    .order(
+      "created_at",
+      {ascending:false}
+    );
 
   if(error){
 
     document.getElementById(
       "galleryList"
     ).innerHTML =
-    `<p class="error">
-      ${escapeHtml(error.message)}
-    </p>`;
+      `<p class="error">
+        ${escapeHtml(error.message)}
+      </p>`;
 
     return;
-
   }
 
   renderList(
@@ -2159,36 +2001,34 @@ async function loadGallery(){
     "gallery",
     "title"
   );
-
 }
 
 
-/* ============================================================
+/* =====================================================
    LOAD POSTS
-============================================================ */
+===================================================== */
 
 async function loadPosts(){
 
   const {data,error} =
-  await db
-  .from("posts")
-  .select("*")
-  .order(
-    "created_at",
-    {ascending:false}
-  );
+    await db
+    .from("posts")
+    .select("*")
+    .order(
+      "created_at",
+      {ascending:false}
+    );
 
   if(error){
 
     document.getElementById(
       "postsList"
     ).innerHTML =
-    `<p class="error">
-      ${escapeHtml(error.message)}
-    </p>`;
+      `<p class="error">
+        ${escapeHtml(error.message)}
+      </p>`;
 
     return;
-
   }
 
   renderList(
@@ -2197,36 +2037,34 @@ async function loadPosts(){
     "posts",
     "title"
   );
-
 }
 
 
-/* ============================================================
+/* =====================================================
    LOAD EVENTS
-============================================================ */
+===================================================== */
 
 async function loadEvents(){
 
   const {data,error} =
-  await db
-  .from("events")
-  .select("*")
-  .order(
-    "event_date",
-    {ascending:true}
-  );
+    await db
+    .from("events")
+    .select("*")
+    .order(
+      "event_date",
+      {ascending:true}
+    );
 
   if(error){
 
     document.getElementById(
       "eventsList"
     ).innerHTML =
-    `<p class="error">
-      ${escapeHtml(error.message)}
-    </p>`;
+      `<p class="error">
+        ${escapeHtml(error.message)}
+      </p>`;
 
     return;
-
   }
 
   renderList(
@@ -2235,40 +2073,41 @@ async function loadEvents(){
     "events",
     "title"
   );
-
 }
 
 
-/* ============================================================
+/* =====================================================
    LOAD MONETIZATION
-============================================================ */
+===================================================== */
 
 async function loadMonetization(){
 
   const list =
-  document.getElementById(
-    "revenueList"
-  );
+    document.getElementById(
+      "revenueList"
+    );
+
 
   const {data,error} =
-  await db
-  .from("monetization")
-  .select("*")
-  .order(
-    "revenue_date",
-    {ascending:false}
-  );
+    await db
+    .from("monetization")
+    .select("*")
+    .order(
+      "revenue_date",
+      {ascending:false}
+    );
+
 
   if(error){
 
     list.innerHTML =
-    `<p class="error">
-      ${escapeHtml(error.message)}
-    </p>`;
+      `<p class="error">
+        ${escapeHtml(error.message)}
+      </p>`;
 
     return;
-
   }
+
 
   if(
     !data ||
@@ -2277,77 +2116,74 @@ async function loadMonetization(){
 
     document.getElementById(
       "totalRevenue"
-    ).textContent = "₦0";
+    ).textContent = "₦0.00";
 
     document.getElementById(
       "monthlyRevenue"
-    ).textContent = "₦0";
+    ).textContent = "₦0.00";
 
     document.getElementById(
       "revenueCount"
     ).textContent = "0";
 
     list.innerHTML =
-    "<p>No revenue records yet.</p>";
+      "<p>No revenue records yet.</p>";
 
     return;
-
   }
+
 
   document.getElementById(
     "revenueCount"
   ).textContent =
-  data.length;
+    data.length;
 
-
-  /*
-    Calculate totals separately
-    for each currency.
-  */
 
   const totals = {};
+
 
   data.forEach(item => {
 
     const currency =
-    item.currency || "NGN";
+      item.currency || "NGN";
 
     const amount =
-    Number(item.amount) || 0;
+      Number(item.amount) || 0;
 
     totals[currency] =
-    (totals[currency] || 0) +
-    amount;
+      (totals[currency] || 0)
+      + amount;
 
   });
 
 
   const totalText =
-  Object.entries(totals)
-  .map(
-    ([currency,amount]) =>
-      formatMoney(
-        amount,
-        currency
-      )
-  )
-  .join(" + ");
+    Object.entries(totals)
+    .map(
+      ([currency,amount]) =>
+        formatMoney(
+          amount,
+          currency
+        )
+    )
+    .join(" + ");
 
 
   document.getElementById(
     "totalRevenue"
   ).textContent =
-  totalText || "₦0";
+    totalText || "₦0.00";
 
 
   const now =
-  new Date();
+    new Date();
 
   const currentMonth =
-  now.getMonth();
+    now.getMonth();
 
   const currentYear =
-  now.getFullYear();
+    now.getFullYear();
+
 
   const monthlyTotals = {};
 
@@ -2358,47 +2194,56 @@ async function loadMonetization(){
       return;
     }
 
+
+    /*
+      Add time safely so date-only values
+      don't shift backward because of UTC.
+    */
+
     const date =
-    new Date(
-      item.revenue_date + "T00:00:00"
-    );
+      new Date(
+        item.revenue_date +
+        "T12:00:00"
+      );
+
 
     if(
-      date.getMonth() === currentMonth &&
-      date.getFullYear() === currentYear
+      date.getMonth() ===
+      currentMonth &&
+      date.getFullYear() ===
+      currentYear
     ){
 
       const currency =
-      item.currency || "NGN";
+        item.currency || "NGN";
 
       const amount =
-      Number(item.amount) || 0;
+        Number(item.amount) || 0;
 
       monthlyTotals[currency] =
-      (monthlyTotals[currency] || 0) +
-      amount;
-
+        (monthlyTotals[currency] || 0)
+        + amount;
     }
 
   });
 
 
   const monthlyText =
-  Object.entries(monthlyTotals)
-  .map(
-    ([currency,amount]) =>
-      formatMoney(
-        amount,
-        currency
-      )
-  )
-  .join(" + ");
+    Object.entries(monthlyTotals)
+    .map(
+      ([currency,amount]) =>
+        formatMoney(
+          amount,
+          currency
+        )
+    )
+    .join(" + ");
 
 
   document.getElementById(
     "monthlyRevenue"
   ).textContent =
-  monthlyText || "₦0";
+    monthlyText || "₦0.00";
 
 
   list.innerHTML = "";
@@ -2407,13 +2252,26 @@ async function loadMonetization(){
   data.forEach(item => {
 
     const div =
-    document.createElement("div");
+      document.createElement("div");
 
     div.className =
-    "revenue-item";
+      "revenue-item";
+
 
     const amount =
-    Number(item.amount) || 0;
+      Number(item.amount) || 0;
+
+
+    const type =
+      item.type ||
+      item.source ||
+      "Other";
+
+
+    const source =
+      item.source ||
+      type;
+
 
     div.innerHTML = `
 
@@ -2432,9 +2290,14 @@ async function loadMonetization(){
 
         <div class="revenue-source">
 
-          ${escapeHtml(
-            item.source || "Other"
-          )}
+          ${escapeHtml(type)}
+
+          ${
+            source
+            ? " • " +
+              escapeHtml(source)
+            : ""
+          }
 
           ${
             item.revenue_date
@@ -2473,6 +2336,7 @@ async function loadMonetization(){
 
     `;
 
+
     list.appendChild(div);
 
   });
@@ -2480,9 +2344,9 @@ async function loadMonetization(){
 }
 
 
-/* ============================================================
+/* =====================================================
    MONEY FORMAT
-============================================================ */
+===================================================== */
 
 function formatMoney(
   amount,
@@ -2498,13 +2362,16 @@ function formatMoney(
 
   };
 
+
   const symbol =
-  symbols[currency] ||
-  currency + " ";
+    symbols[currency] ||
+    currency + " ";
+
 
   return (
     symbol +
-    Number(amount).toLocaleString(
+    Number(amount)
+    .toLocaleString(
       "en-NG",
       {
         minimumFractionDigits:2,
@@ -2512,13 +2379,12 @@ function formatMoney(
       }
     )
   );
-
 }
 
 
-/* ============================================================
+/* =====================================================
    LOAD EVERYTHING
-============================================================ */
+===================================================== */
 
 async function loadAll(){
 
@@ -2543,9 +2409,11 @@ async function loadAll(){
 }
 
 
-/* ============================================================
+/* =====================================================
    START
-============================================================ */
+===================================================== */
+
+setToday();
 
 checkUser();
 
