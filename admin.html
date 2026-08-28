@@ -1,1013 +1,3274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Kharvie Admin</title>
+<title>Kharvie Admin Dashboard</title>
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
-      min-height: 100vh;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f5f7;
+  color: #111;
+}
 
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: auto;
-      padding: 20px;
-    }
+/* LOGIN */
 
-    /* =========================
-       LOGIN PAGE
-    ========================= */
+#loginPage {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
-    #loginPage {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+.login-box {
+  background: white;
+  width: 100%;
+  max-width: 420px;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.08);
+}
 
-    .login-box {
-      background: white;
-      width: 100%;
-      max-width: 420px;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
-    }
+.logo {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
 
-    .logo {
-      text-align: center;
-      font-size: 30px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
+.login-subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 25px;
+}
 
-    .subtitle {
-      text-align: center;
-      color: #777;
-      margin-bottom: 25px;
-    }
+label {
+  display: block;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 7px;
+}
 
-    label {
-      display: block;
-      margin-bottom: 7px;
-      font-weight: bold;
-      font-size: 14px;
-    }
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-family: inherit;
+}
 
-    input {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin-bottom: 17px;
-      font-size: 15px;
-      outline: none;
-    }
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
 
-    input:focus {
-      border-color: #222;
-    }
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #111;
+}
 
-    button {
-      border: none;
-      border-radius: 8px;
-      padding: 13px 18px;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: bold;
-    }
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-    .login-button {
-      width: 100%;
-      background: #111;
-      color: white;
-    }
+.login-btn {
+  width: 100%;
+  background: #111;
+  color: white;
+  font-size: 16px;
+}
 
-    .login-button:hover {
-      background: #333;
-    }
+.message {
+  display: none;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 8px;
+  font-size: 14px;
+}
 
-    .login-button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+.error {
+  background: #ffe5e5;
+  color: #b00020;
+}
 
-    .message {
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 7px;
-      display: none;
-      font-size: 14px;
-      line-height: 1.5;
-    }
+.success {
+  background: #e5f8ea;
+  color: #176b2c;
+}
 
-    .error {
-      background: #ffe5e5;
-      color: #b00020;
-    }
+/* ADMIN */
 
-    .success {
-      background: #e4f8e9;
-      color: #176b2c;
-    }
+#adminPage {
+  display: none;
+}
 
-    /* =========================
-       ADMIN PAGE
-    ========================= */
+.header {
+  height: 65px;
+  background: #111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-    #adminPage {
-      display: none;
-    }
+.header-logo {
+  font-size: 21px;
+  font-weight: bold;
+}
 
-    .topbar {
-      background: white;
-      border-bottom: 1px solid #e5e5e5;
-    }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-    .topbar-inner {
-      max-width: 1100px;
-      margin: auto;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
+.header-email {
+  font-size: 12px;
+  opacity: .8;
+}
 
-    .brand {
-      font-size: 22px;
-      font-weight: bold;
-    }
+.logout-btn {
+  background: #e53935;
+  color: white;
+}
 
-    .logout {
-      background: #e53935;
-      color: white;
-      padding: 10px 15px;
-    }
+.layout {
+  display: flex;
+  min-height: calc(100vh - 65px);
+}
 
-    .logout:hover {
-      background: #c62828;
-    }
+.sidebar {
+  width: 240px;
+  background: white;
+  border-right: 1px solid #ddd;
+  padding: 15px;
+}
 
-    .welcome {
-      margin: 25px 0;
-    }
+.nav-btn {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  margin-bottom: 5px;
+  padding: 13px;
+  font-size: 14px;
+}
 
-    .welcome h1 {
-      font-size: 28px;
-      margin-bottom: 7px;
-    }
+.nav-btn:hover,
+.nav-btn.active {
+  background: #111;
+  color: white;
+}
 
-    .welcome p {
-      color: #777;
-    }
+.main {
+  flex: 1;
+  padding: 25px;
+  max-width: 1400px;
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-bottom: 25px;
-    }
+.section {
+  display: none;
+}
 
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 12px;
-      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
-    }
+.section.active {
+  display: block;
+}
 
-    .card-title {
-      color: #777;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
+.page-title {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
 
-    .card-number {
-      font-size: 25px;
-      font-weight: bold;
-    }
+.page-description {
+  color: #777;
+  margin-bottom: 25px;
+}
 
-    .panel {
-      background: white;
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 20px;
-      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
-    }
+/* CARDS */
 
-    .panel h2 {
-      margin-bottom: 10px;
-    }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
 
-    .panel p {
-      color: #666;
-      line-height: 1.6;
-    }
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
 
-    .user-email {
-      font-weight: bold;
-      word-break: break-all;
-      color: #222 !important;
-      margin-top: 5px;
-    }
+.stat-label {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
 
-    .status {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-      background: #e4f8e9;
-      color: #176b2c;
-    }
+.stat-number {
+  font-size: 30px;
+  font-weight: bold;
+}
 
-    /* =========================
-       LOADING
-    ========================= */
+/* PANELS */
 
-    #loadingPage {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-    }
+.panel {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
 
-    .loading-box {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
-    }
+.panel-title {
+  font-size: 19px;
+  margin-bottom: 18px;
+}
 
-    .loading-box h2 {
-      margin-bottom: 10px;
-    }
+/* FORM */
 
-    .loading-box p {
-      color: #777;
-    }
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 15px;
+}
 
-    /* =========================
-       MOBILE
-    ========================= */
+.full {
+  grid-column: 1 / -1;
+}
 
-    @media (max-width: 750px) {
+.primary-btn {
+  background: #111;
+  color: white;
+}
 
-      .cards {
-        grid-template-columns: 1fr;
-      }
+.secondary-btn {
+  background: #eee;
+  color: #111;
+}
 
-      .topbar-inner {
-        flex-direction: column;
-        align-items: stretch;
-      }
+.danger-btn {
+  background: #e53935;
+  color: white;
+}
 
-      .logout {
-        width: 100%;
-      }
+/* TABLE */
 
-      .welcome h1 {
-        font-size: 24px;
-      }
-    }
-  </style>
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 13px;
+}
+
+th {
+  background: #f7f7f7;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 20px;
+  background: #eee;
+  font-size: 11px;
+}
+
+/* MONEY */
+
+.money-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.money-card {
+  padding: 20px;
+  border-radius: 12px;
+  background: white;
+}
+
+.money-card h3 {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.money-card strong {
+  font-size: 24px;
+}
+
+/* MOBILE */
+
+.mobile-menu {
+  display: none;
+  background: #111;
+  color: white;
+  padding: 10px 15px;
+  width: 100%;
+}
+
+@media(max-width: 900px) {
+
+  .sidebar {
+    width: 190px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 700px) {
+
+  .layout {
+    display: block;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+  .sidebar {
+    width: 100%;
+    display: none;
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .sidebar.open {
+    display: block;
+  }
+
+  .main {
+    padding: 15px;
+  }
+
+  .header {
+    padding: 0 15px;
+  }
+
+  .header-email {
+    display: none;
+  }
+
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+  .money-summary {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- =========================
-       LOADING PAGE
-  ========================= -->
+<!-- =========================================================
+     LOGIN
+========================================================= -->
 
-  <section id="loadingPage">
+<section id="loginPage">
 
-    <div class="loading-box">
+  <div class="login-box">
 
-      <h2>KHARVIE</h2>
+    <div class="logo">KHARVIE</div>
 
-      <p>
-        Checking your account...
-      </p>
+    <div class="login-subtitle">
+      Artist Administration
+    </div>
+
+    <form id="loginForm">
+
+      <label>Email</label>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Admin email"
+        required
+      >
+
+      <label>Password</label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        required
+      >
+
+      <button
+        class="login-btn"
+        id="loginButton"
+        type="submit"
+      >
+        Login
+      </button>
+
+    </form>
+
+    <div
+      id="loginMessage"
+      class="message"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     ADMIN
+========================================================= -->
+
+<section id="adminPage">
+
+  <header class="header">
+
+    <div class="header-logo">
+      KHARVIE ADMIN
+    </div>
+
+    <div class="header-right">
+
+      <span
+        class="header-email"
+        id="adminEmail"
+      ></span>
+
+      <button
+        class="logout-btn"
+        id="logoutButton"
+      >
+        Logout
+      </button>
 
     </div>
 
-  </section>
+  </header>
 
 
-  <!-- =========================
-       LOGIN PAGE
-  ========================= -->
-
-  <section id="loginPage">
-
-    <div class="login-box">
-
-      <div class="logo">
-        KHARVIE
-      </div>
-
-      <div class="subtitle">
-        Admin Login
-      </div>
-
-      <form id="loginForm">
-
-        <label for="email">
-          Email
-        </label>
-
-        <input
-          type="email"
-          id="email"
-          placeholder="Admin email"
-          autocomplete="email"
-          required
-        >
-
-        <label for="password">
-          Password
-        </label>
-
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
-          autocomplete="current-password"
-          required
-        >
-
-        <button
-          type="submit"
-          class="login-button"
-          id="loginButton"
-        >
-          Login
-        </button>
-
-      </form>
-
-      <div
-        id="loginMessage"
-        class="message"
-      ></div>
-
-    </div>
-
-  </section>
+  <button
+    class="mobile-menu"
+    onclick="toggleSidebar()"
+  >
+    ☰ Menu
+  </button>
 
 
-  <!-- =========================
-       ADMIN DASHBOARD
-  ========================= -->
+  <div class="layout">
 
-  <section id="adminPage">
+    <!-- SIDEBAR -->
 
-    <header class="topbar">
+    <aside
+      class="sidebar"
+      id="sidebar"
+    >
 
-      <div class="topbar-inner">
+      <button class="nav-btn active" onclick="showSection('dashboard', this)">
+        📊 Dashboard
+      </button>
 
-        <div class="brand">
-          KHARVIE ADMIN
-        </div>
+      <button class="nav-btn" onclick="showSection('songs', this)">
+        🎵 Songs
+      </button>
 
-        <button
-          class="logout"
-          id="logoutButton"
-        >
-          Logout
-        </button>
+      <button class="nav-btn" onclick="showSection('releases', this)">
+        💿 Albums / EPs
+      </button>
 
-      </div>
+      <button class="nav-btn" onclick="showSection('videos', this)">
+        🎬 Music Videos
+      </button>
 
-    </header>
+      <button class="nav-btn" onclick="showSection('gallery', this)">
+        📸 Gallery
+      </button>
+
+      <button class="nav-btn" onclick="showSection('posts', this)">
+        📰 News / Blog
+      </button>
+
+      <button class="nav-btn" onclick="showSection('events', this)">
+        🎤 Events
+      </button>
+
+      <button class="nav-btn" onclick="showSection('messages', this)">
+        💬 Messages
+      </button>
+
+      <button class="nav-btn" onclick="showSection('monetization', this)">
+        💰 Monetization
+      </button>
+
+      <button class="nav-btn" onclick="showSection('settings', this)">
+        ⚙️ Settings
+      </button>
+
+    </aside>
 
 
-    <main class="container">
+    <!-- MAIN -->
 
-      <div class="welcome">
+    <main class="main">
 
-        <h1>
-          Admin Dashboard
+
+      <!-- =====================================================
+           DASHBOARD
+      ====================================================== -->
+
+      <section
+        id="dashboard"
+        class="section active"
+      >
+
+        <h1 class="page-title">
+          Dashboard
         </h1>
 
-        <p>
-          Welcome to your Kharvie administration panel.
+        <p class="page-description">
+          Welcome to Kharvie's administration panel.
         </p>
 
-      </div>
 
+        <div class="stats">
 
-      <!-- DASHBOARD CARDS -->
-
-      <div class="cards">
-
-        <div class="card">
-
-          <div class="card-title">
-            Admin Status
+          <div class="stat-card">
+            <div class="stat-label">Songs</div>
+            <div class="stat-number" id="songsCount">0</div>
           </div>
 
-          <div class="card-number">
-            <span class="status">
-              Active
-            </span>
+          <div class="stat-card">
+            <div class="stat-label">Releases</div>
+            <div class="stat-number" id="releasesCount">0</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Videos</div>
+            <div class="stat-number" id="videosCount">0</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Messages</div>
+            <div class="stat-number" id="messagesCount">0</div>
           </div>
 
         </div>
 
 
-        <div class="card">
+        <div class="panel">
 
-          <div class="card-title">
-            Authentication
+          <h2 class="panel-title">
+            Kharvie Artist Administration
+          </h2>
+
+          <p>
+            Use the menu to manage Kharvie's music,
+            releases, videos, gallery, news, events,
+            messages and monetization records.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           SONGS
+      ====================================================== -->
+
+      <section
+        id="songs"
+        class="section"
+      >
+
+        <h1 class="page-title">🎵 Songs</h1>
+
+        <p class="page-description">
+          Add songs that visitors can listen to and stream.
+        </p>
+
+
+        <div class="panel">
+
+          <h2 class="panel-title">
+            Add New Song
+          </h2>
+
+          <form id="songForm">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Song Title</label>
+                <input id="songTitle" required>
+              </div>
+
+              <div>
+                <label>Artist</label>
+                <input id="songArtist" value="Kharvie">
+              </div>
+
+              <div class="full">
+                <label>Description</label>
+                <textarea id="songDescription"></textarea>
+              </div>
+
+              <div>
+                <label>Audio URL</label>
+                <input
+                  id="audioUrl"
+                  placeholder="Direct audio file URL"
+                >
+              </div>
+
+              <div>
+                <label>Cover Image URL</label>
+                <input id="coverUrl">
+              </div>
+
+              <div>
+                <label>Spotify URL</label>
+                <input id="spotifyUrl">
+              </div>
+
+              <div>
+                <label>Apple Music URL</label>
+                <input id="appleMusicUrl">
+              </div>
+
+              <div>
+                <label>YouTube URL</label>
+                <input id="songYoutubeUrl">
+              </div>
+
+              <div>
+                <label>Audiomack URL</label>
+                <input id="audiomackUrl">
+              </div>
+
+              <div>
+                <label>Genre</label>
+                <input id="genre">
+              </div>
+
+              <div>
+                <label>Release Date</label>
+                <input
+                  type="date"
+                  id="songReleaseDate"
+                >
+              </div>
+
+              <div>
+                <label>Duration (seconds)</label>
+                <input
+                  type="number"
+                  id="duration"
+                  min="0"
+                >
+              </div>
+
+            </div>
+
+            <button
+              class="primary-btn"
+              type="submit"
+            >
+              Add Song
+            </button>
+
+          </form>
+
+        </div>
+
+
+        <div class="panel">
+
+          <h2 class="panel-title">
+            Songs
+          </h2>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Artist</th>
+                  <th>Genre</th>
+                  <th>Release Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="songsTable"></tbody>
+
+            </table>
+
           </div>
 
-          <div class="card-number">
-            Secure
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           RELEASES
+      ====================================================== -->
+
+      <section
+        id="releases"
+        class="section"
+      >
+
+        <h1 class="page-title">💿 Albums / EPs</h1>
+
+        <p class="page-description">
+          Manage singles, EPs, albums and mixtapes.
+        </p>
+
+
+        <div class="panel">
+
+          <h2 class="panel-title">
+            Add Release
+          </h2>
+
+          <form id="releaseForm">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Title</label>
+                <input id="releaseTitle" required>
+              </div>
+
+              <div>
+                <label>Type</label>
+
+                <select id="releaseType">
+
+                  <option value="single">Single</option>
+                  <option value="ep">EP</option>
+                  <option value="album">Album</option>
+                  <option value="mixtape">Mixtape</option>
+
+                </select>
+              </div>
+
+              <div class="full">
+                <label>Description</label>
+                <textarea id="releaseDescription"></textarea>
+              </div>
+
+              <div>
+                <label>Cover URL</label>
+                <input id="releaseCover">
+              </div>
+
+              <div>
+                <label>Release Date</label>
+                <input type="date" id="releaseDate">
+              </div>
+
+              <div>
+                <label>Spotify URL</label>
+                <input id="releaseSpotify">
+              </div>
+
+              <div>
+                <label>Apple Music URL</label>
+                <input id="releaseApple">
+              </div>
+
+              <div>
+                <label>YouTube URL</label>
+                <input id="releaseYoutube">
+              </div>
+
+              <div>
+                <label>Audiomack URL</label>
+                <input id="releaseAudiomack">
+              </div>
+
+            </div>
+
+            <button class="primary-btn">
+              Add Release
+            </button>
+
+          </form>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="releasesTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           VIDEOS
+      ====================================================== -->
+
+      <section
+        id="videos"
+        class="section"
+      >
+
+        <h1 class="page-title">🎬 Music Videos</h1>
+
+        <p class="page-description">
+          Add Kharvie's music videos.
+        </p>
+
+
+        <div class="panel">
+
+          <form id="videoForm">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Video Title</label>
+                <input id="videoTitle" required>
+              </div>
+
+              <div>
+                <label>Platform</label>
+                <select id="videoPlatform">
+                  <option value="youtube">YouTube</option>
+                  <option value="vimeo">Vimeo</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="full">
+                <label>Description</label>
+                <textarea id="videoDescription"></textarea>
+              </div>
+
+              <div>
+                <label>Video URL</label>
+                <input id="videoUrl" required>
+              </div>
+
+              <div>
+                <label>Thumbnail URL</label>
+                <input id="videoThumbnail">
+              </div>
+
+              <div>
+                <label>Release Date</label>
+                <input type="date" id="videoDate">
+              </div>
+
+            </div>
+
+            <button class="primary-btn">
+              Add Video
+            </button>
+
+          </form>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Platform</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="videosTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           GALLERY
+      ====================================================== -->
+
+      <section
+        id="gallery"
+        class="section"
+      >
+
+        <h1 class="page-title">📸 Gallery</h1>
+
+        <p class="page-description">
+          Add photos to Kharvie's website gallery.
+        </p>
+
+
+        <div class="panel">
+
+          <form id="galleryForm">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Photo Title</label>
+                <input id="galleryTitle">
+              </div>
+
+              <div>
+                <label>Category</label>
+                <input
+                  id="galleryCategory"
+                  placeholder="Concert, Studio, Photoshoot..."
+                >
+              </div>
+
+              <div class="full">
+                <label>Image URL</label>
+                <input id="galleryImage" required>
+              </div>
+
+              <div class="full">
+                <label>Description</label>
+                <textarea id="galleryDescription"></textarea>
+              </div>
+
+            </div>
+
+            <button class="primary-btn">
+              Add Photo
+            </button>
+
+          </form>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Image</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="galleryTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           POSTS
+      ====================================================== -->
+
+      <section
+        id="posts"
+        class="section"
+      >
+
+        <h1 class="page-title">📰 News / Blog</h1>
+
+        <p class="page-description">
+          Publish announcements and artist updates.
+        </p>
+
+
+        <div class="panel">
+
+          <form id="postForm">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Title</label>
+                <input id="postTitle" required>
+              </div>
+
+              <div>
+                <label>Slug</label>
+                <input
+                  id="postSlug"
+                  placeholder="new-single-announcement"
+                >
+              </div>
+
+              <div class="full">
+                <label>Excerpt</label>
+                <textarea id="postExcerpt"></textarea>
+              </div>
+
+              <div class="full">
+                <label>Content</label>
+                <textarea id="postContent"></textarea>
+              </div>
+
+              <div>
+                <label>Featured Image URL</label>
+                <input id="postImage">
+              </div>
+
+              <div>
+                <label>Author</label>
+                <input id="postAuthor" value="Kharvie">
+              </div>
+
+            </div>
+
+            <button class="primary-btn">
+              Publish / Save News
+            </button>
+
+          </form>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Published</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="postsTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           EVENTS
+      ====================================================== -->
+
+      <section
+        id="events"
+        class="section"
+      >
+
+        <h1 class="page-title">🎤 Events / Shows</h1>
+
+        <p class="page-description">
+          Manage Kharvie's concerts and appearances.
+        </p>
+
+
+        <div class="panel">
+
+          <form id="eventForm">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Event Title</label>
+                <input id="eventTitle" required>
+              </div>
+
+              <div>
+                <label>Venue</label>
+                <input id="eventVenue">
+              </div>
+
+              <div>
+                <label>City</label>
+                <input id="eventCity">
+              </div>
+
+              <div>
+                <label>Country</label>
+                <input id="eventCountry" value="Nigeria">
+              </div>
+
+              <div>
+                <label>Event Date</label>
+                <input type="date" id="eventDate">
+              </div>
+
+              <div>
+                <label>Event Time</label>
+                <input type="time" id="eventTime">
+              </div>
+
+              <div>
+                <label>Ticket URL</label>
+                <input id="ticketUrl">
+              </div>
+
+              <div>
+                <label>Image URL</label>
+                <input id="eventImage">
+              </div>
+
+              <div class="full">
+                <label>Description</label>
+                <textarea id="eventDescription"></textarea>
+              </div>
+
+            </div>
+
+            <button class="primary-btn">
+              Add Event
+            </button>
+
+          </form>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>Venue</th>
+                  <th>City</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="eventsTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           MESSAGES
+      ====================================================== -->
+
+      <section
+        id="messages"
+        class="section"
+      >
+
+        <h1 class="page-title">💬 Messages</h1>
+
+        <p class="page-description">
+          View messages submitted through the website.
+        </p>
+
+
+        <div class="panel">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Subject</th>
+                  <th>Message</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="messagesTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           MONETIZATION
+      ====================================================== -->
+
+      <section
+        id="monetization"
+        class="section"
+      >
+
+        <h1 class="page-title">💰 Monetization Board</h1>
+
+        <p class="page-description">
+          Keep track of Kharvie's income and expenses.
+        </p>
+
+
+        <div class="money-summary">
+
+          <div class="money-card">
+
+            <h3>Total Income</h3>
+
+            <strong id="totalIncome">
+              ₦0.00
+            </strong>
+
+          </div>
+
+          <div class="money-card">
+
+            <h3>Total Expenses</h3>
+
+            <strong id="totalExpenses">
+              ₦0.00
+            </strong>
+
+          </div>
+
+          <div class="money-card">
+
+            <h3>Net Earnings</h3>
+
+            <strong id="netEarnings">
+              ₦0.00
+            </strong>
+
           </div>
 
         </div>
 
 
-        <div class="card">
+        <div class="panel">
 
-          <div class="card-title">
-            Access
-          </div>
+          <h2 class="panel-title">
+            Add Financial Record
+          </h2>
 
-          <div class="card-number">
-            Admin
+
+          <form id="moneyForm">
+
+            <div class="form-grid">
+
+              <div>
+                <label>Type</label>
+
+                <select id="moneyType">
+
+                  <option value="income">
+                    Income
+                  </option>
+
+                  <option value="expense">
+                    Expense
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div>
+
+                <label>Category</label>
+
+                <select id="moneyCategory">
+
+                  <option>Streaming</option>
+                  <option>YouTube</option>
+                  <option>Music Sales</option>
+                  <option>Shows / Events</option>
+                  <option>Sponsorship</option>
+                  <option>Brand Deal</option>
+                  <option>Other Income</option>
+                  <option>Studio</option>
+                  <option>Promotion</option>
+                  <option>Travel</option>
+                  <option>Production</option>
+                  <option>Other Expense</option>
+
+                </select>
+
+              </div>
+
+
+              <div>
+
+                <label>Amount (NGN)</label>
+
+                <input
+                  type="number"
+                  id="moneyAmount"
+                  min="0"
+                  step="0.01"
+                  required
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>Date</label>
+
+                <input
+                  type="date"
+                  id="moneyDate"
+                  required
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>Source</label>
+
+                <input
+                  id="moneySource"
+                  placeholder="Spotify, YouTube, promoter..."
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>Reference</label>
+
+                <input id="moneyReference">
+
+              </div>
+
+
+              <div class="full">
+
+                <label>Description</label>
+
+                <textarea id="moneyDescription"></textarea>
+
+              </div>
+
+
+              <div class="full">
+
+                <label>Notes</label>
+
+                <textarea id="moneyNotes"></textarea>
+
+              </div>
+
+            </div>
+
+
+            <button class="primary-btn">
+              Add Financial Record
+            </button>
+
+          </form>
+
+        </div>
+
+
+        <div class="panel">
+
+          <h2 class="panel-title">
+            Financial Records
+          </h2>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Category</th>
+                  <th>Source</th>
+                  <th>Amount</th>
+                  <th>Action</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="moneyTable"></tbody>
+
+            </table>
+
           </div>
 
         </div>
 
-      </div>
+      </section>
 
 
-      <!-- ADMIN ACCOUNT -->
+      <!-- =====================================================
+           SETTINGS
+      ====================================================== -->
 
-      <div class="panel">
+      <section
+        id="settings"
+        class="section"
+      >
 
-        <h2>
-          Admin Account
-        </h2>
+        <h1 class="page-title">⚙️ Website Settings</h1>
 
-        <p>
-          You are currently logged in as:
+        <p class="page-description">
+          Manage basic artist information.
         </p>
 
-        <p
-          class="user-email"
-          id="userEmail"
-        >
-          Loading...
-        </p>
 
-      </div>
+        <div class="panel">
 
+          <form id="settingsForm">
 
-      <!-- ADMIN ACCESS -->
+            <label>Artist Name</label>
 
-      <div class="panel">
-
-        <h2>
-          Administrator Access
-        </h2>
-
-        <p>
-          Your account has been verified against the
-          Kharvie administrator list.
-        </p>
-
-      </div>
+            <input
+              id="artistName"
+              value="Kharvie"
+            >
 
 
-      <!-- NEXT FEATURES -->
+            <label>Artist Role</label>
 
-      <div class="panel">
+            <input
+              id="artistRole"
+              value="Singer & Songwriter"
+            >
 
-        <h2>
-          Kharvie Management
-        </h2>
 
-        <p>
-          The secure admin area is ready.
-          Management features can now be added here.
-        </p>
+            <button class="primary-btn">
+              Save Settings
+            </button>
 
-      </div>
+          </form>
+
+        </div>
+
+      </section>
+
 
     </main>
 
-  </section>
+  </div>
+
+</section>
 
 
-  <!-- =========================
-       JAVASCRIPT
-  ========================= -->
+<script>
 
-  <script>
+/* ============================================================
+   SUPABASE
+============================================================ */
 
-    /* =========================================
-       SUPABASE CONFIGURATION
-    ========================================== */
+const SUPABASE_URL =
+  "https://dprulohylwgzmetgrywj.supabase.co";
 
-    const SUPABASE_URL =
-      "https://dprulohylwgzmetgrywj.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
 
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
+const { createClient } = supabase;
+
+const db = createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
 
-    /* =========================================
-       CREATE SUPABASE CLIENT
-    ========================================== */
+/* ============================================================
+   ELEMENTS
+============================================================ */
 
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
+const loginPage =
+  document.getElementById("loginPage");
+
+const adminPage =
+  document.getElementById("adminPage");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const loginMessage =
+  document.getElementById("loginMessage");
+
+const loginButton =
+  document.getElementById("loginButton");
+
+const logoutButton =
+  document.getElementById("logoutButton");
+
+
+/* ============================================================
+   MESSAGE
+============================================================ */
+
+function showLoginMessage(text, type) {
+
+  loginMessage.textContent = text;
+
+  loginMessage.className =
+    "message " + type;
+
+  loginMessage.style.display = "block";
+
+}
+
+
+/* ============================================================
+   ADMIN CHECK
+============================================================ */
+
+async function verifyAdmin(user) {
+
+  if (!user) {
+    return false;
+  }
+
+  const { data, error } =
+    await db
+      .from("admin_users")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+  if (error) {
+
+    console.error(error);
+
+    return false;
+
+  }
+
+  return !!data;
+
+}
+
+
+/* ============================================================
+   SHOW ADMIN
+============================================================ */
+
+async function showAdmin(user) {
+
+  const allowed =
+    await verifyAdmin(user);
+
+  if (!allowed) {
+
+    await db.auth.signOut();
+
+    showLoginMessage(
+      "This account is not authorized as an administrator.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  loginPage.style.display = "none";
+
+  adminPage.style.display = "block";
+
+  document.getElementById("adminEmail")
+    .textContent = user.email || "";
+
+  loadEverything();
+
+}
+
+
+/* ============================================================
+   LOGIN
+============================================================ */
+
+loginForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+    loginButton.disabled = true;
+
+    loginButton.textContent =
+      "Logging in...";
+
+    loginMessage.style.display =
+      "none";
+
+
+    const email =
+      document.getElementById("email")
+        .value.trim();
+
+    const password =
+      document.getElementById("password")
+        .value;
+
+
+    const { data, error } =
+      await db.auth.signInWithPassword({
+        email,
+        password
+      });
+
+
+    if (error) {
+
+      showLoginMessage(
+        error.message,
+        "error"
       );
 
+      loginButton.disabled = false;
 
-    /* =========================================
-       PAGE ELEMENTS
-    ========================================== */
+      loginButton.textContent =
+        "Login";
 
-    const loadingPage =
-      document.getElementById("loadingPage");
-
-    const loginPage =
-      document.getElementById("loginPage");
-
-    const adminPage =
-      document.getElementById("adminPage");
-
-    const loginForm =
-      document.getElementById("loginForm");
-
-    const loginButton =
-      document.getElementById("loginButton");
-
-    const loginMessage =
-      document.getElementById("loginMessage");
-
-    const logoutButton =
-      document.getElementById("logoutButton");
-
-    const userEmail =
-      document.getElementById("userEmail");
-
-
-    /* =========================================
-       HIDE LOADING
-    ========================================== */
-
-    function hideLoading() {
-
-      loadingPage.style.display =
-        "none";
+      return;
 
     }
 
 
-    /* =========================================
-       SHOW LOGIN
-    ========================================== */
+    if (data.user) {
 
-    function showLogin() {
-
-      hideLoading();
-
-      loginPage.style.display =
-        "flex";
-
-      adminPage.style.display =
-        "none";
+      await showAdmin(data.user);
 
     }
 
 
-    /* =========================================
-       SHOW ADMIN
-    ========================================== */
+    loginButton.disabled = false;
 
-    function showAdmin(user) {
+    loginButton.textContent =
+      "Login";
 
-      hideLoading();
-
-      loginPage.style.display =
-        "none";
-
-      adminPage.style.display =
-        "block";
-
-      if (
-        user &&
-        user.email
-      ) {
-
-        userEmail.textContent =
-          user.email;
-
-      }
-
-    }
+  }
+);
 
 
-    /* =========================================
-       SHOW LOGIN MESSAGE
-    ========================================== */
+/* ============================================================
+   LOGOUT
+============================================================ */
 
-    function showMessage(
-      message,
-      type
-    ) {
+logoutButton.addEventListener(
+  "click",
+  async function() {
 
-      loginMessage.textContent =
-        message;
+    await db.auth.signOut();
 
-      loginMessage.className =
-        "message " + type;
+    adminPage.style.display =
+      "none";
 
-      loginMessage.style.display =
-        "block";
+    loginPage.style.display =
+      "flex";
 
-    }
+    document.getElementById("password")
+      .value = "";
+
+  }
+);
 
 
-    /* =========================================
-       CHECK WHETHER USER IS AN ADMIN
-    ========================================== */
+/* ============================================================
+   NAVIGATION
+============================================================ */
 
-    async function checkAdmin(
-      userId
-    ) {
+function showSection(
+  sectionId,
+  button
+) {
 
-      const {
-        data,
-        error
-      } = await supabaseClient
-        .from("admin_users")
-        .select("user_id")
-        .eq("user_id", userId)
-        .maybeSingle();
+  document
+    .querySelectorAll(".section")
+    .forEach(section => {
+      section.classList.remove("active");
+    });
+
+
+  document
+    .getElementById(sectionId)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+
+  if (button) {
+    button.classList.add("active");
+  }
+
+
+  document
+    .getElementById("sidebar")
+    .classList.remove("open");
+
+}
+
+
+/* ============================================================
+   MOBILE MENU
+============================================================ */
+
+function toggleSidebar() {
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+
+/* ============================================================
+   DELETE HELPER
+============================================================ */
+
+async function deleteRecord(
+  table,
+  id
+) {
+
+  if (
+    !confirm(
+      "Are you sure you want to delete this item?"
+    )
+  ) {
+    return;
+  }
+
+
+  const { error } =
+    await db
+      .from(table)
+      .delete()
+      .eq("id", id);
+
+
+  if (error) {
+
+    alert(
+      "Delete failed: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  loadEverything();
+
+}
+
+
+/* ============================================================
+   SONGS
+============================================================ */
+
+document
+  .getElementById("songForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const record = {
+
+        title:
+          document.getElementById("songTitle").value.trim(),
+
+        artist:
+          document.getElementById("songArtist").value.trim() ||
+          "Kharvie",
+
+        description:
+          document.getElementById("songDescription").value.trim(),
+
+        audio_url:
+          document.getElementById("audioUrl").value.trim() || null,
+
+        cover_url:
+          document.getElementById("coverUrl").value.trim() || null,
+
+        spotify_url:
+          document.getElementById("spotifyUrl").value.trim() || null,
+
+        apple_music_url:
+          document.getElementById("appleMusicUrl").value.trim() || null,
+
+        youtube_url:
+          document.getElementById("songYoutubeUrl").value.trim() || null,
+
+        audiomack_url:
+          document.getElementById("audiomackUrl").value.trim() || null,
+
+        genre:
+          document.getElementById("genre").value.trim() || null,
+
+        release_date:
+          document.getElementById("songReleaseDate").value || null,
+
+        duration_seconds:
+          Number(
+            document.getElementById("duration").value
+          ) || null
+
+      };
+
+
+      const { error } =
+        await db
+          .from("songs")
+          .insert(record);
 
 
       if (error) {
 
-        console.error(
-          "Admin check error:",
-          error
+        alert(
+          "Could not add song: " +
+          error.message
         );
 
-        return false;
+        return;
 
       }
 
 
-      return !!data;
+      alert("Song added successfully.");
+
+      this.reset();
+
+      document.getElementById("songArtist")
+        .value = "Kharvie";
+
+      loadSongs();
+
+      loadDashboard();
+
+    }
+  );
+
+
+async function loadSongs() {
+
+  const { data, error } =
+    await db
+      .from("songs")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  const table =
+    document.getElementById("songsTable");
+
+  table.innerHTML = "";
+
+
+  data.forEach(song => {
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td>${escapeHtml(song.title)}</td>
+
+      <td>${escapeHtml(song.artist || "Kharvie")}</td>
+
+      <td>
+        <span class="badge">
+          ${escapeHtml(song.genre || "—")}
+        </span>
+      </td>
+
+      <td>
+        ${song.release_date || "—"}
+      </td>
+
+      <td>
+        <button
+          class="danger-btn"
+          onclick="deleteRecord('songs','${song.id}')"
+        >
+          Delete
+        </button>
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+/* ============================================================
+   RELEASES
+============================================================ */
+
+document
+  .getElementById("releaseForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const record = {
+
+        title:
+          document.getElementById("releaseTitle").value.trim(),
+
+        release_type:
+          document.getElementById("releaseType").value,
+
+        description:
+          document.getElementById("releaseDescription").value.trim(),
+
+        cover_url:
+          document.getElementById("releaseCover").value.trim() || null,
+
+        release_date:
+          document.getElementById("releaseDate").value || null,
+
+        spotify_url:
+          document.getElementById("releaseSpotify").value.trim() || null,
+
+        apple_music_url:
+          document.getElementById("releaseApple").value.trim() || null,
+
+        youtube_url:
+          document.getElementById("releaseYoutube").value.trim() || null,
+
+        audiomack_url:
+          document.getElementById("releaseAudiomack").value.trim() || null
+
+      };
+
+
+      const { error } =
+        await db
+          .from("releases")
+          .insert(record);
+
+
+      if (error) {
+
+        alert(
+          "Could not add release: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert("Release added successfully.");
+
+      this.reset();
+
+      loadReleases();
+
+      loadDashboard();
+
+    }
+  );
+
+
+async function loadReleases() {
+
+  const { data, error } =
+    await db
+      .from("releases")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  const table =
+    document.getElementById("releasesTable");
+
+  table.innerHTML = "";
+
+
+  data.forEach(item => {
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td>${escapeHtml(item.title)}</td>
+
+      <td>
+        <span class="badge">
+          ${escapeHtml(item.release_type)}
+        </span>
+      </td>
+
+      <td>${item.release_date || "—"}</td>
+
+      <td>
+        <button
+          class="danger-btn"
+          onclick="deleteRecord('releases','${item.id}')"
+        >
+          Delete
+        </button>
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+/* ============================================================
+   VIDEOS
+============================================================ */
+
+document
+  .getElementById("videoForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const record = {
+
+        title:
+          document.getElementById("videoTitle").value.trim(),
+
+        description:
+          document.getElementById("videoDescription").value.trim(),
+
+        video_url:
+          document.getElementById("videoUrl").value.trim(),
+
+        thumbnail_url:
+          document.getElementById("videoThumbnail").value.trim() || null,
+
+        platform:
+          document.getElementById("videoPlatform").value,
+
+        release_date:
+          document.getElementById("videoDate").value || null
+
+      };
+
+
+      const { error } =
+        await db
+          .from("videos")
+          .insert(record);
+
+
+      if (error) {
+
+        alert(
+          "Could not add video: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert("Video added successfully.");
+
+      this.reset();
+
+      loadVideos();
+
+      loadDashboard();
+
+    }
+  );
+
+
+async function loadVideos() {
+
+  const { data, error } =
+    await db
+      .from("videos")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  const table =
+    document.getElementById("videosTable");
+
+  table.innerHTML = "";
+
+
+  data.forEach(item => {
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td>${escapeHtml(item.title)}</td>
+
+      <td>
+        ${escapeHtml(item.platform || "—")}
+      </td>
+
+      <td>
+        ${item.release_date || "—"}
+      </td>
+
+      <td>
+        <button
+          class="danger-btn"
+          onclick="deleteRecord('videos','${item.id}')"
+        >
+          Delete
+        </button>
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+/* ============================================================
+   GALLERY
+============================================================ */
+
+document
+  .getElementById("galleryForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const record = {
+
+        title:
+          document.getElementById("galleryTitle").value.trim() || null,
+
+        image_url:
+          document.getElementById("galleryImage").value.trim(),
+
+        description:
+          document.getElementById("galleryDescription").value.trim() || null,
+
+        category:
+          document.getElementById("galleryCategory").value.trim() || null
+
+      };
+
+
+      const { error } =
+        await db
+          .from("gallery")
+          .insert(record);
+
+
+      if (error) {
+
+        alert(
+          "Could not add photo: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert("Photo added successfully.");
+
+      this.reset();
+
+      loadGallery();
+
+    }
+  );
+
+
+async function loadGallery() {
+
+  const { data, error } =
+    await db
+      .from("gallery")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  const table =
+    document.getElementById("galleryTable");
+
+  table.innerHTML = "";
+
+
+  data.forEach(item => {
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td>${escapeHtml(item.title || "Untitled")}</td>
+
+      <td>${escapeHtml(item.category || "—")}</td>
+
+      <td>
+        <a
+          href="${escapeAttribute(item.image_url)}"
+          target="_blank"
+        >
+          View
+        </a>
+      </td>
+
+      <td>
+        <button
+          class="danger-btn"
+          onclick="deleteRecord('gallery','${item.id}')"
+        >
+          Delete
+        </button>
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+/* ============================================================
+   POSTS
+============================================================ */
+
+document
+  .getElementById("postForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const record = {
+
+        title:
+          document.getElementById("postTitle").value.trim(),
+
+        slug:
+          document.getElementById("postSlug").value.trim() || null,
+
+        excerpt:
+          document.getElementById("postExcerpt").value.trim() || null,
+
+        content:
+          document.getElementById("postContent").value.trim() || null,
+
+        featured_image_url:
+          document.getElementById("postImage").value.trim() || null,
+
+        author:
+          document.getElementById("postAuthor").value.trim() ||
+          "Kharvie",
+
+        published_at:
+          new Date().toISOString(),
+
+        is_published:
+          true
+
+      };
+
+
+      const { error } =
+        await db
+          .from("posts")
+          .insert(record);
+
+
+      if (error) {
+
+        alert(
+          "Could not add post: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert("News post published.");
+
+      this.reset();
+
+      document.getElementById("postAuthor")
+        .value = "Kharvie";
+
+      loadPosts();
+
+    }
+  );
+
+
+async function loadPosts() {
+
+  const { data, error } =
+    await db
+      .from("posts")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  const table =
+    document.getElementById("postsTable");
+
+  table.innerHTML = "";
+
+
+  data.forEach(item => {
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td>${escapeHtml(item.title)}</td>
+
+      <td>${escapeHtml(item.author || "Kharvie")}</td>
+
+      <td>
+        ${item.is_published ? "Yes" : "No"}
+      </td>
+
+      <td>
+
+        <button
+          class="danger-btn"
+          onclick="deleteRecord('posts','${item.id}')"
+        >
+          Delete
+        </button>
+
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+/* ============================================================
+   EVENTS
+============================================================ */
+
+document
+  .getElementById("eventForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const record = {
+
+        title:
+          document.getElementById("eventTitle").value.trim(),
+
+        venue:
+          document.getElementById("eventVenue").value.trim() || null,
+
+        city:
+          document.getElementById("eventCity").value.trim() || null,
+
+        country:
+          document.getElementById("eventCountry").value.trim() || null,
+
+        event_date:
+          document.getElementById("eventDate").value || null,
+
+        event_time:
+          document.getElementById("eventTime").value || null,
+
+        ticket_url:
+          document.getElementById("ticketUrl").value.trim() || null,
+
+        image_url:
+          document.getElementById("eventImage").value.trim() || null,
+
+        description:
+          document.getElementById("eventDescription").value.trim() || null
+
+      };
+
+
+      const { error } =
+        await db
+          .from("events")
+          .insert(record);
+
+
+      if (error) {
+
+        alert(
+          "Could not add event: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert("Event added successfully.");
+
+      this.reset();
+
+      document.getElementById("eventCountry")
+        .value = "Nigeria";
+
+      loadEvents();
+
+    }
+  );
+
+
+async function loadEvents() {
+
+  const { data, error } =
+    await db
+      .from("events")
+      .select("*")
+      .order("event_date", {
+        ascending: true
+      });
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  const table =
+    document.getElementById("eventsTable");
+
+  table.innerHTML = "";
+
+
+  data.forEach(item => {
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td>${escapeHtml(item.title)}</td>
+
+      <td>${escapeHtml(item.venue || "—")}</td>
+
+      <td>${escapeHtml(item.city || "—")}</td>
+
+      <td>${item.event_date || "—"}</td>
+
+      <td>
+
+        <button
+          class="danger-btn"
+          onclick="deleteRecord('events','${item.id}')"
+        >
+          Delete
+        </button>
+
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+/* ============================================================
+   MESSAGES
+============================================================ */
+
+async function loadMessages() {
+
+  const { data, error } =
+    await db
+      .from("messages")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  const table =
+    document.getElementById("messagesTable");
+
+  table.innerHTML = "";
+
+
+  data.forEach(item => {
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td>${escapeHtml(item.name)}</td>
+
+      <td>${escapeHtml(item.email)}</td>
+
+      <td>${escapeHtml(item.subject || "—")}</td>
+
+      <td>
+        ${escapeHtml(item.message)}
+      </td>
+
+      <td>
+        <span class="badge">
+          ${escapeHtml(item.status)}
+        </span>
+      </td>
+
+      <td>
+
+        <button
+          class="danger-btn"
+          onclick="deleteRecord('messages','${item.id}')"
+        >
+          Delete
+        </button>
+
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+/* ============================================================
+   MONETIZATION
+============================================================ */
+
+document
+  .getElementById("moneyForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const record = {
+
+        type:
+          document.getElementById("moneyType").value,
+
+        category:
+          document.getElementById("moneyCategory").value,
+
+        amount:
+          Number(
+            document.getElementById("moneyAmount").value
+          ),
+
+        currency:
+          "NGN",
+
+        source:
+          document.getElementById("moneySource").value.trim() ||
+          null,
+
+        transaction_date:
+          document.getElementById("moneyDate").value,
+
+        reference:
+          document.getElementById("moneyReference").value.trim() ||
+          null,
+
+        description:
+          document.getElementById("moneyDescription").value.trim() ||
+          null,
+
+        notes:
+          document.getElementById("moneyNotes").value.trim() ||
+          null,
+
+        status:
+          "recorded"
+
+      };
+
+
+      const { error } =
+        await db
+          .from("monetization")
+          .insert(record);
+
+
+      if (error) {
+
+        alert(
+          "Could not save financial record: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Financial record saved."
+      );
+
+      this.reset();
+
+      loadMonetization();
+
+    }
+  );
+
+
+async function loadMonetization() {
+
+  const { data, error } =
+    await db
+      .from("monetization")
+      .select("*")
+      .order("transaction_date", {
+        ascending: false
+      });
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  let income = 0;
+  let expenses = 0;
+
+
+  data.forEach(item => {
+
+    const amount =
+      Number(item.amount) || 0;
+
+
+    if (item.type === "income") {
+
+      income += amount;
+
+    } else {
+
+      expenses += amount;
 
     }
 
+  });
 
-    /* =========================================
-       VERIFY CURRENT SESSION
-    ========================================== */
 
-    async function checkSession() {
+  document.getElementById("totalIncome")
+    .textContent =
+      formatMoney(income);
 
-      try {
 
-        const {
-          data,
-          error
-        } = await supabaseClient.auth.getSession();
+  document.getElementById("totalExpenses")
+    .textContent =
+      formatMoney(expenses);
+
+
+  document.getElementById("netEarnings")
+    .textContent =
+      formatMoney(income - expenses);
+
+
+  const table =
+    document.getElementById("moneyTable");
+
+  table.innerHTML = "";
+
+
+  data.forEach(item => {
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td>
+        ${item.transaction_date || "—"}
+      </td>
+
+      <td>
+        <span class="badge">
+          ${escapeHtml(item.type)}
+        </span>
+      </td>
+
+      <td>
+        ${escapeHtml(item.category)}
+      </td>
+
+      <td>
+        ${escapeHtml(item.source || "—")}
+      </td>
+
+      <td>
+        ${formatMoney(Number(item.amount))}
+      </td>
+
+      <td>
+
+        <button
+          class="danger-btn"
+          onclick="deleteRecord('monetization','${item.id}')"
+        >
+          Delete
+        </button>
+
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+/* ============================================================
+   SETTINGS
+============================================================ */
+
+document
+  .getElementById("settingsForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const settings = [
+
+        {
+          setting_key: "artist_name",
+          setting_value:
+            document.getElementById("artistName").value.trim()
+        },
+
+        {
+          setting_key: "artist_role",
+          setting_value:
+            document.getElementById("artistRole").value.trim()
+        }
+
+      ];
+
+
+      for (const setting of settings) {
+
+        const { error } =
+          await db
+            .from("site_settings")
+            .upsert(
+              setting,
+              {
+                onConflict: "setting_key"
+              }
+            );
 
 
         if (error) {
 
-          console.error(error);
-
-          showLogin();
-
-          return;
-
-        }
-
-
-        const session =
-          data.session;
-
-
-        if (
-          !session ||
-          !session.user
-        ) {
-
-          showLogin();
-
-          return;
-
-        }
-
-
-        const isAdmin =
-          await checkAdmin(
-            session.user.id
-          );
-
-
-        if (!isAdmin) {
-
-          await supabaseClient.auth.signOut();
-
-          showLogin();
-
-          showMessage(
-            "Access denied. This account is not an administrator.",
-            "error"
+          alert(
+            "Could not save settings: " +
+            error.message
           );
 
           return;
 
         }
-
-
-        showAdmin(
-          session.user
-        );
-
-
-      } catch (error) {
-
-        console.error(error);
-
-        showLogin();
-
-        showMessage(
-          "Something went wrong while checking your account.",
-          "error"
-        );
 
       }
+
+
+      alert("Website settings saved.");
+
+    }
+  );
+
+
+/* ============================================================
+   DASHBOARD COUNTS
+============================================================ */
+
+async function loadDashboard() {
+
+  const tables = [
+    ["songs", "songsCount"],
+    ["releases", "releasesCount"],
+    ["videos", "videosCount"],
+    ["messages", "messagesCount"]
+  ];
+
+
+  for (const item of tables) {
+
+    const { count, error } =
+      await db
+        .from(item[0])
+        .select("*", {
+          count: "exact",
+          head: true
+        });
+
+
+    if (!error) {
+
+      document
+        .getElementById(item[1])
+        .textContent = count || 0;
+
+    }
+
+  }
+
+}
+
+
+/* ============================================================
+   LOAD EVERYTHING
+============================================================ */
+
+async function loadEverything() {
+
+  await Promise.all([
+
+    loadDashboard(),
+
+    loadSongs(),
+
+    loadReleases(),
+
+    loadVideos(),
+
+    loadGallery(),
+
+    loadPosts(),
+
+    loadEvents(),
+
+    loadMessages(),
+
+    loadMonetization(),
+
+    loadSettings()
+
+  ]);
+
+}
+
+
+/* ============================================================
+   LOAD SETTINGS
+============================================================ */
+
+async function loadSettings() {
+
+  const { data, error } =
+    await db
+      .from("site_settings")
+      .select("*");
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  data.forEach(setting => {
+
+    if (
+      setting.setting_key ===
+      "artist_name"
+    ) {
+
+      document.getElementById("artistName")
+        .value =
+          setting.setting_value || "Kharvie";
 
     }
 
 
-    /* =========================================
-       LOGIN
-    ========================================== */
+    if (
+      setting.setting_key ===
+      "artist_role"
+    ) {
 
-    loginForm.addEventListener(
-      "submit",
-      async function(event) {
+      document.getElementById("artistRole")
+        .value =
+          setting.setting_value ||
+          "Singer & Songwriter";
 
-        event.preventDefault();
+    }
 
+  });
 
-        const email =
-          document
-            .getElementById("email")
-            .value
-            .trim();
-
-
-        const password =
-          document
-            .getElementById("password")
-            .value;
+}
 
 
-        loginButton.disabled =
-          true;
+/* ============================================================
+   FORMAT MONEY
+============================================================ */
 
-        loginButton.textContent =
-          "Checking...";
+function formatMoney(amount) {
 
-        loginMessage.style.display =
-          "none";
+  return new Intl.NumberFormat(
+    "en-NG",
+    {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 2
+    }
+  ).format(amount || 0);
 
-
-        try {
-
-          /* -------------------------
-             SIGN IN
-          ------------------------- */
-
-          const {
-            data,
-            error
-          } =
-            await supabaseClient.auth
-              .signInWithPassword({
-
-                email: email,
-
-                password: password
-
-              });
+}
 
 
-          if (error) {
+/* ============================================================
+   SECURITY / DISPLAY HELPERS
+============================================================ */
 
-            throw error;
+function escapeHtml(value) {
 
-          }
+  if (value === null ||
+      value === undefined) {
 
+    return "";
 
-          if (
-            !data ||
-            !data.user
-          ) {
-
-            throw new Error(
-              "Login failed. No user account was returned."
-            );
-
-          }
+  }
 
 
-          /* -------------------------
-             CHECK ADMIN TABLE
-          ------------------------- */
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
-          const isAdmin =
-            await checkAdmin(
-              data.user.id
-            );
-
-
-          if (!isAdmin) {
-
-            await supabaseClient.auth.signOut();
-
-            throw new Error(
-              "Your account is not registered as a Kharvie administrator."
-            );
-
-          }
+}
 
 
-          /* -------------------------
-             ADMIN VERIFIED
-          ------------------------- */
+function escapeAttribute(value) {
 
-          showAdmin(
-            data.user
-          );
+  return escapeHtml(value);
+
+}
 
 
-        } catch (error) {
+/* ============================================================
+   SESSION CHECK
+============================================================ */
 
-          console.error(
-            "Login error:",
-            error
-          );
+async function checkSession() {
+
+  const { data, error } =
+    await db.auth.getSession();
 
 
-          showMessage(
-            error.message ||
-            "Login failed. Please check your details.",
-            "error"
-          );
+  if (
+    !error &&
+    data &&
+    data.session &&
+    data.session.user
+  ) {
 
-        } finally {
-
-          loginButton.disabled =
-            false;
-
-          loginButton.textContent =
-            "Login";
-
-        }
-
-      }
+    await showAdmin(
+      data.session.user
     );
 
+  } else {
 
-    /* =========================================
-       LOGOUT
-    ========================================== */
+    loginPage.style.display =
+      "flex";
 
-    logoutButton.addEventListener(
-      "click",
-      async function() {
+    adminPage.style.display =
+      "none";
 
-        logoutButton.disabled =
-          true;
+  }
 
-        logoutButton.textContent =
-          "Logging out...";
+}
 
 
-        try {
+/* ============================================================
+   AUTH STATE
+============================================================ */
 
-          await supabaseClient.auth.signOut();
+db.auth.onAuthStateChange(
+  async function(event, session) {
 
-        } finally {
+    if (
+      session &&
+      session.user
+    ) {
 
-          logoutButton.disabled =
-            false;
+      await showAdmin(
+        session.user
+      );
 
-          logoutButton.textContent =
-            "Logout";
+    }
 
-          document
-            .getElementById("password")
-            .value = "";
-
-          showLogin();
-
-        }
-
-      }
-    );
+  }
+);
 
 
-    /* =========================================
-       AUTH STATE CHANGES
-    ========================================== */
+/* ============================================================
+   START
+============================================================ */
 
-    supabaseClient.auth.onAuthStateChange(
-      async function(
-        event,
-        session
-      ) {
+checkSession();
 
-        if (
-          event === "SIGNED_OUT"
-        ) {
-
-          showLogin();
-
-          return;
-
-        }
-
-
-        if (
-          session &&
-          session.user
-        ) {
-
-          const isAdmin =
-            await checkAdmin(
-              session.user.id
-            );
-
-
-          if (isAdmin) {
-
-            showAdmin(
-              session.user
-            );
-
-          } else {
-
-            await supabaseClient.auth.signOut();
-
-            showLogin();
-
-            showMessage(
-              "Access denied. You are not an administrator.",
-              "error"
-            );
-
-          }
-
-        }
-
-      }
-    );
-
-
-    /* =========================================
-       START APPLICATION
-    ========================================== */
-
-    checkSession();
-
-  </script>
+</script>
 
 </body>
 </html>
