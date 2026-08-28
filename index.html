@@ -13,7 +13,9 @@ content="Kharvie — Nigerian singer and songwriter. Official music, videos, new
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 html{scroll-behavior:smooth}
+
 body{
   background:#070707;
   color:#fff;
@@ -21,7 +23,11 @@ body{
   line-height:1.6;
   overflow-x:hidden
 }
-a{text-decoration:none;color:inherit}
+
+a{
+  text-decoration:none;
+  color:inherit
+}
 
 header{
   position:fixed;
@@ -38,20 +44,31 @@ header{
   backdrop-filter:blur(18px);
   border-bottom:1px solid #252525
 }
+
 .logo{
   font-size:21px;
   font-weight:900;
   letter-spacing:5px
 }
-.logo small{font-size:8px}
 
-nav{display:flex;gap:28px}
+.logo small{
+  font-size:8px
+}
+
+nav{
+  display:flex;
+  gap:28px
+}
+
 nav a{
   font-size:14px;
   color:#aaa;
   transition:.2s
 }
-nav a:hover{color:#fff}
+
+nav a:hover{
+  color:#fff
+}
 
 .menu{
   display:none;
@@ -60,6 +77,8 @@ nav a:hover{color:#fff}
   color:#fff;
   font-size:28px
 }
+
+/* HERO */
 
 .hero{
   min-height:100vh;
@@ -71,7 +90,11 @@ nav a:hover{color:#fff}
     radial-gradient(circle at 75% 45%,#34343b,transparent 35%),
     #070707
 }
-.hero-content{position:relative;z-index:2}
+
+.hero-content{
+  position:relative;
+  z-index:2
+}
 
 .label{
   font-size:11px;
@@ -107,13 +130,21 @@ h1{
   font-size:13px;
   font-weight:800
 }
-.white{background:#fff;color:#000}
-.outline{border-color:#444}
+
+.white{
+  background:#fff;
+  color:#000
+}
+
+.outline{
+  border-color:#444
+}
 
 .hero-photo{
   height:min(78vh,720px);
   overflow:hidden
 }
+
 .hero-photo img{
   width:100%;
   height:100%;
@@ -121,6 +152,8 @@ h1{
   object-position:center;
   filter:saturate(.85) contrast(1.08)
 }
+
+/* SECTIONS */
 
 .section{
   max-width:1250px;
@@ -144,7 +177,10 @@ h1{
   margin-bottom:40px
 }
 
-.note{color:#777;max-width:360px}
+.note{
+  color:#777;
+  max-width:360px
+}
 
 .loading{
   color:#777;
@@ -172,6 +208,7 @@ h1{
   padding:20px;
   transition:.3s
 }
+
 .music-card:hover{
   transform:translateY(-5px);
   border-color:#666
@@ -195,7 +232,10 @@ h1{
   object-fit:cover
 }
 
-.music-card h3{font-size:25px}
+.music-card h3{
+  font-size:25px
+}
+
 .meta{
   font-size:13px;
   color:#777;
@@ -221,6 +261,7 @@ h1{
   font-size:11px;
   font-weight:bold
 }
+
 .small-btn:hover{
   color:#fff;
   border-color:#777
@@ -255,7 +296,10 @@ h1{
   color:#c8c8ca;
   line-height:1.9
 }
-.about-copy p{margin-bottom:20px}
+
+.about-copy p{
+  margin-bottom:20px
+}
 
 .stats{
   display:grid;
@@ -269,10 +313,12 @@ h1{
   background:#111;
   border:1px solid #29292d
 }
+
 .stat strong{
   display:block;
   font-size:30px
 }
+
 .stat span{
   font-size:12px;
   color:#777
@@ -309,7 +355,9 @@ h1{
   object-fit:cover
 }
 
-.release-card h3{font-size:22px}
+.release-card h3{
+  font-size:22px
+}
 
 /* VIDEOS */
 
@@ -339,8 +387,13 @@ h1{
   margin-bottom:18px
 }
 
-.video h3{font-size:23px}
-.video p{color:#777}
+.video h3{
+  font-size:23px
+}
+
+.video p{
+  color:#777
+}
 
 /* GALLERY */
 
@@ -397,7 +450,9 @@ h1{
   margin:10px 0
 }
 
-.news-card p{color:#999}
+.news-card p{
+  color:#999
+}
 
 /* EVENTS */
 
@@ -432,7 +487,9 @@ h1{
 
 /* CONTACT */
 
-.contact{text-align:center}
+.contact{
+  text-align:center
+}
 
 .contact-box{
   max-width:700px;
@@ -455,8 +512,13 @@ h1{
   margin-top:30px
 }
 
-.socials a{color:#888}
-.socials a:hover{color:#fff}
+.socials a{
+  color:#888
+}
+
+.socials a:hover{
+  color:#fff
+}
 
 /* FOOTER */
 
@@ -472,12 +534,18 @@ footer{
 /* MOBILE */
 
 @media(max-width:900px){
-  .release-grid{grid-template-columns:repeat(2,1fr)}
+
+  .release-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
 }
 
 @media(max-width:800px){
 
-  header{padding:0 6%}
+  header{
+    padding:0 6%
+  }
 
   .menu{
     display:block
@@ -496,7 +564,9 @@ footer{
     border-bottom:1px solid #252525
   }
 
-  nav.open{display:flex}
+  nav.open{
+    display:flex
+  }
 
   .hero{
     grid-template-columns:1fr;
@@ -553,11 +623,16 @@ footer{
     flex-direction:column;
     gap:10px
   }
+
 }
 </style>
 </head>
 
 <body>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
 
 <header>
 
@@ -565,9 +640,15 @@ footer{
 KHARVIE<small>®</small>
 </a>
 
-<button class="menu" id="menu">☰</button>
+<button
+class="menu"
+id="menu"
+aria-label="Open menu">
+☰
+</button>
 
 <nav id="nav">
+
 <a href="#home">Home</a>
 <a href="#music">Music</a>
 <a href="#releases">Releases</a>
@@ -577,12 +658,15 @@ KHARVIE<small>®</small>
 <a href="#news">News</a>
 <a href="#events">Events</a>
 <a href="#contact">Contact</a>
+
 </nav>
 
 </header>
 
 
-<!-- HOME -->
+<!-- ============================================================
+     HOME
+============================================================ -->
 
 <section class="hero" id="home">
 
@@ -623,19 +707,29 @@ alt="Kharvie">
 </section>
 
 
-<!-- MUSIC -->
+<!-- ============================================================
+     MUSIC
+============================================================ -->
 
 <section class="section" id="music">
 
 <div class="section-head">
 
 <div>
-<p class="label">MUSIC</p>
-<h2>Latest Music</h2>
+
+<p class="label">
+MUSIC
+</p>
+
+<h2>
+Latest Music
+</h2>
+
 </div>
 
 <p class="note">
-Listen to Kharvie's music directly on the website or use the official streaming links.
+Listen to Kharvie's music directly on the website
+or use the official streaming links.
 </p>
 
 </div>
@@ -651,15 +745,24 @@ Loading Kharvie's music...
 </section>
 
 
-<!-- RELEASES -->
+<!-- ============================================================
+     RELEASES
+============================================================ -->
 
 <section class="section" id="releases">
 
 <div class="section-head">
 
 <div>
-<p class="label">RELEASES</p>
-<h2>Albums & EPs</h2>
+
+<p class="label">
+RELEASES
+</p>
+
+<h2>
+Albums & EPs
+</h2>
+
 </div>
 
 <p class="note">
@@ -679,7 +782,9 @@ Loading releases...
 </section>
 
 
-<!-- ABOUT -->
+<!-- ============================================================
+     ABOUT
+============================================================ -->
 
 <section class="section about" id="about">
 
@@ -706,15 +811,19 @@ About Kharvie
 <div class="about-copy">
 
 <p>
-Kharvie is a Nigerian singer and songwriter creating music rooted in rhythm, identity and authentic expression.
+Kharvie is a Nigerian singer and songwriter creating
+music rooted in rhythm, identity and authentic expression.
 </p>
 
 <p>
-Active since 2020, Kharvie blends Afrobeat, Street Pop, Trap, Hip-Hop and R&B influences to create a sound that reflects his journey and artistic identity.
+Active since 2020, Kharvie blends Afrobeat, Street Pop,
+Trap, Hip-Hop and R&B influences to create a sound that
+reflects his journey and artistic identity.
 </p>
 
 <p>
-This official website is the home of Kharvie's music, videos, news, releases and official updates.
+This official website is the home of Kharvie's music,
+videos, news, releases and official updates.
 </p>
 
 </div>
@@ -722,18 +831,39 @@ This official website is the home of Kharvie's music, videos, news, releases and
 <div class="stats">
 
 <div class="stat">
-<strong>2020</strong>
-<span>Active Since</span>
+
+<strong>
+2020
+</strong>
+
+<span>
+Active Since
+</span>
+
 </div>
 
 <div class="stat">
-<strong id="releaseStat">0</strong>
-<span>Releases</span>
+
+<strong id="releaseStat">
+0
+</strong>
+
+<span>
+Releases
+</span>
+
 </div>
 
 <div class="stat">
-<strong>∞</strong>
-<span>More To Come</span>
+
+<strong>
+∞
+</strong>
+
+<span>
+More To Come
+</span>
+
 </div>
 
 </div>
@@ -745,7 +875,9 @@ This official website is the home of Kharvie's music, videos, news, releases and
 </section>
 
 
-<!-- VIDEOS -->
+<!-- ============================================================
+     VIDEOS
+============================================================ -->
 
 <section class="section" id="videos">
 
@@ -768,7 +900,9 @@ Loading videos...
 </section>
 
 
-<!-- GALLERY -->
+<!-- ============================================================
+     GALLERY
+============================================================ -->
 
 <section class="section" id="gallery">
 
@@ -791,7 +925,9 @@ Loading gallery...
 </section>
 
 
-<!-- NEWS -->
+<!-- ============================================================
+     NEWS
+============================================================ -->
 
 <section class="section news" id="news">
 
@@ -814,7 +950,9 @@ Loading news...
 </section>
 
 
-<!-- EVENTS -->
+<!-- ============================================================
+     EVENTS
+============================================================ -->
 
 <section class="section" id="events">
 
@@ -837,7 +975,9 @@ Loading events...
 </section>
 
 
-<!-- CONTACT -->
+<!-- ============================================================
+     CONTACT
+============================================================ -->
 
 <section class="section contact" id="contact">
 
@@ -849,8 +989,12 @@ CONTACT
 Let's Connect.
 </h2>
 
-<p class="note" style="margin:0 auto 30px">
+<p
+class="note"
+style="margin:0 auto 30px">
+
 For bookings, collaborations and official enquiries.
+
 </p>
 
 <div class="contact-box">
@@ -858,7 +1002,9 @@ For bookings, collaborations and official enquiries.
 <a
 class="email"
 href="mailto:avannahvictor3@gmail.com">
+
 avannahvictor3@gmail.com
+
 </a>
 
 <div class="socials">
@@ -867,44 +1013,63 @@ avannahvictor3@gmail.com
 href="https://www.instagram.com/kharvie__/"
 target="_blank"
 rel="noopener">
+
 Instagram
+
 </a>
 
 <a
 href="https://www.tiktok.com/@_kharvie"
 target="_blank"
 rel="noopener">
+
 TikTok
+
 </a>
 
 <a
 href="#"
-target="_blank">
+target="_blank"
+rel="noopener">
+
 YouTube
+
 </a>
 
 <a
 href="#"
-target="_blank">
+target="_blank"
+rel="noopener">
+
 Audiomack
+
 </a>
 
 <a
 href="#"
-target="_blank">
+target="_blank"
+rel="noopener">
+
 Spotify
+
 </a>
 
 <a
 href="#"
-target="_blank">
+target="_blank"
+rel="noopener">
+
 Apple Music
+
 </a>
 
 <a
 href="#"
-target="_blank">
+target="_blank"
+rel="noopener">
+
 Boomplay
+
 </a>
 
 </div>
@@ -914,11 +1079,17 @@ Boomplay
 </section>
 
 
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+
 <footer>
 
 <p>
+
 © <span id="year"></span>
 Kharvie. All rights reserved.
+
 </p>
 
 <a href="#home">
@@ -928,10 +1099,14 @@ Back to top ↑
 </footer>
 
 
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+
 <script>
 
 /* ============================================================
-   SUPABASE
+   SUPABASE CONNECTION
 ============================================================ */
 
 const SUPABASE_URL =
@@ -949,7 +1124,7 @@ const db = createClient(
 
 
 /* ============================================================
-   MENU
+   MOBILE MENU
 ============================================================ */
 
 const menu =
@@ -958,30 +1133,40 @@ document.getElementById("menu");
 const nav =
 document.getElementById("nav");
 
-menu.addEventListener("click",function(){
+menu.addEventListener(
+  "click",
+  function(){
 
-  nav.classList.toggle("open");
+    nav.classList.toggle("open");
 
-});
+  }
+);
 
 document
 .querySelectorAll("#nav a")
-.forEach(function(link){
+.forEach(
+  function(link){
 
-  link.addEventListener("click",function(){
+    link.addEventListener(
+      "click",
+      function(){
 
-    nav.classList.remove("open");
+        nav.classList.remove("open");
 
-  });
+      }
+    );
 
-});
+  }
+);
 
 
 /* ============================================================
    YEAR
 ============================================================ */
 
-document.getElementById("year").textContent =
+document
+.getElementById("year")
+.textContent =
 new Date().getFullYear();
 
 
@@ -991,35 +1176,49 @@ new Date().getFullYear();
 
 function escapeHtml(value){
 
-  if(value === null || value === undefined){
+  if(
+    value === null ||
+    value === undefined
+  ){
+
     return "";
+
   }
 
   return String(value)
+
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
 
 
 function safeUrl(url){
 
   if(!url){
+
     return "";
+
   }
 
   try{
 
     const parsed =
-    new URL(url,window.location.href);
+    new URL(
+      url,
+      window.location.href
+    );
 
     if(
       parsed.protocol === "http:" ||
       parsed.protocol === "https:"
     ){
+
       return parsed.href;
+
     }
 
   }catch(error){
@@ -1029,20 +1228,29 @@ function safeUrl(url){
   }
 
   return "";
+
 }
 
 
 function formatDate(value){
 
   if(!value){
+
     return "";
+
   }
 
   const date =
   new Date(value);
 
-  if(Number.isNaN(date.getTime())){
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+
     return value;
+
   }
 
   return date.toLocaleDateString(
@@ -1053,13 +1261,19 @@ function formatDate(value){
       day:"numeric"
     }
   );
+
 }
 
 
-function showEmpty(element,message){
+function showEmpty(
+  element,
+  message
+){
 
   element.innerHTML =
-  `<div class="empty">${escapeHtml(message)}</div>`;
+  `<div class="empty">
+    ${escapeHtml(message)}
+  </div>`;
 
 }
 
@@ -1071,17 +1285,34 @@ function showEmpty(element,message){
 async function loadSongs(){
 
   const grid =
-  document.getElementById("musicGrid");
+  document.getElementById(
+    "musicGrid"
+  );
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
   await db
+
   .from("songs")
+
   .select("*")
-  .order("created_at",{ascending:false});
+
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
 
   if(error){
 
-    console.error("Songs:",error);
+    console.error(
+      "Songs:",
+      error
+    );
 
     showEmpty(
       grid,
@@ -1092,7 +1323,11 @@ async function loadSongs(){
 
   }
 
-  if(!data || data.length === 0){
+
+  if(
+    !data ||
+    data.length === 0
+  ){
 
     showEmpty(
       grid,
@@ -1103,120 +1338,222 @@ async function loadSongs(){
 
   }
 
+
   grid.innerHTML = "";
 
-  data.forEach(song => {
 
-    const card =
-    document.createElement("article");
+  data.forEach(
+    song => {
 
-    card.className =
-    "music-card";
+      const card =
+      document.createElement(
+        "article"
+      );
 
-    const cover =
-    safeUrl(song.cover_url);
+      card.className =
+      "music-card";
 
-    const audio =
-    safeUrl(song.audio_url);
 
-    const spotify =
-    safeUrl(song.spotify_url);
+      const cover =
+      safeUrl(
+        song.cover_url
+      );
 
-    const apple =
-    safeUrl(song.apple_music_url);
+      const audio =
+      safeUrl(
+        song.audio_url
+      );
 
-    const youtube =
-    safeUrl(song.youtube_url);
+      const spotify =
+      safeUrl(
+        song.spotify_url
+      );
 
-    const audiomack =
-    safeUrl(song.audiomack_url);
+      const apple =
+      safeUrl(
+        song.apple_music_url
+      );
 
-    let coverHtml =
-    `<div class="cover">K</div>`;
+      const youtube =
+      safeUrl(
+        song.youtube_url
+      );
 
-    if(cover){
+      const audiomack =
+      safeUrl(
+        song.audiomack_url
+      );
 
-      coverHtml =
-      `<div class="cover">
-        <img src="${escapeHtml(cover)}"
-        alt="${escapeHtml(song.title || "Kharvie song")}">
-      </div>`;
 
-    }
+      let coverHtml =
+      `<div class="cover">K</div>`;
 
-    let audioHtml = "";
 
-    if(audio){
+      if(cover){
 
-      audioHtml =
-      `<audio class="audio" controls preload="none">
-        <source src="${escapeHtml(audio)}">
-        Your browser does not support audio playback.
-      </audio>`;
+        coverHtml =
+        `<div class="cover">
 
-    }
+          <img
+          src="${escapeHtml(cover)}"
+          alt="${escapeHtml(
+            song.title ||
+            "Kharvie song"
+          )}">
 
-    let links = "";
+        </div>`;
 
-    if(spotify){
-      links +=
-      `<a class="small-btn"
-      href="${escapeHtml(spotify)}"
-      target="_blank"
-      rel="noopener">SPOTIFY</a>`;
-    }
-
-    if(apple){
-      links +=
-      `<a class="small-btn"
-      href="${escapeHtml(apple)}"
-      target="_blank"
-      rel="noopener">APPLE MUSIC</a>`;
-    }
-
-    if(youtube){
-      links +=
-      `<a class="small-btn"
-      href="${escapeHtml(youtube)}"
-      target="_blank"
-      rel="noopener">YOUTUBE</a>`;
-    }
-
-    if(audiomack){
-      links +=
-      `<a class="small-btn"
-      href="${escapeHtml(audiomack)}"
-      target="_blank"
-      rel="noopener">AUDIOMACK</a>`;
-    }
-
-    card.innerHTML = `
-
-      ${coverHtml}
-
-      <h3>
-        ${escapeHtml(song.title || "Untitled")}
-      </h3>
-
-      <p class="meta">
-        ${escapeHtml(song.artist || "Kharvie")}
-        ${song.genre ? " • " + escapeHtml(song.genre) : ""}
-        ${song.release_date ? " • " + escapeHtml(song.release_date) : ""}
-      </p>
-
-      ${audioHtml}
-
-      ${
-        links
-        ? `<div class="links">${links}</div>`
-        : ""
       }
 
-    `;
 
-    grid.appendChild(card);
+      let audioHtml = "";
 
-  });
+
+      if(audio){
+
+        audioHtml =
+        `<audio
+          class="audio"
+          controls
+          preload="none">
+
+          <source
+          src="${escapeHtml(audio)}">
+
+          Your browser does not
+          support audio playback.
+
+        </audio>`;
+
+      }
+
+
+      let links = "";
+
+
+      if(spotify){
+
+        links +=
+
+        `<a
+          class="small-btn"
+          href="${escapeHtml(spotify)}"
+          target="_blank"
+          rel="noopener">
+
+          SPOTIFY
+
+        </a>`;
+
+      }
+
+
+      if(apple){
+
+        links +=
+
+        `<a
+          class="small-btn"
+          href="${escapeHtml(apple)}"
+          target="_blank"
+          rel="noopener">
+
+          APPLE MUSIC
+
+        </a>`;
+
+      }
+
+
+      if(youtube){
+
+        links +=
+
+        `<a
+          class="small-btn"
+          href="${escapeHtml(youtube)}"
+          target="_blank"
+          rel="noopener">
+
+          YOUTUBE
+
+        </a>`;
+
+      }
+
+
+      if(audiomack){
+
+        links +=
+
+        `<a
+          class="small-btn"
+          href="${escapeHtml(audiomack)}"
+          target="_blank"
+          rel="noopener">
+
+          AUDIOMACK
+
+        </a>`;
+
+      }
+
+
+      card.innerHTML = `
+
+        ${coverHtml}
+
+        <h3>
+          ${escapeHtml(
+            song.title ||
+            "Untitled"
+          )}
+        </h3>
+
+        <p class="meta">
+
+          ${escapeHtml(
+            song.artist ||
+            "Kharvie"
+          )}
+
+          ${
+            song.genre
+            ? " • " +
+              escapeHtml(
+                song.genre
+              )
+            : ""
+          }
+
+          ${
+            song.release_date
+            ? " • " +
+              escapeHtml(
+                song.release_date
+              )
+            : ""
+          }
+
+        </p>
+
+        ${audioHtml}
+
+        ${
+          links
+          ? `<div class="links">
+              ${links}
+            </div>`
+          : ""
+        }
+
+      `;
+
+
+      grid.appendChild(card);
+
+    }
+  );
 
 }
 
@@ -1228,17 +1565,35 @@ async function loadSongs(){
 async function loadReleases(){
 
   const grid =
-  document.getElementById("releaseGrid");
+  document.getElementById(
+    "releaseGrid"
+  );
 
-  const {data,error} =
+
+  const {
+    data,
+    error
+  } =
   await db
+
   .from("releases")
+
   .select("*")
-  .order("created_at",{ascending:false});
+
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
 
   if(error){
 
-    console.error("Releases:",error);
+    console.error(
+      "Releases:",
+      error
+    );
 
     showEmpty(
       grid,
@@ -1249,11 +1604,21 @@ async function loadReleases(){
 
   }
 
-  document.getElementById("releaseStat")
-  .textContent =
-  data ? data.length : 0;
 
-  if(!data || data.length === 0){
+  document
+  .getElementById(
+    "releaseStat"
+  )
+  .textContent =
+  data
+  ? data.length
+  : 0;
+
+
+  if(
+    !data ||
+    data.length === 0
+  ){
 
     showEmpty(
       grid,
@@ -1264,109 +1629,201 @@ async function loadReleases(){
 
   }
 
+
   grid.innerHTML = "";
 
-  data.forEach(item => {
 
-    const card =
-    document.createElement("article");
+  data.forEach(
+    item => {
 
-    card.className =
-    "release-card";
+      const card =
+      document.createElement(
+        "article"
+      );
 
-    const cover =
-    safeUrl(item.cover_url);
+      card.className =
+      "release-card";
 
-    let coverHtml =
-    `<div class="release-cover">K</div>`;
 
-    if(cover){
+      const cover =
+      safeUrl(
+        item.cover_url
+      );
 
-      coverHtml =
+
+      let coverHtml =
       `<div class="release-cover">
-        <img
-        src="${escapeHtml(cover)}"
-        alt="${escapeHtml(item.title || "Kharvie release")}">
+        K
       </div>`;
 
-    }
 
-    const spotify =
-    safeUrl(item.spotify_url);
+      if(cover){
 
-    const apple =
-    safeUrl(item.apple_music_url);
+        coverHtml =
+        `<div class="release-cover">
 
-    const youtube =
-    safeUrl(item.youtube_url);
+          <img
+          src="${escapeHtml(cover)}"
+          alt="${escapeHtml(
+            item.title ||
+            "Kharvie release"
+          )}">
 
-    const audiomack =
-    safeUrl(item.audiomack_url);
+        </div>`;
 
-    let links = "";
-
-    if(spotify){
-      links +=
-      `<a class="small-btn"
-      href="${escapeHtml(spotify)}"
-      target="_blank"
-      rel="noopener">SPOTIFY</a>`;
-    }
-
-    if(apple){
-      links +=
-      `<a class="small-btn"
-      href="${escapeHtml(apple)}"
-      target="_blank"
-      rel="noopener">APPLE MUSIC</a>`;
-    }
-
-    if(youtube){
-      links +=
-      `<a class="small-btn"
-      href="${escapeHtml(youtube)}"
-      target="_blank"
-      rel="noopener">YOUTUBE</a>`;
-    }
-
-    if(audiomack){
-      links +=
-      `<a class="small-btn"
-      href="${escapeHtml(audiomack)}"
-      target="_blank"
-      rel="noopener">AUDIOMACK</a>`;
-    }
-
-    card.innerHTML = `
-
-      ${coverHtml}
-
-      <h3>
-        ${escapeHtml(item.title || "Untitled")}
-      </h3>
-
-      <p class="meta">
-        ${escapeHtml(item.release_type || "Release")}
-        ${item.release_date ? " • " + escapeHtml(item.release_date) : ""}
-      </p>
-
-      ${
-        item.description
-        ? `<p class="meta">${escapeHtml(item.description)}</p>`
-        : ""
       }
 
-      ${
-        links
-        ? `<div class="links">${links}</div>`
-        : ""
+
+      const spotify =
+      safeUrl(
+        item.spotify_url
+      );
+
+      const apple =
+      safeUrl(
+        item.apple_music_url
+      );
+
+      const youtube =
+      safeUrl(
+        item.youtube_url
+      );
+
+      const audiomack =
+      safeUrl(
+        item.audiomack_url
+      );
+
+
+      let links = "";
+
+
+      if(spotify){
+
+        links +=
+
+        `<a
+          class="small-btn"
+          href="${escapeHtml(spotify)}"
+          target="_blank"
+          rel="noopener">
+
+          SPOTIFY
+
+        </a>`;
+
       }
 
-    `;
 
-    grid.appendChild(card);
+      if(apple){
 
-  });
+        links +=
+
+        `<a
+          class="small-btn"
+          href="${escapeHtml(apple)}"
+          target="_blank"
+          rel="noopener">
+
+          APPLE MUSIC
+
+        </a>`;
+
+      }
+
+
+      if(youtube){
+
+        links +=
+
+        `<a
+          class="small-btn"
+          href="${escapeHtml(youtube)}"
+          target="_blank"
+          rel="noopener">
+
+          YOUTUBE
+
+        </a>`;
+
+      }
+
+
+      if(audiomack){
+
+        links +=
+
+        `<a
+          class="small-btn"
+          href="${escapeHtml(audiomack)}"
+          target="_blank"
+          rel="noopener">
+
+          AUDIOMACK
+
+        </a>`;
+
+      }
+
+
+      card.innerHTML = `
+
+        ${coverHtml}
+
+        <h3>
+          ${escapeHtml(
+            item.title ||
+            "Untitled"
+          )}
+        </h3>
+
+        <p class="meta">
+
+          ${escapeHtml(
+            item.release_type ||
+            "Release"
+          )}
+
+          ${
+            item.release_date
+            ? " • " +
+              escapeHtml(
+                item.release_date
+              )
+            : ""
+          }
+
+        </p>
+
+        ${
+          item.description
+
+          ? `<p class="meta">
+              ${escapeHtml(
+                item.description
+              )}
+            </p>`
+
+          : ""
+        }
+
+        ${
+          links
+
+          ? `<div class="links">
+              ${links}
+            </div>`
+
+          : ""
+        }
+
+      `;
+
+
+      grid.appendChild(card);
+
+    }
+  );
 
 }
 
@@ -1378,17 +1835,35 @@ async function loadReleases(){
 async function loadVideos(){
 
   const grid =
-  document.getElementById("videoGrid");
+  document.getElementById(
+    "videoGrid"
+  );
 
-  const {data,error} =
+
+  const {
+    data,
+    error
+  } =
   await db
+
   .from("videos")
+
   .select("*")
-  .order("created_at",{ascending:false});
+
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
 
   if(error){
 
-    console.error("Videos:",error);
+    console.error(
+      "Videos:",
+      error
+    );
 
     showEmpty(
       grid,
@@ -1399,7 +1874,11 @@ async function loadVideos(){
 
   }
 
-  if(!data || data.length === 0){
+
+  if(
+    !data ||
+    data.length === 0
+  ){
 
     showEmpty(
       grid,
@@ -1410,55 +1889,89 @@ async function loadVideos(){
 
   }
 
+
   grid.innerHTML = "";
 
-  data.forEach(item => {
 
-    const url =
-    safeUrl(item.video_url);
+  data.forEach(
+    item => {
 
-    const card =
-    document.createElement("a");
+      const url =
+      safeUrl(
+        item.video_url
+      );
 
-    card.className =
-    "video";
 
-    if(url){
+      const card =
+      document.createElement(
+        "a"
+      );
 
-      card.href = url;
-      card.target = "_blank";
-      card.rel = "noopener";
 
-    }else{
+      card.className =
+      "video";
 
-      card.href = "#";
 
-    }
+      if(url){
 
-    card.innerHTML = `
+        card.href = url;
 
-      <div>
+        card.target =
+        "_blank";
 
-        <div class="play">
-          ▶
+        card.rel =
+        "noopener";
+
+      }else{
+
+        card.href =
+        "#";
+
+      }
+
+
+      card.innerHTML = `
+
+        <div>
+
+          <div class="play">
+            ▶
+          </div>
+
+          <h3>
+            ${escapeHtml(
+              item.title ||
+              "Kharvie Video"
+            )}
+          </h3>
+
+          <p>
+
+            ${escapeHtml(
+              item.platform ||
+              "Official Video"
+            )}
+
+            ${
+              item.release_date
+              ? " • " +
+                escapeHtml(
+                  item.release_date
+                )
+              : ""
+            }
+
+          </p>
+
         </div>
 
-        <h3>
-          ${escapeHtml(item.title || "Kharvie Video")}
-        </h3>
+      `;
 
-        <p>
-          ${escapeHtml(item.platform || "Official Video")}
-          ${item.release_date ? " • " + escapeHtml(item.release_date) : ""}
-        </p>
 
-      </div>
+      grid.appendChild(card);
 
-    `;
-
-    grid.appendChild(card);
-
-  });
+    }
+  );
 
 }
 
@@ -1470,17 +1983,35 @@ async function loadVideos(){
 async function loadGallery(){
 
   const grid =
-  document.getElementById("galleryGrid");
+  document.getElementById(
+    "galleryGrid"
+  );
 
-  const {data,error} =
+
+  const {
+    data,
+    error
+  } =
   await db
+
   .from("gallery")
+
   .select("*")
-  .order("created_at",{ascending:false});
+
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
 
   if(error){
 
-    console.error("Gallery:",error);
+    console.error(
+      "Gallery:",
+      error
+    );
 
     showEmpty(
       grid,
@@ -1491,7 +2022,11 @@ async function loadGallery(){
 
   }
 
-  if(!data || data.length === 0){
+
+  if(
+    !data ||
+    data.length === 0
+  ){
 
     showEmpty(
       grid,
@@ -1502,38 +2037,62 @@ async function loadGallery(){
 
   }
 
+
   grid.innerHTML = "";
 
-  data.forEach(item => {
 
-    const url =
-    safeUrl(item.image_url);
+  data.forEach(
+    item => {
 
-    if(!url){
-      return;
+      const url =
+      safeUrl(
+        item.image_url
+      );
+
+
+      if(!url){
+
+        return;
+
+      }
+
+
+      const link =
+      document.createElement(
+        "a"
+      );
+
+
+      link.className =
+      "gallery-item";
+
+
+      link.href =
+      url;
+
+      link.target =
+      "_blank";
+
+      link.rel =
+      "noopener";
+
+
+      link.innerHTML = `
+
+        <img
+        src="${escapeHtml(url)}"
+        alt="${escapeHtml(
+          item.title ||
+          "Kharvie photo"
+        )}">
+
+      `;
+
+
+      grid.appendChild(link);
+
     }
-
-    const link =
-    document.createElement("a");
-
-    link.className =
-    "gallery-item";
-
-    link.href = url;
-    link.target = "_blank";
-    link.rel = "noopener";
-
-    link.innerHTML = `
-
-      <img
-      src="${escapeHtml(url)}"
-      alt="${escapeHtml(item.title || "Kharvie photo")}">
-
-    `;
-
-    grid.appendChild(link);
-
-  });
+  );
 
 }
 
@@ -1545,18 +2104,40 @@ async function loadGallery(){
 async function loadNews(){
 
   const grid =
-  document.getElementById("newsGrid");
+  document.getElementById(
+    "newsGrid"
+  );
 
-  const {data,error} =
+
+  const {
+    data,
+    error
+  } =
   await db
+
   .from("posts")
+
   .select("*")
-  .eq("is_published",true)
-  .order("created_at",{ascending:false});
+
+  .eq(
+    "is_published",
+    true
+  )
+
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
 
   if(error){
 
-    console.error("Posts:",error);
+    console.error(
+      "Posts:",
+      error
+    );
 
     showEmpty(
       grid,
@@ -1567,7 +2148,11 @@ async function loadNews(){
 
   }
 
-  if(!data || data.length === 0){
+
+  if(
+    !data ||
+    data.length === 0
+  ){
 
     showEmpty(
       grid,
@@ -1578,43 +2163,71 @@ async function loadNews(){
 
   }
 
+
   grid.innerHTML = "";
 
-  data.forEach(item => {
 
-    const article =
-    document.createElement("article");
+  data.forEach(
+    item => {
 
-    article.className =
-    "news-card";
+      const article =
+      document.createElement(
+        "article"
+      );
 
-    article.innerHTML = `
 
-      <p class="news-date">
-        ${
-          item.published_at
-          ? escapeHtml(formatDate(item.published_at))
-          : "KHARVIE"
-        }
-      </p>
+      article.className =
+      "news-card";
 
-      <h3>
-        ${escapeHtml(item.title || "Kharvie News")}
-      </h3>
 
-      <p>
-        ${escapeHtml(
-          item.excerpt ||
-          item.content ||
-          ""
-        )}
-      </p>
+      article.innerHTML = `
 
-    `;
+        <p class="news-date">
 
-    grid.appendChild(article);
+          ${
+            item.published_at
 
-  });
+            ? escapeHtml(
+                formatDate(
+                  item.published_at
+                )
+              )
+
+            : "KHARVIE"
+          }
+
+        </p>
+
+
+        <h3>
+
+          ${escapeHtml(
+            item.title ||
+            "Kharvie News"
+          )}
+
+        </h3>
+
+
+        <p>
+
+          ${escapeHtml(
+            item.excerpt ||
+            item.content ||
+            ""
+          )}
+
+        </p>
+
+      `;
+
+
+      grid.appendChild(
+        article
+      );
+
+    }
+  );
 
 }
 
@@ -1626,17 +2239,35 @@ async function loadNews(){
 async function loadEvents(){
 
   const grid =
-  document.getElementById("eventsGrid");
+  document.getElementById(
+    "eventsGrid"
+  );
 
-  const {data,error} =
+
+  const {
+    data,
+    error
+  } =
   await db
+
   .from("events")
+
   .select("*")
-  .order("event_date",{ascending:true});
+
+  .order(
+    "event_date",
+    {
+      ascending:true
+    }
+  );
+
 
   if(error){
 
-    console.error("Events:",error);
+    console.error(
+      "Events:",
+      error
+    );
 
     showEmpty(
       grid,
@@ -1647,7 +2278,11 @@ async function loadEvents(){
 
   }
 
-  if(!data || data.length === 0){
+
+  if(
+    !data ||
+    data.length === 0
+  ){
 
     showEmpty(
       grid,
@@ -1658,86 +2293,166 @@ async function loadEvents(){
 
   }
 
+
   grid.innerHTML = "";
 
-  data.forEach(item => {
 
-    const card =
-    document.createElement("article");
+  data.forEach(
+    item => {
 
-    card.className =
-    "event-card";
+      const card =
+      document.createElement(
+        "article"
+      );
 
-    const ticket =
-    safeUrl(item.ticket_url);
 
-    let location = "";
+      card.className =
+      "event-card";
 
-    if(item.venue){
-      location += escapeHtml(item.venue);
-    }
 
-    if(item.city){
-      location +=
-      (location ? " • " : "") +
-      escapeHtml(item.city);
-    }
+      const ticket =
+      safeUrl(
+        item.ticket_url
+      );
 
-    if(item.country){
-      location +=
-      (location ? " • " : "") +
-      escapeHtml(item.country);
-    }
 
-    card.innerHTML = `
+      let location = "";
 
-      <p class="event-date">
+
+      if(item.venue){
+
+        location +=
+        escapeHtml(
+          item.venue
+        );
+
+      }
+
+
+      if(item.city){
+
+        location +=
+
+        (location
+          ? " • "
+          : "") +
+
+        escapeHtml(
+          item.city
+        );
+
+      }
+
+
+      if(item.country){
+
+        location +=
+
+        (location
+          ? " • "
+          : "") +
+
+        escapeHtml(
+          item.country
+        );
+
+      }
+
+
+      card.innerHTML = `
+
+        <p class="event-date">
+
+          ${
+            item.event_date
+
+            ? escapeHtml(
+                formatDate(
+                  item.event_date
+                )
+              )
+
+            : "DATE TBA"
+          }
+
+          ${
+            item.event_time
+
+            ? " • " +
+              escapeHtml(
+                item.event_time
+              )
+
+            : ""
+          }
+
+        </p>
+
+
+        <h3>
+
+          ${escapeHtml(
+            item.title ||
+            "Kharvie Event"
+          )}
+
+        </h3>
+
+
+        <p class="event-location">
+
+          ${
+            location ||
+            "Location TBA"
+          }
+
+        </p>
+
+
         ${
-          item.event_date
-          ? escapeHtml(formatDate(item.event_date))
-          : "DATE TBA"
-        }
-        ${
-          item.event_time
-          ? " • " + escapeHtml(item.event_time)
+          item.description
+
+          ? `<p class="meta">
+              ${escapeHtml(
+                item.description
+              )}
+            </p>`
+
           : ""
         }
-      </p>
 
-      <h3>
-        ${escapeHtml(item.title || "Kharvie Event")}
-      </h3>
 
-      <p class="event-location">
-        ${location || "Location TBA"}
-      </p>
+        ${
+          ticket
 
-      ${
-        item.description
-        ? `<p class="meta">${escapeHtml(item.description)}</p>`
-        : ""
-      }
+          ? `<a
+              class="small-btn"
+              href="${escapeHtml(ticket)}"
+              target="_blank"
+              rel="noopener">
 
-      ${
-        ticket
-        ? `<a class="small-btn"
-        href="${escapeHtml(ticket)}"
-        target="_blank"
-        rel="noopener">GET TICKETS</a>`
-        : ""
-      }
+              GET TICKETS
 
-    `;
+            </a>`
 
-    grid.appendChild(card);
+          : ""
+        }
 
-  });
+      `;
+
+
+      grid.appendChild(
+        card
+      );
+
+    }
+  );
 
 }
 
 
 /* ============================================================
-   START WEBSITE
+   LOAD EVERYTHING
 ============================================================ */
 
 async function loadWebsite(){
@@ -1759,6 +2474,11 @@ async function loadWebsite(){
   ]);
 
 }
+
+
+/* ============================================================
+   START
+============================================================ */
 
 loadWebsite();
 
