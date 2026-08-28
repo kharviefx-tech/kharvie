@@ -2,681 +2,415 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Kharvie Official Website</title>
+<title>Kharvie | Official Website</title>
 
-<meta name="description" content="Kharvie Official Website — music, videos, news, releases and official updates.">
-<meta name="author" content="Kharvie">
-<meta name="theme-color" content="#080808">
+<meta name="description"
+content="Kharvie — Nigerian Afrobeat-fusion artist. Official music, biography, videos and links.">
 
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
-    background:#080808;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
-    line-height:1.6;
-    overflow-x:hidden;
+background:#070707;
+color:#fff;
+font-family:Arial,Helvetica,sans-serif;
+line-height:1.6;
+overflow-x:hidden
 }
 
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-button,input,textarea{
-    font:inherit;
-}
-
-/* HEADER */
+a{text-decoration:none;color:inherit}
 
 header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:74px;
-    z-index:1000;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 7%;
-
-    background:rgba(8,8,8,.82);
-    backdrop-filter:blur(16px);
-
-    border-bottom:1px solid #242424;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:74px;
+z-index:1000;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 7%;
+background:rgba(7,7,7,.88);
+backdrop-filter:blur(18px);
+border-bottom:1px solid #252525
 }
 
 .logo{
-    font-weight:900;
-    font-size:21px;
-    letter-spacing:5px;
+font-size:21px;
+font-weight:900;
+letter-spacing:5px
 }
 
-.logo small{
-    font-size:8px;
-    vertical-align:top;
-}
+.logo small{font-size:8px}
 
-nav{
-    display:flex;
-    gap:28px;
-}
+nav{display:flex;gap:28px}
 
 nav a{
-    font-size:14px;
-    color:#aaa;
-    transition:.25s;
+font-size:14px;
+color:#aaa;
+transition:.2s
 }
 
-nav a:hover{
-    color:#fff;
-}
+nav a:hover{color:#fff}
 
 .menu{
-    display:none;
-    border:0;
-    background:none;
-    color:#fff;
-    font-size:28px;
-    cursor:pointer;
+display:none;
+background:none;
+border:0;
+color:#fff;
+font-size:28px
 }
-
-/* HERO */
 
 .hero{
-    min-height:100vh;
-    position:relative;
-
-    display:grid;
-    grid-template-columns:1.05fr .95fr;
-    align-items:center;
-
-    padding:100px 7% 60px;
-
-    overflow:hidden;
-    background:#080808;
+min-height:100vh;
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+padding:110px 7% 60px;
+background:
+radial-gradient(circle at 75% 45%,#34343b,transparent 35%),
+#070707
 }
 
-.hero:before{
-    content:"";
-    position:absolute;
-    inset:0;
-
-    background:
-    radial-gradient(
-        circle at 72% 50%,
-        rgba(90,90,95,.32),
-        transparent 38%
-    ),
-    linear-gradient(
-        90deg,
-        #080808 35%,
-        transparent
-    );
-
-    pointer-events:none;
-}
-
-.hero-copy{
-    position:relative;
-    z-index:2;
-}
+.hero-content{position:relative;z-index:2}
 
 .label{
-    font-size:11px;
-    letter-spacing:5px;
-    font-weight:800;
-    color:#8d8d92;
-    margin-bottom:17px;
+font-size:11px;
+font-weight:800;
+letter-spacing:5px;
+color:#888;
+margin-bottom:18px
 }
 
-.hero h1{
-    font-size:clamp(70px,12vw,155px);
-    line-height:.82;
-    letter-spacing:-8px;
-    margin-bottom:28px;
+h1{
+font-size:clamp(70px,12vw,155px);
+line-height:.82;
+letter-spacing:-8px;
+margin-bottom:28px
 }
 
 .tagline{
-    font-size:20px;
-    color:#aaa;
-    margin-bottom:32px;
+font-size:21px;
+color:#aaa;
+margin-bottom:30px
 }
 
 .buttons{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
+display:flex;
+gap:12px;
+flex-wrap:wrap
 }
 
 .btn{
-    display:inline-block;
-
-    padding:13px 21px;
-
-    border:1px solid #fff;
-
-    font-size:13px;
-    font-weight:800;
-
-    transition:.25s;
+display:inline-block;
+padding:13px 21px;
+border:1px solid #fff;
+font-size:13px;
+font-weight:800
 }
 
-.btn.white{
-    background:#fff;
-    color:#000;
+.white{
+background:#fff;
+color:#000
 }
 
-.btn.white:hover{
-    background:transparent;
-    color:#fff;
-}
-
-.btn.outline{
-    border-color:#444;
-}
-
-.btn.outline:hover{
-    border-color:#fff;
-}
+.outline{border-color:#444}
 
 .hero-photo{
-    position:relative;
-    z-index:1;
-
-    height:min(78vh,760px);
-
-    display:flex;
-    justify-content:center;
-    align-items:end;
-}
-
-.hero-photo:after{
-    content:"";
-
-    position:absolute;
-
-    width:90%;
-    height:25%;
-    bottom:0;
-
-    background:
-    linear-gradient(
-        transparent,
-        #080808
-    );
-
-    pointer-events:none;
+height:min(78vh,720px);
+overflow:hidden
 }
 
 .hero-photo img{
-    height:100%;
-    width:100%;
-
-    object-fit:cover;
-    object-position:center 18%;
-
-    filter:saturate(.88) contrast(1.05);
-
-    mask-image:
-    linear-gradient(
-        to bottom,
-        #000 82%,
-        transparent 100%
-    );
-
-    -webkit-mask-image:
-    linear-gradient(
-        to bottom,
-        #000 82%,
-        transparent 100%
-    );
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:center;
+filter:saturate(.85) contrast(1.08)
 }
 
-/* SECTIONS */
-
 .section{
-    max-width:1250px;
-    margin:auto;
-    padding:105px 7%;
-    scroll-margin-top:75px;
+max-width:1250px;
+margin:auto;
+padding:105px 7%;
+scroll-margin-top:75px
 }
 
 .section h2{
-    font-size:clamp(45px,7vw,80px);
-    line-height:.95;
-    letter-spacing:-5px;
-    margin-bottom:42px;
+font-size:clamp(45px,7vw,80px);
+line-height:.95;
+letter-spacing:-5px;
+margin-bottom:40px
 }
 
 .section-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-    gap:30px;
-    margin-bottom:42px;
+display:flex;
+justify-content:space-between;
+align-items:end;
+gap:30px;
+margin-bottom:40px
 }
 
-.section-note{
-    color:#777;
-    max-width:300px;
-}
-
-/* MUSIC */
+.note{color:#777;max-width:320px}
 
 .music-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px
 }
 
 .music-card{
-    background:#121214;
-    border:1px solid #29292d;
-    padding:20px;
-    transition:.3s;
+background:#121214;
+border:1px solid #29292d;
+padding:20px;
+transition:.3s
 }
 
 .music-card:hover{
-    transform:translateY(-5px);
-    border-color:#555;
+transform:translateY(-5px);
+border-color:#666
 }
 
 .cover{
-    aspect-ratio:1/1;
-
-    background:
-    radial-gradient(
-        circle at 50% 30%,
-        #48484f,
-        #121214 65%
-    );
-
-    display:grid;
-    place-items:center;
-
-    margin-bottom:22px;
-
-    font-size:105px;
-    font-weight:900;
-    letter-spacing:-8px;
+aspect-ratio:1/1;
+background:
+radial-gradient(circle at 50% 30%,#555,#121214 65%);
+display:grid;
+place-items:center;
+margin-bottom:22px;
+font-size:110px;
+font-weight:900;
+overflow:hidden
 }
 
-.music-card h3{
-    font-size:23px;
+.cover img{
+width:100%;
+height:100%;
+object-fit:cover
 }
+
+.music-card h3{font-size:25px}
 
 .meta{
-    font-size:13px;
-    color:#777;
-    margin:4px 0 18px;
+font-size:13px;
+color:#777;
+margin:4px 0 18px
 }
 
-/* ABOUT */
-
 .about{
-    border-top:1px solid #252525;
-    border-bottom:1px solid #252525;
+border-top:1px solid #252525;
+border-bottom:1px solid #252525
 }
 
 .about-grid{
-    display:grid;
-    grid-template-columns:1fr 1.25fr;
-    gap:80px;
+display:grid;
+grid-template-columns:1fr 1.25fr;
+gap:70px
 }
 
 .about-photo{
-    height:570px;
-    overflow:hidden;
-    background:#151515;
+height:570px;
+overflow:hidden
 }
 
 .about-photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center 15%;
-    filter:saturate(.88);
+width:100%;
+height:100%;
+object-fit:cover
 }
 
 .about-copy{
-    color:#c7c7c9;
-    font-size:18px;
-    line-height:1.9;
+font-size:18px;
+color:#c8c8ca;
+line-height:1.9
 }
 
-.about-copy p{
-    margin-bottom:18px;
-}
-
-/* STATS */
+.about-copy p{margin-bottom:20px}
 
 .stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin-top:30px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:30px
 }
 
 .stat{
-    background:#111;
-    border:1px solid #28282b;
-    padding:18px;
+padding:18px;
+background:#111;
+border:1px solid #29292d
 }
 
 .stat strong{
-    display:block;
-    font-size:30px;
+display:block;
+font-size:30px
 }
 
 .stat span{
-    font-size:12px;
-    color:#777;
+font-size:12px;
+color:#777
 }
 
-/* VIDEOS */
-
 .video-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px
 }
 
 .video{
-    min-height:320px;
-    padding:27px;
-
-    display:flex;
-    align-items:end;
-
-    border:1px solid #29292d;
-
-    background:
-    radial-gradient(
-        circle at 75% 20%,
-        #3a3a41,
-        #111113 62%
-    );
-
-    transition:.3s;
-}
-
-.video:hover{
-    transform:translateY(-5px);
-    border-color:#555;
+min-height:300px;
+padding:28px;
+display:flex;
+align-items:end;
+border:1px solid #29292d;
+background:
+radial-gradient(circle at 75% 20%,#3a3a41,#111113 65%)
 }
 
 .play{
-    width:60px;
-    height:60px;
-
-    border:1px solid #fff;
-    border-radius:50%;
-
-    display:grid;
-    place-items:center;
-
-    margin-bottom:18px;
+width:60px;
+height:60px;
+border:1px solid #fff;
+border-radius:50%;
+display:grid;
+place-items:center;
+margin-bottom:18px
 }
 
-.video h3{
-    font-size:23px;
-}
+.video h3{font-size:23px}
 
-.video p{
-    color:#777;
-}
-
-/* NEWS */
+.video p{color:#777}
 
 .news{
-    border-top:1px solid #252525;
+border-top:1px solid #252525
 }
 
 .news-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px
 }
 
 .news-card{
-    background:#121214;
-    border:1px solid #29292d;
-    padding:25px;
+background:#121214;
+border:1px solid #29292d;
+padding:25px
 }
 
 .news-date{
-    font-size:11px;
-    color:#777;
-    letter-spacing:2px;
+font-size:11px;
+color:#777;
+letter-spacing:2px
 }
 
 .news-card h3{
-    font-size:21px;
-    margin:10px 0;
+font-size:21px;
+margin:10px 0
 }
 
-.news-card p{
-    color:#999;
+.news-card p{color:#999}
+
+.contact{text-align:center}
+
+.contact-box{
+max-width:700px;
+margin:auto;
+padding:30px;
+background:#111;
+border:1px solid #29292d
 }
 
-/* CONTACT */
-
-.contact{
-    text-align:center;
+.email{
+font-size:21px;
+font-weight:800
 }
-
-.contact-intro{
-    max-width:600px;
-    margin:-18px auto 35px;
-    color:#888;
-}
-
-form{
-    max-width:680px;
-    margin:auto;
-
-    display:grid;
-    gap:12px;
-}
-
-.form-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-input,
-textarea{
-    width:100%;
-    padding:15px;
-
-    background:#111;
-    border:1px solid #29292d;
-
-    color:#fff;
-    outline:none;
-}
-
-input:focus,
-textarea:focus{
-    border-color:#777;
-}
-
-textarea{
-    min-height:155px;
-    resize:vertical;
-}
-
-form button{
-    padding:15px;
-
-    background:#fff;
-    color:#000;
-
-    border:1px solid #fff;
-
-    font-weight:800;
-    cursor:pointer;
-}
-
-#message{
-    min-height:24px;
-    color:#aaa;
-}
-
-/* SOCIALS */
 
 .socials{
-    display:flex;
-    justify-content:center;
-    gap:25px;
-    flex-wrap:wrap;
-
-    margin-top:32px;
+display:flex;
+justify-content:center;
+gap:25px;
+flex-wrap:wrap;
+margin-top:30px
 }
 
-.socials a{
-    color:#888;
-}
+.socials a{color:#888}
 
-.socials a:hover{
-    color:#fff;
-}
-
-/* FOOTER */
+.socials a:hover{color:#fff}
 
 footer{
-    border-top:1px solid #252525;
-
-    padding:28px 7%;
-
-    display:flex;
-    justify-content:space-between;
-
-    color:#777;
-
-    font-size:13px;
+border-top:1px solid #252525;
+padding:28px 7%;
+display:flex;
+justify-content:space-between;
+color:#777;
+font-size:13px
 }
-
-/* MOBILE */
 
 @media(max-width:800px){
 
-    header{
-        padding:0 6%;
-    }
+header{padding:0 6%}
 
-    .menu{
-        display:block;
-    }
+.menu{display:block}
 
-    nav{
-        display:none;
-
-        position:absolute;
-        top:74px;
-        left:0;
-
-        width:100%;
-
-        padding:22px 6%;
-
-        background:#080808;
-
-        flex-direction:column;
-        gap:16px;
-
-        border-bottom:1px solid #252525;
-    }
-
-    nav.open{
-        display:flex;
-    }
-
-    .hero{
-        grid-template-columns:1fr;
-
-        padding:115px 6% 55px;
-    }
-
-    .hero-copy{
-        padding-top:25px;
-    }
-
-    .hero h1{
-        letter-spacing:-5px;
-    }
-
-    .hero-photo{
-        height:58vh;
-        margin-top:25px;
-    }
-
-    .hero-photo img{
-        object-position:center 12%;
-    }
-
-    .section{
-        padding:80px 6%;
-    }
-
-    .section-head{
-        display:block;
-    }
-
-    .section-note{
-        margin-top:15px;
-    }
-
-    .music-grid,
-    .video-grid,
-    .about-grid,
-    .news-grid{
-        grid-template-columns:1fr;
-    }
-
-    .about-photo{
-        height:520px;
-    }
-
-    .stats{
-        grid-template-columns:1fr;
-    }
-
-    .form-row{
-        grid-template-columns:1fr;
-    }
-
-    footer{
-        padding:25px 6%;
-        flex-direction:column;
-        gap:10px;
-    }
-
+nav{
+display:none;
+position:absolute;
+top:74px;
+left:0;
+width:100%;
+padding:22px 6%;
+background:#080808;
+flex-direction:column;
+gap:16px;
+border-bottom:1px solid #252525
 }
 
+nav.open{display:flex}
+
+.hero{
+grid-template-columns:1fr;
+padding:115px 6% 50px
+}
+
+.hero h1{letter-spacing:-5px}
+
+.hero-photo{
+height:58vh;
+margin-top:30px
+}
+
+.section{padding:80px 6%}
+
+.section-head{display:block}
+
+.note{margin-top:15px}
+
+.music-grid,
+.video-grid,
+.about-grid,
+.news-grid{
+grid-template-columns:1fr
+}
+
+.about-photo{height:520px}
+
+.stats{grid-template-columns:1fr}
+
+footer{
+padding:25px 6%;
+flex-direction:column;
+gap:10px
+}
+
+}
 </style>
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -684,38 +418,30 @@ footer{
 KHARVIE<small>®</small>
 </a>
 
-<button
-class="menu"
-id="menu"
-aria-label="Open navigation">
-☰
-</button>
+<button class="menu" id="menu">☰</button>
 
 <nav id="nav">
-
 <a href="#home">Home</a>
 <a href="#music">Music</a>
 <a href="#about">About</a>
 <a href="#videos">Videos</a>
 <a href="#news">News</a>
 <a href="#contact">Contact</a>
-
 </nav>
 
 </header>
 
+<!-- HOME -->
 
 <section class="hero" id="home">
 
-<div class="hero-copy">
+<div class="hero-content">
 
 <p class="label">
 KHARVIE OFFICIAL WEBSITE
 </p>
 
-<h1>
-KHARVIE
-</h1>
+<h1>KHARVIE</h1>
 
 <p class="tagline">
 Music. Energy. Identity.
@@ -723,22 +449,17 @@ Music. Energy. Identity.
 
 <div class="buttons">
 
-<a
-class="btn white"
-href="#music">
+<a class="btn white" href="#music">
 EXPLORE MUSIC
 </a>
 
-<a
-class="btn outline"
-href="#about">
+<a class="btn outline" href="#about">
 DISCOVER KHARVIE
 </a>
 
 </div>
 
 </div>
-
 
 <div class="hero-photo">
 
@@ -750,45 +471,35 @@ alt="Kharvie">
 
 </section>
 
+<!-- MUSIC -->
 
-<section
-class="section"
-id="music">
+<section class="section" id="music">
 
 <div class="section-head">
 
 <div>
 
-<p class="label">
-MUSIC
-</p>
+<p class="label">MUSIC</p>
 
-<h2>
-Latest Releases
-</h2>
+<h2>Latest Releases</h2>
 
 </div>
 
-<p class="section-note">
-Discover Kharvie's music and follow
-the latest releases.
+<p class="note">
+Listen to the latest music from Kharvie.
 </p>
 
 </div>
-
 
 <div class="music-grid">
 
-
 <article class="music-card">
 
 <div class="cover">
 K
 </div>
 
-<h3>
-Your First Release
-</h3>
+<h3>Imole</h3>
 
 <p class="meta">
 Single • 2026
@@ -798,13 +509,10 @@ Single • 2026
 class="btn white"
 href="#"
 target="_blank">
-
 LISTEN NOW
-
 </a>
 
 </article>
-
 
 <article class="music-card">
 
@@ -812,9 +520,7 @@ LISTEN NOW
 K
 </div>
 
-<h3>
-Your Second Release
-</h3>
+<h3>Sweet Love</h3>
 
 <p class="meta">
 Single • 2026
@@ -824,25 +530,20 @@ Single • 2026
 class="btn white"
 href="#"
 target="_blank">
-
 LISTEN NOW
-
 </a>
 
 </article>
-
 
 </div>
 
 </section>
 
+<!-- ABOUT -->
 
-<section
-class="section about"
-id="about">
+<section class="section about" id="about">
 
 <div class="about-grid">
-
 
 <div class="about-photo">
 
@@ -851,7 +552,6 @@ src="assets/kharvie.jpg"
 alt="Kharvie">
 
 </div>
-
 
 <div>
 
@@ -866,68 +566,35 @@ About Kharvie
 <div class="about-copy">
 
 <p>
-Kharvie is an emerging Afrobeat artist
-building a distinctive sound and connecting
-with listeners through music.
+Kharvie is a Nigerian Afrobeat-fusion artist creating music rooted in rhythm, identity and authentic expression.
 </p>
 
 <p>
-With a passion for rhythm, creativity and
-authentic expression, Kharvie continues to
-develop his artistic identity and share his
-music with the world.
+Active since 2020, Kharvie blends Afrobeat, Street Pop, Trap, Hip-Hop and R&B influences to create a sound that reflects his journey and artistic identity.
 </p>
 
 <p>
-This official website is the home of
-Kharvie's music, videos, news, releases
-and official updates.
+This official website is the home of Kharvie's music, videos, news, releases and official updates.
 </p>
 
 </div>
-
 
 <div class="stats">
 
-
 <div class="stat">
-
-<strong>
-2026
-</strong>
-
-<span>
-Current Era
-</span>
-
+<strong>2020</strong>
+<span>Active Since</span>
 </div>
 
-
 <div class="stat">
-
-<strong>
-2+
-</strong>
-
-<span>
-Releases
-</span>
-
+<strong>2</strong>
+<span>Latest Releases</span>
 </div>
 
-
 <div class="stat">
-
-<strong>
-∞
-</strong>
-
-<span>
-More To Come
-</span>
-
+<strong>∞</strong>
+<span>More To Come</span>
 </div>
-
 
 </div>
 
@@ -937,10 +604,9 @@ More To Come
 
 </section>
 
+<!-- VIDEOS -->
 
-<section
-class="section"
-id="videos">
+<section class="section" id="videos">
 
 <p class="label">
 WATCH
@@ -950,9 +616,7 @@ WATCH
 Videos
 </h2>
 
-
 <div class="video-grid">
-
 
 <a
 class="video"
@@ -970,13 +634,12 @@ Official Music Video
 </h3>
 
 <p>
-Add your YouTube link here.
+Watch Kharvie's official videos.
 </p>
 
 </div>
 
 </a>
-
 
 <a
 class="video"
@@ -994,22 +657,20 @@ Behind The Music
 </h3>
 
 <p>
-Add another official video here.
+More official content coming soon.
 </p>
 
 </div>
 
 </a>
 
-
 </div>
 
 </section>
 
+<!-- NEWS -->
 
-<section
-class="section news"
-id="news">
+<section class="section news" id="news">
 
 <p class="label">
 UPDATES
@@ -1019,9 +680,7 @@ UPDATES
 Latest News
 </h2>
 
-
 <div class="news-grid">
-
 
 <article class="news-card">
 
@@ -1034,12 +693,10 @@ Welcome To Kharvie Official Website
 </h3>
 
 <p>
-The official home for Kharvie's music,
-news, videos and updates.
+The official home for Kharvie's music, news, videos and updates.
 </p>
 
 </article>
-
 
 <article class="news-card">
 
@@ -1048,43 +705,38 @@ NEW MUSIC
 </p>
 
 <h3>
-More Music Is Coming
+Imole
 </h3>
 
 <p>
-Follow Kharvie's official channels
-for new release announcements.
+Kharvie's latest release is now available on streaming platforms.
 </p>
 
 </article>
-
 
 <article class="news-card">
 
 <p class="news-date">
-CONNECT
+COMING SOON
 </p>
 
 <h3>
-Stay Connected
+More Music Is Coming
 </h3>
 
 <p>
-Keep up with Kharvie through the
-official social platforms.
+Follow Kharvie's official channels for new announcements.
 </p>
 
 </article>
-
 
 </div>
 
 </section>
 
+<!-- CONTACT -->
 
-<section
-class="section contact"
-id="contact">
+<section class="section contact" id="contact">
 
 <p class="label">
 CONTACT
@@ -1094,71 +746,69 @@ CONTACT
 Let's Connect.
 </h2>
 
-<p class="contact-intro">
-For bookings, collaborations and official
-enquiries, send a message below.
+<p class="note" style="margin:0 auto 30px">
+For bookings, collaborations and official enquiries.
 </p>
 
+<div class="contact-box">
 
-<form id="contactForm">
+<a
+class="email"
+href="mailto:avannahvictor3@gmail.com">
 
+avannahvictor3@gmail.com
 
-<div class="form-row">
-
-<input
-type="text"
-name="name"
-placeholder="Your name"
-required>
-
-<input
-type="email"
-name="email"
-placeholder="Email address"
-required>
-
-</div>
-
-
-<textarea
-name="message"
-placeholder="Your message"
-required>
-</textarea>
-
-
-<button type="submit">
-SEND MESSAGE
-</button>
-
-
-<p id="message"></p>
-
-</form>
-
+</a>
 
 <div class="socials">
 
-<a href="#" target="_blank">
+<a
+href="https://www.instagram.com/kharvie__/"
+target="_blank">
 Instagram
 </a>
 
-<a href="#" target="_blank">
+<a
+href="https://www.tiktok.com/@_kharvie"
+target="_blank">
 TikTok
 </a>
 
-<a href="#" target="_blank">
+<a
+href="#"
+target="_blank">
 YouTube
 </a>
 
-<a href="#" target="_blank">
+<a
+href="#"
+target="_blank">
 Audiomack
 </a>
+
+<a
+href="#"
+target="_blank">
+Spotify
+</a>
+
+<a
+href="#"
+target="_blank">
+Apple Music
+</a>
+
+<a
+href="#"
+target="_blank">
+Boomplay
+</a>
+
+</div>
 
 </div>
 
 </section>
-
 
 <footer>
 
@@ -1173,7 +823,6 @@ Back to top ↑
 
 </footer>
 
-
 <script>
 
 const menu =
@@ -1182,23 +831,17 @@ document.getElementById("menu");
 const nav =
 document.getElementById("nav");
 
-
-menu.addEventListener(
-"click",
-function(){
+menu.addEventListener("click",function(){
 
 nav.classList.toggle("open");
 
 });
 
-
 document
 .querySelectorAll("#nav a")
 .forEach(function(link){
 
-link.addEventListener(
-"click",
-function(){
+link.addEventListener("click",function(){
 
 nav.classList.remove("open");
 
@@ -1206,32 +849,10 @@ nav.classList.remove("open");
 
 });
 
-
-document
-.getElementById("year")
-.textContent =
+document.getElementById("year").textContent =
 new Date().getFullYear();
-
-
-document
-.getElementById("contactForm")
-.addEventListener(
-"submit",
-function(event){
-
-event.preventDefault();
-
-document
-.getElementById("message")
-.textContent =
-"Thank you. Your message has been received.";
-
-this.reset();
-
-});
 
 </script>
 
-
 </body>
-  </html>
+</html>
