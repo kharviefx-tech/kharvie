@@ -1,2073 +1,6327 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Kharvie | Official Website</title><meta name="description"
-content="Official website of Kharvie — music, releases, videos, gallery, news and events.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color" content="#070707"><style>
+  <title>Kharvie | Admin Dashboard</title>
+  <meta name="description" content="Kharvie official administration dashboard.">
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+  <meta name="theme-color" content="#050505">
 
-html{
-  scroll-behavior:smooth;
-}
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-body{
-  background:#070707;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
-  line-height:1.5;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-img{
-  display:block;
-  max-width:100%;
-}
-
-button{
-  font:inherit;
-  cursor:pointer;
-}
-
-.container{
-  width:min(1180px,92%);
-  margin:auto;
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(7,7,7,.94);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid #222;
-}
-
-.nav{
-  min-height:72px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
-}
-
-.logo{
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-.nav-links{
-  display:flex;
-  align-items:center;
-  gap:25px;
-}
-
-.nav-links a{
-  color:#aaa;
-  font-size:14px;
-  font-weight:bold;
-  transition:.2s;
-}
-
-.nav-links a:hover{
-  color:#fff;
-}
-
-.menu-btn{
-  display:none;
-  background:none;
-  border:1px solid #333;
-  color:#fff;
-  padding:8px 12px;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-  min-height:calc(100vh - 72px);
-  display:flex;
-  align-items:center;
-  position:relative;
-  overflow:hidden;
-}
-
-.hero::before{
-  content:"";
-  position:absolute;
-  width:500px;
-  height:500px;
-  background:#222;
-  filter:blur(140px);
-  opacity:.35;
-  border-radius:50%;
-  right:-150px;
-  top:50px;
-}
-
-.hero-content{
-  position:relative;
-  z-index:1;
-  padding:100px 0;
-}
-
-.eyebrow{
-  color:#999;
-  text-transform:uppercase;
-  letter-spacing:4px;
-  font-size:12px;
-  margin-bottom:20px;
-}
-
-.hero h1{
-  font-size:clamp(60px,12vw,150px);
-  line-height:.85;
-  letter-spacing:-7px;
-  margin-bottom:30px;
-}
-
-.hero p{
-  color:#aaa;
-  max-width:550px;
-  font-size:18px;
-  margin-bottom:30px;
-}
-
-.hero-buttons{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  display:inline-block;
-  padding:14px 22px;
-  background:#fff;
-  color:#000;
-  border:1px solid #fff;
-  font-weight:bold;
-  transition:.2s;
-}
-
-.btn:hover{
-  transform:translateY(-2px);
-}
-
-.btn.dark{
-  background:#151515;
-  color:#fff;
-  border-color:#333;
-}
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-section{
-  padding:90px 0;
-  border-top:1px solid #181818;
-}
-
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:20px;
-  margin-bottom:35px;
-}
-
-.section-head h2{
-  font-size:42px;
-  line-height:1;
-}
-
-.section-head p{
-  color:#777;
-}
-
-/* =========================================================
-   GRID
-========================================================= */
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.card{
-  background:#0e0e0e;
-  border:1px solid #242424;
-  overflow:hidden;
-}
-
-.card-image{
-  width:100%;
-  aspect-ratio:1/1;
-  background:#151515;
-  object-fit:cover;
-}
-
-.card-body{
-  padding:20px;
-}
-
-.card h3{
-  font-size:21px;
-  margin-bottom:7px;
-}
-
-.muted{
-  color:#777;
-  font-size:13px;
-}
-
-.card-buttons{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:17px;
-}
-
-.small-btn{
-  padding:9px 12px;
-  background:#171717;
-  border:1px solid #333;
-  color:#fff;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.small-btn:hover{
-  background:#fff;
-  color:#000;
-}
-
-/* =========================================================
-   SONG PLAYER
-========================================================= */
-
-.song-card{
-  background:#0e0e0e;
-  border:1px solid #242424;
-  padding:18px;
-}
-
-.song-cover{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  background:#151515;
-  margin-bottom:17px;
-}
-
-.song-card h3{
-  font-size:20px;
-  margin-bottom:5px;
-}
-
-.song-card audio{
-  width:100%;
-  margin-top:15px;
-}
-
-/* =========================================================
-   RELEASES
-========================================================= */
-
-.release-image{
-  aspect-ratio:1/1;
-  width:100%;
-  object-fit:cover;
-  background:#151515;
-}
-
-/* =========================================================
-   VIDEOS
-========================================================= */
-
-.video-card{
-  background:#0e0e0e;
-  border:1px solid #242424;
-  overflow:hidden;
-}
-
-.video-frame{
-  position:relative;
-  aspect-ratio:16/9;
-  background:#111;
-}
-
-.video-frame iframe{
-  width:100%;
-  height:100%;
-  border:0;
-}
-
-.video-placeholder{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#777;
-}
-
-.video-body{
-  padding:18px;
-}
-
-/* =========================================================
-   GALLERY
-========================================================= */
-
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-
-.gallery-item{
-  position:relative;
-  overflow:hidden;
-  background:#111;
-  aspect-ratio:1/1;
-}
-
-.gallery-item img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:.3s;
-}
-
-.gallery-item:hover img{
-  transform:scale(1.05);
-}
-
-/* =========================================================
-   NEWS
-========================================================= */
-
-.news-card{
-  padding:24px;
-  background:#0e0e0e;
-  border:1px solid #242424;
-}
-
-.news-date{
-  color:#777;
-  font-size:12px;
-  margin-bottom:10px;
-}
-
-.news-card h3{
-  font-size:24px;
-  margin-bottom:10px;
-}
-
-.news-card p{
-  color:#999;
-}
-
-/* =========================================================
-   EVENTS
-========================================================= */
-
-.event-card{
-  background:#0e0e0e;
-  border:1px solid #242424;
-  padding:24px;
-}
-
-.event-date{
-  font-size:12px;
-  color:#777;
-  text-transform:uppercase;
-  letter-spacing:2px;
-  margin-bottom:10px;
-}
-
-.event-card h3{
-  font-size:24px;
-  margin-bottom:12px;
-}
-
-.event-info{
-  color:#999;
-  margin-bottom:5px;
-}
-
-/* =========================================================
-   EMPTY / LOADING
-========================================================= */
-
-.loading{
-  color:#777;
-  padding:30px 0;
-}
-
-.empty{
-  color:#666;
-  padding:25px;
-  background:#0d0d0d;
-  border:1px solid #222;
-}
-
-.error-box{
-  color:#ff7777;
-  background:#170b0b;
-  border:1px solid #522;
-  padding:15px;
-  margin-top:15px;
-}
-
-/* =========================================================
-   ABOUT
-========================================================= */
-
-.about{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
-  align-items:center;
-}
-
-.about h2{
-  font-size:55px;
-  line-height:.95;
-  margin-bottom:20px;
-}
-
-.about p{
-  color:#999;
-  font-size:17px;
-}
-
-/* =========================================================
-   SOCIAL
-========================================================= */
-
-.socials{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.socials a{
-  border:1px solid #333;
-  padding:12px 17px;
-  color:#aaa;
-  font-size:13px;
-}
-
-.socials a:hover{
-  background:#fff;
-  color:#000;
-}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer{
-  border-top:1px solid #222;
-  padding:40px 0;
-  color:#666;
-}
-
-.footer-inner{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-}
-
-.footer-logo{
-  color:#fff;
-  font-weight:bold;
-  letter-spacing:2px;
-}
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:850px){
-
-  .nav-links{
-    display:none;
-    position:absolute;
-    top:72px;
-    left:0;
-    right:0;
-    background:#090909;
-    border-bottom:1px solid #222;
-    padding:20px;
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .nav-links.open{
-    display:flex;
-  }
-
-  .menu-btn{
-    display:block;
-  }
-
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .gallery-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .about{
-    grid-template-columns:1fr;
-  }
-
-}
-
-@media(max-width:550px){
-
-  section{
-    padding:65px 0;
-  }
-
-  .hero-content{
-    padding:70px 0;
-  }
-
-  .hero h1{
-    letter-spacing:-4px;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .section-head{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .section-head h2{
-    font-size:35px;
-  }
-
-  .about h2{
-    font-size:42px;
-  }
-
-}
-
-/* =========================================================
-   ADMIN LINK
-========================================================= */
-
-.admin-link{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:999;
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#fff;
-  color:#000;
-  font-size:13px;
-  font-weight:bold;
-  box-shadow:0 5px 25px rgba(0,0,0,.5);
-}
-
-</style></head><body><!-- =======================================================
-     HEADER
-======================================================= --><header><div class="container nav"><a href="#" class="logo">
-KHARVIE
-</a><nav class="nav-links" id="navLinks"><a href="#music">Music</a>
-<a href="#releases">Releases</a>
-<a href="#videos">Videos</a>
-<a href="#gallery">Gallery</a>
-<a href="#news">News</a>
-<a href="#events">Events</a>
-<a href="#about">About</a>
-
-</nav><button
-class="menu-btn"
-id="menuBtn"
-type="button"
-
-«»
-
-MENU
-</button>
-
-</div></header><!-- =======================================================
-     HERO
-======================================================= --><main><section class="hero"><div class="container hero-content"><div class="eyebrow">
-Official Website
-</div><h1>
-KHARVIE
-</h1><p>
-Music, stories, performances and everything
-from Kharvie's official world.
-</p><div class="hero-buttons"><a
-href="#music"
-class="btn"
-
-«»
-
-LISTEN NOW
-</a>
-
-<a
-href="#events"
-class="btn dark"
-
-«»
-
-UPCOMING EVENTS
-</a>
-
-</div></div></section><!-- =======================================================
-     MUSIC
-======================================================= --><section id="music"><div class="container"><div class="section-head"><div><div class="eyebrow">
-Latest Music
-</div><h2>Music</h2></div><p>
-Listen directly or choose a streaming platform.
-</p></div><div
-id="songsGrid"
-class="grid"
-><div class="loading">
-Loading songs...
-</div></div></div></section><!-- =======================================================
-     RELEASES
-======================================================= --><section id="releases"><div class="container"><div class="section-head"><div><div class="eyebrow">
-Discography
-</div><h2>Releases</h2></div></div><div
-id="releasesGrid"
-class="grid"
-><div class="loading">
-Loading releases...
-</div></div></div></section><!-- =======================================================
-     VIDEOS
-======================================================= --><section id="videos"><div class="container"><div class="section-head"><div><div class="eyebrow">
-Watch
-</div><h2>Videos</h2></div></div><div
-id="videosGrid"
-class="grid"
-><div class="loading">
-Loading videos...
-</div></div></div></section><!-- =======================================================
-     GALLERY
-======================================================= --><section id="gallery"><div class="container"><div class="section-head"><div><div class="eyebrow">
-Moments
-</div><h2>Gallery</h2></div></div><div
-id="galleryGrid"
-class="gallery-grid"
-><div class="loading">
-Loading gallery...
-</div></div></div></section><!-- =======================================================
-     NEWS
-======================================================= --><section id="news"><div class="container"><div class="section-head"><div><div class="eyebrow">
-Latest
-</div><h2>News</h2></div></div><div
-id="newsGrid"
-class="grid"
-><div class="loading">
-Loading news...
-</div></div></div></section><!-- =======================================================
-     EVENTS
-======================================================= --><section id="events"><div class="container"><div class="section-head"><div><div class="eyebrow">
-Live
-</div><h2>Events</h2></div></div><div
-id="eventsGrid"
-class="grid"
-><div class="loading">
-Loading events...
-</div></div></div></section><!-- =======================================================
-     ABOUT
-======================================================= --><section id="about"><div class="container about"><div><div class="eyebrow">
-About Kharvie
-</div><h2>
-THE MUSIC.<br>
-THE STORY.<br>
-THE JOURNEY.
-</h2></div><div><p>
-Welcome to Kharvie's official website.This is the home for new music, releases,
-videos, events, photographs and the latest
-updates.
-
-Everything published through the Kharvie
-admin dashboard can appear here automatically.
-
-</p><br><div class="socials"><a href="#" target="_blank">
-Instagram
-</a><a href="#" target="_blank">
-YouTube
-</a><a href="#" target="_blank">
-Spotify
-</a><a href="#" target="_blank">
-TikTok
-</a></div></div></div></section></main><!-- =======================================================
-     FOOTER
-======================================================= --><footer><div class="container footer-inner"><div class="footer-logo">
-KHARVIE
-</div><div>
-© <span id="year"></span> Kharvie. All rights reserved.
-</div></div></footer><!-- ADMIN SHORTCUT --><a
-href="admin.html"
-class="admin-link"
-title="Admin"
-
-«»
-
-A
-</a>
-
-<!-- =======================================================
-     SUPABASE
-======================================================= --><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-
-/* =========================================================
-   SUPABASE CONNECTION
-   SAME PROJECT AS ADMIN.HTML
-========================================================= */
-
-const SUPABASE_URL =
-"https://dprulohylwgzmetgrywj.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
-
-const { createClient } = supabase;
-
-const db = createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function escapeHtml(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function safeUrl(value){
-
-  if(!value){
-    return "";
-  }
-
-  try{
-
-    const url =
-    new URL(value);
-
-    if(
-      url.protocol === "http:" ||
-      url.protocol === "https:"
-    ){
-
-      return url.href;
-
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-  }catch(error){}
-
-  return "";
-
-}
-
-
-function formatDate(value){
-
-  if(!value){
-    return "";
-  }
-
-  const date =
-  new Date(value);
-
-  if(
-    Number.isNaN(
-      date.getTime()
-    )
-  ){
-
-    return escapeHtml(value);
-
-  }
-
-  return date.toLocaleDateString(
-    "en-NG",
-    {
-      year:"numeric",
-      month:"long",
-      day:"numeric"
+    :root {
+      --bg: #050505;
+      --panel: #0d0d0d;
+      --panel-2: #111111;
+      --border: rgba(255,255,255,.10);
+      --border-strong: rgba(255,255,255,.17);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,.55);
+      --muted-2: rgba(255,255,255,.35);
+      --success: #8ff0b4;
+      --danger: #ff8e8e;
+      --warning: #ffd58a;
+      --radius: 18px;
     }
-  );
 
-}
-
-
-function emptyMessage(text){
-
-  return `
-    <div class="empty">
-      ${escapeHtml(text)}
-    </div>
-  `;
-
-}
-
-
-/* =========================================================
-   SONGS
-========================================================= */
-
-async function loadSongs(){
-
-  const container =
-  document.getElementById(
-    "songsGrid"
-  );
-
-  const {
-    data,
-    error
-  } =
-  await db
-  .from("songs")
-  .select("*")
-  .order(
-    "created_at",
-    {
-      ascending:false
+    html,
+    body {
+      min-height: 100%;
     }
-  );
 
-  if(error){
+    body {
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,255,255,.07), transparent 30%),
+        radial-gradient(circle at 90% 100%, rgba(255,255,255,.04), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    }
 
-    console.error(
-      "Songs error:",
-      error
-    );
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
 
-    container.innerHTML =
-    `<div class="error-box">
-      Unable to load music.
-    </div>`;
+    button {
+      cursor: pointer;
+    }
 
-    return;
-  }
+    a {
+      color: inherit;
+    }
 
-  if(
-    !data ||
-    data.length === 0
-  ){
+    .hidden {
+      display: none !important;
+    }
 
-    container.innerHTML =
-    emptyMessage(
-      "No songs have been added yet."
-    );
+    /* =========================================================
+       LOGIN
+    ========================================================= */
 
-    return;
-  }
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-  container.innerHTML = "";
+    .login-wrapper {
+      width: 100%;
+      max-width: 430px;
+    }
 
-  data.forEach(song => {
+    .brand {
+      text-align: center;
+      margin-bottom: 25px;
+    }
 
-    const cover =
-    safeUrl(song.cover_url);
+    .brand-name {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
 
-    const audio =
-    safeUrl(song.audio_url);
+    .brand-subtitle {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
 
-    const spotify =
-    safeUrl(song.spotify_url);
+    .login-card {
+      background: rgba(255,255,255,.055);
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      padding: 30px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
+    }
 
-    const apple =
-    safeUrl(song.apple_music_url);
+    .login-card h1 {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
 
-    const youtube =
-    safeUrl(song.youtube_url);
+    .login-card > p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
 
-    const audiomack =
-    safeUrl(song.audiomack_url);
+    .field {
+      margin-bottom: 17px;
+    }
 
-    const card =
-    document.createElement("article");
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,.8);
+      font-size: 13px;
+      font-weight: 700;
+    }
 
-    card.className =
-    "song-card";
+    input,
+    textarea,
+    select {
+      width: 100%;
+      background: #090909;
+      color: #fff;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      outline: none;
+      padding: 13px 14px;
+      transition: .2s ease;
+    }
 
-    card.innerHTML = `
+    input {
+      height: 48px;
+    }
 
-      ${
-        cover
-        ? `
-          <img
-            class="song-cover"
-            src="${escapeHtml(cover)}"
-            alt="${escapeHtml(song.title)} cover"
-            loading="lazy"
-          >
-        `
-        : `
-          <div
-            class="song-cover"
-          ></div>
-        `
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    select {
+      height: 48px;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--border-strong);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.035);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-right: 70px;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 7px;
+      top: 7px;
+      height: 34px;
+      border: 0;
+      border-radius: 9px;
+      padding: 0 10px;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .primary-btn {
+      border: 0;
+      border-radius: 13px;
+      background: #fff;
+      color: #050505;
+      font-weight: 800;
+      padding: 13px 17px;
+      min-height: 46px;
+      transition: .2s ease;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(255,255,255,.10);
+    }
+
+    .primary-btn:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .login-button {
+      width: 100%;
+      height: 52px;
+      margin-top: 4px;
+    }
+
+    .message {
+      margin-top: 15px;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .message.error {
+      display: block;
+      color: var(--danger);
+      background: rgba(255,80,80,.07);
+      border: 1px solid rgba(255,80,80,.15);
+    }
+
+    .message.success {
+      display: block;
+      color: var(--success);
+      background: rgba(80,255,140,.06);
+      border: 1px solid rgba(80,255,140,.14);
+    }
+
+    .login-footer {
+      text-align: center;
+      color: var(--muted-2);
+      font-size: 12px;
+      margin-top: 20px;
+    }
+
+    .login-footer a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: var(--muted);
+    }
+
+    /* =========================================================
+       APP
+    ========================================================= */
+
+    #adminApp {
+      min-height: 100vh;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 250px;
+      min-width: 250px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background: rgba(7,7,7,.96);
+      border-right: 1px solid var(--border);
+      padding: 20px 14px;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .sidebar-brand {
+      padding: 10px 12px 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 15px;
+    }
+
+    .sidebar-brand strong {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .sidebar-brand span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted-2);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .nav-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 13px;
+      margin-bottom: 4px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .nav-button:hover,
+    .nav-button.active {
+      background: rgba(255,255,255,.07);
+      border-color: var(--border);
+      color: #fff;
+    }
+
+    .nav-icon {
+      width: 22px;
+      text-align: center;
+      opacity: .8;
+    }
+
+    .sidebar-bottom {
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border);
+    }
+
+    .logout-btn {
+      color: var(--danger);
+    }
+
+    .main {
+      width: calc(100% - 250px);
+      margin-left: 250px;
+      min-width: 0;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      min-height: 70px;
+      padding: 12px 24px;
+      background: rgba(5,5,5,.88);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .mobile-menu {
+      display: none;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color: #fff;
+      border-radius: 10px;
+      width: 42px;
+      height: 42px;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .admin-user {
+      color: var(--muted);
+      font-size: 12px;
+      max-width: 260px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .content {
+      padding: 25px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      font-size: 27px;
+      letter-spacing: -.5px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    /* =========================================================
+       DASHBOARD CARDS
+    ========================================================= */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .stat-card .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-card .value {
+      margin-top: 10px;
+      font-size: 31px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .panel-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 17px;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 10px;
+    }
+
+    .secondary-btn {
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255,255,255,.08);
+    }
+
+    /* =========================================================
+       FORMS
+    ========================================================= */
+
+    .form-card {
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+
+    .form-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 16px;
+    }
+
+    .form-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    .checkbox-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      padding-top: 4px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .checkbox-label input {
+      width: 17px;
+      height: 17px;
+      accent-color: #fff;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .danger-btn {
+      background: rgba(255,70,70,.08);
+      border: 1px solid rgba(255,70,70,.18);
+      color: var(--danger);
+    }
+
+    /* =========================================================
+       TABLES / ITEMS
+    ========================================================= */
+
+    .list-card {
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .list-header {
+      padding: 17px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .list-header strong {
+      font-size: 15px;
+    }
+
+    .search-input {
+      max-width: 280px;
+      height: 40px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      vertical-align: middle;
+      font-size: 13px;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    td {
+      color: rgba(255,255,255,.83);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .item-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 9px;
+      object-fit: cover;
+      display: block;
+      background: #111;
+      border: 1px solid var(--border);
+    }
+
+    .item-title {
+      font-weight: 750;
+      color: #fff;
+    }
+
+    .item-subtitle {
+      color: var(--muted-2);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .status.published {
+      color: var(--success);
+      background: rgba(80,255,140,.07);
+    }
+
+    .status.draft {
+      color: var(--warning);
+      background: rgba(255,190,70,.07);
+    }
+
+    .status.featured {
+      color: #fff;
+      background: rgba(255,255,255,.09);
+      margin-left: 4px;
+    }
+
+    .row-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .small-btn {
+      padding: 7px 10px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .small-btn:hover {
+      background: rgba(255,255,255,.08);
+    }
+
+    .small-btn.delete {
+      color: var(--danger);
+      border-color: rgba(255,70,70,.15);
+      background: rgba(255,70,70,.05);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 45px 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .loading-state {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================================================
+       MONETIZATION
+    ========================================================= */
+
+    .money-grid {
+      display: grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap: 15px;
+      margin-bottom: 22px;
+    }
+
+    .money-card {
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .money-card .label {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .money-card .amount {
+      margin-top: 8px;
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    #toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 1000;
+      max-width: 360px;
+      padding: 13px 16px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      background: #111;
+      color: #fff;
+      box-shadow: 0 20px 50px rgba(0,0,0,.5);
+      font-size: 13px;
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    #toast.error {
+      color: var(--danger);
+    }
+
+    #toast.success {
+      color: var(--success);
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 1100px) {
+      .stats-grid {
+        grid-template-columns: repeat(2,1fr);
       }
 
-      <h3>
-        ${escapeHtml(
-          song.title || "Untitled"
-        )}
-      </h3>
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
 
-      <div class="muted">
-        ${escapeHtml(
-          song.artist || "Kharvie"
-        )}
-        ${
-          song.genre
-          ? " • " +
-            escapeHtml(song.genre)
-          : ""
-        }
+      .money-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform .25s ease;
+        box-shadow: 20px 0 50px rgba(0,0,0,.45);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .topbar {
+        padding: 12px 15px;
+      }
+
+      .content {
+        padding: 18px 14px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid .full {
+        grid-column: auto;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .admin-user {
+        display: none;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .login-card {
+        padding: 23px;
+      }
+
+      .brand-name {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =======================================================
+       LOGIN SCREEN
+  ======================================================== -->
+
+  <div id="loginScreen">
+
+    <div class="login-wrapper">
+
+      <div class="brand">
+        <div class="brand-name">KHARVIE</div>
+        <div class="brand-subtitle">Official Administration</div>
       </div>
 
-      ${
-        audio
-        ? `
-          <audio
-            controls
-            preload="none"
-            src="${escapeHtml(audio)}"
-          ></audio>
-        `
-        : ""
-      }
+      <div class="login-card">
 
-      <div class="card-buttons">
+        <h1>Welcome back</h1>
 
-        ${
-          spotify
-          ? `
-            <a
-              class="small-btn"
-              href="${escapeHtml(spotify)}"
-              target="_blank"
-              rel="noopener"
+        <p>
+          Sign in to manage Kharvie's official website,
+          music, releases, videos, gallery, news, events
+          and monetization.
+        </p>
+
+        <form id="loginForm">
+
+          <div class="field">
+            <label for="loginEmail">Email address</label>
+            <input
+              id="loginEmail"
+              type="email"
+              autocomplete="email"
+              placeholder="Enter your email"
+              required
             >
-              SPOTIFY
-            </a>
-          `
-          : ""
-        }
+          </div>
 
-        ${
-          apple
-          ? `
-            <a
-              class="small-btn"
-              href="${escapeHtml(apple)}"
-              target="_blank"
-              rel="noopener"
-            >
-              APPLE MUSIC
-            </a>
-          `
-          : ""
-        }
+          <div class="field">
+            <label for="loginPassword">Password</label>
 
-        ${
-          youtube
-          ? `
-            <a
-              class="small-btn"
-              href="${escapeHtml(youtube)}"
-              target="_blank"
-              rel="noopener"
-            >
-              YOUTUBE
-            </a>
-          `
-          : ""
-        }
-
-        ${
-          audiomack
-          ? `
-            <a
-              class="small-btn"
-              href="${escapeHtml(audiomack)}"
-              target="_blank"
-              rel="noopener"
-            >
-              AUDIOMACK
-            </a>
-          `
-          : ""
-        }
-
-      </div>
-    `;
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================================================
-   RELEASES
-========================================================= */
-
-async function loadReleases(){
-
-  const container =
-  document.getElementById(
-    "releasesGrid"
-  );
-
-  const {
-    data,
-    error
-  } =
-  await db
-  .from("releases")
-  .select("*")
-  .order(
-    "created_at",
-    {
-      ascending:false
-    }
-  );
-
-  if(error){
-
-    console.error(
-      "Releases error:",
-      error
-    );
-
-    container.innerHTML =
-    `<div class="error-box">
-      Unable to load releases.
-    </div>`;
-
-    return;
-  }
-
-  if(
-    !data ||
-    data.length === 0
-  ){
-
-    container.innerHTML =
-    emptyMessage(
-      "No releases have been added yet."
-    );
-
-    return;
-  }
-
-  container.innerHTML = "";
-
-  data.forEach(release => {
-
-    const cover =
-    safeUrl(
-      release.cover_url
-    );
-
-    const spotify =
-    safeUrl(
-      release.spotify_url
-    );
-
-    const apple =
-    safeUrl(
-      release.apple_music_url
-    );
-
-    const youtube =
-    safeUrl(
-      release.youtube_url
-    );
-
-    const audiomack =
-    safeUrl(
-      release.audiomack_url
-    );
-
-    const card =
-    document.createElement("article");
-
-    card.className =
-    "card";
-
-    card.innerHTML = `
-
-      ${
-        cover
-        ? `
-          <img
-            class="release-image"
-            src="${escapeHtml(cover)}"
-            alt="${escapeHtml(release.title)}"
-            loading="lazy"
-          >
-        `
-        : `
-          <div
-            class="release-image"
-          ></div>
-        `
-      }
-
-      <div class="card-body">
-
-        <div class="muted">
-          ${escapeHtml(
-            release.release_type || "Release"
-          )}
-
-          ${
-            release.release_date
-            ? " • " +
-              escapeHtml(
-                formatDate(
-                  release.release_date
-                )
-              )
-            : ""
-          }
-        </div>
-
-        <h3>
-          ${escapeHtml(
-            release.title || "Untitled"
-          )}
-        </h3>
-
-        ${
-          release.description
-          ? `
-            <p class="muted">
-              ${escapeHtml(
-                release.description
-              )}
-            </p>
-          `
-          : ""
-        }
-
-        <div class="card-buttons">
-
-          ${
-            spotify
-            ? `
-              <a
-                class="small-btn"
-                href="${escapeHtml(spotify)}"
-                target="_blank"
-                rel="noopener"
+            <div class="password-wrap">
+              <input
+                id="loginPassword"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Enter your password"
+                required
               >
-                SPOTIFY
-              </a>
-            `
-            : ""
-          }
 
-          ${
-            apple
-            ? `
-              <a
-                class="small-btn"
-                href="${escapeHtml(apple)}"
-                target="_blank"
-                rel="noopener"
+              <button
+                type="button"
+                class="show-password"
+                id="showPassword"
               >
-                APPLE MUSIC
-              </a>
-            `
-            : ""
-          }
-
-          ${
-            youtube
-            ? `
-              <a
-                class="small-btn"
-                href="${escapeHtml(youtube)}"
-                target="_blank"
-                rel="noopener"
-              >
-                YOUTUBE
-              </a>
-            `
-            : ""
-          }
-
-          ${
-            audiomack
-            ? `
-              <a
-                class="small-btn"
-                href="${escapeHtml(audiomack)}"
-                target="_blank"
-                rel="noopener"
-              >
-                AUDIOMACK
-              </a>
-            `
-            : ""
-          }
-
-        </div>
-
-      </div>
-    `;
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================================================
-   YOUTUBE EMBED
-========================================================= */
-
-function youtubeEmbed(url){
-
-  if(!url){
-    return "";
-  }
-
-  try{
-
-    const parsed =
-    new URL(url);
-
-    let videoId = "";
-
-    if(
-      parsed.hostname.includes(
-        "youtube.com"
-      )
-    ){
-
-      videoId =
-      parsed.searchParams.get(
-        "v"
-      ) || "";
-
-      if(
-        parsed.pathname.startsWith(
-          "/shorts/"
-        )
-      ){
-
-        videoId =
-        parsed.pathname
-        .split("/")[2] || "";
-
-      }
-
-    }
-
-    if(
-      parsed.hostname ===
-      "youtu.be"
-    ){
-
-      videoId =
-      parsed.pathname
-      .replace("/","");
-
-    }
-
-    if(
-      !videoId ||
-      !/^[a-zA-Z0-9_-]{6,}$/.test(
-        videoId
-      )
-    ){
-
-      return "";
-
-    }
-
-    return (
-      "https://www.youtube.com/embed/" +
-      encodeURIComponent(videoId)
-    );
-
-  }catch(error){
-
-    return "";
-
-  }
-
-}
-
-
-/* =========================================================
-   VIDEOS
-========================================================= */
-
-async function loadVideos(){
-
-  const container =
-  document.getElementById(
-    "videosGrid"
-  );
-
-  const {
-    data,
-    error
-  } =
-  await db
-  .from("videos")
-  .select("*")
-  .order(
-    "created_at",
-    {
-      ascending:false
-    }
-  );
-
-  if(error){
-
-    console.error(
-      "Videos error:",
-      error
-    );
-
-    container.innerHTML =
-    `<div class="error-box">
-      Unable to load videos.
-    </div>`;
-
-    return;
-  }
-
-  if(
-    !data ||
-    data.length === 0
-  ){
-
-    container.innerHTML =
-    emptyMessage(
-      "No videos have been added yet."
-    );
-
-    return;
-  }
-
-  container.innerHTML = "";
-
-  data.forEach(video => {
-
-    const url =
-    safeUrl(video.video_url);
-
-    const embed =
-    youtubeEmbed(url);
-
-    const card =
-    document.createElement("article");
-
-    card.className =
-    "video-card";
-
-    card.innerHTML = `
-
-      <div class="video-frame">
-
-        ${
-          embed
-          ? `
-            <iframe
-              src="${escapeHtml(embed)}"
-              title="${escapeHtml(video.title)}"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-            ></iframe>
-          `
-          : `
-            <div class="video-placeholder">
-              <a
-                class="btn dark"
-                href="${escapeHtml(url)}"
-                target="_blank"
-                rel="noopener"
-              >
-                WATCH VIDEO
-              </a>
+                Show
+              </button>
             </div>
-          `
-        }
-
-      </div>
-
-      <div class="video-body">
-
-        <h3>
-          ${escapeHtml(
-            video.title || "Untitled"
-          )}
-        </h3>
-
-        <div class="muted">
-
-          ${escapeHtml(
-            video.platform || "Video"
-          )}
-
-          ${
-            video.release_date
-            ? " • " +
-              escapeHtml(
-                formatDate(
-                  video.release_date
-                )
-              )
-            : ""
-          }
-
-        </div>
-
-      </div>
-    `;
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================================================
-   GALLERY
-========================================================= */
-
-async function loadGallery(){
-
-  const container =
-  document.getElementById(
-    "galleryGrid"
-  );
-
-  const {
-    data,
-    error
-  } =
-  await db
-  .from("gallery")
-  .select("*")
-  .order(
-    "created_at",
-    {
-      ascending:false
-    }
-  );
-
-  if(error){
-
-    console.error(
-      "Gallery error:",
-      error
-    );
-
-    container.innerHTML =
-    `<div class="error-box">
-      Unable to load gallery.
-    </div>`;
-
-    return;
-  }
-
-  if(
-    !data ||
-    data.length === 0
-  ){
-
-    container.innerHTML =
-    emptyMessage(
-      "No gallery photos have been added yet."
-    );
-
-    return;
-  }
-
-  container.innerHTML = "";
-
-  data.forEach(photo => {
-
-    const image =
-    safeUrl(
-      photo.image_url
-    );
-
-    if(!image){
-      return;
-    }
-
-    const item =
-    document.createElement("a");
-
-    item.className =
-    "gallery-item";
-
-    item.href =
-    image;
-
-    item.target =
-    "_blank";
-
-    item.rel =
-    "noopener";
-
-    item.innerHTML = `
-
-      <img
-        src="${escapeHtml(image)}"
-        alt="${escapeHtml(
-          photo.title || "Kharvie"
-        )}"
-        loading="lazy"
-      >
-
-    `;
-
-    container.appendChild(item);
-
-  });
-
-}
-
-
-/* =========================================================
-   NEWS
-========================================================= */
-
-async function loadNews(){
-
-  const container =
-  document.getElementById(
-    "newsGrid"
-  );
-
-  const {
-    data,
-    error
-  } =
-  await db
-  .from("posts")
-  .select("*")
-  .eq(
-    "is_published",
-    true
-  )
-  .order(
-    "published_at",
-    {
-      ascending:false
-    }
-  );
-
-  if(error){
-
-    console.error(
-      "News error:",
-      error
-    );
-
-    container.innerHTML =
-    `<div class="error-box">
-      Unable to load news.
-    </div>`;
-
-    return;
-  }
-
-  if(
-    !data ||
-    data.length === 0
-  ){
-
-    container.innerHTML =
-    emptyMessage(
-      "No news has been published yet."
-    );
-
-    return;
-  }
-
-  container.innerHTML = "";
-
-  data.forEach(post => {
-
-    const card =
-    document.createElement("article");
-
-    card.className =
-    "news-card";
-
-    card.innerHTML = `
-
-      <div class="news-date">
-
-        ${
-          post.published_at
-          ? escapeHtml(
-              formatDate(
-                post.published_at
-              )
-            )
-          : ""
-        }
-
-      </div>
-
-      <h3>
-        ${escapeHtml(
-          post.title || "Untitled"
-        )}
-      </h3>
-
-      ${
-        post.excerpt
-        ? `
-          <p>
-            ${escapeHtml(
-              post.excerpt
-            )}
-          </p>
-        `
-        : ""
-      }
-
-      ${
-        post.content
-        ? `
-          <div class="card-buttons">
-            <button
-              class="small-btn"
-              type="button"
-              onclick="showNews(
-                ${JSON.stringify(
-                  post.title || ""
-                )},
-                ${JSON.stringify(
-                  post.content || ""
-                )}
-              )"
-            >
-              READ MORE
-            </button>
           </div>
-        `
-        : ""
-      }
 
-    `;
+          <button
+            type="submit"
+            class="primary-btn login-button"
+            id="loginButton"
+          >
+            Sign In
+          </button>
 
-    container.appendChild(card);
+        </form>
 
-  });
+        <div id="loginMessage" class="message"></div>
 
-}
+      </div>
 
+      <div class="login-footer">
+        © <span id="loginYear"></span> Kharvie
 
-/* =========================================================
-   NEWS READER
-========================================================= */
+        <br>
 
-function showNews(title,content){
-
-  const existing =
-  document.getElementById(
-    "newsModal"
-  );
-
-  if(existing){
-    existing.remove();
-  }
-
-  const modal =
-  document.createElement("div");
-
-  modal.id =
-  "newsModal";
-
-  modal.style.cssText = `
-    position:fixed;
-    inset:0;
-    z-index:3000;
-    background:rgba(0,0,0,.85);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-  `;
-
-  modal.innerHTML = `
-
-    <div
-      style="
-        width:min(700px,100%);
-        max-height:90vh;
-        overflow:auto;
-        background:#111;
-        border:1px solid #333;
-        padding:30px;
-      "
-    >
-
-      <button
-        type="button"
-        onclick="document.getElementById('newsModal').remove()"
-        style="
-          float:right;
-          background:none;
-          color:#fff;
-          border:1px solid #444;
-          padding:7px 12px;
-        "
-      >
-        CLOSE
-      </button>
-
-      <h2
-        style="
-          font-size:32px;
-          margin-bottom:20px;
-          padding-right:60px;
-        "
-      >
-        ${escapeHtml(title)}
-      </h2>
-
-      <div
-        style="
-          color:#aaa;
-          white-space:pre-wrap;
-        "
-      >
-        ${escapeHtml(content)}
+        <a href="index.html">
+          ← Back to official website
+        </a>
       </div>
 
     </div>
-  `;
 
-  document.body.appendChild(modal);
-
-}
+  </div>
 
 
-/* =========================================================
-   EVENTS
-========================================================= */
+  <!-- =======================================================
+       ADMIN APPLICATION
+  ======================================================== -->
 
-async function loadEvents(){
+  <div id="adminApp" class="hidden">
 
-  const container =
-  document.getElementById(
-    "eventsGrid"
-  );
+    <div class="app-shell">
 
-  const {
-    data,
-    error
-  } =
-  await db
-  .from("events")
-  .select("*")
-  .order(
-    "event_date",
-    {
-      ascending:true
+      <!-- SIDEBAR -->
+
+      <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+          <strong>KHARVIE</strong>
+          <span>Admin Dashboard</span>
+        </div>
+
+        <nav>
+
+          <button class="nav-button active" data-section="dashboard">
+            <span class="nav-icon">⌂</span>
+            Dashboard
+          </button>
+
+          <button class="nav-button" data-section="songs">
+            <span class="nav-icon">♫</span>
+            Songs
+          </button>
+
+          <button class="nav-button" data-section="releases">
+            <span class="nav-icon">◉</span>
+            Releases
+          </button>
+
+          <button class="nav-button" data-section="videos">
+            <span class="nav-icon">▶</span>
+            Videos
+          </button>
+
+          <button class="nav-button" data-section="gallery">
+            <span class="nav-icon">▧</span>
+            Gallery
+          </button>
+
+          <button class="nav-button" data-section="posts">
+            <span class="nav-icon">▤</span>
+            News / Posts
+          </button>
+
+          <button class="nav-button" data-section="events">
+            <span class="nav-icon">◷</span>
+            Events
+          </button>
+
+          <button class="nav-button" data-section="monetization">
+            <span class="nav-icon">₦</span>
+            Monetization
+          </button>
+
+          <button class="nav-button" data-section="settings">
+            <span class="nav-icon">⚙</span>
+            Settings
+          </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+          <button
+            class="nav-button"
+            onclick="window.open('index.html','_blank')"
+          >
+            <span class="nav-icon">↗</span>
+            View Website
+          </button>
+
+          <button
+            class="nav-button logout-btn"
+            id="logoutButton"
+          >
+            <span class="nav-icon">↪</span>
+            Logout
+          </button>
+
+        </div>
+
+      </aside>
+
+
+      <!-- MAIN -->
+
+      <main class="main">
+
+        <header class="topbar">
+
+          <div style="display:flex;align-items:center;gap:12px;">
+
+            <button
+              class="mobile-menu"
+              id="mobileMenu"
+              aria-label="Open menu"
+            >
+              ☰
+            </button>
+
+            <div class="page-title" id="pageTitle">
+              Dashboard
+            </div>
+
+          </div>
+
+          <div
+            class="admin-user"
+            id="adminUserEmail"
+          ></div>
+
+        </header>
+
+
+        <div class="content">
+
+
+          <!-- =================================================
+               DASHBOARD
+          ================================================== -->
+
+          <section
+            class="section active"
+            id="section-dashboard"
+          >
+
+            <div class="section-heading">
+
+              <div>
+                <h2>Dashboard</h2>
+                <p>
+                  Welcome to the Kharvie administration panel.
+                </p>
+              </div>
+
+            </div>
+
+            <div class="stats-grid">
+
+              <div class="stat-card">
+                <div class="label">Songs</div>
+                <div class="value" id="statSongs">—</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="label">Releases</div>
+                <div class="value" id="statReleases">—</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="label">Videos</div>
+                <div class="value" id="statVideos">—</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="label">Gallery</div>
+                <div class="value" id="statGallery">—</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="label">News Posts</div>
+                <div class="value" id="statPosts">—</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="label">Events</div>
+                <div class="value" id="statEvents">—</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="label">Published Content</div>
+                <div class="value" id="statPublished">—</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="label">Money Records</div>
+                <div class="value" id="statMoney">—</div>
+              </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+              <div class="panel">
+
+                <div class="panel-title">
+                  Quick Actions
+                </div>
+
+                <div class="quick-actions">
+
+                  <button
+                    class="secondary-btn"
+                    onclick="openSection('songs'); newSong()"
+                  >
+                    + Add Song
+                  </button>
+
+                  <button
+                    class="secondary-btn"
+                    onclick="openSection('releases'); newRelease()"
+                  >
+                    + Add Release
+                  </button>
+
+                  <button
+                    class="secondary-btn"
+                    onclick="openSection('videos'); newVideo()"
+                  >
+                    + Add Video
+                  </button>
+
+                  <button
+                    class="secondary-btn"
+                    onclick="openSection('gallery'); newGallery()"
+                  >
+                    + Add Photo
+                  </button>
+
+                  <button
+                    class="secondary-btn"
+                    onclick="openSection('posts'); newPost()"
+                  >
+                    + Add News Post
+                  </button>
+
+                  <button
+                    class="secondary-btn"
+                    onclick="openSection('events'); newEvent()"
+                  >
+                    + Add Event
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <div class="panel">
+
+                <div class="panel-title">
+                  Administrator
+                </div>
+
+                <p
+                  id="dashboardAdminEmail"
+                  style="
+                    color:var(--muted);
+                    font-size:13px;
+                    line-height:1.6;
+                  "
+                >
+                  —
+                </p>
+
+                <p
+                  style="
+                    color:var(--muted-2);
+                    font-size:12px;
+                    margin-top:10px;
+                  "
+                >
+                  Authorized through Supabase
+                  administrator access.
+                </p>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- =================================================
+               SONGS
+          ================================================== -->
+
+          <section
+            class="section"
+            id="section-songs"
+          >
+
+            <div class="section-heading">
+
+              <div>
+                <h2>Songs</h2>
+                <p>
+                  Manage Kharvie's music catalogue.
+                </p>
+              </div>
+
+              <button
+                class="primary-btn"
+                onclick="newSong()"
+              >
+                + Add Song
+              </button>
+
+            </div>
+
+
+            <div
+              class="form-card hidden"
+              id="songFormCard"
+            >
+
+              <div class="form-title" id="songFormTitle">
+                Add Song
+              </div>
+
+              <form id="songForm">
+
+                <input
+                  type="hidden"
+                  id="songId"
+                >
+
+                <div class="form-grid">
+
+                  <div class="field">
+                    <label>Song Title *</label>
+                    <input id="songTitle" required>
+                  </div>
+
+                  <div class="field">
+                    <label>Artist</label>
+                    <input id="songArtist" value="Kharvie">
+                  </div>
+
+                  <div class="field">
+                    <label>Genre</label>
+                    <input
+                      id="songGenre"
+                      placeholder="Afrobeats"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Release Date</label>
+                    <input
+                      id="songReleaseDate"
+                      type="date"
+                    >
+                  </div>
+
+                  <div class="field full">
+                    <label>Description</label>
+                    <textarea id="songDescription"></textarea>
+                  </div>
+
+                  <div class="field">
+                    <label>Audio URL</label>
+                    <input
+                      id="songAudioUrl"
+                      type="url"
+                      placeholder="https://..."
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Cover Image URL</label>
+                    <input
+                      id="songCoverUrl"
+                      type="url"
+                      placeholder="https://..."
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Spotify URL</label>
+                    <input
+                      id="songSpotify"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Apple Music URL</label>
+                    <input
+                      id="songApple"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>YouTube URL</label>
+                    <input
+                      id="songYoutube"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Audiomack URL</label>
+                    <input
+                      id="songAudiomack"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Duration (seconds)</label>
+                    <input
+                      id="songDuration"
+                      type="number"
+                      min="0"
+                    >
+                  </div>
+
+                  <div class="field full">
+
+                    <div class="checkbox-row">
+
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="songFeatured"
+                        >
+                        Featured
+                      </label>
+
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="songPublished"
+                          checked
+                        >
+                        Published
+                      </label>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="form-actions">
+
+                  <button
+                    type="submit"
+                    class="primary-btn"
+                  >
+                    Save Song
+                  </button>
+
+                  <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="cancelSong()"
+                  >
+                    Cancel
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+
+
+            <div class="list-card">
+
+              <div class="list-header">
+
+                <strong>Song Catalogue</strong>
+
+                <input
+                  class="search-input"
+                  id="songSearch"
+                  placeholder="Search songs..."
+                >
+
+              </div>
+
+              <div
+                id="songsList"
+                class="table-wrap"
+              >
+                <div class="loading-state">
+                  Loading songs...
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- =================================================
+               RELEASES
+          ================================================== -->
+
+          <section
+            class="section"
+            id="section-releases"
+          >
+
+            <div class="section-heading">
+
+              <div>
+                <h2>Releases</h2>
+                <p>
+                  Manage singles, EPs, albums and mixtapes.
+                </p>
+              </div>
+
+              <button
+                class="primary-btn"
+                onclick="newRelease()"
+              >
+                + Add Release
+              </button>
+
+            </div>
+
+
+            <div
+              class="form-card hidden"
+              id="releaseFormCard"
+            >
+
+              <div class="form-title" id="releaseFormTitle">
+                Add Release
+              </div>
+
+              <form id="releaseForm">
+
+                <input
+                  type="hidden"
+                  id="releaseId"
+                >
+
+                <div class="form-grid">
+
+                  <div class="field">
+                    <label>Title *</label>
+                    <input id="releaseTitle" required>
+                  </div>
+
+                  <div class="field">
+                    <label>Release Type *</label>
+
+                    <select id="releaseType">
+
+                      <option value="Single">Single</option>
+                      <option value="EP">EP</option>
+                      <option value="Album">Album</option>
+                      <option value="Mixtape">Mixtape</option>
+
+                    </select>
+
+                  </div>
+
+                  <div class="field">
+                    <label>Release Date</label>
+                    <input
+                      id="releaseDate"
+                      type="date"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Cover URL</label>
+                    <input
+                      id="releaseCover"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field full">
+                    <label>Description</label>
+                    <textarea id="releaseDescription"></textarea>
+                  </div>
+
+                  <div class="field">
+                    <label>Spotify URL</label>
+                    <input
+                      id="releaseSpotify"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Apple Music URL</label>
+                    <input
+                      id="releaseApple"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>YouTube URL</label>
+                    <input
+                      id="releaseYoutube"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Audiomack URL</label>
+                    <input
+                      id="releaseAudiomack"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field full">
+
+                    <div class="checkbox-row">
+
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="releaseFeatured"
+                        >
+                        Featured
+                      </label>
+
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="releasePublished"
+                          checked
+                        >
+                        Published
+                      </label>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="form-actions">
+
+                  <button
+                    type="submit"
+                    class="primary-btn"
+                  >
+                    Save Release
+                  </button>
+
+                  <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="cancelRelease()"
+                  >
+                    Cancel
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+
+
+            <div class="list-card">
+
+              <div class="list-header">
+
+                <strong>Release Catalogue</strong>
+
+                <input
+                  class="search-input"
+                  id="releaseSearch"
+                  placeholder="Search releases..."
+                >
+
+              </div>
+
+              <div
+                id="releasesList"
+                class="table-wrap"
+              >
+                <div class="loading-state">
+                  Loading releases...
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- =================================================
+               VIDEOS
+          ================================================== -->
+
+          <section
+            class="section"
+            id="section-videos"
+          >
+
+            <div class="section-heading">
+
+              <div>
+                <h2>Videos</h2>
+                <p>
+                  Manage music videos and visual content.
+                </p>
+              </div>
+
+              <button
+                class="primary-btn"
+                onclick="newVideo()"
+              >
+                + Add Video
+              </button>
+
+            </div>
+
+
+            <div
+              class="form-card hidden"
+              id="videoFormCard"
+            >
+
+              <div class="form-title">
+                <span id="videoFormTitle">Add Video</span>
+              </div>
+
+              <form id="videoForm">
+
+                <input
+                  type="hidden"
+                  id="videoId"
+                >
+
+                <div class="form-grid">
+
+                  <div class="field">
+                    <label>Title *</label>
+                    <input id="videoTitle" required>
+                  </div>
+
+                  <div class="field">
+                    <label>Platform</label>
+                    <select id="videoPlatform">
+                      <option value="YouTube">YouTube</option>
+                      <option value="Vimeo">Vimeo</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div class="field full">
+                    <label>Video URL *</label>
+                    <input
+                      id="videoUrl"
+                      type="url"
+                      required
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Thumbnail URL</label>
+                    <input
+                      id="videoThumbnail"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Release Date</label>
+                    <input
+                      id="videoDate"
+                      type="date"
+                    >
+                  </div>
+
+                  <div class="field full">
+                    <label>Description</label>
+                    <textarea id="videoDescription"></textarea>
+                  </div>
+
+                  <div class="field full">
+
+                    <div class="checkbox-row">
+
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="videoFeatured"
+                        >
+                        Featured
+                      </label>
+
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="videoPublished"
+                          checked
+                        >
+                        Published
+                      </label>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="form-actions">
+
+                  <button
+                    type="submit"
+                    class="primary-btn"
+                  >
+                    Save Video
+                  </button>
+
+                  <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="cancelVideo()"
+                  >
+                    Cancel
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+
+
+            <div class="list-card">
+
+              <div class="list-header">
+
+                <strong>Video Library</strong>
+
+                <input
+                  class="search-input"
+                  id="videoSearch"
+                  placeholder="Search videos..."
+                >
+
+              </div>
+
+              <div
+                id="videosList"
+                class="table-wrap"
+              >
+                <div class="loading-state">
+                  Loading videos...
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- =================================================
+               GALLERY
+          ================================================== -->
+
+          <section
+            class="section"
+            id="section-gallery"
+          >
+
+            <div class="section-heading">
+
+              <div>
+                <h2>Gallery</h2>
+                <p>
+                  Manage official Kharvie photos.
+                </p>
+              </div>
+
+              <button
+                class="primary-btn"
+                onclick="newGallery()"
+              >
+                + Add Photo
+              </button>
+
+            </div>
+
+
+            <div
+              class="form-card hidden"
+              id="galleryFormCard"
+            >
+
+              <div class="form-title">
+                <span id="galleryFormTitle">Add Photo</span>
+              </div>
+
+              <form id="galleryForm">
+
+                <input
+                  type="hidden"
+                  id="galleryId"
+                >
+
+                <div class="form-grid">
+
+                  <div class="field">
+                    <label>Title *</label>
+                    <input id="galleryTitle" required>
+                  </div>
+
+                  <div class="field">
+                    <label>Category</label>
+                    <input
+                      id="galleryCategory"
+                      placeholder="Press, Performance, Photoshoot..."
+                    >
+                  </div>
+
+                  <div class="field full">
+                    <label>Image URL *</label>
+                    <input
+                      id="galleryImage"
+                      type="url"
+                      required
+                    >
+                  </div>
+
+                  <div class="field full">
+                    <label>Description</label>
+                    <textarea id="galleryDescription"></textarea>
+                  </div>
+
+                  <div class="field full">
+
+                    <div class="checkbox-row">
+
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="galleryFeatured"
+                        >
+                        Featured
+                      </label>
+
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="galleryPublished"
+                          checked
+                        >
+                        Published
+                      </label>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="form-actions">
+
+                  <button
+                    type="submit"
+                    class="primary-btn"
+                  >
+                    Save Photo
+                  </button>
+
+                  <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="cancelGallery()"
+                  >
+                    Cancel
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+
+
+            <div class="list-card">
+
+              <div class="list-header">
+
+                <strong>Photo Gallery</strong>
+
+                <input
+                  class="search-input"
+                  id="gallerySearch"
+                  placeholder="Search photos..."
+                >
+
+              </div>
+
+              <div
+                id="galleryList"
+                class="table-wrap"
+              >
+                <div class="loading-state">
+                  Loading gallery...
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- =================================================
+               POSTS
+          ================================================== -->
+
+          <section
+            class="section"
+            id="section-posts"
+          >
+
+            <div class="section-heading">
+
+              <div>
+                <h2>News / Posts</h2>
+                <p>
+                  Publish news, announcements and stories.
+                </p>
+              </div>
+
+              <button
+                class="primary-btn"
+                onclick="newPost()"
+              >
+                + Add Post
+              </button>
+
+            </div>
+
+
+            <div
+              class="form-card hidden"
+              id="postFormCard"
+            >
+
+              <div class="form-title">
+                <span id="postFormTitle">Add Post</span>
+              </div>
+
+              <form id="postForm">
+
+                <input
+                  type="hidden"
+                  id="postId"
+                >
+
+                <div class="form-grid">
+
+                  <div class="field">
+                    <label>Title *</label>
+                    <input id="postTitle" required>
+                  </div>
+
+                  <div class="field">
+                    <label>Slug *</label>
+                    <input
+                      id="postSlug"
+                      required
+                      placeholder="kharvie-new-release"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Author</label>
+                    <input
+                      id="postAuthor"
+                      value="Kharvie"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Featured Image URL</label>
+                    <input
+                      id="postImage"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field full">
+                    <label>Excerpt</label>
+                    <textarea id="postExcerpt"></textarea>
+                  </div>
+
+                  <div class="field full">
+                    <label>Content *</label>
+                    <textarea
+                      id="postContent"
+                      style="min-height:220px"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div class="field">
+                    <label>Published At</label>
+                    <input
+                      id="postPublishedAt"
+                      type="datetime-local"
+                    >
+                  </div>
+
+                  <div class="field">
+
+                    <label class="checkbox-label" style="margin-top:30px;">
+                      <input
+                        type="checkbox"
+                        id="postPublished"
+                      >
+                      Published
+                    </label>
+
+                  </div>
+
+                </div>
+
+                <div class="form-actions">
+
+                  <button
+                    type="submit"
+                    class="primary-btn"
+                  >
+                    Save Post
+                  </button>
+
+                  <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="cancelPost()"
+                  >
+                    Cancel
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+
+
+            <div class="list-card">
+
+              <div class="list-header">
+
+                <strong>News & Posts</strong>
+
+                <input
+                  class="search-input"
+                  id="postSearch"
+                  placeholder="Search posts..."
+                >
+
+              </div>
+
+              <div
+                id="postsList"
+                class="table-wrap"
+              >
+                <div class="loading-state">
+                  Loading posts...
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- =================================================
+               EVENTS
+          ================================================== -->
+
+          <section
+            class="section"
+            id="section-events"
+          >
+
+            <div class="section-heading">
+
+              <div>
+                <h2>Events</h2>
+                <p>
+                  Manage upcoming appearances and events.
+                </p>
+              </div>
+
+              <button
+                class="primary-btn"
+                onclick="newEvent()"
+              >
+                + Add Event
+              </button>
+
+            </div>
+
+
+            <div
+              class="form-card hidden"
+              id="eventFormCard"
+            >
+
+              <div class="form-title">
+                <span id="eventFormTitle">Add Event</span>
+              </div>
+
+              <form id="eventForm">
+
+                <input
+                  type="hidden"
+                  id="eventId"
+                >
+
+                <div class="form-grid">
+
+                  <div class="field">
+                    <label>Event Title *</label>
+                    <input id="eventTitle" required>
+                  </div>
+
+                  <div class="field">
+                    <label>Venue</label>
+                    <input id="eventVenue">
+                  </div>
+
+                  <div class="field">
+                    <label>Event Date</label>
+                    <input
+                      id="eventDate"
+                      type="date"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Event Time</label>
+                    <input
+                      id="eventTime"
+                      type="time"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>City</label>
+                    <input id="eventCity">
+                  </div>
+
+                  <div class="field">
+                    <label>Country</label>
+                    <input
+                      id="eventCountry"
+                      value="Nigeria"
+                    >
+                  </div>
+
+                  <div class="field full">
+                    <label>Ticket URL</label>
+                    <input
+                      id="eventTicket"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field full">
+                    <label>Image URL</label>
+                    <input
+                      id="eventImage"
+                      type="url"
+                    >
+                  </div>
+
+                  <div class="field full">
+                    <label>Description</label>
+                    <textarea id="eventDescription"></textarea>
+                  </div>
+
+                  <div class="field full">
+
+                    <div class="checkbox-row">
+
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="eventFeatured"
+                        >
+                        Featured
+                      </label>
+
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="eventPublished"
+                          checked
+                        >
+                        Published
+                      </label>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="form-actions">
+
+                  <button
+                    type="submit"
+                    class="primary-btn"
+                  >
+                    Save Event
+                  </button>
+
+                  <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="cancelEvent()"
+                  >
+                    Cancel
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+
+
+            <div class="list-card">
+
+              <div class="list-header">
+
+                <strong>Events</strong>
+
+                <input
+                  class="search-input"
+                  id="eventSearch"
+                  placeholder="Search events..."
+                >
+
+              </div>
+
+              <div
+                id="eventsList"
+                class="table-wrap"
+              >
+                <div class="loading-state">
+                  Loading events...
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- =================================================
+               MONETIZATION
+          ================================================== -->
+
+          <section
+            class="section"
+            id="section-monetization"
+          >
+
+            <div class="section-heading">
+
+              <div>
+                <h2>Monetization</h2>
+                <p>
+                  Track revenue and financial records.
+                </p>
+              </div>
+
+              <button
+                class="primary-btn"
+                onclick="newMoney()"
+              >
+                + Add Record
+              </button>
+
+            </div>
+
+
+            <div class="money-grid">
+
+              <div class="money-card">
+                <div class="label">Total Records</div>
+                <div
+                  class="amount"
+                  id="moneyRecordCount"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="money-card">
+                <div class="label">Total Revenue</div>
+                <div
+                  class="amount"
+                  id="moneyTotal"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="money-card">
+                <div class="label">Paid</div>
+                <div
+                  class="amount"
+                  id="moneyPaid"
+                >
+                  —
+                </div>
+              </div>
+
+            </div>
+
+
+            <div
+              class="form-card hidden"
+              id="moneyFormCard"
+            >
+
+              <div class="form-title">
+                <span id="moneyFormTitle">
+                  Add Monetization Record
+                </span>
+              </div>
+
+              <form id="moneyForm">
+
+                <input
+                  type="hidden"
+                  id="moneyId"
+                >
+
+                <div class="form-grid">
+
+                  <div class="field">
+                    <label>Type</label>
+                    <input
+                      id="moneyType"
+                      placeholder="Revenue / Expense"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Category</label>
+                    <input
+                      id="moneyCategory"
+                      placeholder="Streaming / Performance..."
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Amount *</label>
+                    <input
+                      id="moneyAmount"
+                      type="number"
+                      step="0.01"
+                      required
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Currency</label>
+                    <input
+                      id="moneyCurrency"
+                      value="NGN"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Source</label>
+                    <input
+                      id="moneySource"
+                      placeholder="Spotify / Apple Music / Show..."
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Status</label>
+                    <select id="moneyStatus">
+                      <option value="pending">Pending</option>
+                      <option value="paid">Paid</option>
+                      <option value="completed">Completed</option>
+                      <option value="cancelled">Cancelled</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label>Transaction Date</label>
+                    <input
+                      id="moneyTransactionDate"
+                      type="date"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Revenue Date</label>
+                    <input
+                      id="moneyRevenueDate"
+                      type="date"
+                    >
+                  </div>
+
+                  <div class="field">
+                    <label>Reference</label>
+                    <input id="moneyReference">
+                  </div>
+
+                  <div class="field full">
+                    <label>Description</label>
+                    <textarea id="moneyDescription"></textarea>
+                  </div>
+
+                  <div class="field full">
+                    <label>Notes</label>
+                    <textarea id="moneyNotes"></textarea>
+                  </div>
+
+                </div>
+
+                <div class="form-actions">
+
+                  <button
+                    type="submit"
+                    class="primary-btn"
+                  >
+                    Save Record
+                  </button>
+
+                  <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="cancelMoney()"
+                  >
+                    Cancel
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+
+
+            <div class="list-card">
+
+              <div class="list-header">
+
+                <strong>Financial Records</strong>
+
+                <input
+                  class="search-input"
+                  id="moneySearch"
+                  placeholder="Search records..."
+                >
+
+              </div>
+
+              <div
+                id="moneyList"
+                class="table-wrap"
+              >
+                <div class="loading-state">
+                  Loading records...
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- =================================================
+               SETTINGS
+          ================================================== -->
+
+          <section
+            class="section"
+            id="section-settings"
+          >
+
+            <div class="section-heading">
+
+              <div>
+                <h2>Settings</h2>
+                <p>
+                  Administrator and website controls.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="panel">
+
+              <div class="panel-title">
+                Administrator Account
+              </div>
+
+              <p
+                id="settingsEmail"
+                style="
+                  color:var(--muted);
+                  font-size:14px;
+                  margin-bottom:15px;
+                "
+              >
+                —
+              </p>
+
+              <button
+                class="secondary-btn"
+                onclick="logout()"
+              >
+                Sign Out
+              </button>
+
+            </div>
+
+
+            <div
+              class="panel"
+              style="margin-top:18px;"
+            >
+
+              <div class="panel-title">
+                Website
+              </div>
+
+              <p
+                style="
+                  color:var(--muted);
+                  font-size:13px;
+                  line-height:1.7;
+                "
+              >
+                Your public website is managed through
+                the content stored in Supabase.
+                Changes made here can be reflected on
+                the public Kharvie website when its
+                content loaders retrieve the updated records.
+              </p>
+
+              <a
+                href="index.html"
+                target="_blank"
+                class="secondary-btn"
+                style="
+                  display:inline-flex;
+                  text-decoration:none;
+                  margin-top:15px;
+                "
+              >
+                Open Website ↗
+              </a>
+
+            </div>
+
+          </section>
+
+
+        </div>
+
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <div id="toast"></div>
+
+
+  <script>
+    /* =========================================================
+       SUPABASE
+    ========================================================= */
+
+    const SUPABASE_URL =
+      "https://dprulohylwgzmetgrywj.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
+
+    const { createClient } = window.supabase;
+
+    const db = createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+    /* =========================================================
+       GLOBAL STATE
+    ========================================================= */
+
+    let currentUser = null;
+
+    let songsData = [];
+    let releasesData = [];
+    let videosData = [];
+    let galleryData = [];
+    let postsData = [];
+    let eventsData = [];
+    let moneyData = [];
+
+
+    /* =========================================================
+       BASIC HELPERS
+    ========================================================= */
+
+    const $ = (id) =>
+      document.getElementById(id);
+
+
+    function escapeHtml(value) {
+
+      if (value === null || value === undefined) {
+        return "";
+      }
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
-  );
 
-  if(error){
 
-    console.error(
-      "Events error:",
-      error
+    function formatDate(value) {
+
+      if (!value) {
+        return "—";
+      }
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return escapeHtml(value);
+      }
+
+      return date.toLocaleDateString(
+        undefined,
+        {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        }
+      );
+    }
+
+
+    function formatMoney(amount, currency = "NGN") {
+
+      const numeric =
+        Number(amount || 0);
+
+      try {
+
+        return new Intl.NumberFormat(
+          undefined,
+          {
+            style: "currency",
+            currency: currency || "NGN",
+            maximumFractionDigits: 2
+          }
+        ).format(numeric);
+
+      } catch {
+
+        return `${currency || "NGN"} ${numeric.toLocaleString()}`;
+
+      }
+    }
+
+
+    function showToast(
+      message,
+      type = "success"
+    ) {
+
+      const toast = $("toast");
+
+      toast.textContent = message;
+
+      toast.className =
+        `show ${type}`;
+
+      clearTimeout(
+        window.toastTimer
+      );
+
+      window.toastTimer =
+        setTimeout(() => {
+          toast.className = "";
+        }, 3200);
+
+    }
+
+
+    function showLoginMessage(
+      message,
+      type = "error"
+    ) {
+
+      const box =
+        $("loginMessage");
+
+      box.textContent =
+        message;
+
+      box.className =
+        `message ${type}`;
+
+    }
+
+
+    function clearLoginMessage() {
+
+      $("loginMessage").textContent = "";
+
+      $("loginMessage").className =
+        "message";
+
+    }
+
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
+
+    const sectionNames = {
+      dashboard: "Dashboard",
+      songs: "Songs",
+      releases: "Releases",
+      videos: "Videos",
+      gallery: "Gallery",
+      posts: "News / Posts",
+      events: "Events",
+      monetization: "Monetization",
+      settings: "Settings"
+    };
+
+
+    function openSection(name) {
+
+      document
+        .querySelectorAll(".section")
+        .forEach(section => {
+          section.classList.remove("active");
+        });
+
+
+      const target =
+        $(`section-${name}`);
+
+      if (target) {
+        target.classList.add("active");
+      }
+
+
+      document
+        .querySelectorAll(".nav-button[data-section]")
+        .forEach(button => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.section === name
+          );
+
+        });
+
+
+      $("pageTitle").textContent =
+        sectionNames[name] || "Dashboard";
+
+
+      $("sidebar").classList.remove("open");
+
+
+      if (name === "dashboard") {
+        loadDashboard();
+      }
+
+      if (name === "songs") {
+        renderSongs();
+      }
+
+      if (name === "releases") {
+        renderReleases();
+      }
+
+      if (name === "videos") {
+        renderVideos();
+      }
+
+      if (name === "gallery") {
+        renderGallery();
+      }
+
+      if (name === "posts") {
+        renderPosts();
+      }
+
+      if (name === "events") {
+        renderEvents();
+      }
+
+      if (name === "monetization") {
+        renderMoney();
+      }
+
+    }
+
+
+    document
+      .querySelectorAll(".nav-button[data-section]")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+            openSection(
+              button.dataset.section
+            );
+          }
+        );
+
+      });
+
+
+    $("mobileMenu").addEventListener(
+      "click",
+      () => {
+        $("sidebar").classList.toggle("open");
+      }
     );
 
-    container.innerHTML =
-    `<div class="error-box">
-      Unable to load events.
-    </div>`;
 
-    return;
-  }
+    /* =========================================================
+       AUTHENTICATION
+    ========================================================= */
 
-  if(
-    !data ||
-    data.length === 0
-  ){
+    async function checkAdminAccess(user) {
 
-    container.innerHTML =
-    emptyMessage(
-      "No upcoming events have been added yet."
+      if (!user) {
+        return false;
+      }
+
+      const {
+        data,
+        error
+      } = await db
+        .from("admin_users")
+        .select("user_id")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+
+      if (error) {
+
+        console.error(
+          "Admin verification error:",
+          error
+        );
+
+        return false;
+      }
+
+
+      return !!data;
+
+    }
+
+
+    async function showAdminApp(user) {
+
+      currentUser = user;
+
+      $("loginScreen")
+        .classList.add("hidden");
+
+      $("adminApp")
+        .classList.remove("hidden");
+
+
+      const email =
+        user.email || "Administrator";
+
+
+      $("adminUserEmail").textContent =
+        email;
+
+      $("dashboardAdminEmail").textContent =
+        email;
+
+      $("settingsEmail").textContent =
+        email;
+
+
+      await loadAllData();
+
+      openSection("dashboard");
+
+    }
+
+
+    function showLogin() {
+
+      currentUser = null;
+
+      $("adminApp")
+        .classList.add("hidden");
+
+      $("loginScreen")
+        .classList.remove("hidden");
+
+    }
+
+
+    async function logout() {
+
+      try {
+
+        await db.auth.signOut();
+
+      } catch (error) {
+
+        console.error(error);
+
+      }
+
+      showLogin();
+
+    }
+
+
+    $("logoutButton").addEventListener(
+      "click",
+      logout
     );
 
-    return;
-  }
 
-  container.innerHTML = "";
+    $("showPassword").addEventListener(
+      "click",
+      () => {
 
-  data.forEach(event => {
+        const input =
+          $("loginPassword");
 
-    const ticket =
-    safeUrl(
-      event.ticket_url
+        const visible =
+          input.type === "text";
+
+        input.type =
+          visible ? "password" : "text";
+
+        $("showPassword").textContent =
+          visible ? "Show" : "Hide";
+
+      }
     );
 
-    const card =
-    document.createElement("article");
 
-    card.className =
-    "event-card";
+    $("loginForm").addEventListener(
+      "submit",
+      async event => {
 
-    card.innerHTML = `
+        event.preventDefault();
 
-      <div class="event-date">
+        clearLoginMessage();
 
-        ${
-          event.event_date
-          ? escapeHtml(
-              formatDate(
-                event.event_date
-              )
-            )
-          : "DATE TBA"
+        const email =
+          $("loginEmail").value.trim();
+
+        const password =
+          $("loginPassword").value;
+
+
+        $("loginButton").disabled =
+          true;
+
+        $("loginButton").textContent =
+          "Signing in...";
+
+
+        try {
+
+          const {
+            data,
+            error
+          } = await db.auth.signInWithPassword({
+            email,
+            password
+          });
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          if (!data.user) {
+            throw new Error(
+              "Unable to sign in."
+            );
+          }
+
+
+          const isAdmin =
+            await checkAdminAccess(
+              data.user
+            );
+
+
+          if (!isAdmin) {
+
+            await db.auth.signOut();
+
+            throw new Error(
+              "Access denied. This account is not authorized as an administrator."
+            );
+
+          }
+
+
+          showLoginMessage(
+            "Login successful.",
+            "success"
+          );
+
+
+          await showAdminApp(
+            data.user
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Login error:",
+            error
+          );
+
+          showLoginMessage(
+            error.message ||
+            "Unable to sign in."
+          );
+
+        } finally {
+
+          $("loginButton").disabled =
+            false;
+
+          $("loginButton").textContent =
+            "Sign In";
+
         }
 
-      </div>
-
-      <h3>
-        ${escapeHtml(
-          event.title || "Event"
-        )}
-      </h3>
-
-      ${
-        event.event_time
-        ? `
-          <div class="event-info">
-            🕐 ${escapeHtml(
-              event.event_time
-            )}
-          </div>
-        `
-        : ""
       }
-
-      ${
-        event.venue
-        ? `
-          <div class="event-info">
-            📍 ${escapeHtml(
-              event.venue
-            )}
-          </div>
-        `
-        : ""
-      }
-
-      ${
-        event.city ||
-        event.country
-        ? `
-          <div class="event-info">
-            ${escapeHtml(
-              [
-                event.city,
-                event.country
-              ]
-              .filter(Boolean)
-              .join(", ")
-            )}
-          </div>
-        `
-        : ""
-      }
-
-      ${
-        event.description
-        ? `
-          <p
-            class="muted"
-            style="margin-top:15px"
-          >
-            ${escapeHtml(
-              event.description
-            )}
-          </p>
-        `
-        : ""
-      }
-
-      ${
-        ticket
-        ? `
-          <div class="card-buttons">
-
-            <a
-              class="small-btn"
-              href="${escapeHtml(ticket)}"
-              target="_blank"
-              rel="noopener"
-            >
-              GET TICKETS
-            </a>
-
-          </div>
-        `
-        : ""
-      }
-
-    `;
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-
-const menuBtn =
-document.getElementById(
-  "menuBtn"
-);
-
-const navLinks =
-document.getElementById(
-  "navLinks"
-);
-
-menuBtn.addEventListener(
-  "click",
-  function(){
-
-    navLinks.classList.toggle(
-      "open"
     );
 
-  }
-);
+
+    db.auth.onAuthStateChange(
+      async (_event, session) => {
+
+        if (!session || !session.user) {
+
+          showLogin();
+
+          return;
+        }
 
 
-document
-.querySelectorAll(
-  ".nav-links a"
-)
-.forEach(link => {
+        const isAdmin =
+          await checkAdminAccess(
+            session.user
+          );
 
-  link.addEventListener(
-    "click",
-    function(){
 
-      navLinks.classList.remove(
-        "open"
+        if (!isAdmin) {
+
+          await db.auth.signOut();
+
+          showLogin();
+
+          showLoginMessage(
+            "Access denied. This account is not authorized as an administrator."
+          );
+
+          return;
+        }
+
+
+        await showAdminApp(
+          session.user
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       LOAD ALL DATA
+    ========================================================= */
+
+    async function loadAllData() {
+
+      await Promise.all([
+        loadSongs(),
+        loadReleases(),
+        loadVideos(),
+        loadGallery(),
+        loadPosts(),
+        loadEvents(),
+        loadMoney()
+      ]);
+
+      updateStats();
+
+    }
+
+
+    async function loadSongs() {
+
+      const {
+        data,
+        error
+      } = await db
+        .from("songs")
+        .select("*")
+        .order(
+          "release_date",
+          {
+            ascending: false,
+            nullsFirst: false
+          }
+        );
+
+
+      if (error) {
+
+        console.error(error);
+
+        showToast(
+          "Unable to load songs.",
+          "error"
+        );
+
+        songsData = [];
+
+        return;
+      }
+
+
+      songsData = data || [];
+
+      updateStats();
+
+      renderSongs();
+
+    }
+
+
+    async function loadReleases() {
+
+      const {
+        data,
+        error
+      } = await db
+        .from("releases")
+        .select("*")
+        .order(
+          "release_date",
+          {
+            ascending: false,
+            nullsFirst: false
+          }
+        );
+
+
+      if (error) {
+
+        console.error(error);
+
+        releasesData = [];
+
+        return;
+      }
+
+
+      releasesData = data || [];
+
+      updateStats();
+
+      renderReleases();
+
+    }
+
+
+    async function loadVideos() {
+
+      const {
+        data,
+        error
+      } = await db
+        .from("videos")
+        .select("*")
+        .order(
+          "release_date",
+          {
+            ascending: false,
+            nullsFirst: false
+          }
+        );
+
+
+      if (error) {
+
+        console.error(error);
+
+        videosData = [];
+
+        return;
+      }
+
+
+      videosData = data || [];
+
+      updateStats();
+
+      renderVideos();
+
+    }
+
+
+    async function loadGallery() {
+
+      const {
+        data,
+        error
+      } = await db
+        .from("gallery")
+        .select("*")
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
+
+
+      if (error) {
+
+        console.error(error);
+
+        galleryData = [];
+
+        return;
+      }
+
+
+      galleryData = data || [];
+
+      updateStats();
+
+      renderGallery();
+
+    }
+
+
+    async function loadPosts() {
+
+      const {
+        data,
+        error
+      } = await db
+        .from("posts")
+        .select("*")
+        .order(
+          "published_at",
+          {
+            ascending: false,
+            nullsFirst: false
+          }
+        );
+
+
+      if (error) {
+
+        console.error(error);
+
+        postsData = [];
+
+        return;
+      }
+
+
+      postsData = data || [];
+
+      updateStats();
+
+      renderPosts();
+
+    }
+
+
+    async function loadEvents() {
+
+      const {
+        data,
+        error
+      } = await db
+        .from("events")
+        .select("*")
+        .order(
+          "event_date",
+          {
+            ascending: true,
+            nullsFirst: false
+          }
+        );
+
+
+      if (error) {
+
+        console.error(error);
+
+        eventsData = [];
+
+        return;
+      }
+
+
+      eventsData = data || [];
+
+      updateStats();
+
+      renderEvents();
+
+    }
+
+
+    async function loadMoney() {
+
+      const {
+        data,
+        error
+      } = await db
+        .from("monetization")
+        .select("*")
+        .order(
+          "revenue_date",
+          {
+            ascending: false,
+            nullsFirst: false
+          }
+        );
+
+
+      if (error) {
+
+        console.error(error);
+
+        moneyData = [];
+
+        return;
+      }
+
+
+      moneyData = data || [];
+
+      updateStats();
+
+      renderMoney();
+
+    }
+
+
+    /* =========================================================
+       DASHBOARD
+    ========================================================= */
+
+    function updateStats() {
+
+      $("statSongs").textContent =
+        songsData.length;
+
+      $("statReleases").textContent =
+        releasesData.length;
+
+      $("statVideos").textContent =
+        videosData.length;
+
+      $("statGallery").textContent =
+        galleryData.length;
+
+      $("statPosts").textContent =
+        postsData.length;
+
+      $("statEvents").textContent =
+        eventsData.length;
+
+      const published =
+        songsData.filter(x => x.is_published).length +
+        releasesData.filter(x => x.is_published).length +
+        videosData.filter(x => x.is_published).length +
+        galleryData.filter(x => x.is_published).length +
+        postsData.filter(x => x.is_published).length +
+        eventsData.filter(x => x.is_published).length;
+
+      $("statPublished").textContent =
+        published;
+
+      $("statMoney").textContent =
+        moneyData.length;
+
+
+      updateMoneySummary();
+
+    }
+
+
+    function loadDashboard() {
+      updateStats();
+    }
+
+
+    /* =========================================================
+       SONGS
+    ========================================================= */
+
+    function newSong() {
+
+      $("songForm").reset();
+
+      $("songId").value = "";
+
+      $("songArtist").value =
+        "Kharvie";
+
+      $("songPublished").checked =
+        true;
+
+      $("songFeatured").checked =
+        false;
+
+      $("songFormTitle").textContent =
+        "Add Song";
+
+      $("songFormCard")
+        .classList.remove("hidden");
+
+      $("songFormCard")
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+    }
+
+
+    function cancelSong() {
+
+      $("songFormCard")
+        .classList.add("hidden");
+
+      $("songForm").reset();
+
+    }
+
+
+    function editSong(id) {
+
+      const item =
+        songsData.find(
+          x => x.id === id
+        );
+
+      if (!item) return;
+
+
+      $("songId").value =
+        item.id || "";
+
+      $("songTitle").value =
+        item.title || "";
+
+      $("songArtist").value =
+        item.artist || "Kharvie";
+
+      $("songDescription").value =
+        item.description || "";
+
+      $("songAudioUrl").value =
+        item.audio_url || "";
+
+      $("songCoverUrl").value =
+        item.cover_url || "";
+
+      $("songSpotify").value =
+        item.spotify_url || "";
+
+      $("songApple").value =
+        item.apple_music_url || "";
+
+      $("songYoutube").value =
+        item.youtube_url || "";
+
+      $("songAudiomack").value =
+        item.audiomack_url || "";
+
+      $("songGenre").value =
+        item.genre || "";
+
+      $("songReleaseDate").value =
+        item.release_date || "";
+
+      $("songDuration").value =
+        item.duration_seconds ?? "";
+
+      $("songFeatured").checked =
+        !!item.is_featured;
+
+      $("songPublished").checked =
+        item.is_published !== false;
+
+      $("songFormTitle").textContent =
+        "Edit Song";
+
+      $("songFormCard")
+        .classList.remove("hidden");
+
+      $("songFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    async function deleteSong(id) {
+
+      if (!confirm(
+        "Delete this song permanently?"
+      )) {
+        return;
+      }
+
+
+      const {
+        error
+      } = await db
+        .from("songs")
+        .delete()
+        .eq("id", id);
+
+
+      if (error) {
+
+        console.error(error);
+
+        showToast(
+          error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      showToast(
+        "Song deleted."
+      );
+
+      await loadSongs();
+
+    }
+
+
+    $("songForm").addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const id =
+          $("songId").value;
+
+
+        const payload = {
+
+          title:
+            $("songTitle").value.trim(),
+
+          artist:
+            $("songArtist").value.trim() ||
+            "Kharvie",
+
+          description:
+            $("songDescription").value.trim() ||
+            null,
+
+          audio_url:
+            $("songAudioUrl").value.trim() ||
+            null,
+
+          cover_url:
+            $("songCoverUrl").value.trim() ||
+            null,
+
+          spotify_url:
+            $("songSpotify").value.trim() ||
+            null,
+
+          apple_music_url:
+            $("songApple").value.trim() ||
+            null,
+
+          youtube_url:
+            $("songYoutube").value.trim() ||
+            null,
+
+          audiomack_url:
+            $("songAudiomack").value.trim() ||
+            null,
+
+          genre:
+            $("songGenre").value.trim() ||
+            null,
+
+          release_date:
+            $("songReleaseDate").value ||
+            null,
+
+          duration_seconds:
+            $("songDuration").value
+              ? Number($("songDuration").value)
+              : null,
+
+          is_featured:
+            $("songFeatured").checked,
+
+          is_published:
+            $("songPublished").checked
+
+        };
+
+
+        let result;
+
+
+        if (id) {
+
+          result =
+            await db
+              .from("songs")
+              .update(payload)
+              .eq("id", id);
+
+        } else {
+
+          result =
+            await db
+              .from("songs")
+              .insert(payload);
+
+        }
+
+
+        if (result.error) {
+
+          console.error(
+            result.error
+          );
+
+          showToast(
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        showToast(
+          id
+            ? "Song updated."
+            : "Song added."
+        );
+
+        cancelSong();
+
+        await loadSongs();
+
+      }
+    );
+
+
+    function renderSongs() {
+
+      const container =
+        $("songsList");
+
+      const search =
+        ($("songSearch")?.value || "")
+          .toLowerCase()
+          .trim();
+
+
+      const data =
+        songsData.filter(item => {
+
+          const text =
+            `${item.title || ""} ${item.artist || ""} ${item.genre || ""}`
+              .toLowerCase();
+
+          return !search ||
+            text.includes(search);
+
+        });
+
+
+      if (!data.length) {
+
+        container.innerHTML =
+          `<div class="empty-state">
+             No songs found.
+           </div>`;
+
+        return;
+      }
+
+
+      container.innerHTML = `
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Song</th>
+              <th>Artist</th>
+              <th>Genre</th>
+              <th>Release Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${data.map(item => `
+
+              <tr>
+
+                <td>
+
+                  <div style="display:flex;gap:11px;align-items:center;">
+
+                    ${
+                      item.cover_url
+                        ? `<img
+                             class="item-thumb"
+                             src="${escapeHtml(item.cover_url)}"
+                             alt=""
+                             loading="lazy"
+                           >`
+                        : `<div class="item-thumb"></div>`
+                    }
+
+                    <div>
+
+                      <div class="item-title">
+                        ${escapeHtml(item.title)}
+                      </div>
+
+                      <div class="item-subtitle">
+                        ${item.audio_url ? "Audio available" : "No audio URL"}
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </td>
+
+                <td>
+                  ${escapeHtml(item.artist || "Kharvie")}
+                </td>
+
+                <td>
+                  ${escapeHtml(item.genre || "—")}
+                </td>
+
+                <td>
+                  ${formatDate(item.release_date)}
+                </td>
+
+                <td>
+                  ${statusBadges(item)}
+                </td>
+
+                <td>
+
+                  <div class="row-actions">
+
+                    <button
+                      class="small-btn"
+                      onclick="editSong('${item.id}')"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      class="small-btn delete"
+                      onclick="deleteSong('${item.id}')"
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       RELEASES
+    ========================================================= */
+
+    function newRelease() {
+
+      $("releaseForm").reset();
+
+      $("releaseId").value = "";
+
+      $("releaseType").value =
+        "Single";
+
+      $("releasePublished").checked =
+        true;
+
+      $("releaseFeatured").checked =
+        false;
+
+      $("releaseFormTitle").textContent =
+        "Add Release";
+
+      $("releaseFormCard")
+        .classList.remove("hidden");
+
+      $("releaseFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    function cancelRelease() {
+
+      $("releaseFormCard")
+        .classList.add("hidden");
+
+      $("releaseForm").reset();
+
+    }
+
+
+    function editRelease(id) {
+
+      const item =
+        releasesData.find(
+          x => x.id === id
+        );
+
+      if (!item) return;
+
+
+      $("releaseId").value =
+        item.id || "";
+
+      $("releaseTitle").value =
+        item.title || "";
+
+      $("releaseType").value =
+        item.release_type || "Single";
+
+      $("releaseDescription").value =
+        item.description || "";
+
+      $("releaseCover").value =
+        item.cover_url || "";
+
+      $("releaseDate").value =
+        item.release_date || "";
+
+      $("releaseSpotify").value =
+        item.spotify_url || "";
+
+      $("releaseApple").value =
+        item.apple_music_url || "";
+
+      $("releaseYoutube").value =
+        item.youtube_url || "";
+
+      $("releaseAudiomack").value =
+        item.audiomack_url || "";
+
+      $("releaseFeatured").checked =
+        !!item.is_featured;
+
+      $("releasePublished").checked =
+        item.is_published !== false;
+
+      $("releaseFormTitle").textContent =
+        "Edit Release";
+
+      $("releaseFormCard")
+        .classList.remove("hidden");
+
+      $("releaseFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    async function deleteRelease(id) {
+
+      if (!confirm(
+        "Delete this release permanently?"
+      )) {
+        return;
+      }
+
+
+      const {
+        error
+      } = await db
+        .from("releases")
+        .delete()
+        .eq("id", id);
+
+
+      if (error) {
+
+        showToast(
+          error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      showToast(
+        "Release deleted."
+      );
+
+      await loadReleases();
+
+    }
+
+
+    $("releaseForm").addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const id =
+          $("releaseId").value;
+
+
+        const payload = {
+
+          title:
+            $("releaseTitle").value.trim(),
+
+          release_type:
+            $("releaseType").value,
+
+          description:
+            $("releaseDescription").value.trim() ||
+            null,
+
+          cover_url:
+            $("releaseCover").value.trim() ||
+            null,
+
+          release_date:
+            $("releaseDate").value ||
+            null,
+
+          spotify_url:
+            $("releaseSpotify").value.trim() ||
+            null,
+
+          apple_music_url:
+            $("releaseApple").value.trim() ||
+            null,
+
+          youtube_url:
+            $("releaseYoutube").value.trim() ||
+            null,
+
+          audiomack_url:
+            $("releaseAudiomack").value.trim() ||
+            null,
+
+          is_featured:
+            $("releaseFeatured").checked,
+
+          is_published:
+            $("releasePublished").checked
+
+        };
+
+
+        let result;
+
+
+        if (id) {
+
+          result =
+            await db
+              .from("releases")
+              .update(payload)
+              .eq("id", id);
+
+        } else {
+
+          result =
+            await db
+              .from("releases")
+              .insert(payload);
+
+        }
+
+
+        if (result.error) {
+
+          showToast(
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        showToast(
+          id
+            ? "Release updated."
+            : "Release added."
+        );
+
+        cancelRelease();
+
+        await loadReleases();
+
+      }
+    );
+
+
+    function renderReleases() {
+
+      const container =
+        $("releasesList");
+
+      const search =
+        ($("releaseSearch")?.value || "")
+          .toLowerCase()
+          .trim();
+
+
+      const data =
+        releasesData.filter(item => {
+
+          const text =
+            `${item.title || ""} ${item.release_type || ""}`
+              .toLowerCase();
+
+          return !search ||
+            text.includes(search);
+
+        });
+
+
+      if (!data.length) {
+
+        container.innerHTML =
+          `<div class="empty-state">
+             No releases found.
+           </div>`;
+
+        return;
+      }
+
+
+      container.innerHTML = `
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Release</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${data.map(item => `
+
+              <tr>
+
+                <td>
+
+                  <div style="display:flex;gap:11px;align-items:center;">
+
+                    ${
+                      item.cover_url
+                        ? `<img
+                             class="item-thumb"
+                             src="${escapeHtml(item.cover_url)}"
+                             alt=""
+                             loading="lazy"
+                           >`
+                        : `<div class="item-thumb"></div>`
+                    }
+
+                    <div class="item-title">
+                      ${escapeHtml(item.title)}
+                    </div>
+
+                  </div>
+
+                </td>
+
+                <td>
+                  ${escapeHtml(item.release_type || "—")}
+                </td>
+
+                <td>
+                  ${formatDate(item.release_date)}
+                </td>
+
+                <td>
+                  ${statusBadges(item)}
+                </td>
+
+                <td>
+
+                  <div class="row-actions">
+
+                    <button
+                      class="small-btn"
+                      onclick="editRelease('${item.id}')"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      class="small-btn delete"
+                      onclick="deleteRelease('${item.id}')"
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       VIDEOS
+    ========================================================= */
+
+    function newVideo() {
+
+      $("videoForm").reset();
+
+      $("videoId").value = "";
+
+      $("videoPlatform").value =
+        "YouTube";
+
+      $("videoPublished").checked =
+        true;
+
+      $("videoFeatured").checked =
+        false;
+
+      $("videoFormTitle").textContent =
+        "Add Video";
+
+      $("videoFormCard")
+        .classList.remove("hidden");
+
+      $("videoFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    function cancelVideo() {
+
+      $("videoFormCard")
+        .classList.add("hidden");
+
+      $("videoForm").reset();
+
+    }
+
+
+    function editVideo(id) {
+
+      const item =
+        videosData.find(
+          x => x.id === id
+        );
+
+      if (!item) return;
+
+
+      $("videoId").value =
+        item.id || "";
+
+      $("videoTitle").value =
+        item.title || "";
+
+      $("videoDescription").value =
+        item.description || "";
+
+      $("videoUrl").value =
+        item.video_url || "";
+
+      $("videoThumbnail").value =
+        item.thumbnail_url || "";
+
+      $("videoPlatform").value =
+        item.platform || "YouTube";
+
+      $("videoDate").value =
+        item.release_date || "";
+
+      $("videoFeatured").checked =
+        !!item.is_featured;
+
+      $("videoPublished").checked =
+        item.is_published !== false;
+
+      $("videoFormTitle").textContent =
+        "Edit Video";
+
+      $("videoFormCard")
+        .classList.remove("hidden");
+
+      $("videoFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    async function deleteVideo(id) {
+
+      if (!confirm(
+        "Delete this video permanently?"
+      )) {
+        return;
+      }
+
+
+      const {
+        error
+      } = await db
+        .from("videos")
+        .delete()
+        .eq("id", id);
+
+
+      if (error) {
+
+        showToast(
+          error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      showToast(
+        "Video deleted."
+      );
+
+      await loadVideos();
+
+    }
+
+
+    $("videoForm").addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const id =
+          $("videoId").value;
+
+
+        const payload = {
+
+          title:
+            $("videoTitle").value.trim(),
+
+          description:
+            $("videoDescription").value.trim() ||
+            null,
+
+          video_url:
+            $("videoUrl").value.trim(),
+
+          thumbnail_url:
+            $("videoThumbnail").value.trim() ||
+            null,
+
+          platform:
+            $("videoPlatform").value,
+
+          release_date:
+            $("videoDate").value ||
+            null,
+
+          is_featured:
+            $("videoFeatured").checked,
+
+          is_published:
+            $("videoPublished").checked
+
+        };
+
+
+        let result;
+
+
+        if (id) {
+
+          result =
+            await db
+              .from("videos")
+              .update(payload)
+              .eq("id", id);
+
+        } else {
+
+          result =
+            await db
+              .from("videos")
+              .insert(payload);
+
+        }
+
+
+        if (result.error) {
+
+          showToast(
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        showToast(
+          id
+            ? "Video updated."
+            : "Video added."
+        );
+
+        cancelVideo();
+
+        await loadVideos();
+
+      }
+    );
+
+
+    function renderVideos() {
+
+      const container =
+        $("videosList");
+
+      const search =
+        ($("videoSearch")?.value || "")
+          .toLowerCase()
+          .trim();
+
+
+      const data =
+        videosData.filter(item => {
+
+          const text =
+            `${item.title || ""} ${item.platform || ""}`
+              .toLowerCase();
+
+          return !search ||
+            text.includes(search);
+
+        });
+
+
+      if (!data.length) {
+
+        container.innerHTML =
+          `<div class="empty-state">
+             No videos found.
+           </div>`;
+
+        return;
+      }
+
+
+      container.innerHTML = `
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Video</th>
+              <th>Platform</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${data.map(item => `
+
+              <tr>
+
+                <td>
+
+                  <div style="display:flex;gap:11px;align-items:center;">
+
+                    ${
+                      item.thumbnail_url
+                        ? `<img
+                             class="item-thumb"
+                             src="${escapeHtml(item.thumbnail_url)}"
+                             alt=""
+                             loading="lazy"
+                           >`
+                        : `<div class="item-thumb"></div>`
+                    }
+
+                    <div class="item-title">
+                      ${escapeHtml(item.title)}
+                    </div>
+
+                  </div>
+
+                </td>
+
+                <td>
+                  ${escapeHtml(item.platform || "—")}
+                </td>
+
+                <td>
+                  ${formatDate(item.release_date)}
+                </td>
+
+                <td>
+                  ${statusBadges(item)}
+                </td>
+
+                <td>
+
+                  <div class="row-actions">
+
+                    <button
+                      class="small-btn"
+                      onclick="editVideo('${item.id}')"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      class="small-btn delete"
+                      onclick="deleteVideo('${item.id}')"
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       GALLERY
+    ========================================================= */
+
+    function newGallery() {
+
+      $("galleryForm").reset();
+
+      $("galleryId").value = "";
+
+      $("galleryPublished").checked =
+        true;
+
+      $("galleryFeatured").checked =
+        false;
+
+      $("galleryFormTitle").textContent =
+        "Add Photo";
+
+      $("galleryFormCard")
+        .classList.remove("hidden");
+
+      $("galleryFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    function cancelGallery() {
+
+      $("galleryFormCard")
+        .classList.add("hidden");
+
+      $("galleryForm").reset();
+
+    }
+
+
+    function editGallery(id) {
+
+      const item =
+        galleryData.find(
+          x => x.id === id
+        );
+
+      if (!item) return;
+
+
+      $("galleryId").value =
+        item.id || "";
+
+      $("galleryTitle").value =
+        item.title || "";
+
+      $("galleryImage").value =
+        item.image_url || "";
+
+      $("galleryDescription").value =
+        item.description || "";
+
+      $("galleryCategory").value =
+        item.category || "";
+
+      $("galleryFeatured").checked =
+        !!item.is_featured;
+
+      $("galleryPublished").checked =
+        item.is_published !== false;
+
+      $("galleryFormTitle").textContent =
+        "Edit Photo";
+
+      $("galleryFormCard")
+        .classList.remove("hidden");
+
+      $("galleryFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    async function deleteGallery(id) {
+
+      if (!confirm(
+        "Delete this photo permanently?"
+      )) {
+        return;
+      }
+
+
+      const {
+        error
+      } = await db
+        .from("gallery")
+        .delete()
+        .eq("id", id);
+
+
+      if (error) {
+
+        showToast(
+          error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      showToast(
+        "Photo deleted."
+      );
+
+      await loadGallery();
+
+    }
+
+
+    $("galleryForm").addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const id =
+          $("galleryId").value;
+
+
+        const payload = {
+
+          title:
+            $("galleryTitle").value.trim(),
+
+          image_url:
+            $("galleryImage").value.trim(),
+
+          description:
+            $("galleryDescription").value.trim() ||
+            null,
+
+          category:
+            $("galleryCategory").value.trim() ||
+            null,
+
+          is_featured:
+            $("galleryFeatured").checked,
+
+          is_published:
+            $("galleryPublished").checked
+
+        };
+
+
+        let result;
+
+
+        if (id) {
+
+          result =
+            await db
+              .from("gallery")
+              .update(payload)
+              .eq("id", id);
+
+        } else {
+
+          result =
+            await db
+              .from("gallery")
+              .insert(payload);
+
+        }
+
+
+        if (result.error) {
+
+          showToast(
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        showToast(
+          id
+            ? "Photo updated."
+            : "Photo added."
+        );
+
+        cancelGallery();
+
+        await loadGallery();
+
+      }
+    );
+
+
+    function renderGallery() {
+
+      const container =
+        $("galleryList");
+
+      const search =
+        ($("gallerySearch")?.value || "")
+          .toLowerCase()
+          .trim();
+
+
+      const data =
+        galleryData.filter(item => {
+
+          const text =
+            `${item.title || ""} ${item.category || ""}`
+              .toLowerCase();
+
+          return !search ||
+            text.includes(search);
+
+        });
+
+
+      if (!data.length) {
+
+        container.innerHTML =
+          `<div class="empty-state">
+             No gallery photos found.
+           </div>`;
+
+        return;
+      }
+
+
+      container.innerHTML = `
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${data.map(item => `
+
+              <tr>
+
+                <td>
+
+                  <div style="display:flex;gap:11px;align-items:center;">
+
+                    ${
+                      item.image_url
+                        ? `<img
+                             class="item-thumb"
+                             src="${escapeHtml(item.image_url)}"
+                             alt=""
+                             loading="lazy"
+                           >`
+                        : `<div class="item-thumb"></div>`
+                    }
+
+                    <div class="item-title">
+                      ${escapeHtml(item.title)}
+                    </div>
+
+                  </div>
+
+                </td>
+
+                <td>
+                  ${escapeHtml(item.category || "—")}
+                </td>
+
+                <td>
+                  ${statusBadges(item)}
+                </td>
+
+                <td>
+                  ${formatDate(item.created_at)}
+                </td>
+
+                <td>
+
+                  <div class="row-actions">
+
+                    <button
+                      class="small-btn"
+                      onclick="editGallery('${item.id}')"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      class="small-btn delete"
+                      onclick="deleteGallery('${item.id}')"
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       POSTS
+    ========================================================= */
+
+    function newPost() {
+
+      $("postForm").reset();
+
+      $("postId").value = "";
+
+      $("postAuthor").value =
+        "Kharvie";
+
+      $("postPublished").checked =
+        false;
+
+      $("postFormTitle").textContent =
+        "Add Post";
+
+      $("postFormCard")
+        .classList.remove("hidden");
+
+      $("postFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    function cancelPost() {
+
+      $("postFormCard")
+        .classList.add("hidden");
+
+      $("postForm").reset();
+
+    }
+
+
+    function editPost(id) {
+
+      const item =
+        postsData.find(
+          x => x.id === id
+        );
+
+      if (!item) return;
+
+
+      $("postId").value =
+        item.id || "";
+
+      $("postTitle").value =
+        item.title || "";
+
+      $("postSlug").value =
+        item.slug || "";
+
+      $("postExcerpt").value =
+        item.excerpt || "";
+
+      $("postContent").value =
+        item.content || "";
+
+      $("postImage").value =
+        item.featured_image_url || "";
+
+      $("postAuthor").value =
+        item.author || "Kharvie";
+
+      $("postPublishedAt").value =
+        toDatetimeLocal(
+          item.published_at
+        );
+
+      $("postPublished").checked =
+        !!item.is_published;
+
+      $("postFormTitle").textContent =
+        "Edit Post";
+
+      $("postFormCard")
+        .classList.remove("hidden");
+
+      $("postFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    async function deletePost(id) {
+
+      if (!confirm(
+        "Delete this post permanently?"
+      )) {
+        return;
+      }
+
+
+      const {
+        error
+      } = await db
+        .from("posts")
+        .delete()
+        .eq("id", id);
+
+
+      if (error) {
+
+        showToast(
+          error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      showToast(
+        "Post deleted."
+      );
+
+      await loadPosts();
+
+    }
+
+
+    $("postForm").addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const id =
+          $("postId").value;
+
+
+        let publishedAt =
+          $("postPublishedAt").value;
+
+
+        if (
+          $("postPublished").checked &&
+          !publishedAt
+        ) {
+          publishedAt =
+            new Date().toISOString();
+        } else if (publishedAt) {
+          publishedAt =
+            new Date(publishedAt).toISOString();
+        } else {
+          publishedAt = null;
+        }
+
+
+        const payload = {
+
+          title:
+            $("postTitle").value.trim(),
+
+          slug:
+            $("postSlug").value.trim(),
+
+          excerpt:
+            $("postExcerpt").value.trim() ||
+            null,
+
+          content:
+            $("postContent").value.trim(),
+
+          featured_image_url:
+            $("postImage").value.trim() ||
+            null,
+
+          author:
+            $("postAuthor").value.trim() ||
+            "Kharvie",
+
+          published_at:
+            publishedAt,
+
+          is_published:
+            $("postPublished").checked
+
+        };
+
+
+        let result;
+
+
+        if (id) {
+
+          result =
+            await db
+              .from("posts")
+              .update(payload)
+              .eq("id", id);
+
+        } else {
+
+          result =
+            await db
+              .from("posts")
+              .insert(payload);
+
+        }
+
+
+        if (result.error) {
+
+          showToast(
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        showToast(
+          id
+            ? "Post updated."
+            : "Post added."
+        );
+
+        cancelPost();
+
+        await loadPosts();
+
+      }
+    );
+
+
+    function renderPosts() {
+
+      const container =
+        $("postsList");
+
+      const search =
+        ($("postSearch")?.value || "")
+          .toLowerCase()
+          .trim();
+
+
+      const data =
+        postsData.filter(item => {
+
+          const text =
+            `${item.title || ""} ${item.slug || ""} ${item.author || ""}`
+              .toLowerCase();
+
+          return !search ||
+            text.includes(search);
+
+        });
+
+
+      if (!data.length) {
+
+        container.innerHTML =
+          `<div class="empty-state">
+             No posts found.
+           </div>`;
+
+        return;
+      }
+
+
+      container.innerHTML = `
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Post</th>
+              <th>Author</th>
+              <th>Published</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${data.map(item => `
+
+              <tr>
+
+                <td>
+
+                  <div class="item-title">
+                    ${escapeHtml(item.title)}
+                  </div>
+
+                  <div class="item-subtitle">
+                    /${escapeHtml(item.slug || "")}
+                  </div>
+
+                </td>
+
+                <td>
+                  ${escapeHtml(item.author || "—")}
+                </td>
+
+                <td>
+                  ${formatDate(item.published_at)}
+                </td>
+
+                <td>
+                  ${statusBadges(item)}
+                </td>
+
+                <td>
+
+                  <div class="row-actions">
+
+                    <button
+                      class="small-btn"
+                      onclick="editPost('${item.id}')"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      class="small-btn delete"
+                      onclick="deletePost('${item.id}')"
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       EVENTS
+    ========================================================= */
+
+    function newEvent() {
+
+      $("eventForm").reset();
+
+      $("eventId").value = "";
+
+      $("eventCountry").value =
+        "Nigeria";
+
+      $("eventPublished").checked =
+        true;
+
+      $("eventFeatured").checked =
+        false;
+
+      $("eventFormTitle").textContent =
+        "Add Event";
+
+      $("eventFormCard")
+        .classList.remove("hidden");
+
+      $("eventFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    function cancelEvent() {
+
+      $("eventFormCard")
+        .classList.add("hidden");
+
+      $("eventForm").reset();
+
+    }
+
+
+    function editEvent(id) {
+
+      const item =
+        eventsData.find(
+          x => x.id === id
+        );
+
+      if (!item) return;
+
+
+      $("eventId").value =
+        item.id || "";
+
+      $("eventTitle").value =
+        item.title || "";
+
+      $("eventDescription").value =
+        item.description || "";
+
+      $("eventVenue").value =
+        item.venue || "";
+
+      $("eventCity").value =
+        item.city || "";
+
+      $("eventCountry").value =
+        item.country || "Nigeria";
+
+      $("eventDate").value =
+        item.event_date || "";
+
+      $("eventTime").value =
+        item.event_time
+          ? String(item.event_time).slice(0,5)
+          : "";
+
+      $("eventTicket").value =
+        item.ticket_url || "";
+
+      $("eventImage").value =
+        item.image_url || "";
+
+      $("eventFeatured").checked =
+        !!item.is_featured;
+
+      $("eventPublished").checked =
+        item.is_published !== false;
+
+      $("eventFormTitle").textContent =
+        "Edit Event";
+
+      $("eventFormCard")
+        .classList.remove("hidden");
+
+      $("eventFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    async function deleteEvent(id) {
+
+      if (!confirm(
+        "Delete this event permanently?"
+      )) {
+        return;
+      }
+
+
+      const {
+        error
+      } = await db
+        .from("events")
+        .delete()
+        .eq("id", id);
+
+
+      if (error) {
+
+        showToast(
+          error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      showToast(
+        "Event deleted."
+      );
+
+      await loadEvents();
+
+    }
+
+
+    $("eventForm").addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const id =
+          $("eventId").value;
+
+
+        const payload = {
+
+          title:
+            $("eventTitle").value.trim(),
+
+          description:
+            $("eventDescription").value.trim() ||
+            null,
+
+          venue:
+            $("eventVenue").value.trim() ||
+            null,
+
+          city:
+            $("eventCity").value.trim() ||
+            null,
+
+          country:
+            $("eventCountry").value.trim() ||
+            "Nigeria",
+
+          event_date:
+            $("eventDate").value ||
+            null,
+
+          event_time:
+            $("eventTime").value ||
+            null,
+
+          ticket_url:
+            $("eventTicket").value.trim() ||
+            null,
+
+          image_url:
+            $("eventImage").value.trim() ||
+            null,
+
+          is_featured:
+            $("eventFeatured").checked,
+
+          is_published:
+            $("eventPublished").checked
+
+        };
+
+
+        let result;
+
+
+        if (id) {
+
+          result =
+            await db
+              .from("events")
+              .update(payload)
+              .eq("id", id);
+
+        } else {
+
+          result =
+            await db
+              .from("events")
+              .insert(payload);
+
+        }
+
+
+        if (result.error) {
+
+          showToast(
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        showToast(
+          id
+            ? "Event updated."
+            : "Event added."
+        );
+
+        cancelEvent();
+
+        await loadEvents();
+
+      }
+    );
+
+
+    function renderEvents() {
+
+      const container =
+        $("eventsList");
+
+      const search =
+        ($("eventSearch")?.value || "")
+          .toLowerCase()
+          .trim();
+
+
+      const data =
+        eventsData.filter(item => {
+
+          const text =
+            `${item.title || ""} ${item.venue || ""} ${item.city || ""}`
+              .toLowerCase();
+
+          return !search ||
+            text.includes(search);
+
+        });
+
+
+      if (!data.length) {
+
+        container.innerHTML =
+          `<div class="empty-state">
+             No events found.
+           </div>`;
+
+        return;
+      }
+
+
+      container.innerHTML = `
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Venue</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${data.map(item => `
+
+              <tr>
+
+                <td>
+
+                  <div class="item-title">
+                    ${escapeHtml(item.title)}
+                  </div>
+
+                  <div class="item-subtitle">
+                    ${escapeHtml(item.city || "")}
+                    ${item.country ? ", " + escapeHtml(item.country) : ""}
+                  </div>
+
+                </td>
+
+                <td>
+                  ${escapeHtml(item.venue || "—")}
+                </td>
+
+                <td>
+                  ${formatDate(item.event_date)}
+                  ${
+                    item.event_time
+                      ? `<div class="item-subtitle">
+                           ${escapeHtml(String(item.event_time).slice(0,5))}
+                         </div>`
+                      : ""
+                  }
+                </td>
+
+                <td>
+                  ${statusBadges(item)}
+                </td>
+
+                <td>
+
+                  <div class="row-actions">
+
+                    <button
+                      class="small-btn"
+                      onclick="editEvent('${item.id}')"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      class="small-btn delete"
+                      onclick="deleteEvent('${item.id}')"
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       MONETIZATION
+    ========================================================= */
+
+    function newMoney() {
+
+      $("moneyForm").reset();
+
+      $("moneyId").value = "";
+
+      $("moneyCurrency").value =
+        "NGN";
+
+      $("moneyStatus").value =
+        "pending";
+
+      $("moneyFormTitle").textContent =
+        "Add Monetization Record";
+
+      $("moneyFormCard")
+        .classList.remove("hidden");
+
+      $("moneyFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    function cancelMoney() {
+
+      $("moneyFormCard")
+        .classList.add("hidden");
+
+      $("moneyForm").reset();
+
+    }
+
+
+    function editMoney(id) {
+
+      const item =
+        moneyData.find(
+          x => x.id === id
+        );
+
+      if (!item) return;
+
+
+      $("moneyId").value =
+        item.id || "";
+
+      $("moneyType").value =
+        item.type || "";
+
+      $("moneyCategory").value =
+        item.category || "";
+
+      $("moneyDescription").value =
+        item.description || "";
+
+      $("moneyAmount").value =
+        item.amount ?? "";
+
+      $("moneyCurrency").value =
+        item.currency || "NGN";
+
+      $("moneySource").value =
+        item.source || "";
+
+      $("moneyTransactionDate").value =
+        item.transaction_date || "";
+
+      $("moneyStatus").value =
+        item.status || "pending";
+
+      $("moneyReference").value =
+        item.reference || "";
+
+      $("moneyNotes").value =
+        item.notes || "";
+
+      $("moneyRevenueDate").value =
+        item.revenue_date || "";
+
+      $("moneyFormTitle").textContent =
+        "Edit Monetization Record";
+
+      $("moneyFormCard")
+        .classList.remove("hidden");
+
+      $("moneyFormCard")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    async function deleteMoney(id) {
+
+      if (!confirm(
+        "Delete this financial record permanently?"
+      )) {
+        return;
+      }
+
+
+      const {
+        error
+      } = await db
+        .from("monetization")
+        .delete()
+        .eq("id", id);
+
+
+      if (error) {
+
+        showToast(
+          error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      showToast(
+        "Financial record deleted."
+      );
+
+      await loadMoney();
+
+    }
+
+
+    $("moneyForm").addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const id =
+          $("moneyId").value;
+
+
+        const payload = {
+
+          type:
+            $("moneyType").value.trim() ||
+            null,
+
+          category:
+            $("moneyCategory").value.trim() ||
+            null,
+
+          description:
+            $("moneyDescription").value.trim() ||
+            null,
+
+          amount:
+            Number($("moneyAmount").value),
+
+          currency:
+            $("moneyCurrency").value.trim() ||
+            "NGN",
+
+          source:
+            $("moneySource").value.trim() ||
+            null,
+
+          transaction_date:
+            $("moneyTransactionDate").value ||
+            null,
+
+          status:
+            $("moneyStatus").value ||
+            "pending",
+
+          reference:
+            $("moneyReference").value.trim() ||
+            null,
+
+          notes:
+            $("moneyNotes").value.trim() ||
+            null,
+
+          revenue_date:
+            $("moneyRevenueDate").value ||
+            null
+
+        };
+
+
+        let result;
+
+
+        if (id) {
+
+          result =
+            await db
+              .from("monetization")
+              .update(payload)
+              .eq("id", id);
+
+        } else {
+
+          result =
+            await db
+              .from("monetization")
+              .insert(payload);
+
+        }
+
+
+        if (result.error) {
+
+          showToast(
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        showToast(
+          id
+            ? "Financial record updated."
+            : "Financial record added."
+        );
+
+        cancelMoney();
+
+        await loadMoney();
+
+      }
+    );
+
+
+    function updateMoneySummary() {
+
+      $("moneyRecordCount").textContent =
+        moneyData.length;
+
+
+      let total =
+        0;
+
+      let paid =
+        0;
+
+
+      moneyData.forEach(item => {
+
+        const amount =
+          Number(item.amount || 0);
+
+        const type =
+          String(item.type || "")
+            .toLowerCase();
+
+        /*
+         * Revenue is added.
+         * Expense is subtracted from the total.
+         */
+
+        if (
+          type.includes("expense") ||
+          type.includes("cost")
+        ) {
+
+          total -= amount;
+
+        } else {
+
+          total += amount;
+
+        }
+
+
+        if (
+          String(item.status || "")
+            .toLowerCase() === "paid"
+        ) {
+          paid += amount;
+        }
+
+      });
+
+
+      const currencies =
+        [
+          ...new Set(
+            moneyData
+              .map(x => x.currency)
+              .filter(Boolean)
+          )
+        ];
+
+
+      if (currencies.length === 1) {
+
+        $("moneyTotal").textContent =
+          formatMoney(
+            total,
+            currencies[0]
+          );
+
+        $("moneyPaid").textContent =
+          formatMoney(
+            paid,
+            currencies[0]
+          );
+
+      } else {
+
+        $("moneyTotal").textContent =
+          total.toLocaleString();
+
+        $("moneyPaid").textContent =
+          paid.toLocaleString();
+
+      }
+
+    }
+
+
+    function renderMoney() {
+
+      updateMoneySummary();
+
+
+      const container =
+        $("moneyList");
+
+      const search =
+        ($("moneySearch")?.value || "")
+          .toLowerCase()
+          .trim();
+
+
+      const data =
+        moneyData.filter(item => {
+
+          const text =
+            `${item.type || ""} ${item.category || ""} ${item.source || ""} ${item.reference || ""}`
+              .toLowerCase();
+
+          return !search ||
+            text.includes(search);
+
+        });
+
+
+      if (!data.length) {
+
+        container.innerHTML =
+          `<div class="empty-state">
+             No monetization records found.
+           </div>`;
+
+        return;
+      }
+
+
+      container.innerHTML = `
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Source</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            ${data.map(item => `
+
+              <tr>
+
+                <td>
+                  ${escapeHtml(item.type || "—")}
+                </td>
+
+                <td>
+                  ${escapeHtml(item.category || "—")}
+                </td>
+
+                <td>
+                  <strong>
+                    ${formatMoney(
+                      item.amount,
+                      item.currency || "NGN"
+                    )}
+                  </strong>
+                </td>
+
+                <td>
+                  ${escapeHtml(item.source || "—")}
+                </td>
+
+                <td>
+                  <span class="status ${
+                    String(item.status || "")
+                      .toLowerCase() === "paid"
+                      ? "published"
+                      : "draft"
+                  }">
+                    ${escapeHtml(item.status || "—")}
+                  </span>
+                </td>
+
+                <td>
+                  ${formatDate(
+                    item.revenue_date ||
+                    item.transaction_date
+                  )}
+                </td>
+
+                <td>
+
+                  <div class="row-actions">
+
+                    <button
+                      class="small-btn"
+                      onclick="editMoney('${item.id}')"
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      class="small-btn delete"
+                      onclick="deleteMoney('${item.id}')"
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       STATUS / DATE HELPERS
+    ========================================================= */
+
+    function statusBadges(item) {
+
+      let html = "";
+
+      if (item.is_published) {
+
+        html +=
+          `<span class="status published">
+             Published
+           </span>`;
+
+      } else {
+
+        html +=
+          `<span class="status draft">
+             Draft
+           </span>`;
+
+      }
+
+
+      if (item.is_featured) {
+
+        html +=
+          `<span class="status featured">
+             Featured
+           </span>`;
+
+      }
+
+
+      return html;
+
+    }
+
+
+    function toDatetimeLocal(value) {
+
+      if (!value) {
+        return "";
+      }
+
+
+      const date =
+        new Date(value);
+
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+        return "";
+      }
+
+
+      const pad =
+        n =>
+          String(n).padStart(2, "0");
+
+
+      return (
+        date.getFullYear() +
+        "-" +
+        pad(date.getMonth() + 1) +
+        "-" +
+        pad(date.getDate()) +
+        "T" +
+        pad(date.getHours()) +
+        ":" +
+        pad(date.getMinutes())
       );
 
     }
-  );
-
-});
 
 
-/* =========================================================
-   FOOTER YEAR
-========================================================= */
+    /* =========================================================
+       SEARCH
+    ========================================================= */
 
-document.getElementById(
-  "year"
-).textContent =
-new Date().getFullYear();
+    $("songSearch")
+      .addEventListener(
+        "input",
+        renderSongs
+      );
+
+    $("releaseSearch")
+      .addEventListener(
+        "input",
+        renderReleases
+      );
+
+    $("videoSearch")
+      .addEventListener(
+        "input",
+        renderVideos
+      );
+
+    $("gallerySearch")
+      .addEventListener(
+        "input",
+        renderGallery
+      );
+
+    $("postSearch")
+      .addEventListener(
+        "input",
+        renderPosts
+      );
+
+    $("eventSearch")
+      .addEventListener(
+        "input",
+        renderEvents
+      );
+
+    $("moneySearch")
+      .addEventListener(
+        "input",
+        renderMoney
+      );
 
 
-/* =========================================================
-   LOAD WEBSITE CONTENT
-========================================================= */
+    /* =========================================================
+       INITIALIZATION
+    ========================================================= */
 
-async function loadWebsite(){
-
-  await Promise.allSettled([
-
-    loadSongs(),
-
-    loadReleases(),
-
-    loadVideos(),
-
-    loadGallery(),
-
-    loadNews(),
-
-    loadEvents()
-
-  ]);
-
-}
+    $("loginYear").textContent =
+      new Date().getFullYear();
 
 
-/* =========================================================
-   START
-========================================================= */
+    (async function initialize() {
 
-loadWebsite();
+      try {
 
-</script></body>
+        const {
+          data: {
+            session
+          }
+        } = await db.auth.getSession();
+
+
+        if (!session || !session.user) {
+
+          showLogin();
+
+          return;
+        }
+
+
+        const isAdmin =
+          await checkAdminAccess(
+            session.user
+          );
+
+
+        if (!isAdmin) {
+
+          await db.auth.signOut();
+
+          showLogin();
+
+          showLoginMessage(
+            "Access denied. This account is not authorized as an administrator."
+          );
+
+          return;
+        }
+
+
+        await showAdminApp(
+          session.user
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Initialization error:",
+          error
+        );
+
+        showLogin();
+
+      }
+
+    })();
+
+  </script>
+
+</body>
 </html>
