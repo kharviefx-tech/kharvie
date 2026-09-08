@@ -14,7 +14,35 @@ content="Official website of Kharvie — Nigerian singer and songwriter from Del
 
 <meta name="author" content="Kharvie">
 
+<meta name="robots" content="index, follow">
+
 <meta name="theme-color" content="#050505">
+
+<link rel="canonical" href="https://kharvie.netlify.app/">
+
+<meta property="og:type" content="website">
+
+<meta property="og:title" content="Kharvie | Official Website">
+
+<meta property="og:description"
+content="Official website of Kharvie — Nigerian singer and songwriter from Delta State, Nigeria. Explore Kharvie's Afrobeats music, releases, videos, news, events and more.">
+
+<meta property="og:url" content="https://kharvie.netlify.app/">
+
+<meta property="og:site_name" content="Kharvie">
+
+<meta property="og:image"
+content="https://kharvie.netlify.app/assets/kharvie.jpg">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:title" content="Kharvie | Official Website">
+
+<meta name="twitter:description"
+content="Official website of Kharvie — Nigerian singer and songwriter from Delta State, Nigeria.">
+
+<meta name="twitter:image"
+content="https://kharvie.netlify.app/assets/kharvie.jpg">
 
 
 <!-- =========================================================
@@ -24,30 +52,79 @@ content="Official website of Kharvie — Nigerian singer and songwriter from Del
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": "https://kharvie.netlify.app/#kharvie",
-  "name": "Kharvie",
-  "alternateName": "Victor Avannah",
-  "url": "https://kharvie.netlify.app/",
-  "image": "https://kharvie.netlify.app/assets/kharvie.jpg",
-  "jobTitle": "Singer and Songwriter",
-  "description": "Kharvie is a Nigerian singer and songwriter from Delta State, Nigeria, known for Afrobeats music.",
-  "birthDate": "2003-04-12",
-  "birthPlace": {
-    "@type": "Place",
-    "name": "Delta State, Nigeria"
-  },
-  "sameAs": [
-    "https://youtube.com/@kharvie-m",
-    "https://x.com/_Kharvie",
-    "https://www.instagram.com/kharvie__",
-    "https://www.facebook.com/officialKharvie",
-    "https://www.tiktok.com/@_kharvie",
-    "https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC",
-    "https://music.apple.com/ng/artist/kharvie/6781999179",
-    "https://audiomack.com/kharvie",
-    "https://www.deezer.com/en/artist/397699251",
-    "https://www.boomplay.com/share/artist/133955596"
+  "@graph": [
+
+    {
+      "@type": "Person",
+      "@id": "https://kharvie.netlify.app/#kharvie",
+      "name": "Kharvie",
+      "alternateName": "Victor Avannah",
+      "url": "https://kharvie.netlify.app/",
+      "image": "https://kharvie.netlify.app/assets/kharvie.jpg",
+      "jobTitle": "Singer and Songwriter",
+      "description": "Kharvie is a Nigerian singer and songwriter from Delta State, Nigeria, known for Afrobeats music.",
+      "birthDate": "2003-04-12",
+      "birthPlace": {
+        "@type": "Place",
+        "name": "Delta State, Nigeria"
+      },
+      "nationality": {
+        "@type": "Country",
+        "name": "Nigeria"
+      },
+      "knowsAbout": [
+        "Music",
+        "Afrobeats",
+        "Songwriting",
+        "Singing"
+      ],
+      "sameAs": [
+        "https://youtube.com/@kharvie-m",
+        "https://x.com/_Kharvie",
+        "https://www.instagram.com/kharvie__",
+        "https://www.facebook.com/officialKharvie",
+        "https://www.tiktok.com/@_kharvie",
+        "https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC",
+        "https://music.apple.com/ng/artist/kharvie/6781999179",
+        "https://audiomack.com/kharvie",
+        "https://www.deezer.com/en/artist/397699251",
+        "https://www.boomplay.com/share/artist/133955596"
+      ]
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://kharvie.netlify.app/#website",
+      "url": "https://kharvie.netlify.app/",
+      "name": "Kharvie | Official Website",
+      "description": "Official website of Kharvie, Nigerian singer and songwriter.",
+      "publisher": {
+        "@id": "https://kharvie.netlify.app/#kharvie"
+      },
+      "about": {
+        "@id": "https://kharvie.netlify.app/#kharvie"
+      },
+      "inLanguage": "en"
+    },
+
+    {
+      "@type": "WebPage",
+      "@id": "https://kharvie.netlify.app/#webpage",
+      "url": "https://kharvie.netlify.app/",
+      "name": "Kharvie | Official Website",
+      "description": "Official website of Kharvie — Nigerian singer and songwriter from Delta State, Nigeria.",
+      "isPartOf": {
+        "@id": "https://kharvie.netlify.app/#website"
+      },
+      "about": {
+        "@id": "https://kharvie.netlify.app/#kharvie"
+      },
+      "mainEntity": {
+        "@id": "https://kharvie.netlify.app/#kharvie"
+      },
+      "inLanguage": "en"
+    }
+
   ]
 }
 </script>
@@ -432,6 +509,13 @@ audio{
   justify-content:center;
   font-size:38px;
   color:#555;
+  overflow:hidden;
+}
+
+.video-placeholder iframe{
+  width:100%;
+  height:100%;
+  border:0;
 }
 
 .video-body{
@@ -1285,6 +1369,10 @@ async function loadSongs(){
   .select(
     "id,title,artist,genre,release_date,cover_url,audio_url,spotify_url,apple_music_url,youtube_url,audiomack_url"
   )
+  .eq(
+    "is_published",
+    true
+  )
   .order(
     "release_date",
     {
@@ -1488,6 +1576,10 @@ async function loadReleases(){
   .from("releases")
   .select(
     "id,title,release_type,release_date,cover_url,description,spotify_url,apple_music_url,youtube_url,audiomack_url"
+  )
+  .eq(
+    "is_published",
+    true
   )
   .order(
     "release_date",
@@ -1699,9 +1791,9 @@ function youtubeEmbed(url){
 
 
     if(
-      parsed.hostname.includes(
-        "youtube.com"
-      )
+      parsed.hostname === "youtube.com" ||
+      parsed.hostname === "www.youtube.com" ||
+      parsed.hostname.endsWith(".youtube.com")
     ){
 
       videoId =
@@ -1710,6 +1802,18 @@ function youtubeEmbed(url){
       if(
         parsed.pathname.startsWith(
           "/shorts/"
+        )
+      ){
+
+        videoId =
+        parsed.pathname
+        .split("/")[2] || "";
+
+      }
+
+      if(
+        parsed.pathname.startsWith(
+          "/embed/"
         )
       ){
 
@@ -1746,11 +1850,10 @@ function youtubeEmbed(url){
 
     return `
       <iframe
-        width="100%"
-        height="100%"
         src="https://www.youtube.com/embed/${encodeURIComponent(videoId)}"
-        title="Kharvie video"
+        title="Kharvie official video"
         frameborder="0"
+        loading="lazy"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
       ></iframe>
@@ -1785,6 +1888,10 @@ async function loadVideos(){
   .from("videos")
   .select(
     "id,title,platform,video_url,release_date"
+  )
+  .eq(
+    "is_published",
+    true
   )
   .order(
     "release_date",
@@ -1937,6 +2044,10 @@ async function loadGallery(){
   .from("gallery")
   .select(
     "id,image_url,title"
+  )
+  .eq(
+    "is_published",
+    true
   )
   .order(
     "created_at",
@@ -2178,6 +2289,10 @@ async function loadEvents(){
   .from("events")
   .select(
     "id,title,event_date,event_time,venue,city,country,description,ticket_url"
+  )
+  .eq(
+    "is_published",
+    true
   )
   .order(
     "event_date",
