@@ -13,12 +13,10 @@
 :root{
   --bg:#050505;
   --panel:rgba(255,255,255,.055);
-  --panel-strong:rgba(255,255,255,.085);
   --border:rgba(255,255,255,.12);
-  --border-light:rgba(255,255,255,.18);
+  --border-light:rgba(255,255,255,.2);
   --text:#fff;
-  --muted:#a7a7a7;
-  --muted2:#707070;
+  --muted:#999;
   --danger:#ff4d67;
   --success:#55e69a;
   --shadow:0 20px 70px rgba(0,0,0,.4);
@@ -41,15 +39,12 @@ body{
     radial-gradient(circle at 15% 10%,rgba(255,255,255,.075),transparent 30%),
     radial-gradient(circle at 85% 80%,rgba(255,255,255,.045),transparent 30%),
     #050505;
-  color:var(--text);
+  color:#fff;
   font-family:Inter,Arial,Helvetica,sans-serif;
   overflow-x:hidden;
 }
 
-button,
-input,
-textarea,
-select{
+button,input,textarea,select{
   font:inherit;
 }
 
@@ -61,10 +56,6 @@ button{
   display:none!important;
 }
 
-/* =========================
-   GLASS
-========================= */
-
 .glass{
   background:var(--panel);
   border:1px solid var(--border);
@@ -73,9 +64,7 @@ button{
   box-shadow:var(--shadow);
 }
 
-/* =========================
-   LOGIN
-========================= */
+/* LOGIN */
 
 #loginScreen{
   min-height:100vh;
@@ -97,7 +86,6 @@ button{
   background:rgba(255,255,255,.035);
   filter:blur(30px);
   pointer-events:none;
-  animation:floatOrb 9s ease-in-out infinite alternate;
 }
 
 #loginScreen::before{
@@ -108,7 +96,6 @@ button{
 #loginScreen::after{
   right:-100px;
   bottom:-120px;
-  animation-delay:-4s;
 }
 
 .login-box{
@@ -136,7 +123,7 @@ button{
 
 .login-subtitle{
   text-align:center;
-  color:var(--muted);
+  color:#999;
   font-size:14px;
   margin-bottom:28px;
 }
@@ -150,7 +137,6 @@ label{
   font-size:12px;
   color:#aaa;
   margin-bottom:7px;
-  letter-spacing:.3px;
 }
 
 input,
@@ -166,11 +152,6 @@ select{
   transition:.2s ease;
 }
 
-textarea{
-  min-height:120px;
-  resize:vertical;
-}
-
 input:focus,
 textarea:focus,
 select:focus{
@@ -179,9 +160,30 @@ select:focus{
   box-shadow:0 0 0 3px rgba(255,255,255,.035);
 }
 
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
 select option{
   background:#111;
   color:#fff;
+}
+
+input[type="file"]{
+  padding:10px;
+  cursor:pointer;
+}
+
+input[type="file"]::file-selector-button{
+  border:1px solid rgba(255,255,255,.15);
+  background:#fff;
+  color:#000;
+  padding:8px 11px;
+  border-radius:9px;
+  margin-right:10px;
+  cursor:pointer;
+  font-weight:700;
 }
 
 .btn{
@@ -191,7 +193,7 @@ select option{
   padding:12px 17px;
   border-radius:13px;
   font-weight:700;
-  transition:transform .2s ease,opacity .2s ease,box-shadow .2s ease;
+  transition:.2s ease;
 }
 
 .btn:hover{
@@ -199,13 +201,10 @@ select option{
   box-shadow:0 10px 30px rgba(255,255,255,.08);
 }
 
-.btn:active{
-  transform:translateY(0);
-}
-
 .btn:disabled{
   opacity:.5;
   cursor:not-allowed;
+  transform:none;
 }
 
 .btn-secondary{
@@ -219,12 +218,6 @@ select option{
   border-color:rgba(255,77,103,.22);
 }
 
-.btn-success{
-  background:rgba(85,230,154,.1);
-  color:var(--success);
-  border-color:rgba(85,230,154,.2);
-}
-
 .login-error{
   color:#ff7d8f;
   font-size:13px;
@@ -232,9 +225,7 @@ select option{
   min-height:18px;
 }
 
-/* =========================
-   APP
-========================= */
+/* APP */
 
 #adminApp{
   min-height:100vh;
@@ -301,7 +292,6 @@ select option{
 .nav-icon{
   width:24px;
   text-align:center;
-  opacity:.8;
 }
 
 .logout{
@@ -371,9 +361,7 @@ select option{
   box-shadow:0 0 12px rgba(85,230,154,.6);
 }
 
-/* =========================
-   SECTIONS
-========================= */
+/* SECTIONS */
 
 .section{
   display:none;
@@ -398,9 +386,7 @@ select option{
   font-size:13px;
 }
 
-/* =========================
-   STATS
-========================= */
+/* STATS */
 
 .stats-grid{
   display:grid;
@@ -441,9 +427,7 @@ select option{
   margin-top:14px;
 }
 
-/* =========================
-   CARDS / FORMS
-========================= */
+/* CARDS */
 
 .card{
   border-radius:22px;
@@ -490,9 +474,21 @@ select option{
   width:auto;
 }
 
-/* =========================
-   TABLE
-========================= */
+.upload-help{
+  color:#666;
+  font-size:11px;
+  line-height:1.5;
+  margin-top:6px;
+}
+
+.current-file{
+  color:#55e69a;
+  font-size:11px;
+  margin-top:7px;
+  word-break:break-all;
+}
+
+/* TABLE */
 
 .table-wrap{
   overflow-x:auto;
@@ -570,10 +566,6 @@ td.muted{
   border-radius:16px;
 }
 
-/* =========================
-   IMAGE PREVIEW
-========================= */
-
 .image-preview{
   width:64px;
   height:64px;
@@ -587,9 +579,7 @@ td.muted{
   width:80px;
 }
 
-/* =========================
-   TOAST
-========================= */
+/* TOAST */
 
 #toast{
   position:fixed;
@@ -599,7 +589,7 @@ td.muted{
   max-width:340px;
   padding:13px 17px;
   border-radius:14px;
-  background:rgba(20,20,20,.9);
+  background:rgba(20,20,20,.94);
   border:1px solid rgba(255,255,255,.13);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
@@ -625,9 +615,7 @@ td.muted{
   color:#b8ffd8;
 }
 
-/* =========================
-   LOADING
-========================= */
+/* LOADING */
 
 .loading{
   color:#777;
@@ -646,13 +634,7 @@ td.muted{
   margin-right:7px;
 }
 
-/* =========================
-   MOBILE
-========================= */
-
-.mobile-topbar{
-  display:none;
-}
+/* MOBILE */
 
 @media(max-width:1000px){
   .stats-grid{
@@ -750,10 +732,6 @@ td.muted{
     padding:16px;
     border-radius:18px;
   }
-
-  .card-header{
-    align-items:flex-start;
-  }
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -765,15 +743,6 @@ td.muted{
     scroll-behavior:auto!important;
     transition-duration:.01ms!important;
   }
-}
-
-/* =========================
-   ANIMATIONS
-========================= */
-
-@keyframes floatOrb{
-  from{transform:translate3d(0,0,0)}
-  to{transform:translate3d(25px,20px,0)}
 }
 
 @keyframes sectionIn{
@@ -795,9 +764,7 @@ td.muted{
 
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- LOGIN -->
 
 <div id="loginScreen">
 
@@ -853,9 +820,7 @@ td.muted{
 </div>
 
 
-<!-- =========================
-     ADMIN APP
-========================= -->
+<!-- ADMIN -->
 
 <div id="adminApp" class="hidden">
 
@@ -943,14 +908,9 @@ td.muted{
     </header>
 
 
-    <!-- =========================
-         DASHBOARD
-    ========================= -->
+    <!-- DASHBOARD -->
 
-    <section
-      id="dashboard"
-      class="section active"
-    >
+    <section id="dashboard" class="section active">
 
       <div class="stats-grid">
 
@@ -997,14 +957,14 @@ td.muted{
           <div>
             <h3>Admin Center</h3>
             <p>
-              Your content is managed through Supabase and can be displayed on the official website.
+              Manage Kharvie's website content from one place.
             </p>
           </div>
         </div>
 
         <p style="color:#777;font-size:13px;line-height:1.7">
-          Use the menu to manage music, releases, videos, photographs,
-          news, events and monetization records.
+          Add music, releases, videos, photographs, news,
+          events and monetization records.
         </p>
 
       </div>
@@ -1012,15 +972,13 @@ td.muted{
     </section>
 
 
-    <!-- =========================
-         SONGS
-    ========================= -->
+    <!-- SONGS -->
 
     <section id="songs" class="section">
 
       <div class="section-title">
         <h2>Songs</h2>
-        <p>Manage songs and direct listening links.</p>
+        <p>Upload music directly to the Kharvie media library.</p>
       </div>
 
       <div id="songFormCard"></div>
@@ -1033,17 +991,15 @@ td.muted{
             <p>Tracks available for the official website.</p>
           </div>
 
-          <button
-            class="btn"
-            data-add="song"
-          >
+          <button class="btn" data-add="song">
             + Add Song
           </button>
         </div>
 
         <div id="songsList">
           <div class="loading">
-            <span class="spinner"></span>Loading songs...
+            <span class="spinner"></span>
+            Loading songs...
           </div>
         </div>
 
@@ -1052,9 +1008,7 @@ td.muted{
     </section>
 
 
-    <!-- =========================
-         RELEASES
-    ========================= -->
+    <!-- RELEASES -->
 
     <section id="releases" class="section">
 
@@ -1073,10 +1027,7 @@ td.muted{
             <p>Official release information.</p>
           </div>
 
-          <button
-            class="btn"
-            data-add="release"
-          >
+          <button class="btn" data-add="release">
             + Add Release
           </button>
         </div>
@@ -1088,9 +1039,7 @@ td.muted{
     </section>
 
 
-    <!-- =========================
-         VIDEOS
-    ========================= -->
+    <!-- VIDEOS -->
 
     <section id="videos" class="section">
 
@@ -1109,10 +1058,7 @@ td.muted{
             <p>YouTube and other video platforms.</p>
           </div>
 
-          <button
-            class="btn"
-            data-add="video"
-          >
+          <button class="btn" data-add="video">
             + Add Video
           </button>
         </div>
@@ -1124,15 +1070,13 @@ td.muted{
     </section>
 
 
-    <!-- =========================
-         GALLERY
-    ========================= -->
+    <!-- GALLERY -->
 
     <section id="gallery" class="section">
 
       <div class="section-title">
         <h2>Gallery</h2>
-        <p>Manage official Kharvie photography.</p>
+        <p>Upload official Kharvie photography.</p>
       </div>
 
       <div id="galleryFormCard"></div>
@@ -1145,10 +1089,7 @@ td.muted{
             <p>Images displayed on the website.</p>
           </div>
 
-          <button
-            class="btn"
-            data-add="gallery"
-          >
+          <button class="btn" data-add="gallery">
             + Add Photo
           </button>
         </div>
@@ -1160,9 +1101,7 @@ td.muted{
     </section>
 
 
-    <!-- =========================
-         NEWS
-    ========================= -->
+    <!-- NEWS -->
 
     <section id="posts" class="section">
 
@@ -1181,10 +1120,7 @@ td.muted{
             <p>Manage website articles and announcements.</p>
           </div>
 
-          <button
-            class="btn"
-            data-add="post"
-          >
+          <button class="btn" data-add="post">
             + Add News
           </button>
         </div>
@@ -1196,9 +1132,7 @@ td.muted{
     </section>
 
 
-    <!-- =========================
-         EVENTS
-    ========================= -->
+    <!-- EVENTS -->
 
     <section id="events" class="section">
 
@@ -1217,10 +1151,7 @@ td.muted{
             <p>Upcoming Kharvie events.</p>
           </div>
 
-          <button
-            class="btn"
-            data-add="event"
-          >
+          <button class="btn" data-add="event">
             + Add Event
           </button>
         </div>
@@ -1232,9 +1163,7 @@ td.muted{
     </section>
 
 
-    <!-- =========================
-         MONETIZATION
-    ========================= -->
+    <!-- MONETIZATION -->
 
     <section id="monetization" class="section">
 
@@ -1253,10 +1182,7 @@ td.muted{
             <p>Revenue and streaming information.</p>
           </div>
 
-          <button
-            class="btn"
-            data-add="money"
-          >
+          <button class="btn" data-add="money">
             + Add Record
           </button>
         </div>
@@ -1270,7 +1196,6 @@ td.muted{
   </main>
 
 </div>
-
 
 <div id="toast"></div>
 
@@ -1288,6 +1213,9 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
 
+const STORAGE_BUCKET =
+  "kharvie-media";
+
 const db =
   supabase.createClient(
     SUPABASE_URL,
@@ -1296,7 +1224,7 @@ const db =
 
 
 /* =========================================================
-   HELPERS
+   GLOBALS
 ========================================================= */
 
 const $ = id =>
@@ -1307,13 +1235,18 @@ let editingId = null;
 let editingTable = null;
 let toastTimer = null;
 
-function escapeHTML(value){
 
-  if(value === null || value === undefined){
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHTML(input){
+
+  if(input === null || input === undefined){
     return "";
   }
 
-  return String(value)
+  return String(input)
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -1321,14 +1254,20 @@ function escapeHTML(value){
     .replace(/'/g,"&#039;");
 }
 
-function value(value,fallback="—"){
 
-  return value !== null &&
-         value !== undefined &&
-         String(value).trim() !== ""
-    ? escapeHTML(value)
-    : fallback;
+function value(input,fallback="—"){
+
+  if(
+    input === null ||
+    input === undefined ||
+    String(input).trim() === ""
+  ){
+    return fallback;
+  }
+
+  return escapeHTML(input);
 }
+
 
 function showToast(message,type="success"){
 
@@ -1343,8 +1282,9 @@ function showToast(message,type="success"){
   toastTimer =
     setTimeout(()=>{
       toast.classList.remove("show");
-    },3000);
+    },3500);
 }
+
 
 function showLoading(element,message="Loading..."){
 
@@ -1355,6 +1295,47 @@ function showLoading(element,message="Loading..."){
     </div>`;
 }
 
+
+function emptyBox(message){
+
+  return `
+    <div class="empty">
+      ${escapeHTML(message)}
+    </div>
+  `;
+}
+
+
+function errorBox(message){
+
+  return `
+    <div class="empty">
+      <strong style="color:#ff7d8f">
+        Database error
+      </strong>
+
+      <p style="margin-top:8px;color:#777;font-size:12px">
+        ${escapeHTML(message)}
+      </p>
+    </div>
+  `;
+}
+
+
+function updateStat(id,count){
+
+  const element = $(id);
+
+  if(element){
+
+    element.textContent =
+      Number(count || 0).toLocaleString();
+
+  }
+
+}
+
+
 function formatDate(date){
 
   if(!date){
@@ -1362,6 +1343,7 @@ function formatDate(date){
   }
 
   try{
+
     return new Date(date).toLocaleDateString(
       undefined,
       {
@@ -1370,18 +1352,23 @@ function formatDate(date){
         day:"numeric"
       }
     );
+
   }catch{
+
     return date;
+
   }
+
 }
 
-function money(value){
+
+function money(amount){
 
   const number =
-    Number(value);
+    Number(amount);
 
   if(Number.isNaN(number)){
-    return "₦0";
+    return "₦0.00";
   }
 
   return "₦" +
@@ -1392,11 +1379,95 @@ function money(value){
         maximumFractionDigits:2
       }
     );
+
 }
 
 
 /* =========================================================
-   AUTHENTICATION
+   STORAGE UPLOAD
+========================================================= */
+
+function cleanFileName(name){
+
+  return String(name || "file")
+    .trim()
+    .replace(/[^\w.\-]+/g,"-")
+    .replace(/-+/g,"-")
+    .replace(/^-|-$/g,"");
+
+}
+
+
+async function uploadMedia(file,folder){
+
+  if(!file){
+    return null;
+  }
+
+  if(!currentUser){
+    throw new Error("You must be signed in to upload files.");
+  }
+
+  const safeName =
+    cleanFileName(file.name);
+
+  const extension =
+    safeName.includes(".")
+      ? safeName.split(".").pop()
+      : "";
+
+  const uniqueName =
+    `${crypto.randomUUID()}${extension ? "." + extension : ""}`;
+
+  const path =
+    `${folder}/${uniqueName}`;
+
+  const {
+    data,
+    error
+  } =
+    await db.storage
+      .from(STORAGE_BUCKET)
+      .upload(
+        path,
+        file,
+        {
+          cacheControl:"3600",
+          upsert:false,
+          contentType:
+            file.type ||
+            "application/octet-stream"
+        }
+      );
+
+  if(error){
+    throw error;
+  }
+
+  const publicResult =
+    db.storage
+      .from(STORAGE_BUCKET)
+      .getPublicUrl(data.path);
+
+  if(
+    !publicResult ||
+    !publicResult.data ||
+    !publicResult.data.publicUrl
+  ){
+
+    throw new Error(
+      "File uploaded but a public URL could not be created."
+    );
+
+  }
+
+  return publicResult.data.publicUrl;
+
+}
+
+
+/* =========================================================
+   AUTH
 ========================================================= */
 
 async function initializeAuth(){
@@ -1404,12 +1475,15 @@ async function initializeAuth(){
   const {
     data,
     error
-  } = await db.auth.getSession();
+  } =
+    await db.auth.getSession();
 
   if(error){
+
     console.error(error);
     showLogin();
     return;
+
   }
 
   if(data.session){
@@ -1424,6 +1498,7 @@ async function initializeAuth(){
     showLogin();
 
   }
+
 }
 
 
@@ -1436,12 +1511,15 @@ db.auth.onAuthStateChange(
         session.user;
 
       if(event === "SIGNED_IN"){
+
         await showApp();
+
       }
 
     }else{
 
       currentUser = null;
+
       showLogin();
 
     }
@@ -1546,7 +1624,7 @@ const pageInfo = {
 
   songs:{
     title:"Songs",
-    subtitle:"Manage songs and direct listening links."
+    subtitle:"Manage songs and direct listening."
   },
 
   releases:{
@@ -1665,6 +1743,7 @@ function createFormCard(
             return `
               <div class="form-group ${full}">
                 <label>${escapeHTML(field.label)}</label>
+
                 <textarea
                   name="${escapeHTML(field.name)}"
                   placeholder="${escapeHTML(field.placeholder || "")}"
@@ -1680,6 +1759,7 @@ function createFormCard(
             return `
               <div class="form-group ${full}">
                 <label>${escapeHTML(field.label)}</label>
+
                 <select
                   name="${escapeHTML(field.name)}"
                   ${field.required ? "required":""}
@@ -1695,9 +1775,43 @@ function createFormCard(
 
           }
 
+          if(field.type === "file"){
+
+            return `
+              <div class="form-group ${full}">
+                <label>${escapeHTML(field.label)}</label>
+
+                <input
+                  type="file"
+                  name="${escapeHTML(field.name)}"
+                  accept="${escapeHTML(field.accept || "")}"
+                  ${field.required ? "required":""}
+                >
+
+                ${
+                  field.help
+                  ?
+                  `<div class="upload-help">
+                    ${escapeHTML(field.help)}
+                  </div>`
+                  :
+                  ""
+                }
+
+                <div
+                  class="current-file"
+                  data-current-file="${escapeHTML(field.name)}"
+                ></div>
+
+              </div>
+            `;
+
+          }
+
           return `
             <div class="form-group ${full}">
               <label>${escapeHTML(field.label)}</label>
+
               <input
                 type="${escapeHTML(field.type || "text")}"
                 name="${escapeHTML(field.name)}"
@@ -1748,6 +1862,65 @@ function createFormCard(
     );
 
   return form;
+
+}
+
+
+/* =========================================================
+   FORM DATA
+========================================================= */
+
+function formToObject(form){
+
+  const data = {};
+
+  const formData =
+    new FormData(form);
+
+  formData.forEach(
+    (value,key)=>{
+      data[key] = value;
+    }
+  );
+
+  return data;
+
+}
+
+
+function fillForm(form,data){
+
+  Object.entries(data)
+    .forEach(([key,inputValue])=>{
+
+      const field =
+        form.elements.namedItem(key);
+
+      if(!field){
+        return;
+      }
+
+      if(field.type === "file"){
+        return;
+      }
+
+      if(
+        field.type === "date" &&
+        inputValue
+      ){
+
+        field.value =
+          String(inputValue).slice(0,10);
+
+        return;
+
+      }
+
+      field.value =
+        inputValue ?? "";
+
+    });
+
 }
 
 
@@ -1783,15 +1956,19 @@ const songFields = [
   },
 
   {
-    label:"Direct Audio URL",
-    name:"audio_url",
-    placeholder:"https://.../song.mp3"
+    label:"Audio File",
+    name:"audio_file",
+    type:"file",
+    accept:"audio/mpeg,audio/mp3,audio/*",
+    help:"Upload the MP3/audio file directly."
   },
 
   {
-    label:"Cover Image URL",
-    name:"cover_url",
-    placeholder:"https://.../cover.jpg"
+    label:"Cover Image",
+    name:"cover_file",
+    type:"file",
+    accept:"image/jpeg,image/png,image/webp,image/*",
+    help:"Upload JPG, PNG or WebP cover artwork."
   },
 
   {
@@ -1849,6 +2026,30 @@ function openSongForm(song=null){
       song
     );
 
+    const audioStatus =
+      form.querySelector(
+        '[data-current-file="audio_file"]'
+      );
+
+    const coverStatus =
+      form.querySelector(
+        '[data-current-file="cover_file"]'
+      );
+
+    if(audioStatus && song.audio_url){
+
+      audioStatus.textContent =
+        "Current audio: " + song.audio_url;
+
+    }
+
+    if(coverStatus && song.cover_url){
+
+      coverStatus.textContent =
+        "Current cover: " + song.cover_url;
+
+    }
+
   }
 
   $("songFormCard")
@@ -1875,47 +2076,138 @@ async function saveSong(form){
   const data =
     formToObject(form);
 
-  const payload = {
+  const audioFile =
+    data.audio_file instanceof File &&
+    data.audio_file.size > 0
+      ? data.audio_file
+      : null;
 
-    title:
-      data.title,
+  const coverFile =
+    data.cover_file instanceof File &&
+    data.cover_file.size > 0
+      ? data.cover_file
+      : null;
 
-    artist:
-      data.artist || "Kharvie",
+  const submitButton =
+    form.querySelector(
+      'button[type="submit"]'
+    );
 
-    genre:
-      data.genre || null,
+  if(submitButton){
 
-    release_date:
-      data.release_date || null,
+    submitButton.disabled = true;
+    submitButton.innerHTML =
+      '<span class="spinner"></span>Uploading...';
 
-    audio_url:
-      data.audio_url || null,
+  }
 
-    cover_url:
-      data.cover_url || null,
+  try{
 
-    spotify_url:
-      data.spotify_url || null,
+    let audioUrl = null;
+    let coverUrl = null;
 
-    apple_music_url:
-      data.apple_music_url || null,
+    if(audioFile){
 
-    youtube_url:
-      data.youtube_url || null,
+      audioUrl =
+        await uploadMedia(
+          audioFile,
+          "audio"
+        );
 
-    audiomack_url:
-      data.audiomack_url || null
+    }
 
-  };
+    if(coverFile){
 
-  await saveRecord(
-    "songs",
-    payload,
-    form,
-    closeSongForm,
-    loadSongs
-  );
+      coverUrl =
+        await uploadMedia(
+          coverFile,
+          "covers"
+        );
+
+    }
+
+    if(submitButton){
+      submitButton.innerHTML =
+        '<span class="spinner"></span>Saving...';
+    }
+
+    const payload = {
+
+      title:
+        data.title,
+
+      artist:
+        data.artist || "Kharvie",
+
+      genre:
+        data.genre || null,
+
+      release_date:
+        data.release_date || null,
+
+      audio_url:
+        audioUrl ||
+        (editingId
+          ? await getExistingValue(
+              "songs",
+              editingId,
+              "audio_url"
+            )
+          : null),
+
+      cover_url:
+        coverUrl ||
+        (editingId
+          ? await getExistingValue(
+              "songs",
+              editingId,
+              "cover_url"
+            )
+          : null),
+
+      spotify_url:
+        data.spotify_url || null,
+
+      apple_music_url:
+        data.apple_music_url || null,
+
+      youtube_url:
+        data.youtube_url || null,
+
+      audiomack_url:
+        data.audiomack_url || null
+
+    };
+
+    await saveRecord(
+      "songs",
+      payload,
+      form,
+      closeSongForm,
+      loadSongs
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      error.message ||
+      "Upload failed.",
+      "error"
+    );
+
+    if(submitButton){
+
+      submitButton.disabled = false;
+      submitButton.textContent =
+        editingId
+          ? "Update Song"
+          : "Save Song";
+
+    }
+
+  }
 
 }
 
@@ -1948,21 +2240,19 @@ async function loadSongs(){
 
   }
 
-  if(!data || !data.length){
+  updateStat(
+    "statSongs",
+    data?.length || 0
+  );
+
+  if(!data?.length){
 
     list.innerHTML =
       emptyBox("No songs added yet.");
 
-    updateStat("statSongs",0);
-
     return;
 
   }
-
-  updateStat(
-    "statSongs",
-    data.length
-  );
 
   list.innerHTML = `
 
@@ -2020,8 +2310,10 @@ async function loadSongs(){
               <td>
                 ${
                   song.audio_url
-                  ? `<span style="color:#55e69a">Available</span>`
-                  : `<span style="color:#666">None</span>`
+                  ?
+                  `<span style="color:#55e69a">Available</span>`
+                  :
+                  `<span style="color:#666">None</span>`
                 }
               </td>
 
@@ -2092,9 +2384,11 @@ const releaseFields = [
   },
 
   {
-    label:"Cover Image URL",
-    name:"cover_url",
-    placeholder:"Cover image URL"
+    label:"Cover Image",
+    name:"cover_file",
+    type:"file",
+    accept:"image/jpeg,image/png,image/webp,image/*",
+    help:"Upload release artwork directly."
   },
 
   {
@@ -2154,14 +2448,20 @@ function openReleaseForm(item=null){
     );
 
   if(item){
-    fillForm(form,item);
-  }
 
-  $("releaseFormCard")
-    .scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
+    fillForm(form,item);
+
+    const status =
+      form.querySelector(
+        '[data-current-file="cover_file"]'
+      );
+
+    if(status && item.cover_url){
+      status.textContent =
+        "Current cover: " + item.cover_url;
+    }
+
+  }
 
 }
 
@@ -2181,44 +2481,111 @@ async function saveRelease(form){
   const data =
     formToObject(form);
 
-  const payload = {
+  const file =
+    data.cover_file instanceof File &&
+    data.cover_file.size > 0
+      ? data.cover_file
+      : null;
 
-    title:
-      data.title,
+  const button =
+    form.querySelector(
+      'button[type="submit"]'
+    );
 
-    release_type:
-      data.release_type || "Single",
+  if(button){
 
-    release_date:
-      data.release_date || null,
+    button.disabled = true;
+    button.innerHTML =
+      '<span class="spinner"></span>Saving...';
 
-    cover_url:
-      data.cover_url || null,
+  }
 
-    description:
-      data.description || null,
+  try{
 
-    spotify_url:
-      data.spotify_url || null,
+    let coverUrl = null;
 
-    apple_music_url:
-      data.apple_music_url || null,
+    if(file){
 
-    youtube_url:
-      data.youtube_url || null,
+      if(button){
+        button.innerHTML =
+          '<span class="spinner"></span>Uploading...';
+      }
 
-    audiomack_url:
-      data.audiomack_url || null
+      coverUrl =
+        await uploadMedia(
+          file,
+          "covers"
+        );
 
-  };
+    }
 
-  await saveRecord(
-    "releases",
-    payload,
-    form,
-    closeReleaseForm,
-    loadReleases
-  );
+    const payload = {
+
+      title:
+        data.title,
+
+      release_type:
+        data.release_type || "Single",
+
+      release_date:
+        data.release_date || null,
+
+      cover_url:
+        coverUrl ||
+        (editingId
+          ? await getExistingValue(
+              "releases",
+              editingId,
+              "cover_url"
+            )
+          : null),
+
+      description:
+        data.description || null,
+
+      spotify_url:
+        data.spotify_url || null,
+
+      apple_music_url:
+        data.apple_music_url || null,
+
+      youtube_url:
+        data.youtube_url || null,
+
+      audiomack_url:
+        data.audiomack_url || null
+
+    };
+
+    await saveRecord(
+      "releases",
+      payload,
+      form,
+      closeReleaseForm,
+      loadReleases
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      error.message ||
+      "Unable to save release.",
+      "error"
+    );
+
+    if(button){
+
+      button.disabled = false;
+      button.textContent =
+        editingId
+          ? "Update Release"
+          : "Save Release";
+
+    }
+
+  }
 
 }
 
@@ -2577,10 +2944,12 @@ const galleryFields = [
   },
 
   {
-    label:"Image URL",
-    name:"image_url",
+    label:"Image File",
+    name:"image_file",
+    type:"file",
+    accept:"image/jpeg,image/png,image/webp,image/*",
     required:true,
-    placeholder:"https://.../image.jpg"
+    help:"Upload the gallery image directly."
   }
 
 ];
@@ -2594,13 +2963,25 @@ function openGalleryForm(item=null){
   editingTable =
     "gallery";
 
+  const fields =
+    item
+      ? galleryFields.map(field=>(
+          field.name === "image_file"
+            ? {
+                ...field,
+                required:false
+              }
+            : field
+        ))
+      : galleryFields;
+
   const form =
     createFormCard(
       $("galleryFormCard"),
       item
         ? "Edit Photo"
         : "Add Photo",
-      galleryFields,
+      fields,
       item
         ? "Update Photo"
         : "Save Photo",
@@ -2608,7 +2989,21 @@ function openGalleryForm(item=null){
     );
 
   if(item){
+
     fillForm(form,item);
+
+    const status =
+      form.querySelector(
+        '[data-current-file="image_file"]'
+      );
+
+    if(status && item.image_url){
+
+      status.textContent =
+        "Current image: " + item.image_url;
+
+    }
+
   }
 
 }
@@ -2629,23 +3024,96 @@ async function saveGallery(form){
   const data =
     formToObject(form);
 
-  const payload = {
+  const file =
+    data.image_file instanceof File &&
+    data.image_file.size > 0
+      ? data.image_file
+      : null;
 
-    title:
-      data.title,
+  const button =
+    form.querySelector(
+      'button[type="submit"]'
+    );
 
-    image_url:
-      data.image_url
+  if(!file && !editingId){
 
-  };
+    showToast(
+      "Please choose an image.",
+      "error"
+    );
 
-  await saveRecord(
-    "gallery",
-    payload,
-    form,
-    closeGalleryForm,
-    loadGallery
-  );
+    return;
+
+  }
+
+  if(button){
+
+    button.disabled = true;
+    button.innerHTML =
+      '<span class="spinner"></span>Uploading...';
+
+  }
+
+  try{
+
+    let imageUrl = null;
+
+    if(file){
+
+      imageUrl =
+        await uploadMedia(
+          file,
+          "gallery"
+        );
+
+    }
+
+    const payload = {
+
+      title:
+        data.title,
+
+      image_url:
+        imageUrl ||
+        (editingId
+          ? await getExistingValue(
+              "gallery",
+              editingId,
+              "image_url"
+            )
+          : null)
+
+    };
+
+    await saveRecord(
+      "gallery",
+      payload,
+      form,
+      closeGalleryForm,
+      loadGallery
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      error.message ||
+      "Unable to save photo.",
+      "error"
+    );
+
+    if(button){
+
+      button.disabled = false;
+      button.textContent =
+        editingId
+          ? "Update Photo"
+          : "Save Photo";
+
+    }
+
+  }
 
 }
 
@@ -2702,7 +3170,6 @@ async function loadGallery(){
           <tr>
             <th>Photo</th>
             <th>Title</th>
-            <th>Image URL</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -2725,10 +3192,8 @@ async function loadGallery(){
 
               </td>
 
-              <td>${value(item.title)}</td>
-
-              <td class="muted">
-                ${value(item.image_url)}
+              <td>
+                ${value(item.title)}
               </td>
 
               <td class="actions">
@@ -3413,7 +3878,9 @@ async function loadMoney(){
   if(!data?.length){
 
     list.innerHTML =
-      emptyBox("No monetization records added yet.");
+      emptyBox(
+        "No monetization records added yet."
+      );
 
     return;
 
@@ -3493,52 +3960,37 @@ async function loadMoney(){
 
 
 /* =========================================================
-   GENERIC DATABASE FUNCTIONS
+   EXISTING VALUE
 ========================================================= */
 
-function formToObject(form){
+async function getExistingValue(
+  table,
+  id,
+  column
+){
 
-  const formData =
-    new FormData(form);
+  const {
+    data,
+    error
+  } =
+    await db
+      .from(table)
+      .select(column)
+      .eq("id",id)
+      .single();
 
-  return Object.fromEntries(
-    formData.entries()
-  );
+  if(error){
+    throw error;
+  }
 
-}
-
-
-function fillForm(form,data){
-
-  Object.entries(data)
-    .forEach(([key,value])=>{
-
-      const field =
-        form.elements.namedItem(key);
-
-      if(!field){
-        return;
-      }
-
-      if(
-        field.type === "date" &&
-        value
-      ){
-
-        field.value =
-          String(value).slice(0,10);
-
-      }else{
-
-        field.value =
-          value ?? "";
-
-      }
-
-    });
+  return data?.[column] || null;
 
 }
 
+
+/* =========================================================
+   DATABASE SAVE
+========================================================= */
 
 async function saveRecord(
   table,
@@ -3556,14 +4008,15 @@ async function saveRecord(
   if(submitButton){
 
     submitButton.disabled = true;
+
     submitButton.innerHTML =
       '<span class="spinner"></span>Saving...';
 
   }
 
-  let result;
-
   try{
+
+    let result;
 
     if(editingId){
 
@@ -3588,8 +4041,11 @@ async function saveRecord(
 
     }
 
+    const wasEditing =
+      Boolean(editingId);
+
     showToast(
-      editingId
+      wasEditing
         ? "Updated successfully."
         : "Saved successfully."
     );
@@ -3613,6 +4069,7 @@ async function saveRecord(
     if(submitButton){
 
       submitButton.disabled = false;
+
       submitButton.textContent =
         editingId
           ? "Update"
@@ -3624,6 +4081,10 @@ async function saveRecord(
 
 }
 
+
+/* =========================================================
+   DELETE
+========================================================= */
 
 async function deleteRecord(
   table,
@@ -3676,6 +4137,10 @@ async function deleteRecord(
 }
 
 
+/* =========================================================
+   RELOAD TABLE
+========================================================= */
+
 async function reloadTable(table){
 
   switch(table){
@@ -3713,136 +4178,8 @@ async function reloadTable(table){
 }
 
 
-function errorBox(message){
-
-  return `
-    <div class="empty">
-      <strong style="color:#ff7d8f">
-        Database error
-      </strong>
-
-      <p style="margin-top:8px;color:#777;font-size:12px">
-        ${escapeHTML(message)}
-      </p>
-    </div>
-  `;
-
-}
-
-
-function emptyBox(message){
-
-  return `
-    <div class="empty">
-      ${escapeHTML(message)}
-    </div>
-  `;
-
-}
-
-
-function updateStat(id,value){
-
-  if($(id)){
-    $(id).textContent =
-      Number(value || 0).toLocaleString();
-  }
-
-}
-
-
 /* =========================================================
-   EDIT / DELETE EVENT HANDLING
-========================================================= */
-
-document.addEventListener(
-  "click",
-  async event=>{
-
-    const editButton =
-      event.target.closest(
-        "[data-edit-table]"
-      );
-
-    if(editButton){
-
-      const table =
-        editButton.dataset.editTable;
-
-      const id =
-        editButton.dataset.editId;
-
-      await editRecord(
-        table,
-        id
-      );
-
-      return;
-
-    }
-
-    const deleteButton =
-      event.target.closest(
-        "[data-delete-table]"
-      );
-
-    if(deleteButton){
-
-      await deleteRecord(
-        deleteButton.dataset.deleteTable,
-        deleteButton.dataset.deleteId
-      );
-
-      return;
-
-    }
-
-    const addButton =
-      event.target.closest(
-        "[data-add]"
-      );
-
-    if(addButton){
-
-      const type =
-        addButton.dataset.add;
-
-      if(type === "song"){
-        openSongForm();
-      }
-
-      if(type === "release"){
-        openReleaseForm();
-      }
-
-      if(type === "video"){
-        openVideoForm();
-      }
-
-      if(type === "gallery"){
-        openGalleryForm();
-      }
-
-      if(type === "post"){
-        openPostForm();
-      }
-
-      if(type === "event"){
-        openEventForm();
-      }
-
-      if(type === "money"){
-        openMoneyForm();
-      }
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   EDIT RECORD
+   EDIT
 ========================================================= */
 
 async function editRecord(
@@ -3914,7 +4251,91 @@ async function editRecord(
 
 
 /* =========================================================
-   FORM SUBMISSION EVENTS
+   CLICK HANDLING
+========================================================= */
+
+document.addEventListener(
+  "click",
+  async event=>{
+
+    const editButton =
+      event.target.closest(
+        "[data-edit-table]"
+      );
+
+    if(editButton){
+
+      await editRecord(
+        editButton.dataset.editTable,
+        editButton.dataset.editId
+      );
+
+      return;
+
+    }
+
+    const deleteButton =
+      event.target.closest(
+        "[data-delete-table]"
+      );
+
+    if(deleteButton){
+
+      await deleteRecord(
+        deleteButton.dataset.deleteTable,
+        deleteButton.dataset.deleteId
+      );
+
+      return;
+
+    }
+
+    const addButton =
+      event.target.closest(
+        "[data-add]"
+      );
+
+    if(!addButton){
+      return;
+    }
+
+    const type =
+      addButton.dataset.add;
+
+    if(type === "song"){
+      openSongForm();
+    }
+
+    if(type === "release"){
+      openReleaseForm();
+    }
+
+    if(type === "video"){
+      openVideoForm();
+    }
+
+    if(type === "gallery"){
+      openGalleryForm();
+    }
+
+    if(type === "post"){
+      openPostForm();
+    }
+
+    if(type === "event"){
+      openEventForm();
+    }
+
+    if(type === "money"){
+      openMoneyForm();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   FORM SUBMISSION
 ========================================================= */
 
 document.addEventListener(
@@ -3932,71 +4353,49 @@ document.addEventListener(
 
     event.preventDefault();
 
-    const container =
-      form.parentElement
-        ?.parentElement;
-
-    if(!container){
-      return;
-    }
-
-    if(
-      form.closest("#songFormCard")
-    ){
+    if(form.closest("#songFormCard")){
 
       await saveSong(form);
       return;
 
     }
 
-    if(
-      form.closest("#releaseFormCard")
-    ){
+    if(form.closest("#releaseFormCard")){
 
       await saveRelease(form);
       return;
 
     }
 
-    if(
-      form.closest("#videoFormCard")
-    ){
+    if(form.closest("#videoFormCard")){
 
       await saveVideo(form);
       return;
 
     }
 
-    if(
-      form.closest("#galleryFormCard")
-    ){
+    if(form.closest("#galleryFormCard")){
 
       await saveGallery(form);
       return;
 
     }
 
-    if(
-      form.closest("#postFormCard")
-    ){
+    if(form.closest("#postFormCard")){
 
       await savePost(form);
       return;
 
     }
 
-    if(
-      form.closest("#eventFormCard")
-    ){
+    if(form.closest("#eventFormCard")){
 
       await saveEvent(form);
       return;
 
     }
 
-    if(
-      form.closest("#moneyFormCard")
-    ){
+    if(form.closest("#moneyFormCard")){
 
       await saveMoney(form);
       return;
@@ -4116,7 +4515,7 @@ async function loadAll(){
 
 
 /* =========================================================
-   INITIALIZE
+   START
 ========================================================= */
 
 initializeAuth();
