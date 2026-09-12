@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta name="google-site-verification" content="N_GIbWvr5jAUuHukvlygSvCgvzlUvSP0ZBdbR4STo4s" />
+<meta name="google-site-verification" content="N_GIbWvr5jAUuHukvlygSvCgvzlUvSP0ZBdbR4STo4s">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080808">
@@ -12,21 +12,18 @@
 <link rel="canonical" href="https://kharviefx-tech.github.io/kharvie/">
 
 <meta property="og:title" content="Kharvie Official Website">
-<meta property="og:description" content="Official website of Kharvie (Victor Avannah), a Nigerian singer and songwriter from Delta State, Nigeria. Discover his music, releases, videos, biography and official links.">
+<meta property="og:description" content="Official website of Kharvie (Victor Avannah), a Nigerian singer and songwriter from Delta State, Nigeria.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kharviefx-tech.github.io/kharvie/">
-<meta property="og:image" content="https://kharviefx-tech.github.io/kharvie/assets/kharvie-portrait.jpg">
+<meta property="og:image" content="https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg">
 <meta property="og:image:alt" content="Kharvie official portrait">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kharvie Official Website">
-<meta name="twitter:description" content="Official website of Kharvie (Victor Avannah), a Nigerian singer and songwriter from Delta State, Nigeria. Discover his music, releases, videos, biography and official links.">
-<meta name="twitter:image" content="https://kharviefx-tech.github.io/kharvie/assets/kharvie-portrait.jpg">
+<meta name="twitter:description" content="Official website of Kharvie (Victor Avannah), a Nigerian singer and songwriter from Delta State, Nigeria.">
+<meta name="twitter:image" content="https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg">
 
-<link rel="icon" href="assets/kharvie-portrait.jpg">
-
-<!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="icon" href="assets/kharvie.jpg">
 
 <script type="application/ld+json">
 {
@@ -46,7 +43,6 @@
       "@id":"https://kharviefx-tech.github.io/kharvie/#webpage",
       "url":"https://kharviefx-tech.github.io/kharvie/",
       "name":"Kharvie Official Website",
-      "description":"Official website of Kharvie (Victor Avannah), a Nigerian singer and songwriter from Delta State, Nigeria.",
       "isPartOf":{"@id":"https://kharviefx-tech.github.io/kharvie/#website"},
       "about":{"@id":"https://kharviefx-tech.github.io/kharvie/#person"},
       "mainEntity":{"@id":"https://kharviefx-tech.github.io/kharvie/#person"},
@@ -67,10 +63,10 @@
       "url":"https://kharviefx-tech.github.io/kharvie/",
       "image":{
         "@type":"ImageObject",
-        "url":"https://kharviefx-tech.github.io/kharvie/assets/kharvie-portrait.jpg"
+        "url":"https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg"
       },
       "jobTitle":"Singer and songwriter",
-      "description":"Kharvie, professionally known as Victor Avannah, is a Nigerian singer and songwriter from Delta State, Nigeria. His music is rooted in contemporary Afrobeat and African influences.",
+      "description":"Kharvie, professionally known as Victor Avannah, is a Nigerian singer and songwriter from Delta State, Nigeria.",
       "nationality":{
         "@type":"Country",
         "name":"Nigeria"
@@ -109,21 +105,33 @@
   --glass-bg:rgba(255,255,255,.075);
   --glass-bg-strong:rgba(255,255,255,.105);
   --glass-border:rgba(255,255,255,.16);
-  --glass-highlight:rgba(255,255,255,.24);
   --glass-shadow:0 14px 45px rgba(0,0,0,.22);
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:90px;
+}
+
 body{
   margin:0;
   background:var(--black);
   color:var(--white);
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-  overflow-x:hidden
+  overflow-x:hidden;
 }
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
 
 body:after{
   content:"";
@@ -132,9 +140,10 @@ body:after{
   pointer-events:none;
   z-index:999;
   background:radial-gradient(circle at 50% -20%,rgba(255,255,255,.08),transparent 35%);
-  mix-blend-mode:screen
+  mix-blend-mode:screen;
 }
 
+/* LOADER */
 .loader{
   position:fixed;
   inset:0;
@@ -142,30 +151,41 @@ body:after{
   z-index:1000;
   display:grid;
   place-items:center;
-  transition:.8s
+  transition:.8s;
 }
-.loader.hide{opacity:0;visibility:hidden}
+
+.loader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
 .loader strong{
   font-size:clamp(52px,12vw,130px);
-  letter-spacing:-.09em
+  letter-spacing:-.09em;
 }
+
 .loader i{
   display:block;
   height:2px;
   background:#333;
   margin-top:25px;
-  overflow:hidden
+  overflow:hidden;
 }
+
 .loader i:after{
   content:"";
   display:block;
   height:100%;
   width:0;
   background:#fff;
-  animation:load 1.35s ease forwards
+  animation:load 1.35s ease forwards;
 }
-@keyframes load{to{width:100%}}
 
+@keyframes load{
+  to{width:100%}
+}
+
+/* NAV */
 .nav{
   position:fixed;
   top:0;
@@ -176,38 +196,62 @@ body:after{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   background:linear-gradient(180deg,rgba(10,10,10,.62),rgba(10,10,10,.22));
   border:1px solid rgba(255,255,255,.08);
   border-top-color:rgba(255,255,255,.12);
   box-shadow:0 10px 38px rgba(0,0,0,.16);
+
   backdrop-filter:blur(18px) saturate(145%);
   -webkit-backdrop-filter:blur(18px) saturate(145%);
-  transition:background .4s,backdrop-filter .4s,transform .4s
+
+  transition:background .4s,backdrop-filter .4s,transform .4s;
 }
+
 .nav:before{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
-  border-radius:inherit;
-  background:linear-gradient(105deg,rgba(255,255,255,.11),transparent 30%,transparent 72%,rgba(255,255,255,.045));
-  opacity:.7
+  background:linear-gradient(
+    105deg,
+    rgba(255,255,255,.11),
+    transparent 30%,
+    transparent 72%,
+    rgba(255,255,255,.045)
+  );
 }
+
 .nav.scrolled{
-  background:linear-gradient(180deg,rgba(18,18,18,.74),rgba(8,8,8,.46));
+  background:linear-gradient(
+    180deg,
+    rgba(18,18,18,.74),
+    rgba(8,8,8,.46)
+  );
   backdrop-filter:blur(24px) saturate(160%);
   -webkit-backdrop-filter:blur(24px) saturate(160%);
-  box-shadow:0 12px 42px rgba(0,0,0,.3),0 1px 0 rgba(255,255,255,.08)
+  box-shadow:
+    0 12px 42px rgba(0,0,0,.3),
+    0 1px 0 rgba(255,255,255,.08);
 }
-.nav.hidden{transform:translateY(-110%)}
+
+.nav.hidden{
+  transform:translateY(-110%);
+}
+
+.brand,
+.links,
+.menu{
+  position:relative;
+  z-index:1;
+}
 
 .brand{
   font-weight:800;
   font-size:21px;
   letter-spacing:.16em;
-  position:relative;
-  z-index:1
 }
+
 .links{
   display:flex;
   gap:30px;
@@ -215,49 +259,65 @@ body:after{
   font-weight:700;
   letter-spacing:.18em;
   text-transform:uppercase;
-  position:relative;
-  z-index:1
 }
-.links a{opacity:.8;transition:.25s}
-.links a:hover{opacity:1;color:#d7b77f}
+
+.links a{
+  opacity:.8;
+  transition:.25s;
+}
+
+.links a:hover{
+  opacity:1;
+  color:#d7b77f;
+}
+
 .menu{
   display:none;
   background:none;
   border:0;
   color:#fff;
   font-size:25px;
-  position:relative;
-  z-index:1
 }
 
+/* HERO */
 .hero{
   min-height:100svh;
   position:relative;
   display:grid;
   align-items:end;
   overflow:hidden;
-  background:#090909
+  background:#090909;
 }
+
 .hero:before{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(90deg,#050505 0%,#050505b5 36%,#05050520 70%),linear-gradient(0deg,#050505 0%,transparent 35%);
-  z-index:1
+  background:
+    linear-gradient(90deg,#050505 0%,#050505b5 36%,#05050520 70%),
+    linear-gradient(0deg,#050505 0%,transparent 35%);
+  z-index:1;
 }
+
 .hero:after{
   content:"";
   position:absolute;
   inset:0;
   z-index:0;
-  background:radial-gradient(circle at 70% 45%,rgba(255,255,255,.10),transparent 28%);
+  background:radial-gradient(
+    circle at 70% 45%,
+    rgba(255,255,255,.10),
+    transparent 28%
+  );
   animation:heroGlow 6s ease-in-out infinite alternate;
-  pointer-events:none
+  pointer-events:none;
 }
+
 @keyframes heroGlow{
   from{opacity:.3;transform:scale(.96)}
   to{opacity:1;transform:scale(1.05)}
 }
+
 .hero-photo{
   position:absolute;
   right:0;
@@ -270,82 +330,93 @@ body:after{
   opacity:.92;
   transform:scale(1.06);
   will-change:transform;
-  transition:transform .12s linear
+  transition:transform .12s linear;
 }
+
 .hero-content{
   position:relative;
   z-index:2;
   padding:0 4.5vw 8vh;
   max-width:1000px;
-  animation:heroIn 1.25s cubic-bezier(.16,1,.3,1) .25s both
+  animation:heroIn 1.25s cubic-bezier(.16,1,.3,1) .25s both;
 }
+
 @keyframes heroIn{
   from{opacity:0;transform:translateY(45px)}
   to{opacity:1;transform:none}
 }
+
 .kicker{
   font-size:10px;
   letter-spacing:.3em;
   text-transform:uppercase;
   color:#d1ae76;
-  margin-bottom:24px
+  margin-bottom:24px;
 }
+
 .hero h1{
   font-size:clamp(76px,15vw,205px);
   line-height:.78;
   letter-spacing:-.085em;
   margin:0;
   font-weight:800;
-  animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .52s both
 }
+
 .hero h1 span{
   display:block;
   color:transparent;
-  -webkit-text-stroke:1px #fff
+  -webkit-text-stroke:1px #fff;
 }
+
 .hero p{
   max-width:500px;
   font-size:16px;
   line-height:1.6;
   color:#d0cdc8;
   margin:32px 0 0;
-  animation:fadeUp .9s ease .7s both
 }
+
 .buttons{
   display:flex;
   gap:12px;
   flex-wrap:wrap;
   margin-top:30px;
-  animation:fadeUp .9s ease .82s both
 }
+
+.btn,
+.social{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.09),
+    rgba(255,255,255,.035)
+  );
+  border:1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 8px 28px rgba(0,0,0,.12);
+  backdrop-filter:blur(12px) saturate(135%);
+  -webkit-backdrop-filter:blur(12px) saturate(135%);
+}
+
 .btn{
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
   display:inline-flex;
   align-items:center;
   gap:12px;
-  border:1px solid var(--glass-border);
   padding:15px 20px;
   border-radius:14px;
   font-size:10px;
   font-weight:800;
   letter-spacing:.14em;
   text-transform:uppercase;
-  transition:transform .35s cubic-bezier(.16,1,.3,1),background .3s,color .3s,border-color .3s;
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.035));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 28px rgba(0,0,0,.12);
-  backdrop-filter:blur(12px) saturate(135%);
-  -webkit-backdrop-filter:blur(12px) saturate(135%)
+  transition:
+    transform .35s cubic-bezier(.16,1,.3,1),
+    background .3s,
+    color .3s;
 }
-.btn.primary{
-  background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(235,235,235,.88));
-  color:#000;
-  border-color:#fff;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 10px 30px rgba(0,0,0,.18);
-  backdrop-filter:none;
-  -webkit-backdrop-filter:none
-}
+
 .btn:before,
 .social:before{
   content:"";
@@ -353,19 +424,51 @@ body:after{
   inset:1px;
   border-radius:inherit;
   pointer-events:none;
-  background:linear-gradient(135deg,rgba(255,255,255,.13),transparent 38%,rgba(255,255,255,.035));
-  opacity:.75
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.13),
+    transparent 38%,
+    rgba(255,255,255,.035)
+  );
+  opacity:.75;
 }
+
 .btn:after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(110deg,transparent 20%,#fff7 50%,transparent 80%);
+  background:linear-gradient(
+    110deg,
+    transparent 20%,
+    #fff7 50%,
+    transparent 80%
+  );
   transform:translateX(-120%);
-  transition:transform .7s ease
+  transition:transform .7s ease;
 }
-.btn:hover:after{transform:translateX(120%)}
-.btn:hover{transform:translateY(-3px)}
+
+.btn:hover:after{
+  transform:translateX(120%);
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+}
+
+.btn.primary{
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.96),
+    rgba(235,235,235,.88)
+  );
+  color:#000;
+  border-color:#fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    0 10px 30px rgba(0,0,0,.18);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
 
 .hero-scroll{
   position:absolute;
@@ -376,8 +479,9 @@ body:after{
   letter-spacing:.22em;
   text-transform:uppercase;
   color:#aaa;
-  writing-mode:vertical-rl
+  writing-mode:vertical-rl;
 }
+
 .hero-scroll:after{
   content:"";
   display:block;
@@ -385,89 +489,92 @@ body:after{
   height:44px;
   background:#fff5;
   margin:12px auto 0;
-  animation:scrollLine 1.7s ease-in-out infinite
-}
-@keyframes scrollLine{
-  0%,100%{transform:scaleY(.35);transform-origin:top;opacity:.25}
-  50%{transform:scaleY(1);transform-origin:top;opacity:1}
 }
 
-section{padding:120px 4.5vw}
-.wrap{max-width:1280px;margin:auto}
+/* GENERAL */
+section{
+  padding:120px 4.5vw;
+}
+
+.wrap{
+  max-width:1280px;
+  margin:auto;
+}
+
 .section-top{
   display:flex;
   justify-content:space-between;
   align-items:flex-end;
   gap:30px;
   margin-bottom:52px;
-  position:relative
+  position:relative;
 }
-.section-top:after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-22px;
-  width:72px;
-  height:1px;
-  background:currentColor;
-  opacity:.25;
-  transform:scaleX(0);
-  transform-origin:left;
-  transition:transform 1s cubic-bezier(.16,1,.3,1)
-}
-.section-top.is-visible:after{transform:scaleX(1)}
+
 .eyebrow{
   font-size:10px;
   letter-spacing:.25em;
   text-transform:uppercase;
-  color:var(--gold)
+  color:var(--gold);
 }
+
 .big-title{
   font-size:clamp(52px,8vw,112px);
   letter-spacing:-.065em;
   line-height:.84;
   margin:12px 0 0;
   font-weight:800;
-  transition:letter-spacing 1s cubic-bezier(.16,1,.3,1)
 }
-.section-top.is-visible .big-title{letter-spacing:-.075em}
+
 .small-note{
   color:#777;
   font-size:11px;
   text-transform:uppercase;
-  letter-spacing:.14em
+  letter-spacing:.14em;
 }
 
+.dark{
+  background:#090909;
+}
+
+/* MUSIC */
 .release-section{
   background:var(--paper);
-  color:#0a0a0a
+  color:#0a0a0a;
 }
+
 .release-grid{
   display:grid;
   grid-template-columns:1.05fr .95fr;
   gap:70px;
-  align-items:center
+  align-items:center;
 }
+
 .cover{
   position:relative;
   aspect-ratio:1/1;
   background:#151515;
   overflow:hidden;
-  transition:transform 1s cubic-bezier(.16,1,.3,1),box-shadow 1s
+  transition:transform 1s cubic-bezier(.16,1,.3,1);
 }
+
 .cover:hover{
   transform:translateY(-8px) scale(1.01);
-  box-shadow:0 30px 80px #0003
+  box-shadow:0 30px 80px #0003;
 }
+
 .cover img{
   width:100%;
   height:100%;
   object-fit:cover;
   object-position:center top;
   filter:saturate(.85);
-  transition:transform 1.5s cubic-bezier(.16,1,.3,1)
+  transition:transform 1.5s cubic-bezier(.16,1,.3,1);
 }
-.cover:hover img{transform:scale(1.045)}
+
+.cover:hover img{
+  transform:scale(1.045);
+}
+
 .cover:after{
   content:"KHARVIE";
   position:absolute;
@@ -477,50 +584,97 @@ section{padding:120px 4.5vw}
   font-weight:800;
   letter-spacing:-.09em;
   color:#fff;
-  opacity:.88
+  opacity:.88;
 }
-.release-info .eyebrow{color:#8e6631}
+
+.release-info .eyebrow{
+  color:#8e6631;
+}
+
 .release-info h2{
   font-size:clamp(55px,8vw,105px);
   letter-spacing:-.08em;
   line-height:.8;
-  margin:16px 0
+  margin:16px 0;
 }
+
 .release-info p{
   max-width:510px;
   color:#555;
   line-height:1.7;
-  font-size:15px
+  font-size:15px;
 }
+
 .track{
   border-top:1px solid #0002;
-  margin-top:35px
+  margin-top:35px;
 }
+
 .track-row{
   display:grid;
   grid-template-columns:45px 1fr auto;
   gap:20px;
   align-items:center;
   padding:19px 0;
-  border-bottom:1px solid #0002
+  border-bottom:1px solid #0002;
 }
-.track-row b{font-size:12px}
-.track-row strong{font-size:18px}
+
+.track-row b{
+  font-size:12px;
+}
+
+.track-row strong{
+  font-size:18px;
+}
+
 .track-row small{
   font-size:9px;
   color:#777;
   text-transform:uppercase;
-  letter-spacing:.12em
+  letter-spacing:.12em;
 }
+
 .play{
   font-size:10px;
   font-weight:800;
   letter-spacing:.15em;
-  text-transform:uppercase
+  text-transform:uppercase;
 }
 
-.dark{background:#090909}
-.music-list{border-top:1px solid var(--line)}
+/* STREAMING PLATFORM LINKS */
+.streaming-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:22px;
+}
+
+.streaming-link{
+  display:inline-flex;
+  align-items:center;
+  min-height:40px;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.13);
+  background:rgba(255,255,255,.38);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  transition:.25s;
+}
+
+.streaming-link:hover{
+  background:#111;
+  color:#fff;
+  transform:translateY(-2px);
+}
+
+/* MUSIC LIST */
+.music-list{
+  border-top:1px solid var(--line);
+}
+
 .music-row{
   display:grid;
   grid-template-columns:70px 1fr auto;
@@ -528,43 +682,62 @@ section{padding:120px 4.5vw}
   align-items:center;
   padding:27px 0;
   border-bottom:1px solid var(--line);
-  transition:.25s
+  transition:.25s;
 }
+
 .music-row:hover{
   padding-left:15px;
-  background:#ffffff05
+  background:#ffffff05;
 }
+
 .music-row .number{
   color:var(--gold);
-  font-size:11px
+  font-size:11px;
 }
+
 .music-row h3{
   margin:0;
   font-size:clamp(30px,4vw,58px);
-  letter-spacing:-.05em
+  letter-spacing:-.05em;
 }
+
 .music-row p{
   margin:7px 0 0;
   color:#777;
   font-size:10px;
   letter-spacing:.16em;
-  text-transform:uppercase
+  text-transform:uppercase;
 }
-.arrow{font-size:18px}
 
-.about{background:#101010}
+.arrow{
+  font-size:18px;
+}
+
+/* ABOUT */
+.about{
+  background:#101010;
+}
+
 .about-grid{
   display:grid;
   grid-template-columns:1.2fr .8fr;
-  gap:9vw
+  gap:9vw;
 }
+
 .about-copy{
   font-size:clamp(22px,2.7vw,36px);
   line-height:1.3;
-  letter-spacing:-.03em
+  letter-spacing:-.03em;
 }
-.about-copy p{margin:0 0 25px}
-.facts{border-top:1px solid var(--line)}
+
+.about-copy p{
+  margin:0 0 25px;
+}
+
+.facts{
+  border-top:1px solid var(--line);
+}
+
 .fact{
   display:flex;
   justify-content:space-between;
@@ -572,14 +745,19 @@ section{padding:120px 4.5vw}
   padding:18px 0;
   border-bottom:1px solid var(--line);
   font-size:12px;
-  color:#777
-}
-.fact strong{
-  color:#fff;
-  font-weight:600
+  color:#777;
 }
 
-.video-section{background:#050505}
+.fact strong{
+  color:#fff;
+  font-weight:600;
+}
+
+/* VIDEOS */
+.video-section{
+  background:#050505;
+}
+
 .video-card{
   position:relative;
   min-height:500px;
@@ -589,13 +767,16 @@ section{padding:120px 4.5vw}
   background:linear-gradient(135deg,#171717,#080808);
   overflow:hidden;
   border:1px solid var(--line);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 18px 55px rgba(0,0,0,.18);
-  transition:transform .8s cubic-bezier(.16,1,.3,1),border-color .4s
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 18px 55px rgba(0,0,0,.18);
+  transition:transform .8s cubic-bezier(.16,1,.3,1);
 }
+
 .video-card:hover{
   transform:translateY(-7px);
-  border-color:#fff5
 }
+
 .video-card img{
   position:absolute;
   inset:0;
@@ -605,32 +786,43 @@ section{padding:120px 4.5vw}
   object-position:center top;
   opacity:.55;
   filter:grayscale(.2);
-  transition:transform 1.2s cubic-bezier(.16,1,.3,1),opacity .5s
+  transition:transform 1.2s,opacity .5s;
 }
+
 .video-card:hover img{
   transform:scale(1.045);
-  opacity:.65
+  opacity:.65;
 }
+
 .video-card:after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(0deg,#000 0%,#0003 60%,transparent)
+  background:linear-gradient(
+    0deg,
+    #000 0%,
+    #0003 60%,
+    transparent
+  );
 }
+
 .video-content{
   position:relative;
-  z-index:2
+  z-index:2;
 }
+
 .video-content h2{
   font-size:clamp(45px,7vw,95px);
   letter-spacing:-.07em;
   line-height:.84;
-  margin:0 0 22px
+  margin:0 0 22px;
 }
+
 .video-content p{
   color:#bbb;
-  max-width:520px
+  max-width:520px;
 }
+
 .circle-play{
   position:absolute;
   z-index:3;
@@ -645,91 +837,92 @@ section{padding:120px 4.5vw}
   font-size:11px;
   letter-spacing:.12em;
   background:rgba(255,255,255,.055);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 18px 45px rgba(0,0,0,.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.2),
+    0 18px 45px rgba(0,0,0,.25);
   backdrop-filter:blur(16px) saturate(145%);
   -webkit-backdrop-filter:blur(16px) saturate(145%);
-  transition:transform .5s cubic-bezier(.16,1,.3,1),background .35s,color .35s
-}
-.video-card:hover .circle-play{transform:scale(1.08)}
-.circle-play:hover{
-  background:#fff;
-  color:#000
 }
 
+/* LIVE */
 .live-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  border-top:1px solid var(--line)
+  border-top:1px solid var(--line);
 }
+
 .live-item{
   padding:28px 0;
   border-bottom:1px solid var(--line);
   display:grid;
   grid-template-columns:110px 1fr auto;
   gap:20px;
-  align-items:center
+  align-items:center;
 }
+
 .live-item .date{
   font-size:12px;
   color:var(--gold);
-  font-weight:700
+  font-weight:700;
 }
+
 .live-item h3{
   margin:0;
-  font-size:22px
+  font-size:22px;
 }
+
 .live-item p{
   margin:5px 0 0;
   color:#777;
-  font-size:11px
+  font-size:11px;
 }
+
 .status{
   font-size:9px;
   text-transform:uppercase;
   letter-spacing:.15em;
-  color:#777
+  color:#777;
 }
 
+/* CONNECT */
 .connect{
   background:#121212;
-  text-align:center
+  text-align:center;
 }
-.connect .big-title{font-size:clamp(60px,11vw,150px)}
+
+.connect .big-title{
+  font-size:clamp(60px,11vw,150px);
+}
+
 .socials{
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
   gap:9px;
-  margin-top:38px
+  margin-top:38px;
 }
+
 .social{
-  border:1px solid var(--glass-border);
   padding:13px 19px;
-  min-height:43px;
-  display:inline-flex;
-  align-items:center;
+  border-radius:14px;
   font-size:9px;
   letter-spacing:.16em;
   text-transform:uppercase;
   transition:.25s;
-  border-radius:14px;
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.035));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 28px rgba(0,0,0,.12);
-  backdrop-filter:blur(12px) saturate(135%);
-  -webkit-backdrop-filter:blur(12px) saturate(135%)
 }
+
 .social:hover{
   background:#fff;
-  color:#000
+  color:#000;
 }
+
 .mail-note{
   color:#777;
   font-size:11px;
-  margin-top:24px
+  margin-top:24px;
 }
 
+/* FOOTER */
 footer{
   padding:30px 4.5vw;
   border-top:1px solid var(--line);
@@ -739,121 +932,46 @@ footer{
   color:#666;
   font-size:9px;
   letter-spacing:.12em;
-  text-transform:uppercase
+  text-transform:uppercase;
 }
 
+/* MOTION */
 .reveal{
   opacity:0;
   transform:translateY(55px) scale(.985);
-  transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)
+  transition:
+    opacity 1s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1);
 }
+
 .reveal.show{
   opacity:1;
-  transform:none
+  transform:none;
 }
 
-.scroll-progress{
-  position:fixed;
+.section-top:after{
+  content:"";
+  position:absolute;
   left:0;
-  top:0;
-  height:2px;
-  width:0;
-  background:#fff;
-  z-index:1002;
+  bottom:-22px;
+  width:72px;
+  height:1px;
+  background:currentColor;
+  opacity:.25;
+  transform:scaleX(0);
   transform-origin:left;
-  box-shadow:0 0 14px #fff8
+  transition:transform 1s cubic-bezier(.16,1,.3,1);
 }
 
-.music-empty{
-  padding:30px 0;
-  color:#777;
-  font-size:11px;
-  letter-spacing:.12em;
-  text-transform:uppercase
+.section-top.is-visible:after{
+  transform:scaleX(1);
 }
 
-.audio-player{
-  width:100%;
-  margin-top:25px;
-  display:none
-}
-
+/* MOBILE */
 @media(max-width:850px){
-  .links{display:none}
-  .menu{display:block}
 
-  .hero-photo{
-    width:100%;
-    opacity:.55
-  }
-
-  .hero:before{
-    background:linear-gradient(90deg,#050505e8,#05050555),linear-gradient(0deg,#050505 0%,transparent 55%)
-  }
-
-  .hero-content{
-    padding:0 22px 55px
-  }
-
-  .hero h1{font-size:78px}
-  .hero p{font-size:14px}
-  .hero-scroll{display:none}
-
-  section{padding:85px 22px}
-
-  .section-top{
-    display:block;
-    margin-bottom:38px
-  }
-
-  .section-top .small-note{
-    margin-top:18px
-  }
-
-  .release-grid,
-  .about-grid{
-    grid-template-columns:1fr;
-    gap:45px
-  }
-
-  .cover{max-width:620px}
-
-  .music-row{
-    grid-template-columns:38px 1fr
-  }
-
-  .music-row .play{display:none}
-
-  .video-card{
-    min-height:440px;
-    padding:25px
-  }
-
-  .circle-play{
-    width:72px;
-    height:72px;
-    right:25px;
-    top:25px
-  }
-
-  .live-grid{grid-template-columns:1fr}
-
-  .live-item{
-    grid-template-columns:75px 1fr
-  }
-
-  .status{display:none}
-
-  footer{
-    display:block;
-    padding:25px 22px
-  }
-
-  footer div+div{margin-top:10px}
-
-  .nav{
-    padding:15px 18px;
-    border-radius:0 0 18px 18px
+  .links{
+    display:none;
   }
 
   .links.open{
@@ -864,41 +982,158 @@ footer{
     flex-direction:column;
     gap:18px;
     padding:20px;
-    background:linear-gradient(145deg,rgba(30,30,30,.76),rgba(8,8,8,.58));
+    min-width:180px;
+
+    background:linear-gradient(
+      145deg,
+      rgba(30,30,30,.76),
+      rgba(8,8,8,.58)
+    );
+
     border:1px solid var(--glass-border);
     border-radius:22px;
-    box-shadow:0 18px 55px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.13);
+
+    box-shadow:
+      0 18px 55px rgba(0,0,0,.4),
+      inset 0 1px 0 rgba(255,255,255,.13);
+
     backdrop-filter:blur(25px) saturate(150%);
-    -webkit-backdrop-filter:blur(25px) saturate(150%)
+    -webkit-backdrop-filter:blur(25px) saturate(150%);
   }
 
-  .links.open a{padding:2px 0}
-  .btn{min-height:46px}
-}
-
-@media(prefers-reduced-motion:reduce){
-  *,*:before,*:after{
-    animation:none!important;
-    transition:none!important;
-    scroll-behavior:auto!important
+  .menu{
+    display:block;
   }
 
-  .reveal{
-    opacity:1;
-    transform:none
+  .hero-photo{
+    width:100%;
+    opacity:.55;
   }
 
-  .hero-photo{transform:none}
+  .hero:before{
+    background:
+      linear-gradient(90deg,#050505e8,#05050555),
+      linear-gradient(0deg,#050505 0%,transparent 55%);
+  }
 
-  .nav,.btn,.social,.circle-play{
-    backdrop-filter:none;
-    -webkit-backdrop-filter:none
+  .hero-content{
+    padding:0 22px 55px;
+  }
+
+  .hero h1{
+    font-size:78px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  .hero-scroll{
+    display:none;
+  }
+
+  section{
+    padding:85px 22px;
+  }
+
+  .section-top{
+    display:block;
+    margin-bottom:38px;
+  }
+
+  .section-top .small-note{
+    margin-top:18px;
+  }
+
+  .release-grid,
+  .about-grid{
+    grid-template-columns:1fr;
+    gap:45px;
+  }
+
+  .cover{
+    max-width:620px;
+  }
+
+  .music-row{
+    grid-template-columns:38px 1fr auto;
+  }
+
+  .music-row .play{
+    display:none;
+  }
+
+  .video-card{
+    min-height:440px;
+    padding:25px;
+  }
+
+  .circle-play{
+    width:72px;
+    height:72px;
+    right:25px;
+    top:25px;
+  }
+
+  .live-grid{
+    grid-template-columns:1fr;
+  }
+
+  .live-item{
+    grid-template-columns:75px 1fr;
+  }
+
+  .status{
+    display:none;
+  }
+
+  footer{
+    display:block;
+    padding:25px 22px;
+  }
+
+  footer div+div{
+    margin-top:10px;
+  }
+
+  .track-row{
+    grid-template-columns:35px 1fr;
+  }
+
+  .track-row .play{
+    grid-column:2;
   }
 }
 
 @supports not ((backdrop-filter:blur(1px))){
-  .nav{background:rgba(12,12,12,.94)}
-  .btn,.social,.circle-play{background:rgba(20,20,20,.9)}
+  .nav{
+    background:rgba(12,12,12,.94);
+  }
+
+  .btn,
+  .social,
+  .circle-play{
+    background:rgba(20,20,20,.9);
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,
+  *:before,
+  *:after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+
+  .reveal{
+    opacity:1;
+    transform:none;
+  }
+
+  .hero-photo{
+    transform:none;
+  }
 }
 </style>
 </head>
@@ -931,10 +1166,18 @@ footer{
 <main id="top">
 
 <section class="hero">
-  <img class="hero-photo" src="assets/kharvie-portrait.jpg" alt="Kharvie official portrait">
+
+  <img
+    class="hero-photo"
+    src="assets/kharvie.jpg"
+    alt="Kharvie official portrait"
+  >
 
   <div class="hero-content">
-    <div class="kicker">Official Website · Nigerian singer and songwriter</div>
+
+    <div class="kicker">
+      Official Website · Nigerian singer and songwriter
+    </div>
 
     <h1>KHA<span>RVIE</span></h1>
 
@@ -944,12 +1187,26 @@ footer{
     </p>
 
     <div class="buttons">
-      <a class="btn primary" href="#music">Explore Music →</a>
-      <a class="btn" id="heroListen" href="#music">Listen Now</a>
+      <a class="btn primary" href="#music">
+        Explore Music →
+      </a>
+
+      <a
+        class="btn"
+        href="https://distrokid.com/hyperfollow/kharvie/sweet-love/"
+        target="_blank"
+        rel="noopener"
+      >
+        Listen Now
+      </a>
     </div>
+
   </div>
 
-  <div class="hero-scroll">Scroll to explore</div>
+  <div class="hero-scroll">
+    Scroll to explore
+  </div>
+
 </section>
 
 
@@ -963,68 +1220,12 @@ footer{
         <h2 class="big-title">MUSIC</h2>
       </div>
 
-      <div class="small-note" id="latestReleaseNote">Music</div>
+      <div class="small-note">
+        Supabase Music Library
+      </div>
     </div>
 
-    <div class="release-grid">
-
-      <div class="cover reveal">
-        <img id="latestCover" src="assets/kharvie-portrait.jpg" alt="Kharvie official artwork">
-      </div>
-
-      <div class="release-info reveal">
-
-        <div class="eyebrow">Featured Single</div>
-
-        <h2 id="latestTitle">SWEET LOVE</h2>
-
-        <p id="latestDescription">
-          Discover Kharvie's latest sound. Tap below to listen across the available music platforms.
-        </p>
-
-        <div class="track" id="latestTracks">
-
-          <div class="track-row">
-            <b>01</b>
-
-            <div>
-              <strong>Imole</strong>
-              <br>
-              <small>Single</small>
-            </div>
-
-            <a class="play" href="#music">Play ↗</a>
-          </div>
-
-          <div class="track-row">
-            <b>02</b>
-
-            <div>
-              <strong>Sweet Love</strong>
-              <br>
-              <small>Single · Latest release</small>
-            </div>
-
-            <a class="play" href="#music">Play ↗</a>
-          </div>
-
-        </div>
-
-        <audio id="audioPlayer" class="audio-player" controls></audio>
-
-        <div class="buttons">
-          <a id="latestPlatformLink"
-             class="btn primary"
-             href="#music"
-             target="_blank"
-             rel="noopener">
-            All Platforms →
-          </a>
-        </div>
-
-      </div>
-
-    </div>
+    <div id="latest-release"></div>
 
   </div>
 
@@ -1041,16 +1242,12 @@ footer{
         <h2 class="big-title">MORE<br>MUSIC</h2>
       </div>
 
-      <div class="small-note">Kharvie discography</div>
-    </div>
-
-    <div class="music-list" id="musicList">
-
-      <div class="music-empty">
-        Loading music...
+      <div class="small-note">
+        Kharvie discography
       </div>
-
     </div>
+
+    <div id="music-list" class="music-list"></div>
 
   </div>
 
@@ -1073,15 +1270,16 @@ footer{
       <div class="about-copy reveal">
 
         <p>
-          Kharvie is a Nigerian singer and songwriter from Delta State, Nigeria.
-          Born on April 12, 2003, he represents a new generation of Nigerian artists
-          contributing to the evolving sound of contemporary African music.
+          Kharvie is a Nigerian singer and songwriter from Delta State,
+          Nigeria. Born on April 12, 2003, he represents a new generation
+          of Nigerian artists contributing to the evolving sound of
+          contemporary African music.
         </p>
 
         <p>
-          His music combines infectious rhythms, melodic songwriting and modern
-          production, with an artistic direction rooted in African influences
-          and contemporary Afrobeat.
+          His music combines infectious rhythms, melodic songwriting and
+          modern production, with an artistic direction rooted in African
+          influences and contemporary Afrobeat.
         </p>
 
       </div>
@@ -1132,33 +1330,12 @@ footer{
         <h2 class="big-title">VIDEOS</h2>
       </div>
 
-      <div class="small-note">Official visuals</div>
+      <div class="small-note">
+        Official visuals
+      </div>
     </div>
 
-    <div id="videosContainer">
-
-      <a class="video-card reveal"
-         href="https://www.youtube.com/@Kharvie-M"
-         target="_blank"
-         rel="noopener">
-
-        <img src="assets/kharvie-portrait.jpg"
-             alt="Kharvie official video preview">
-
-        <span class="circle-play">PLAY ↗</span>
-
-        <div class="video-content">
-          <h2>KHARVIE<br>ON SCREEN</h2>
-
-          <p>
-            Watch official music videos, performances and new visual content
-            on Kharvie's YouTube channel.
-          </p>
-        </div>
-
-      </a>
-
-    </div>
+    <div id="video-container"></div>
 
   </div>
 
@@ -1175,34 +1352,12 @@ footer{
         <h2 class="big-title">LIVE</h2>
       </div>
 
-      <div class="small-note">Shows & appearances</div>
+      <div class="small-note">
+        Shows & appearances
+      </div>
     </div>
 
-    <div class="live-grid" id="eventsContainer">
-
-      <div class="live-item reveal">
-        <div class="date">2026</div>
-
-        <div>
-          <h3>Upcoming appearances</h3>
-          <p>Official dates will be announced here.</p>
-        </div>
-
-        <div class="status">Coming soon</div>
-      </div>
-
-      <div class="live-item reveal">
-        <div class="date">BOOKINGS</div>
-
-        <div>
-          <h3>Performance enquiries</h3>
-          <p>Official contact details can be added when confirmed.</p>
-        </div>
-
-        <div class="status">Available</div>
-      </div>
-
-    </div>
+    <div id="events-container" class="live-grid"></div>
 
   </div>
 
@@ -1213,7 +1368,9 @@ footer{
 
   <div class="wrap">
 
-    <div class="eyebrow">Official Links</div>
+    <div class="eyebrow">
+      Official Links
+    </div>
 
     <h2 class="big-title">
       CONNECT<br>WITH KHARVIE
@@ -1221,73 +1378,53 @@ footer{
 
     <div class="socials">
 
-      <a class="social"
-         href="https://www.youtube.com/@Kharvie-M"
-         target="_blank"
-         rel="me noopener">
+      <a class="social" href="https://www.youtube.com/@Kharvie-M"
+         target="_blank" rel="me noopener">
         YouTube
       </a>
 
-      <a class="social"
-         href="https://x.com/_Kharvie"
-         target="_blank"
-         rel="me noopener">
+      <a class="social" href="https://x.com/_Kharvie"
+         target="_blank" rel="me noopener">
         X
       </a>
 
-      <a class="social"
-         href="https://www.instagram.com/kharvie__/"
-         target="_blank"
-         rel="me noopener">
+      <a class="social" href="https://www.instagram.com/kharvie__/"
+         target="_blank" rel="me noopener">
         Instagram
       </a>
 
-      <a class="social"
-         href="https://www.facebook.com/officialKharvie/"
-         target="_blank"
-         rel="me noopener">
+      <a class="social" href="https://www.facebook.com/officialKharvie/"
+         target="_blank" rel="me noopener">
         Facebook
       </a>
 
-      <a class="social"
-         href="https://www.tiktok.com/@_kharvie"
-         target="_blank"
-         rel="me noopener">
+      <a class="social" href="https://www.tiktok.com/@_kharvie"
+         target="_blank" rel="me noopener">
         TikTok
       </a>
 
-      <a class="social"
-         href="https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC"
-         target="_blank"
-         rel="noopener">
+      <a class="social" href="https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC"
+         target="_blank" rel="noopener">
         Spotify
       </a>
 
-      <a class="social"
-         href="https://music.apple.com/ng/artist/kharvie/6781999179"
-         target="_blank"
-         rel="noopener">
+      <a class="social" href="https://music.apple.com/ng/artist/kharvie/6781999179"
+         target="_blank" rel="noopener">
         Apple Music
       </a>
 
-      <a class="social"
-         href="https://audiomack.com/kharvie"
-         target="_blank"
-         rel="noopener">
+      <a class="social" href="https://audiomack.com/kharvie"
+         target="_blank" rel="noopener">
         Audiomack
       </a>
 
-      <a class="social"
-         href="https://www.deezer.com/en/artist/397699251"
-         target="_blank"
-         rel="noopener">
+      <a class="social" href="https://www.deezer.com/en/artist/397699251"
+         target="_blank" rel="noopener">
         Deezer
       </a>
 
-      <a class="social"
-         href="https://www.boomplay.com/share/artist/133955596"
-         target="_blank"
-         rel="noopener">
+      <a class="social" href="https://www.boomplay.com/share/artist/133955596"
+         target="_blank" rel="noopener">
         Boomplay
       </a>
 
@@ -1309,12 +1446,16 @@ footer{
 </footer>
 
 
-<script>
-/* =========================================
-   SUPABASE CONNECTION
-========================================= */
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-const SUPABASE_URL = "https://dprulohylwgzmetgrywj.supabase.co";
+<script>
+
+/* ================================
+   SUPABASE
+================================ */
+
+const SUPABASE_URL =
+  "https://dprulohylwgzmetgrywj.supabase.co";
 
 const SUPABASE_KEY =
   "sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
@@ -1326,31 +1467,28 @@ const supabaseClient =
   );
 
 
-/* =========================================
+/* ================================
    HELPERS
-========================================= */
+================================ */
 
-function safe(value){
-  return value == null ? "" : String(value);
-}
-
-function firstValue(row, names){
+function firstValue(row, names, fallback=""){
   for(const name of names){
     if(
-      Object.prototype.hasOwnProperty.call(row,name) &&
-      row[name] !== null &&
+      row &&
       row[name] !== undefined &&
-      row[name] !== ""
+      row[name] !== null &&
+      String(row[name]).trim() !== ""
     ){
       return row[name];
     }
   }
 
-  return "";
+  return fallback;
 }
 
+
 function escapeHTML(value){
-  return safe(value)
+  return String(value ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -1358,428 +1496,697 @@ function escapeHTML(value){
     .replace(/'/g,"&#039;");
 }
 
-function validURL(url){
-  if(!url) return false;
 
+function validURL(value){
   try{
-    new URL(url);
-    return true;
+    const url = new URL(value);
+    return ["http:","https:"].includes(url.protocol);
   }catch{
     return false;
   }
 }
 
 
-/* =========================================
+/* ================================
+   UNLIMITED STREAMING PLATFORMS
+================================ */
+
+const standardPlatformFields = [
+  ["Spotify",["spotify_url","spotify","spotifyUrl"]],
+  ["Apple Music",["apple_music_url","apple_music","apple","appleMusic"]],
+  ["YouTube Music",["youtube_music_url","youtube_music","youtubeMusic"]],
+  ["YouTube",["youtube_url","youtube","youtubeUrl"]],
+  ["Audiomack",["audiomack_url","audiomack","audiomackUrl"]],
+  ["Boomplay",["boomplay_url","boomplay","boomplayUrl"]],
+  ["Deezer",["deezer_url","deezer","deezerUrl"]],
+  ["Amazon Music",["amazon_music_url","amazon_music","amazonMusic"]],
+  ["TIDAL",["tidal_url","tidal","tidalUrl"]],
+  ["SoundCloud",["soundcloud_url","soundcloud","soundcloudUrl"]],
+  ["Pandora",["pandora_url","pandora","pandoraUrl"]]
+];
+
+
+function getStreamingLinks(row){
+
+  const links = [];
+
+  /*
+    Existing platform columns are supported automatically.
+  */
+
+  standardPlatformFields.forEach(([label,fields])=>{
+    const value = firstValue(row,fields,"");
+
+    if(value && validURL(value)){
+      links.push({
+        label,
+        url:value
+      });
+    }
+  });
+
+
+  /*
+    NEW FLEXIBLE FIELD:
+
+    streaming_links can contain either:
+
+    {
+      "Spotify":"https://...",
+      "Boomplay":"https://...",
+      "TIDAL":"https://..."
+    }
+
+    OR:
+
+    [
+      {"name":"Spotify","url":"https://..."},
+      {"name":"Boomplay","url":"https://..."}
+    ]
+  */
+
+  let custom =
+    firstValue(
+      row,
+      [
+        "streaming_links",
+        "streamingLinks",
+        "platform_links",
+        "platformLinks"
+      ],
+      ""
+    );
+
+  if(custom){
+
+    try{
+
+      if(typeof custom === "string"){
+        custom = JSON.parse(custom);
+      }
+
+      if(Array.isArray(custom)){
+
+        custom.forEach(item=>{
+
+          const label =
+            item?.name ||
+            item?.label ||
+            item?.platform;
+
+          const url =
+            item?.url ||
+            item?.link;
+
+          if(
+            label &&
+            url &&
+            validURL(url)
+          ){
+            links.push({
+              label,
+              url
+            });
+          }
+
+        });
+
+      }else if(
+        typeof custom === "object"
+      ){
+
+        Object.entries(custom).forEach(
+          ([label,url])=>{
+
+            if(
+              label &&
+              url &&
+              validURL(url)
+            ){
+              links.push({
+                label,
+                url
+              });
+            }
+
+          }
+        );
+
+      }
+
+    }catch(error){
+
+      console.warn(
+        "Could not read streaming_links:",
+        error
+      );
+
+    }
+
+  }
+
+
+  /*
+    Remove duplicates.
+  */
+
+  const seen = new Set();
+
+  return links.filter(item=>{
+
+    const key =
+      item.label.toLowerCase() +
+      "|" +
+      item.url;
+
+    if(seen.has(key)){
+      return false;
+    }
+
+    seen.add(key);
+    return true;
+
+  });
+
+}
+
+
+/* ================================
+   STREAMING LINK HTML
+================================ */
+
+function streamingLinksHTML(row){
+
+  const links =
+    getStreamingLinks(row);
+
+  if(!links.length){
+    return "";
+  }
+
+  return `
+    <div class="streaming-links">
+      ${links.map(link=>`
+        <a
+          class="streaming-link"
+          href="${escapeHTML(link.url)}"
+          target="_blank"
+          rel="noopener"
+        >
+          ${escapeHTML(link.label)} ↗
+        </a>
+      `).join("")}
+    </div>
+  `;
+}
+
+
+/* ================================
    LOAD SONGS
-========================================= */
+================================ */
 
 async function loadSongs(){
 
   const musicList =
-    document.getElementById("musicList");
+    document.getElementById("music-list");
+
+  const latestRelease =
+    document.getElementById("latest-release");
 
   try{
 
-    const { data, error } =
-      await supabaseClient
-        .from("songs")
-        .select("*");
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("songs")
+      .select("*");
 
     if(error){
-      console.error("Songs error:",error);
-      return;
+      throw error;
     }
 
-    if(!data || !data.length){
+    const songs = Array.isArray(data)
+      ? data
+      : [];
 
-      musicList.innerHTML =
-        '<div class="music-empty">No music available yet.</div>';
+    songs.sort((a,b)=>{
 
-      return;
-    }
+      const da =
+        firstValue(
+          a,
+          ["release_date","date","created_at"],
+          ""
+        );
 
-    const songs = [...data].sort((a,b)=>{
+      const db =
+        firstValue(
+          b,
+          ["release_date","date","created_at"],
+          ""
+        );
 
-      const dateA =
-        firstValue(a,["release_date","date","created_at"]) || "";
-
-      const dateB =
-        firstValue(b,["release_date","date","created_at"]) || "";
-
-      return String(dateB).localeCompare(String(dateA));
+      return String(db)
+        .localeCompare(String(da));
 
     });
 
+
+    /* EMPTY STATE */
+
+    if(!songs.length){
+
+      latestRelease.innerHTML = `
+        <div class="release-grid">
+
+          <div class="cover reveal show">
+            <img
+              src="assets/kharvie.jpg"
+              alt="Kharvie official portrait"
+            >
+          </div>
+
+          <div class="release-info reveal show">
+
+            <div class="eyebrow">
+              Music
+            </div>
+
+            <h2>KHARVIE</h2>
+
+            <p>
+              Music will appear here when it is added
+              through the official music administration system.
+            </p>
+
+          </div>
+
+        </div>
+      `;
+
+      musicList.innerHTML = "";
+
+      return;
+    }
+
+
+    /* ================================
+       LATEST SONG
+    ================================= */
+
+    const latest =
+      songs[0];
+
+    const latestTitle =
+      firstValue(
+        latest,
+        ["title","name"],
+        "Kharvie"
+      );
+
+    const latestDescription =
+      firstValue(
+        latest,
+        ["description","excerpt"],
+        "Discover Kharvie's latest sound."
+      );
+
+    const latestCover =
+      firstValue(
+        latest,
+        [
+          "cover_image_url",
+          "cover_url",
+          "cover",
+          "image_url",
+          "image"
+        ],
+        "assets/kharvie.jpg"
+      );
+
+    const latestAudio =
+      firstValue(
+        latest,
+        [
+          "audio_url",
+          "audio",
+          "audioUrl"
+        ],
+        ""
+      );
+
+    const latestArtist =
+      firstValue(
+        latest,
+        ["artist"],
+        "Kharvie"
+      );
+
+    let audioHTML = "";
+
+    if(
+      latestAudio &&
+      validURL(latestAudio)
+    ){
+
+      audioHTML = `
+        <audio
+          controls
+          preload="none"
+          style="
+            width:100%;
+            margin-top:22px;
+          "
+        >
+          <source
+            src="${escapeHTML(latestAudio)}"
+          >
+          Your browser does not support audio playback.
+        </audio>
+      `;
+
+    }
+
+
+    latestRelease.innerHTML = `
+
+      <div class="release-grid">
+
+        <div class="cover reveal show">
+
+          <img
+            src="${escapeHTML(latestCover)}"
+            alt="${escapeHTML(latestTitle)} artwork"
+            onerror="this.src='assets/kharvie.jpg'"
+          >
+
+        </div>
+
+        <div class="release-info reveal show">
+
+          <div class="eyebrow">
+            Latest Release · ${escapeHTML(latestArtist)}
+          </div>
+
+          <h2>
+            ${escapeHTML(latestTitle)}
+          </h2>
+
+          <p>
+            ${escapeHTML(latestDescription)}
+          </p>
+
+          ${audioHTML}
+
+          ${streamingLinksHTML(latest)}
+
+          <div class="buttons">
+
+            ${
+              latestAudio &&
+              validURL(latestAudio)
+              ?
+              `
+              <a
+                class="btn primary"
+                href="#"
+                onclick="
+                  event.preventDefault();
+                  document.querySelector('audio')?.play();
+                "
+              >
+                Play On Website →
+              </a>
+              `
+              :
+              ""
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+
+    /* ================================
+       ALL SONGS
+    ================================= */
 
     musicList.innerHTML =
       songs.map((song,index)=>{
 
         const title =
-          firstValue(song,["title","name"]) ||
-          "Untitled";
+          firstValue(
+            song,
+            ["title","name"],
+            "Untitled"
+          );
 
         const artist =
-          firstValue(song,["artist"]) ||
-          "Kharvie";
+          firstValue(
+            song,
+            ["artist"],
+            "Kharvie"
+          );
 
         const genre =
-          firstValue(song,["genre"]) ||
-          "Single";
+          firstValue(
+            song,
+            ["genre"],
+            "Single"
+          );
 
-        const audioURL =
-          firstValue(song,[
-            "audio_url",
-            "audio",
-            "audioUrl"
-          ]);
+        const audio =
+          firstValue(
+            song,
+            [
+              "audio_url",
+              "audio",
+              "audioUrl"
+            ],
+            ""
+          );
 
-        const spotify =
-          firstValue(song,[
-            "spotify_url",
-            "spotify",
-            "spotifyUrl"
-          ]);
-
-        const apple =
-          firstValue(song,[
-            "apple_music_url",
-            "apple_music",
-            "apple",
-            "appleMusic"
-          ]);
-
-        const youtube =
-          firstValue(song,[
-            "youtube_url",
-            "youtube",
-            "youtubeUrl"
-          ]);
-
-        const audiomack =
-          firstValue(song,[
-            "audiomack_url",
-            "audiomack",
-            "audiomackUrl"
-          ]);
-
-        let link =
-          spotify ||
-          apple ||
-          youtube ||
-          audiomack ||
-          "#music";
-
-        if(!validURL(link)){
-          link = "#music";
-        }
-
-        const audioButton =
-          audioURL && validURL(audioURL)
-          ? `<a class="play song-play"
-                href="${escapeHTML(audioURL)}"
-                data-audio="${escapeHTML(audioURL)}">
-                Play ↗
-             </a>`
-          : `<a class="play"
-                href="${escapeHTML(link)}"
-                ${link!=="#music" ? 'target="_blank" rel="noopener"' : ''}>
-                Play ↗
-             </a>`;
+        const safeAudio =
+          audio &&
+          validURL(audio);
 
         return `
-          <div class="music-row reveal">
+
+          <div
+            class="music-row reveal show"
+          >
 
             <div class="number">
               ${String(index+1).padStart(2,"0")}
             </div>
 
             <div>
-              <h3>${escapeHTML(title)}</h3>
+
+              <h3>
+                ${escapeHTML(title)}
+              </h3>
+
               <p>
-                ${escapeHTML(artist)}
-                ·
                 ${escapeHTML(genre)}
+                ·
+                ${escapeHTML(artist)}
               </p>
+
+              ${
+                getStreamingLinks(song).length
+                ?
+                streamingLinksHTML(song)
+                :
+                ""
+              }
+
+              ${
+                safeAudio
+                ?
+                `
+                <audio
+                  controls
+                  preload="none"
+                  style="
+                    width:min(520px,100%);
+                    margin-top:14px;
+                  "
+                >
+                  <source
+                    src="${escapeHTML(audio)}"
+                  >
+                </audio>
+                `
+                :
+                ""
+              }
+
             </div>
 
-            <div>
-              ${audioButton}
-            </div>
+            ${
+              getStreamingLinks(song).length
+              ?
+              `
+              <div class="arrow">
+                ↗
+              </div>
+              `
+              :
+              ""
+            }
 
           </div>
+
         `;
 
       }).join("");
 
 
-    document
-      .querySelectorAll(".song-play")
-      .forEach(button=>{
-
-        button.addEventListener("click",event=>{
-
-          event.preventDefault();
-
-          const audio =
-            document.getElementById("audioPlayer");
-
-          const source =
-            button.dataset.audio;
-
-          if(!source) return;
-
-          audio.src = source;
-          audio.style.display = "block";
-          audio.play().catch(()=>{});
-
-        });
-
-      });
-
-
-    document
-      .querySelectorAll(".music-row.reveal")
-      .forEach(element=>{
-
-        setTimeout(()=>{
-          element.classList.add("show");
-        },50);
-
-      });
-
-
-    loadLatestSong(songs[0]);
-
   }catch(error){
 
-    console.error("Songs loading error:",error);
+    console.error(
+      "Songs loading error:",
+      error
+    );
+
+    latestRelease.innerHTML = `
+      <div class="release-grid">
+
+        <div class="cover reveal show">
+          <img
+            src="assets/kharvie.jpg"
+            alt="Kharvie official portrait"
+          >
+        </div>
+
+        <div class="release-info reveal show">
+
+          <div class="eyebrow">
+            Kharvie Music
+          </div>
+
+          <h2>MUSIC</h2>
+
+          <p>
+            Music is currently being prepared.
+          </p>
+
+        </div>
+
+      </div>
+    `;
 
   }
 
 }
 
 
-/* =========================================
-   LATEST SONG
-========================================= */
-
-function loadLatestSong(song){
-
-  if(!song) return;
-
-  const title =
-    firstValue(song,["title","name"]) ||
-    "SWEET LOVE";
-
-  const description =
-    firstValue(song,[
-      "description",
-      "excerpt"
-    ]) ||
-    "Discover Kharvie's latest sound. Tap below to listen across the available music platforms.";
-
-  const cover =
-    firstValue(song,[
-      "cover_image_url",
-      "cover_url",
-      "cover",
-      "image_url",
-      "image"
-    ]);
-
-  const audio =
-    firstValue(song,[
-      "audio_url",
-      "audio",
-      "audioUrl"
-    ]);
-
-  const spotify =
-    firstValue(song,[
-      "spotify_url",
-      "spotify",
-      "spotifyUrl"
-    ]);
-
-  const apple =
-    firstValue(song,[
-      "apple_music_url",
-      "apple_music",
-      "apple",
-      "appleMusic"
-    ]);
-
-  const youtube =
-    firstValue(song,[
-      "youtube_url",
-      "youtube",
-      "youtubeUrl"
-    ]);
-
-  const audiomack =
-    firstValue(song,[
-      "audiomack_url",
-      "audiomack",
-      "audiomackUrl"
-    ]);
-
-  const releaseDate =
-    firstValue(song,[
-      "release_date",
-      "date"
-    ]);
-
-
-  document.getElementById("latestTitle")
-    .textContent =
-      title.toUpperCase();
-
-  document.getElementById("latestDescription")
-    .textContent =
-      description;
-
-
-  if(cover && validURL(cover)){
-
-    const image =
-      document.getElementById("latestCover");
-
-    image.src = cover;
-    image.alt =
-      `${title} — Kharvie official artwork`;
-
-  }
-
-
-  if(releaseDate){
-
-    document.getElementById("latestReleaseNote")
-      .textContent =
-        `Release · ${releaseDate}`;
-
-  }
-
-
-  const platform =
-    spotify ||
-    apple ||
-    youtube ||
-    audiomack;
-
-  const platformButton =
-    document.getElementById("latestPlatformLink");
-
-  if(platform && validURL(platform)){
-
-    platformButton.href = platform;
-    platformButton.target = "_blank";
-
-  }
-
-
-  const audioPlayer =
-    document.getElementById("audioPlayer");
-
-  if(audio && validURL(audio)){
-
-    audioPlayer.src = audio;
-    audioPlayer.style.display = "block";
-
-  }
-
-
-  const heroListen =
-    document.getElementById("heroListen");
-
-  if(platform && validURL(platform)){
-
-    heroListen.href = platform;
-    heroListen.target = "_blank";
-    heroListen.rel = "noopener";
-
-  }
-
-}
-
-
-/* =========================================
-   LOAD VIDEOS
-========================================= */
+/* ================================
+   VIDEOS
+================================ */
 
 async function loadVideos(){
 
   const container =
-    document.getElementById("videosContainer");
+    document.getElementById(
+      "video-container"
+    );
 
   try{
 
-    const {data,error} =
-      await supabaseClient
-        .from("videos")
-        .select("*");
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("videos")
+      .select("*");
 
     if(error){
-      console.error("Videos error:",error);
-      return;
+      throw error;
     }
 
-    if(!data || !data.length) return;
-
     const videos =
-      [...data].sort((a,b)=>{
-
-        const dateA =
-          firstValue(a,["date","release_date","created_at"]) || "";
-
-        const dateB =
-          firstValue(b,["date","release_date","created_at"]) || "";
-
-        return String(dateB).localeCompare(String(dateA));
-
-      });
-
+      Array.isArray(data)
+      ? data
+      : [];
 
     const video =
       videos[0];
 
+    if(!video){
+
+      container.innerHTML = `
+        <a
+          class="video-card reveal show"
+          href="https://www.youtube.com/@Kharvie-M"
+          target="_blank"
+          rel="noopener"
+        >
+
+          <img
+            src="assets/kharvie.jpg"
+            alt="Kharvie official video preview"
+          >
+
+          <span class="circle-play">
+            PLAY ↗
+          </span>
+
+          <div class="video-content">
+
+            <h2>
+              KHARVIE<br>ON SCREEN
+            </h2>
+
+            <p>
+              Watch official music videos,
+              performances and new visual content.
+            </p>
+
+          </div>
+
+        </a>
+      `;
+
+      return;
+    }
+
+
     const title =
-      firstValue(video,["title","name"]) ||
-      "KHARVIE ON SCREEN";
+      firstValue(
+        video,
+        ["title","name"],
+        "KHARVIE ON SCREEN"
+      );
 
     const url =
-      firstValue(video,[
-        "url",
-        "video_url",
-        "youtube_url"
-      ]);
-
-    const image =
-      firstValue(video,[
-        "thumbnail_url",
-        "image_url",
-        "image"
-      ]);
-
-
-    if(!url || !validURL(url)) return;
-
+      firstValue(
+        video,
+        ["url","video_url","videoUrl"],
+        "https://www.youtube.com/@Kharvie-M"
+      );
 
     container.innerHTML = `
-      <a class="video-card reveal"
-         href="${escapeHTML(url)}"
-         target="_blank"
-         rel="noopener">
+
+      <a
+        class="video-card reveal show"
+        href="${escapeHTML(url)}"
+        target="_blank"
+        rel="noopener"
+      >
 
         <img
-          src="${escapeHTML(
-            image && validURL(image)
-              ? image
-              : "assets/kharvie-portrait.jpg"
-          )}"
-          alt="${escapeHTML(title)}">
+          src="assets/kharvie.jpg"
+          alt="Kharvie official video preview"
+        >
 
-        <span class="circle-play">PLAY ↗</span>
+        <span class="circle-play">
+          PLAY ↗
+        </span>
 
         <div class="video-content">
 
@@ -1789,113 +2196,137 @@ async function loadVideos(){
 
           <p>
             Watch official music videos,
-            performances and new visual content
-            from Kharvie.
+            performances and visual content.
           </p>
 
         </div>
 
       </a>
-    `;
 
-    setTimeout(()=>{
-      container
-        .querySelector(".video-card")
-        ?.classList.add("show");
-    },100);
+    `;
 
   }catch(error){
 
-    console.error("Videos loading error:",error);
+    console.error(
+      "Videos loading error:",
+      error
+    );
 
   }
 
 }
 
 
-/* =========================================
-   LOAD EVENTS
-========================================= */
+/* ================================
+   EVENTS
+================================ */
 
 async function loadEvents(){
 
   const container =
-    document.getElementById("eventsContainer");
+    document.getElementById(
+      "events-container"
+    );
 
   try{
 
-    const {data,error} =
-      await supabaseClient
-        .from("events")
-        .select("*");
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("events")
+      .select("*");
 
     if(error){
-      console.error("Events error:",error);
-      return;
+      throw error;
     }
 
-    if(!data || !data.length) return;
-
-
     const events =
-      [...data].sort((a,b)=>{
+      Array.isArray(data)
+      ? data
+      : [];
 
-        const dateA =
-          firstValue(a,["date","event_date","created_at"]) || "";
+    if(!events.length){
 
-        const dateB =
-          firstValue(b,["date","event_date","created_at"]) || "";
+      container.innerHTML = `
 
-        return String(dateA).localeCompare(String(dateB));
+        <div class="live-item reveal show">
 
-      });
+          <div class="date">
+            2026
+          </div>
+
+          <div>
+            <h3>
+              Upcoming appearances
+            </h3>
+
+            <p>
+              Official dates will be announced here.
+            </p>
+          </div>
+
+          <div class="status">
+            Coming soon
+          </div>
+
+        </div>
+
+        <div class="live-item reveal show">
+
+          <div class="date">
+            BOOKINGS
+          </div>
+
+          <div>
+            <h3>
+              Performance enquiries
+            </h3>
+
+            <p>
+              Official contact details can be added when confirmed.
+            </p>
+          </div>
+
+          <div class="status">
+            Available
+          </div>
+
+        </div>
+
+      `;
+
+      return;
+    }
 
 
     container.innerHTML =
       events.map(event=>{
 
-        const date =
-          firstValue(event,[
-            "date",
-            "event_date"
-          ]) || "";
-
         const title =
-          firstValue(event,[
-            "title",
-            "name"
-          ]) ||
-          "Kharvie Live";
+          firstValue(
+            event,
+            ["title","name"],
+            "Kharvie"
+          );
+
+        const date =
+          firstValue(
+            event,
+            ["date","event_date"],
+            "TBA"
+          );
 
         const venue =
-          firstValue(event,[
-            "venue",
-            "location"
-          ]) || "";
-
-        const city =
-          firstValue(event,["city"]) || "";
-
-        const country =
-          firstValue(event,["country"]) ||
-          "Nigeria";
-
-        const ticket =
-          firstValue(event,[
-            "ticket_url",
-            "tickets",
-            "ticket"
-          ]);
-
-
-        const location =
-          [venue,city,country]
-            .filter(Boolean)
-            .join(" · ");
-
+          firstValue(
+            event,
+            ["venue","location"],
+            ""
+          );
 
         return `
-          <div class="live-item reveal">
+
+          <div class="live-item reveal show">
 
             <div class="date">
               ${escapeHTML(date)}
@@ -1908,117 +2339,37 @@ async function loadEvents(){
               </h3>
 
               <p>
-                ${escapeHTML(location)}
+                ${escapeHTML(venue)}
               </p>
 
             </div>
 
             <div class="status">
-
-              ${
-                ticket && validURL(ticket)
-                ? `<a href="${escapeHTML(ticket)}"
-                      target="_blank"
-                      rel="noopener">
-                      Tickets ↗
-                   </a>`
-                : "Coming soon"
-              }
-
+              Event
             </div>
 
           </div>
+
         `;
 
       }).join("");
 
 
-    setTimeout(()=>{
-
-      container
-        .querySelectorAll(".reveal")
-        .forEach(element=>{
-          element.classList.add("show");
-        });
-
-    },100);
-
   }catch(error){
 
-    console.error("Events loading error:",error);
+    console.error(
+      "Events loading error:",
+      error
+    );
 
   }
 
 }
 
 
-/* =========================================
-   START SUPABASE CONTENT
-========================================= */
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-  loadSongs();
-  loadVideos();
-  loadEvents();
-
-});
-
-
-/* =========================================
-   LOADER
-========================================= */
-
-window.addEventListener("load",()=>{
-
-  setTimeout(()=>{
-
-    document
-      .querySelector(".loader")
-      ?.classList.add("hide");
-
-  },900);
-
-});
-
-
-/* =========================================
-   REVEAL ANIMATIONS
-========================================= */
-
-const io =
-  new IntersectionObserver(
-    entries=>{
-
-      entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-          entry.target.classList.add("show");
-
-          entry.target
-            .closest(".section-top")
-            ?.classList.add("is-visible");
-
-        }
-
-      });
-
-    },
-    {threshold:.12}
-  );
-
-
-document
-  .querySelectorAll(".reveal,.section-top")
-  .forEach(element=>{
-    io.observe(element);
-  });
-
-
-/* =========================================
+/* ================================
    MOBILE MENU
-========================================= */
+================================ */
 
 const menu =
   document.querySelector(".menu");
@@ -2026,39 +2377,39 @@ const menu =
 const links =
   document.querySelector(".links");
 
-menu?.addEventListener("click",()=>{
-
-  links.classList.toggle("open");
-
-});
-
+menu.addEventListener(
+  "click",
+  ()=>{
+    links.classList.toggle("open");
+  }
+);
 
 document
   .querySelectorAll(".links a")
-  .forEach(link=>{
-
-    link.addEventListener("click",()=>{
-
-      links.classList.remove("open");
-
-    });
-
+  .forEach(a=>{
+    a.addEventListener(
+      "click",
+      ()=>{
+        links.classList.remove("open");
+      }
+    );
   });
 
 
-/* =========================================
-   SCROLL MOTION
-========================================= */
+/* ================================
+   SCROLL + MOTION
+================================ */
 
 const progress =
-  document.querySelector(".scroll-progress");
+  document.querySelector(
+    ".scroll-progress"
+  );
 
 const nav =
   document.querySelector(".nav");
 
 let lastY =
   window.scrollY;
-
 
 function motionFrame(){
 
@@ -2070,28 +2421,31 @@ function motionFrame(){
     innerHeight;
 
   progress.style.width =
-    (max > 0 ? (y / max) * 100 : 0) + "%";
+    (max > 0
+      ? (y / max) * 100
+      : 0
+    ) + "%";
 
   nav.classList.toggle(
     "scrolled",
     y > 30
   );
 
-  if(y > lastY && y > 180){
-
+  if(
+    y > lastY &&
+    y > 180
+  ){
     nav.classList.add("hidden");
-
   }else{
-
     nav.classList.remove("hidden");
-
   }
 
   lastY = y;
 
-
   const hero =
-    document.querySelector(".hero-photo");
+    document.querySelector(
+      ".hero-photo"
+    );
 
   if(
     hero &&
@@ -2103,19 +2457,66 @@ function motionFrame(){
 
   }
 
-  requestAnimationFrame(motionFrame);
-
+  requestAnimationFrame(
+    motionFrame
+  );
 }
 
-requestAnimationFrame(motionFrame);
+requestAnimationFrame(
+  motionFrame
+);
 
 
-/* =========================================
-   CINEMATIC POINTER EFFECT
-========================================= */
+/* ================================
+   REVEAL ANIMATIONS
+================================ */
+
+const observer =
+  new IntersectionObserver(
+    entries=>{
+
+      entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+          entry.target.classList.add(
+            "show"
+          );
+
+          entry.target
+            .closest(".section-top")
+            ?.classList.add(
+              "is-visible"
+            );
+
+        }
+
+      });
+
+    },
+    {
+      threshold:.12
+    }
+  );
+
+
+document
+  .querySelectorAll(
+    ".reveal,.section-top"
+  )
+  .forEach(element=>{
+    observer.observe(element);
+  });
+
+
+/* ================================
+   POINTER PARALLAX
+================================ */
 
 if(
-  window.matchMedia("(pointer:fine)").matches
+  window.matchMedia(
+    "(pointer:fine)"
+  ).matches
 ){
 
   document.addEventListener(
@@ -2123,7 +2524,9 @@ if(
     event=>{
 
       const hero =
-        document.querySelector(".hero");
+        document.querySelector(
+          ".hero"
+        );
 
       if(!hero) return;
 
@@ -2147,6 +2550,30 @@ if(
   );
 
 }
+
+
+/* ================================
+   START
+================================ */
+
+window.addEventListener(
+  "load",
+  ()=>{
+    setTimeout(
+      ()=>{
+        document
+          .querySelector(".loader")
+          ?.classList.add("hide");
+      },
+      900
+    );
+  }
+);
+
+loadSongs();
+loadVideos();
+loadEvents();
+
 </script>
 
 </body>
