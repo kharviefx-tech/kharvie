@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kharvie.netlify.app/sitemap.xml
+Sitemap: https://kharviefx-tech.github.io/kharvie/sitemap.xml
