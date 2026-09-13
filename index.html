@@ -1500,7 +1500,12 @@ function escapeHTML(value){
 function validURL(value){
   try{
     const url = new URL(value);
-    return ["http:","https:"].includes(url.protocol);
+
+    return [
+      "http:",
+      "https:"
+    ].includes(url.protocol);
+
   }catch{
     return false;
   }
@@ -1508,7 +1513,57 @@ function validURL(value){
 
 
 /* ================================
-   UNLIMITED STREAMING PLATFORMS
+   PLATFORM LABEL HELPER
+================================ */
+
+function platformLabel(value){
+
+  const text =
+    String(value ?? "")
+      .trim()
+      .replace(/[-_]+/g," ");
+
+  if(!text){
+    return "Platform";
+  }
+
+  const known = {
+    spotify:"Spotify",
+    apple:"Apple Music",
+    apple_music:"Apple Music",
+    youtube:"YouTube",
+    youtube_music:"YouTube Music",
+    audiomack:"Audiomack",
+    boomplay:"Boomplay",
+    deezer:"Deezer",
+    tidal:"TIDAL",
+    amazon:"Amazon Music",
+    amazon_music:"Amazon Music",
+    soundcloud:"SoundCloud",
+    pandora:"Pandora"
+  };
+
+  const lower =
+    text.toLowerCase().replace(/\s+/g,"_");
+
+  if(known[lower]){
+    return known[lower];
+  }
+
+  return text
+    .split(" ")
+    .map(word=>{
+      if(!word) return word;
+
+      return word.charAt(0).toUpperCase() +
+        word.slice(1);
+    })
+    .join(" ");
+}
+
+
+/* ================================
+   UNLIMITED LEGACY STREAMING
 ================================ */
 
 const standardPlatformFields = [
@@ -1526,128 +1581,223 @@ const standardPlatformFields = [
 ];
 
 
-function getStreamingLinks(row){
+/* ================================
+   PARSE FLEXIBLE PLATFORM DATA
+================================ */
+
+function parsePlatformData(custom){
 
   const links = [];
 
-  /*
-    Existing platform columns are supported automatically.
-  */
+  if(
+    custom === undefined ||
+    custom === null ||
+    custom === ""
+  ){
+    return links;
+  }
 
-  standardPlatformFields.forEach(([label,fields])=>{
-    const value = firstValue(row,fields,"");
+  try{
 
-    if(value && validURL(value)){
-      links.push({
-        label,
-        url:value
-      });
-    }
-  });
-
-
-  /*
-    NEW FLEXIBLE FIELD:
-
-    streaming_links can contain either:
-
-    {
-      "Spotify":"https://...",
-      "Boomplay":"https://...",
-      "TIDAL":"https://..."
+    if(typeof custom === "string"){
+      custom = JSON.parse(custom);
     }
 
-    OR:
+    /*
+      JSON object:
 
-    [
-      {"name":"Spotify","url":"https://..."},
-      {"name":"Boomplay","url":"https://..."}
-    ]
-  */
-
-  let custom =
-    firstValue(
-      row,
-      [
-        "streaming_links",
-        "streamingLinks",
-        "platform_links",
-        "platformLinks"
-      ],
-      ""
-    );
-
-  if(custom){
-
-    try{
-
-      if(typeof custom === "string"){
-        custom = JSON.parse(custom);
+      {
+        "spotify":"https://...",
+        "apple_music":"https://..."
       }
+    */
 
-      if(Array.isArray(custom)){
+    if(
+      custom &&
+      typeof custom === "object" &&
+      !Array.isArray(custom)
+    ){
 
-        custom.forEach(item=>{
-
-          const label =
-            item?.name ||
-            item?.label ||
-            item?.platform;
-
-          const url =
-            item?.url ||
-            item?.link;
+      Object.entries(custom).forEach(
+        ([label,url])=>{
 
           if(
             label &&
-            url &&
+            typeof url === "string" &&
             validURL(url)
           ){
+
             links.push({
-              label,
-              url
+              label:platformLabel(label),
+              url:url.trim()
             });
-          }
-
-        });
-
-      }else if(
-        typeof custom === "object"
-      ){
-
-        Object.entries(custom).forEach(
-          ([label,url])=>{
-
-            if(
-              label &&
-              url &&
-              validURL(url)
-            ){
-              links.push({
-                label,
-                url
-              });
-            }
 
           }
-        );
 
-      }
-
-    }catch(error){
-
-      console.warn(
-        "Could not read streaming_links:",
-        error
+        }
       );
 
     }
 
+
+    /*
+      JSON array:
+
+      [
+        {
+          "name":"Spotify",
+          "url":"https://..."
+        }
+      ]
+    */
+
+    if(Array.isArray(custom)){
+
+      custom.forEach(item=>{
+
+        if(!item || typeof item !== "object"){
+          return;
+        }
+
+        const label =
+          item.name ||
+          item.label ||
+          item.platform;
+
+        const url =
+          item.url ||
+          item.link;
+
+        if(
+          label &&
+          typeof url === "string" &&
+          validURL(url)
+        ){
+
+          links.push({
+            label:platformLabel(label),
+            url:url.trim()
+          });
+
+        }
+
+      });
+
+    }
+
+  }catch(error){
+
+    console.warn(
+      "Could not parse streaming platform data:",
+      error
+    );
+
   }
+
+  return links;
+}
+
+
+/* ================================
+   GET STREAMING LINKS
+================================ */
+
+function getStreamingLinks(
+  row,
+  releaseTrackPlatforms={}
+){
+
+  const links = [];
 
 
   /*
-    Remove duplicates.
+    Legacy platform columns from songs/releases.
+  */
+
+  standardPlatformFields.forEach(
+    ([label,fields])=>{
+
+      const value =
+        firstValue(
+          row,
+          fields,
+          ""
+        );
+
+      if(
+        value &&
+        validURL(value)
+      ){
+
+        links.push({
+          label,
+          url:String(value).trim()
+        });
+
+      }
+
+    }
+  );
+
+
+  /*
+    Legacy flexible fields.
+
+    These are retained so nothing
+    previously supported is lost.
+  */
+
+  [
+    "streaming_links",
+    "streamingLinks",
+    "platform_links",
+    "platformLinks"
+  ].forEach(field=>{
+
+    if(
+      row &&
+      row[field] !== undefined &&
+      row[field] !== null &&
+      row[field] !== ""
+    ){
+
+      links.push(
+        ...parsePlatformData(
+          row[field]
+        )
+      );
+
+    }
+
+  });
+
+
+  /*
+    NEW SYSTEM:
+
+    release_tracks.streaming_platforms
+
+    This is the new JSONB field.
+
+    Example:
+
+    {
+      "spotify":"https://...",
+      "apple_music":"https://...",
+      "boomplay":"https://...",
+      "deezer":"https://..."
+    }
+  */
+
+  links.push(
+    ...parsePlatformData(
+      releaseTrackPlatforms
+    )
+  );
+
+
+  /*
+    Remove duplicate platform + URL combinations.
   */
 
   const seen = new Set();
@@ -1664,6 +1814,7 @@ function getStreamingLinks(row){
     }
 
     seen.add(key);
+
     return true;
 
   });
@@ -1675,10 +1826,16 @@ function getStreamingLinks(row){
    STREAMING LINK HTML
 ================================ */
 
-function streamingLinksHTML(row){
+function streamingLinksHTML(
+  row,
+  releaseTrackPlatforms={}
+){
 
   const links =
-    getStreamingLinks(row);
+    getStreamingLinks(
+      row,
+      releaseTrackPlatforms
+    );
 
   if(!links.length){
     return "";
@@ -1686,7 +1843,9 @@ function streamingLinksHTML(row){
 
   return `
     <div class="streaming-links">
+
       ${links.map(link=>`
+
         <a
           class="streaming-link"
           href="${escapeHTML(link.url)}"
@@ -1695,9 +1854,201 @@ function streamingLinksHTML(row){
         >
           ${escapeHTML(link.label)} ↗
         </a>
+
       `).join("")}
+
     </div>
   `;
+}
+
+
+/* ================================
+   LOAD RELEASE TRACK PLATFORMS
+================================ */
+
+async function loadReleaseTrackPlatforms(){
+
+  const platformsBySongId = {};
+
+
+  try{
+
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("release_tracks")
+      .select(
+        "id,release_id,song_id,track_number,created_at,streaming_platforms"
+      );
+
+
+    if(error){
+
+      console.warn(
+        "Release tracks could not be loaded:",
+        error
+      );
+
+      return platformsBySongId;
+    }
+
+
+    const tracks =
+      Array.isArray(data)
+      ? data
+      : [];
+
+
+    /*
+      A song can potentially appear in
+      more than one release track row.
+
+      We merge all platform links for
+      the same song_id.
+    */
+
+    tracks.forEach(track=>{
+
+      const songId =
+        track.song_id;
+
+      if(!songId){
+        return;
+      }
+
+
+      if(
+        !platformsBySongId[songId]
+      ){
+
+        platformsBySongId[songId] = {};
+
+      }
+
+
+      const platformData =
+        track.streaming_platforms;
+
+
+      if(
+        !platformData
+      ){
+
+        return;
+
+      }
+
+
+      let parsed =
+        platformData;
+
+
+      try{
+
+        if(typeof parsed === "string"){
+          parsed =
+            JSON.parse(parsed);
+        }
+
+      }catch(error){
+
+        console.warn(
+          "Invalid streaming_platforms JSON:",
+          error
+        );
+
+        return;
+
+      }
+
+
+      /*
+        JSON object format.
+      */
+
+      if(
+        parsed &&
+        typeof parsed === "object" &&
+        !Array.isArray(parsed)
+      ){
+
+        Object.entries(parsed).forEach(
+          ([platform,url])=>{
+
+            if(
+              platform &&
+              typeof url === "string" &&
+              validURL(url)
+            ){
+
+              platformsBySongId[songId][
+                platform
+              ] = url.trim();
+
+            }
+
+          }
+        );
+
+      }
+
+
+      /*
+        Array format is also supported.
+      */
+
+      if(Array.isArray(parsed)){
+
+        parsed.forEach(item=>{
+
+          if(
+            !item ||
+            typeof item !== "object"
+          ){
+            return;
+          }
+
+          const platform =
+            item.name ||
+            item.label ||
+            item.platform;
+
+          const url =
+            item.url ||
+            item.link;
+
+          if(
+            platform &&
+            typeof url === "string" &&
+            validURL(url)
+          ){
+
+            platformsBySongId[songId][
+              platform
+            ] = url.trim();
+
+          }
+
+        });
+
+      }
+
+    });
+
+
+  }catch(error){
+
+    console.error(
+      "Release tracks loading error:",
+      error
+    );
+
+  }
+
+
+  return platformsBySongId;
+
 }
 
 
@@ -1708,46 +2059,249 @@ function streamingLinksHTML(row){
 async function loadSongs(){
 
   const musicList =
-    document.getElementById("music-list");
+    document.getElementById(
+      "music-list"
+    );
 
   const latestRelease =
-    document.getElementById("latest-release");
+    document.getElementById(
+      "latest-release"
+    );
+
 
   try{
 
-    const {
-      data,
-      error
-    } = await supabaseClient
-      .from("songs")
-      .select("*");
+    /*
+      Load songs and the new
+      release_tracks table together.
+    */
 
-    if(error){
-      throw error;
+    const [
+      songsResult,
+      releaseTracksResult
+    ] = await Promise.all([
+
+      supabaseClient
+        .from("songs")
+        .select("*"),
+
+      supabaseClient
+        .from("release_tracks")
+        .select(
+          "id,release_id,song_id,track_number,created_at,streaming_platforms"
+        )
+
+    ]);
+
+
+    if(songsResult.error){
+      throw songsResult.error;
     }
 
-    const songs = Array.isArray(data)
-      ? data
+
+    const songs =
+      Array.isArray(songsResult.data)
+      ? songsResult.data
       : [];
+
+
+    /*
+      If release_tracks cannot be read,
+      songs can still display.
+
+      This protects the rest of the
+      website from failing.
+    */
+
+    let releaseTracks = [];
+
+
+    if(
+      releaseTracksResult &&
+      !releaseTracksResult.error &&
+      Array.isArray(
+        releaseTracksResult.data
+      )
+    ){
+
+      releaseTracks =
+        releaseTracksResult.data;
+
+    }else if(
+      releaseTracksResult?.error
+    ){
+
+      console.warn(
+        "release_tracks unavailable:",
+        releaseTracksResult.error
+      );
+
+    }
+
+
+    /*
+      Build:
+
+      song_id → streaming_platforms
+    */
+
+    const platformsBySongId = {};
+
+
+    releaseTracks.forEach(track=>{
+
+      if(!track.song_id){
+        return;
+      }
+
+
+      if(
+        !platformsBySongId[
+          track.song_id
+        ]
+      ){
+
+        platformsBySongId[
+          track.song_id
+        ] = {};
+
+      }
+
+
+      let platforms =
+        track.streaming_platforms;
+
+
+      if(!platforms){
+        return;
+      }
+
+
+      try{
+
+        if(typeof platforms === "string"){
+          platforms =
+            JSON.parse(platforms);
+        }
+
+      }catch(error){
+
+        console.warn(
+          "Invalid release_tracks.streaming_platforms:",
+          error
+        );
+
+        return;
+
+      }
+
+
+      /*
+        Object format.
+      */
+
+      if(
+        platforms &&
+        typeof platforms === "object" &&
+        !Array.isArray(platforms)
+      ){
+
+        Object.entries(
+          platforms
+        ).forEach(
+          ([platform,url])=>{
+
+            if(
+              platform &&
+              typeof url === "string" &&
+              validURL(url)
+            ){
+
+              platformsBySongId[
+                track.song_id
+              ][platform] =
+                url.trim();
+
+            }
+
+          }
+        );
+
+      }
+
+
+      /*
+        Array format.
+      */
+
+      if(Array.isArray(platforms)){
+
+        platforms.forEach(item=>{
+
+          if(
+            !item ||
+            typeof item !== "object"
+          ){
+            return;
+          }
+
+          const platform =
+            item.name ||
+            item.label ||
+            item.platform;
+
+          const url =
+            item.url ||
+            item.link;
+
+          if(
+            platform &&
+            typeof url === "string" &&
+            validURL(url)
+          ){
+
+            platformsBySongId[
+              track.song_id
+            ][platform] =
+              url.trim();
+
+          }
+
+        });
+
+      }
+
+    });
+
 
     songs.sort((a,b)=>{
 
       const da =
         firstValue(
           a,
-          ["release_date","date","created_at"],
+          [
+            "release_date",
+            "date",
+            "created_at"
+          ],
           ""
         );
 
       const db =
         firstValue(
           b,
-          ["release_date","date","created_at"],
+          [
+            "release_date",
+            "date",
+            "created_at"
+          ],
           ""
         );
 
       return String(db)
-        .localeCompare(String(da));
+        .localeCompare(
+          String(da)
+        );
 
     });
 
@@ -1760,10 +2314,12 @@ async function loadSongs(){
         <div class="release-grid">
 
           <div class="cover reveal show">
+
             <img
               src="assets/kharvie.jpg"
               alt="Kharvie official portrait"
             >
+
           </div>
 
           <div class="release-info reveal show">
@@ -1797,19 +2353,28 @@ async function loadSongs(){
     const latest =
       songs[0];
 
+
     const latestTitle =
       firstValue(
         latest,
-        ["title","name"],
+        [
+          "title",
+          "name"
+        ],
         "Kharvie"
       );
+
 
     const latestDescription =
       firstValue(
         latest,
-        ["description","excerpt"],
+        [
+          "description",
+          "excerpt"
+        ],
         "Discover Kharvie's latest sound."
       );
+
 
     const latestCover =
       firstValue(
@@ -1824,6 +2389,7 @@ async function loadSongs(){
         "assets/kharvie.jpg"
       );
 
+
     const latestAudio =
       firstValue(
         latest,
@@ -1835,14 +2401,32 @@ async function loadSongs(){
         ""
       );
 
+
     const latestArtist =
       firstValue(
         latest,
-        ["artist"],
+        [
+          "artist"
+        ],
         "Kharvie"
       );
 
+
+    /*
+      NEW:
+
+      Find streaming platforms belonging
+      to the latest song through song_id.
+    */
+
+    const latestPlatforms =
+      platformsBySongId[
+        latest.id
+      ] || {};
+
+
     let audioHTML = "";
+
 
     if(
       latestAudio &&
@@ -1858,10 +2442,14 @@ async function loadSongs(){
             margin-top:22px;
           "
         >
+
           <source
             src="${escapeHTML(latestAudio)}"
           >
-          Your browser does not support audio playback.
+
+          Your browser does not support
+          audio playback.
+
         </audio>
       `;
 
@@ -1882,23 +2470,35 @@ async function loadSongs(){
 
         </div>
 
+
         <div class="release-info reveal show">
 
           <div class="eyebrow">
-            Latest Release · ${escapeHTML(latestArtist)}
+            Latest Release ·
+            ${escapeHTML(latestArtist)}
           </div>
+
 
           <h2>
             ${escapeHTML(latestTitle)}
           </h2>
 
+
           <p>
             ${escapeHTML(latestDescription)}
           </p>
 
+
           ${audioHTML}
 
-          ${streamingLinksHTML(latest)}
+
+          ${
+            streamingLinksHTML(
+              latest,
+              latestPlatforms
+            )
+          }
+
 
           <div class="buttons">
 
@@ -1912,7 +2512,9 @@ async function loadSongs(){
                 href="#"
                 onclick="
                   event.preventDefault();
-                  document.querySelector('audio')?.play();
+                  document
+                    .querySelector('#latest-release audio')
+                    ?.play();
                 "
               >
                 Play On Website →
@@ -1936,114 +2538,158 @@ async function loadSongs(){
     ================================= */
 
     musicList.innerHTML =
-      songs.map((song,index)=>{
+      songs.map(
+        (song,index)=>{
 
-        const title =
-          firstValue(
-            song,
-            ["title","name"],
-            "Untitled"
-          );
+          const title =
+            firstValue(
+              song,
+              [
+                "title",
+                "name"
+              ],
+              "Untitled"
+            );
 
-        const artist =
-          firstValue(
-            song,
-            ["artist"],
-            "Kharvie"
-          );
 
-        const genre =
-          firstValue(
-            song,
-            ["genre"],
-            "Single"
-          );
+          const artist =
+            firstValue(
+              song,
+              [
+                "artist"
+              ],
+              "Kharvie"
+            );
 
-        const audio =
-          firstValue(
-            song,
-            [
-              "audio_url",
-              "audio",
-              "audioUrl"
-            ],
-            ""
-          );
 
-        const safeAudio =
-          audio &&
-          validURL(audio);
+          const genre =
+            firstValue(
+              song,
+              [
+                "genre"
+              ],
+              "Single"
+            );
 
-        return `
 
-          <div
-            class="music-row reveal show"
-          >
-
-            <div class="number">
-              ${String(index+1).padStart(2,"0")}
-            </div>
-
-            <div>
-
-              <h3>
-                ${escapeHTML(title)}
-              </h3>
-
-              <p>
-                ${escapeHTML(genre)}
-                ·
-                ${escapeHTML(artist)}
-              </p>
-
-              ${
-                getStreamingLinks(song).length
-                ?
-                streamingLinksHTML(song)
-                :
-                ""
-              }
-
-              ${
-                safeAudio
-                ?
-                `
-                <audio
-                  controls
-                  preload="none"
-                  style="
-                    width:min(520px,100%);
-                    margin-top:14px;
-                  "
-                >
-                  <source
-                    src="${escapeHTML(audio)}"
-                  >
-                </audio>
-                `
-                :
-                ""
-              }
-
-            </div>
-
-            ${
-              getStreamingLinks(song).length
-              ?
-              `
-              <div class="arrow">
-                ↗
-              </div>
-              `
-              :
+          const audio =
+            firstValue(
+              song,
+              [
+                "audio_url",
+                "audio",
+                "audioUrl"
+              ],
               ""
-            }
+            );
 
-          </div>
 
-        `;
+          const safeAudio =
+            audio &&
+            validURL(audio);
 
-      }).join("");
+
+          /*
+            NEW:
+
+            Match this song's ID to
+            release_tracks.song_id.
+          */
+
+          const songPlatforms =
+            platformsBySongId[
+              song.id
+            ] || {};
+
+
+          const songStreamingLinks =
+            getStreamingLinks(
+              song,
+              songPlatforms
+            );
+
+
+          return `
+
+            <div
+              class="music-row reveal show"
+            >
+
+              <div class="number">
+                ${String(index+1).padStart(2,"0")}
+              </div>
+
+
+              <div>
+
+                <h3>
+                  ${escapeHTML(title)}
+                </h3>
+
+
+                <p>
+                  ${escapeHTML(genre)}
+                  ·
+                  ${escapeHTML(artist)}
+                </p>
+
+
+                ${
+                  songStreamingLinks.length
+                  ?
+                  streamingLinksHTML(
+                    song,
+                    songPlatforms
+                  )
+                  :
+                  ""
+                }
+
+
+                ${
+                  safeAudio
+                  ?
+                  `
+                  <audio
+                    controls
+                    preload="none"
+                    style="
+                      width:min(520px,100%);
+                      margin-top:14px;
+                    "
+                  >
+
+                    <source
+                      src="${escapeHTML(audio)}"
+                    >
+
+                  </audio>
+                  `
+                  :
+                  ""
+                }
+
+              </div>
+
+
+              ${
+                songStreamingLinks.length
+                ?
+                `
+                <div class="arrow">
+                  ↗
+                </div>
+                `
+                :
+                ""
+              }
+
+            </div>
+
+          `;
+
+        }
+      ).join("");
 
 
   }catch(error){
@@ -2053,15 +2699,20 @@ async function loadSongs(){
       error
     );
 
+
     latestRelease.innerHTML = `
+
       <div class="release-grid">
 
         <div class="cover reveal show">
+
           <img
             src="assets/kharvie.jpg"
             alt="Kharvie official portrait"
           >
+
         </div>
+
 
         <div class="release-info reveal show">
 
@@ -2078,6 +2729,7 @@ async function loadSongs(){
         </div>
 
       </div>
+
     `;
 
   }
@@ -2159,16 +2811,25 @@ async function loadVideos(){
     const title =
       firstValue(
         video,
-        ["title","name"],
+        [
+          "title",
+          "name"
+        ],
         "KHARVIE ON SCREEN"
       );
+
 
     const url =
       firstValue(
         video,
-        ["url","video_url","videoUrl"],
+        [
+          "url",
+          "video_url",
+          "videoUrl"
+        ],
         "https://www.youtube.com/@Kharvie-M"
       );
+
 
     container.innerHTML = `
 
@@ -2246,6 +2907,7 @@ async function loadEvents(){
       ? data
       : [];
 
+
     if(!events.length){
 
       container.innerHTML = `
@@ -2257,6 +2919,7 @@ async function loadEvents(){
           </div>
 
           <div>
+
             <h3>
               Upcoming appearances
             </h3>
@@ -2264,6 +2927,7 @@ async function loadEvents(){
             <p>
               Official dates will be announced here.
             </p>
+
           </div>
 
           <div class="status">
@@ -2272,6 +2936,7 @@ async function loadEvents(){
 
         </div>
 
+
         <div class="live-item reveal show">
 
           <div class="date">
@@ -2279,6 +2944,7 @@ async function loadEvents(){
           </div>
 
           <div>
+
             <h3>
               Performance enquiries
             </h3>
@@ -2286,6 +2952,7 @@ async function loadEvents(){
             <p>
               Official contact details can be added when confirmed.
             </p>
+
           </div>
 
           <div class="status">
@@ -2301,58 +2968,76 @@ async function loadEvents(){
 
 
     container.innerHTML =
-      events.map(event=>{
+      events.map(
+        event=>{
 
-        const title =
-          firstValue(
-            event,
-            ["title","name"],
-            "Kharvie"
-          );
+          const title =
+            firstValue(
+              event,
+              [
+                "title",
+                "name"
+              ],
+              "Kharvie"
+            );
 
-        const date =
-          firstValue(
-            event,
-            ["date","event_date"],
-            "TBA"
-          );
 
-        const venue =
-          firstValue(
-            event,
-            ["venue","location"],
-            ""
-          );
+          const date =
+            firstValue(
+              event,
+              [
+                "date",
+                "event_date"
+              ],
+              "TBA"
+            );
 
-        return `
 
-          <div class="live-item reveal show">
+          const venue =
+            firstValue(
+              event,
+              [
+                "venue",
+                "location"
+              ],
+              ""
+            );
 
-            <div class="date">
-              ${escapeHTML(date)}
+
+          return `
+
+            <div
+              class="live-item reveal show"
+            >
+
+              <div class="date">
+                ${escapeHTML(date)}
+              </div>
+
+
+              <div>
+
+                <h3>
+                  ${escapeHTML(title)}
+                </h3>
+
+                <p>
+                  ${escapeHTML(venue)}
+                </p>
+
+              </div>
+
+
+              <div class="status">
+                Event
+              </div>
+
             </div>
 
-            <div>
+          `;
 
-              <h3>
-                ${escapeHTML(title)}
-              </h3>
-
-              <p>
-                ${escapeHTML(venue)}
-              </p>
-
-            </div>
-
-            <div class="status">
-              Event
-            </div>
-
-          </div>
-
-        `;
-
-      }).join("");
+        }
+      ).join("");
 
 
   }catch(error){
@@ -2372,27 +3057,41 @@ async function loadEvents(){
 ================================ */
 
 const menu =
-  document.querySelector(".menu");
+  document.querySelector(
+    ".menu"
+  );
 
 const links =
-  document.querySelector(".links");
+  document.querySelector(
+    ".links"
+  );
+
 
 menu.addEventListener(
   "click",
   ()=>{
-    links.classList.toggle("open");
+    links.classList.toggle(
+      "open"
+    );
   }
 );
 
+
 document
-  .querySelectorAll(".links a")
+  .querySelectorAll(
+    ".links a"
+  )
   .forEach(a=>{
+
     a.addEventListener(
       "click",
       ()=>{
-        links.classList.remove("open");
+        links.classList.remove(
+          "open"
+        );
       }
     );
+
   });
 
 
@@ -2406,46 +3105,66 @@ const progress =
   );
 
 const nav =
-  document.querySelector(".nav");
+  document.querySelector(
+    ".nav"
+  );
 
 let lastY =
   window.scrollY;
+
 
 function motionFrame(){
 
   const y =
     window.scrollY;
 
+
   const max =
-    document.documentElement.scrollHeight -
+    document.documentElement
+      .scrollHeight -
     innerHeight;
 
+
   progress.style.width =
-    (max > 0
+    (
+      max > 0
       ? (y / max) * 100
       : 0
     ) + "%";
+
 
   nav.classList.toggle(
     "scrolled",
     y > 30
   );
 
+
   if(
     y > lastY &&
     y > 180
   ){
-    nav.classList.add("hidden");
+
+    nav.classList.add(
+      "hidden"
+    );
+
   }else{
-    nav.classList.remove("hidden");
+
+    nav.classList.remove(
+      "hidden"
+    );
+
   }
 
+
   lastY = y;
+
 
   const hero =
     document.querySelector(
       ".hero-photo"
     );
+
 
   if(
     hero &&
@@ -2457,10 +3176,13 @@ function motionFrame(){
 
   }
 
+
   requestAnimationFrame(
     motionFrame
   );
+
 }
+
 
 requestAnimationFrame(
   motionFrame
@@ -2475,23 +3197,30 @@ const observer =
   new IntersectionObserver(
     entries=>{
 
-      entries.forEach(entry=>{
+      entries.forEach(
+        entry=>{
 
-        if(entry.isIntersecting){
+          if(
+            entry.isIntersecting
+          ){
 
-          entry.target.classList.add(
-            "show"
-          );
-
-          entry.target
-            .closest(".section-top")
-            ?.classList.add(
-              "is-visible"
+            entry.target.classList.add(
+              "show"
             );
 
-        }
 
-      });
+            entry.target
+              .closest(
+                ".section-top"
+              )
+              ?.classList.add(
+                "is-visible"
+              );
+
+          }
+
+        }
+      );
 
     },
     {
@@ -2504,9 +3233,13 @@ document
   .querySelectorAll(
     ".reveal,.section-top"
   )
-  .forEach(element=>{
-    observer.observe(element);
-  });
+  .forEach(
+    element=>{
+      observer.observe(
+        element
+      );
+    }
+  );
 
 
 /* ================================
@@ -2528,18 +3261,29 @@ if(
           ".hero"
         );
 
-      if(!hero) return;
+
+      if(!hero){
+        return;
+      }
+
 
       const x =
-        event.clientX / innerWidth - .5;
+        event.clientX /
+        innerWidth -
+        .5;
+
 
       const y =
-        event.clientY / innerHeight - .5;
+        event.clientY /
+        innerHeight -
+        .5;
+
 
       hero.style.setProperty(
         "--mx",
         x
       );
+
 
       hero.style.setProperty(
         "--my",
@@ -2559,16 +3303,29 @@ if(
 window.addEventListener(
   "load",
   ()=>{
+
     setTimeout(
       ()=>{
+
         document
-          .querySelector(".loader")
-          ?.classList.add("hide");
+          .querySelector(
+            ".loader"
+          )
+          ?.classList.add(
+            "hide"
+          );
+
       },
       900
     );
+
   }
 );
+
+
+/*
+  Load all dynamic website content.
+*/
 
 loadSongs();
 loadVideos();
