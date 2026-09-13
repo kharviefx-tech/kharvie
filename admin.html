@@ -2194,4 +2194,1884 @@ function openReleaseTrackForm(track=null){
                         : ""
                       }>
 
+                      ${escapeHtml(
+                        release.title || "Untitled release"
+                      )}
+
+                    </option>
+
+                  `).join("")
+                }
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>Song *</label>
+
+              <select name="song_id" required>
+
+                <option value="">
+                  Select song
+                </option>
+
+                ${
+                  songsCache.map(song=>`
+
+                    <option
+                      value="${attr(song.id)}"
                       ${
+                        String(song.id) ===
+                        String(t.song_id)
+                        ? "selected"
+                        : ""
+                      }>
+
+                      ${escapeHtml(
+                        song.title || "Untitled song"
+                      )}
+
+                    </option>
+
+                  `).join("")
+                }
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>Track Number</label>
+
+              <input
+                class="track-number"
+                type="number"
+                min="1"
+                name="track_number"
+                value="${attr(
+                  t.track_number || ""
+                )}"
+                placeholder="1">
+
+            </div>
+
+          </div>
+
+
+          <div style="margin-top:20px">
+
+            <label style="
+              display:block;
+              color:#bbb;
+              font-size:12px;
+              margin-bottom:10px;
+            ">
+              Streaming Platforms
+            </label>
+
+            <div
+              id="platformList"
+              class="platform-list">
+            </div>
+
+            <button
+              type="button"
+              class="btn secondary add-platform"
+              onclick="addPlatformRow()">
+
+              + Add Platform
+
+            </button>
+
+            <div style="
+              color:#777;
+              font-size:11px;
+              margin-top:9px;
+              line-height:1.6;
+            ">
+              You can add any platform. You are not limited to
+              Spotify, Apple Music, YouTube or Audiomack.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <button class="btn" type="submit">
+            Save Release Track
+          </button>
+
+          <button
+            type="button"
+            class="btn secondary"
+            onclick="closeReleaseTrackForm()">
+
+            Cancel
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  `;
+
+
+  const defaultPlatforms = [
+    ["spotify",platforms.spotify || ""],
+    ["apple_music",platforms.apple_music || ""],
+    ["youtube",platforms.youtube || ""],
+    ["audiomack",platforms.audiomack || ""]
+  ];
+
+
+  Object.entries(platforms).forEach(
+    ([name,url])=>{
+
+      if(
+        !defaultPlatforms.some(
+          x=>x[0] === name
+        )
+      ){
+
+        defaultPlatforms.push([
+          name,
+          url
+        ]);
+
+      }
+
+    }
+  );
+
+
+  defaultPlatforms.forEach(
+    ([name,url])=>{
+      addPlatformRow(name,url);
+    }
+  );
+
+
+  document.getElementById(
+    "releaseTrackForm"
+  ).addEventListener(
+    "submit",
+    saveReleaseTrack
+  );
+
+}
+
+
+/* =========================================================
+   PLATFORM ROW
+========================================================= */
+
+function addPlatformRow(
+  name="",
+  url=""
+){
+
+  const container =
+    document.getElementById("platformList");
+
+  if(!container) return;
+
+  const row =
+    document.createElement("div");
+
+  row.className = "platform-row";
+
+  row.innerHTML = `
+
+    <input
+      class="platform-name"
+      placeholder="Platform name"
+      value="${attr(name)}">
+
+    <input
+      class="platform-url"
+      type="url"
+      placeholder="https://..."
+      value="${attr(url)}">
+
+    <button
+      type="button"
+      class="remove-platform"
+      onclick="this.parentElement.remove()">
+
+      ×
+
+    </button>
+
+  `;
+
+  container.appendChild(row);
+
+}
+
+
+/* =========================================================
+   SAVE RELEASE TRACK
+========================================================= */
+
+async function saveReleaseTrack(e){
+
+  e.preventDefault();
+
+  const form = e.target;
+
+  const releaseId =
+    form.elements.release_id.value;
+
+  const songId =
+    form.elements.song_id.value;
+
+  const trackNumber =
+    form.elements.track_number.value;
+
+  const streamingPlatforms = {};
+
+
+  document.querySelectorAll(
+    "#platformList .platform-row"
+  ).forEach(row=>{
+
+    const name =
+      row.querySelector(".platform-name")
+        .value
+        .trim();
+
+    const url =
+      row.querySelector(".platform-url")
+        .value
+        .trim();
+
+    if(name && url){
+
+      streamingPlatforms[name] = url;
+
+    }
+
+  });
+
+
+  const payload = {
+
+    release_id:releaseId,
+
+    song_id:songId,
+
+    track_number:
+      trackNumber
+      ? Number(trackNumber)
+      : null,
+
+    streaming_platforms:
+      streamingPlatforms
+
+  };
+
+
+  let result;
+
+
+  if(editingReleaseTrackId){
+
+    result = await db
+      .from("release_tracks")
+      .update(payload)
+      .eq("id",editingReleaseTrackId);
+
+  }else{
+
+    result = await db
+      .from("release_tracks")
+      .insert(payload);
+
+  }
+
+
+  if(result.error){
+
+    showMessage(
+      result.error.message,
+      "error"
+    );
+
+    console.error(result.error);
+
+    return;
+
+  }
+
+
+  showMessage(
+    "Release track saved successfully."
+  );
+
+
+  closeReleaseTrackForm();
+
+  await loadReleaseTracks();
+
+  updateDashboard();
+
+}
+
+
+function editReleaseTrack(id){
+
+  const track =
+    releaseTracksCache.find(
+      x=>String(x.id) === String(id)
+    );
+
+  if(track){
+
+    openReleaseTrackForm(track);
+
+  }
+
+}
+
+
+async function deleteReleaseTrack(id){
+
+  if(!confirm(
+    "Delete this release track?"
+  )) return;
+
+
+  const {
+    error
+  } = await db
+    .from("release_tracks")
+    .delete()
+    .eq("id",id);
+
+
+  if(error){
+
+    showMessage(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    "Release track deleted."
+  );
+
+
+  await loadReleaseTracks();
+
+  updateDashboard();
+
+}
+
+
+function closeReleaseTrackForm(){
+
+  document.getElementById(
+    "releaseTrackFormContainer"
+  ).innerHTML = "";
+
+  editingReleaseTrackId = null;
+
+}
+
+
+/* =========================================================
+   VIDEOS
+========================================================= */
+
+async function loadVideos(){
+
+  const {
+    data,
+    error
+  } = await db
+    .from("videos")
+    .select("*")
+    .order("date",{ascending:false});
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  window.videosCache = data || [];
+
+  renderVideos();
+
+  document.getElementById("countVideos").textContent =
+    window.videosCache.length;
+
+}
+
+
+function renderVideos(){
+
+  const tbody =
+    document.getElementById("videosTable");
+
+  tbody.innerHTML = "";
+
+  (window.videosCache || []).forEach(video=>{
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>${escapeHtml(video.title || "—")}</td>
+
+      <td>${escapeHtml(video.platform || "YouTube")}</td>
+
+      <td>${escapeHtml(video.date || "—")}</td>
+
+      <td>
+
+        <div class="actions">
+
+          <button class="btn secondary"
+            onclick="editVideo('${video.id}')">
+            Edit
+          </button>
+
+          <button class="btn danger"
+            onclick="deleteVideo('${video.id}')">
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+
+  });
+
+}
+
+
+function openVideoForm(video=null){
+
+  editingVideoId =
+    video ? video.id : null;
+
+  const v = video || {};
+
+  document.getElementById(
+    "videoFormContainer"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div class="card-title">
+          ${video ? "Edit Video" : "Add Video"}
+        </div>
+
+        <button class="btn secondary"
+          onclick="closeVideoForm()">
+          Close
+        </button>
+
+      </div>
+
+      <form id="videoForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Title *</label>
+            <input name="title"
+              required
+              value="${attr(v.title)}">
+          </div>
+
+          <div class="form-group">
+            <label>Platform</label>
+            <input name="platform"
+              value="${attr(v.platform || "YouTube")}">
+          </div>
+
+          <div class="form-group">
+            <label>URL *</label>
+            <input name="url"
+              required
+              value="${attr(v.url)}">
+          </div>
+
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date"
+              name="date"
+              value="${attr(v.date)}">
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+
+          <button class="btn">
+            Save Video
+          </button>
+
+          <button
+            type="button"
+            class="btn secondary"
+            onclick="closeVideoForm()">
+            Cancel
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  `;
+
+
+  document.getElementById("videoForm")
+    .addEventListener(
+      "submit",
+      saveVideo
+    );
+
+}
+
+
+async function saveVideo(e){
+
+  e.preventDefault();
+
+  const data =
+    Object.fromEntries(
+      new FormData(e.target).entries()
+    );
+
+  const payload = {
+    title:data.title,
+    platform:data.platform || "YouTube",
+    url:data.url,
+    date:data.date || null
+  };
+
+  const result =
+    editingVideoId
+    ? await db.from("videos")
+        .update(payload)
+        .eq("id",editingVideoId)
+    : await db.from("videos")
+        .insert(payload);
+
+  if(result.error){
+
+    showMessage(
+      result.error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  showMessage("Video saved.");
+
+  closeVideoForm();
+
+  await loadVideos();
+
+}
+
+
+function editVideo(id){
+
+  const video =
+    (window.videosCache || [])
+      .find(
+        x=>String(x.id)===String(id)
+      );
+
+  if(video){
+    openVideoForm(video);
+  }
+
+}
+
+
+async function deleteVideo(id){
+
+  if(!confirm("Delete this video?"))
+    return;
+
+  const {
+    error
+  } = await db
+    .from("videos")
+    .delete()
+    .eq("id",id);
+
+  if(error){
+
+    showMessage(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  showMessage("Video deleted.");
+
+  await loadVideos();
+
+}
+
+
+function closeVideoForm(){
+
+  document.getElementById(
+    "videoFormContainer"
+  ).innerHTML = "";
+
+  editingVideoId = null;
+
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+async function loadGallery(){
+
+  const {
+    data,
+    error
+  } = await db
+    .from("gallery")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+
+    console.error(error);
+    return;
+
+  }
+
+  window.galleryCache = data || [];
+
+  renderGallery();
+
+  document.getElementById("countGallery").textContent =
+    window.galleryCache.length;
+
+}
+
+
+function renderGallery(){
+
+  const tbody =
+    document.getElementById("galleryTable");
+
+  tbody.innerHTML = "";
+
+  (window.galleryCache || []).forEach(item=>{
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>${escapeHtml(item.title || "—")}</td>
+
+      <td>
+        ${
+          item.image_url
+          ? `<a href="${attr(item.image_url)}"
+               target="_blank"
+               style="color:#fff">
+               View
+             </a>`
+          : "—"
+        }
+      </td>
+
+      <td>
+
+        <div class="actions">
+
+          <button class="btn secondary"
+            onclick="editGallery('${item.id}')">
+            Edit
+          </button>
+
+          <button class="btn danger"
+            onclick="deleteGallery('${item.id}')">
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+
+  });
+
+}
+
+
+function openGalleryForm(item=null){
+
+  editingGalleryId =
+    item ? item.id : null;
+
+  const g = item || {};
+
+  document.getElementById(
+    "galleryFormContainer"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div class="card-title">
+          ${item ? "Edit Photo" : "Add Photo"}
+        </div>
+
+        <button class="btn secondary"
+          onclick="closeGalleryForm()">
+          Close
+        </button>
+
+      </div>
+
+      <form id="galleryForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Title</label>
+            <input name="title"
+              value="${attr(g.title)}">
+          </div>
+
+          <div class="form-group">
+            <label>Image URL *</label>
+            <input name="image_url"
+              required
+              value="${attr(g.image_url)}">
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+
+          <button class="btn">
+            Save Photo
+          </button>
+
+          <button
+            type="button"
+            class="btn secondary"
+            onclick="closeGalleryForm()">
+            Cancel
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  `;
+
+
+  document.getElementById(
+    "galleryForm"
+  ).addEventListener(
+    "submit",
+    saveGallery
+  );
+
+}
+
+
+async function saveGallery(e){
+
+  e.preventDefault();
+
+  const data =
+    Object.fromEntries(
+      new FormData(e.target).entries()
+    );
+
+  const payload = {
+    title:data.title || null,
+    image_url:data.image_url
+  };
+
+  const result =
+    editingGalleryId
+    ? await db.from("gallery")
+        .update(payload)
+        .eq("id",editingGalleryId)
+    : await db.from("gallery")
+        .insert(payload);
+
+  if(result.error){
+
+    showMessage(
+      result.error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  showMessage("Gallery item saved.");
+
+  closeGalleryForm();
+
+  await loadGallery();
+
+}
+
+
+function editGallery(id){
+
+  const item =
+    (window.galleryCache || [])
+      .find(
+        x=>String(x.id)===String(id)
+      );
+
+  if(item){
+    openGalleryForm(item);
+  }
+
+}
+
+
+async function deleteGallery(id){
+
+  if(!confirm("Delete this gallery item?"))
+    return;
+
+  const {
+    error
+  } = await db
+    .from("gallery")
+    .delete()
+    .eq("id",id);
+
+  if(error){
+
+    showMessage(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  showMessage("Gallery item deleted.");
+
+  await loadGallery();
+
+}
+
+
+function closeGalleryForm(){
+
+  document.getElementById(
+    "galleryFormContainer"
+  ).innerHTML = "";
+
+  editingGalleryId = null;
+
+}
+
+
+/* =========================================================
+   NEWS
+========================================================= */
+
+async function loadNews(){
+
+  const {
+    data,
+    error
+  } = await db
+    .from("posts")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+
+    console.error(error);
+    return;
+
+  }
+
+  window.newsCache = data || [];
+
+  renderNews();
+
+  document.getElementById("countNews").textContent =
+    window.newsCache.length;
+
+}
+
+
+function renderNews(){
+
+  const tbody =
+    document.getElementById("newsTable");
+
+  tbody.innerHTML = "";
+
+  (window.newsCache || []).forEach(post=>{
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>${escapeHtml(post.title || "—")}</td>
+
+      <td>
+        ${post.published
+          ? "Yes"
+          : "No"}
+      </td>
+
+      <td>
+
+        <div class="actions">
+
+          <button class="btn secondary"
+            onclick="editNews('${post.id}')">
+            Edit
+          </button>
+
+          <button class="btn danger"
+            onclick="deleteNews('${post.id}')">
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+
+  });
+
+}
+
+
+function openNewsForm(post=null){
+
+  editingNewsId =
+    post ? post.id : null;
+
+  const n = post || {};
+
+  document.getElementById(
+    "newsFormContainer"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div class="card-title">
+          ${post ? "Edit News" : "Add News"}
+        </div>
+
+        <button class="btn secondary"
+          onclick="closeNewsForm()">
+          Close
+        </button>
+
+      </div>
+
+      <form id="newsForm">
+
+        <div class="form-grid">
+
+          <div class="form-group full-width">
+            <label>Title *</label>
+            <input name="title"
+              required
+              value="${attr(n.title)}">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Excerpt</label>
+            <textarea name="excerpt">${escapeHtml(n.excerpt || "")}</textarea>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Full Content</label>
+            <textarea name="content">${escapeHtml(n.content || "")}</textarea>
+          </div>
+
+          <div class="form-group">
+
+            <label>Published</label>
+
+            <select name="published">
+
+              <option value="true"
+                ${n.published ? "selected":""}>
+                Yes
+              </option>
+
+              <option value="false"
+                ${!n.published ? "selected":""}>
+                No
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+
+          <button class="btn">
+            Save News
+          </button>
+
+          <button
+            type="button"
+            class="btn secondary"
+            onclick="closeNewsForm()">
+            Cancel
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  `;
+
+
+  document.getElementById("newsForm")
+    .addEventListener(
+      "submit",
+      saveNews
+    );
+
+}
+
+
+async function saveNews(e){
+
+  e.preventDefault();
+
+  const data =
+    Object.fromEntries(
+      new FormData(e.target).entries()
+    );
+
+  const payload = {
+    title:data.title,
+    excerpt:data.excerpt || null,
+    content:data.content || null,
+    published:data.published === "true"
+  };
+
+  const result =
+    editingNewsId
+    ? await db.from("posts")
+        .update(payload)
+        .eq("id",editingNewsId)
+    : await db.from("posts")
+        .insert(payload);
+
+  if(result.error){
+
+    showMessage(
+      result.error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  showMessage("News saved.");
+
+  closeNewsForm();
+
+  await loadNews();
+
+}
+
+
+function editNews(id){
+
+  const post =
+    (window.newsCache || [])
+      .find(
+        x=>String(x.id)===String(id)
+      );
+
+  if(post){
+    openNewsForm(post);
+  }
+
+}
+
+
+async function deleteNews(id){
+
+  if(!confirm("Delete this news post?"))
+    return;
+
+  const {
+    error
+  } = await db
+    .from("posts")
+    .delete()
+    .eq("id",id);
+
+  if(error){
+
+    showMessage(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  showMessage("News deleted.");
+
+  await loadNews();
+
+}
+
+
+function closeNewsForm(){
+
+  document.getElementById(
+    "newsFormContainer"
+  ).innerHTML = "";
+
+  editingNewsId = null;
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+async function loadEvents(){
+
+  const {
+    data,
+    error
+  } = await db
+    .from("events")
+    .select("*")
+    .order("date",{ascending:true});
+
+  if(error){
+
+    console.error(error);
+    return;
+
+  }
+
+  window.eventsCache = data || [];
+
+  renderEvents();
+
+  document.getElementById("countEvents").textContent =
+    window.eventsCache.length;
+
+}
+
+
+function renderEvents(){
+
+  const tbody =
+    document.getElementById("eventsTable");
+
+  tbody.innerHTML = "";
+
+  (window.eventsCache || []).forEach(event=>{
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>${escapeHtml(event.title || "—")}</td>
+
+      <td>${escapeHtml(event.date || "—")}</td>
+
+      <td>${escapeHtml(event.venue || "—")}</td>
+
+      <td>
+
+        <div class="actions">
+
+          <button class="btn secondary"
+            onclick="editEvent('${event.id}')">
+            Edit
+          </button>
+
+          <button class="btn danger"
+            onclick="deleteEvent('${event.id}')">
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+
+  });
+
+}
+
+
+function openEventForm(event=null){
+
+  editingEventId =
+    event ? event.id : null;
+
+  const e = event || {};
+
+  document.getElementById(
+    "eventFormContainer"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div class="card-title">
+          ${event ? "Edit Event" : "Add Event"}
+        </div>
+
+        <button class="btn secondary"
+          onclick="closeEventForm()">
+          Close
+        </button>
+
+      </div>
+
+      <form id="eventForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Title *</label>
+            <input name="title"
+              required
+              value="${attr(e.title)}">
+          </div>
+
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date"
+              name="date"
+              value="${attr(e.date)}">
+          </div>
+
+          <div class="form-group">
+            <label>Time</label>
+            <input name="time"
+              value="${attr(e.time)}">
+          </div>
+
+          <div class="form-group">
+            <label>Venue</label>
+            <input name="venue"
+              value="${attr(e.venue)}">
+          </div>
+
+          <div class="form-group">
+            <label>City</label>
+            <input name="city"
+              value="${attr(e.city)}">
+          </div>
+
+          <div class="form-group">
+            <label>Country</label>
+            <input name="country"
+              value="${attr(e.country || "Nigeria")}">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Description</label>
+            <textarea name="description">${escapeHtml(e.description || "")}</textarea>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Ticket URL</label>
+            <input name="ticket_url"
+              value="${attr(e.ticket_url)}">
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+
+          <button class="btn">
+            Save Event
+          </button>
+
+          <button
+            type="button"
+            class="btn secondary"
+            onclick="closeEventForm()">
+            Cancel
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  `;
+
+
+  document.getElementById("eventForm")
+    .addEventListener(
+      "submit",
+      saveEvent
+    );
+
+}
+
+
+async function saveEvent(e){
+
+  e.preventDefault();
+
+  const data =
+    Object.fromEntries(
+      new FormData(e.target).entries()
+    );
+
+  const payload = {
+    title:data.title,
+    date:data.date || null,
+    time:data.time || null,
+    venue:data.venue || null,
+    city:data.city || null,
+    country:data.country || "Nigeria",
+    description:data.description || null,
+    ticket_url:data.ticket_url || null
+  };
+
+  const result =
+    editingEventId
+    ? await db.from("events")
+        .update(payload)
+        .eq("id",editingEventId)
+    : await db.from("events")
+        .insert(payload);
+
+  if(result.error){
+
+    showMessage(
+      result.error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  showMessage("Event saved.");
+
+  closeEventForm();
+
+  await loadEvents();
+
+}
+
+
+function editEvent(id){
+
+  const event =
+    (window.eventsCache || [])
+      .find(
+        x=>String(x.id)===String(id)
+      );
+
+  if(event){
+    openEventForm(event);
+  }
+
+}
+
+
+async function deleteEvent(id){
+
+  if(!confirm("Delete this event?"))
+    return;
+
+  const {
+    error
+  } = await db
+    .from("events")
+    .delete()
+    .eq("id",id);
+
+  if(error){
+
+    showMessage(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  showMessage("Event deleted.");
+
+  await loadEvents();
+
+}
+
+
+function closeEventForm(){
+
+  document.getElementById(
+    "eventFormContainer"
+  ).innerHTML = "";
+
+  editingEventId = null;
+
+}
+
+
+/* =========================================================
+   MONETIZATION
+========================================================= */
+
+async function loadMonetization(){
+
+  const {
+    data,
+    error
+  } = await db
+    .from("monetization")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+
+    console.error(error);
+    return;
+
+  }
+
+  window.monetizationCache =
+    data || [];
+
+  renderMonetization();
+
+  document.getElementById(
+    "countMonetization"
+  ).textContent =
+    window.monetizationCache.length;
+
+}
+
+
+function renderMonetization(){
+
+  const tbody =
+    document.getElementById(
+      "monetizationTable"
+    );
+
+  tbody.innerHTML = "";
+
+  (window.monetizationCache || [])
+    .forEach(item=>{
+
+      const tr =
+        document.createElement("tr");
+
+      tr.innerHTML = `
+
+        <td>
+          ${escapeHtml(
+            item.source ||
+            item.platform ||
+            "—"
+          )}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            item.total_earnings ?? "0"
+          )}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            item.pending_earnings ?? "0"
+          )}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            item.paid_earnings ?? "0"
+          )}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            item.streams ?? "0"
+          )}
+        </td>
+
+        <td>
+
+          <div class="actions">
+
+            <button class="btn secondary"
+              onclick="editMonetization('${item.id}')">
+              Edit
+            </button>
+
+            <button class="btn danger"
+              onclick="deleteMonetization('${item.id}')">
+              Delete
+            </button>
+
+          </div>
+
+        </td>
+
+      `;
+
+      tbody.appendChild(tr);
+
+    });
+
+}
+
+
+function openMonetizationForm(item=null){
+
+  editingMonetizationId =
+    item ? item.id : null;
+
+  const m = item || {};
+
+  document.getElementById(
+    "monetizationFormContainer"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div class="card-title">
+          ${item ? "Edit Monetization" : "Add Monetization"}
+        </div>
+
+        <button class="btn secondary"
+          onclick="closeMonetizationForm()">
+          Close
+        </button>
+
+      </div>
+
+      <form id="monetizationForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Source / Platform</label>
+            <input name="source"
+              value="${attr(m.source || m.platform)}">
+          </div>
+
+          <div class="form-group">
+            <label>Total Earnings</label>
+            <input type="number"
+              step="0.01"
+              name="total_earnings"
+              value="${attr(m.total_earnings)}">
+          </div>
+
+          <div class="form-group">
+            <label>Pending Earnings</label>
+            <input type="number"
+              step="0.01"
+              name="pending_earnings"
+              value="${attr(m.pending_earnings)}">
+          </div>
+
+          <div class="form-group">
+            <label>Paid Earnings</label>
+            <input type="number"
+              step="0.01"
+              name="paid_earnings"
+              value="${attr(m.paid_earnings)}">
+          </div>
+
+          <div class="form-group">
+            <label>Streams</label>
+            <input type="number"
+              name="streams"
+              value="${attr(m.streams)}">
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+
+          <button class="btn">
+            Save Entry
+          </button>
+
+          <button
+            type="button"
+            class="btn secondary"
+            onclick="closeMonetizationForm()">
+            Cancel
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  `;
+
+
+  document.getElementById(
+    "monetizationForm"
+  ).addEventListener(
+    "submit",
+    saveMonetization
+  );
+
+}
+
+
+async function saveMonetization(e){
+
+  e.preventDefault();
+
+  const data =
+    Object.fromEntries(
+      new FormData(e.target).entries()
+    );
+
+  const payload = {
+
+    source:
+      data.source || null,
+
+    total_earnings:
+      data.total_earnings
+      ? Number(data.total_earnings)
+      : 0,
+
+    pending_earnings:
+      data.pending_earnings
+      ? Number(data.pending_earnings)
+      : 0,
+
+    paid_earnings:
+      data.paid_earnings
+      ? Number(data.paid_earnings)
+      : 0,
+
+    streams:
+      data.streams
+      ? Number(data.streams)
+      : 0
+
+  };
+
+
+  const result =
+    editingMonetizationId
+    ? await db.from("monetization")
+        .update(payload)
+        .eq("id",editingMonetizationId)
+    : await db.from("monetization")
+        .insert(payload);
+
+
+  if(result.error){
+
+    showMessage(
+      result.error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    "Monetization entry saved."
+  );
+
+
+  closeMonetizationForm();
+
+  await loadMonetization();
+
+}
+
+
+function editMonetization(id){
+
+  const item =
+    (window.monetizationCache || [])
+      .find(
+        x=>String(x.id)===String(id)
+      );
+
+  if(item){
+    openMonetizationForm(item);
+  }
+
+}
+
+
+async function deleteMonetization(id){
+
+  if(!confirm(
+    "Delete this monetization entry?"
+  )) return;
+
+
+  const {
+    error
+  } = await db
+    .from("monetization")
+    .delete()
+    .eq("id",id);
+
+
+  if(error){
+
+    showMessage(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    "Monetization entry deleted."
+  );
+
+
+  await loadMonetization();
+
+}
+
+
+function closeMonetizationForm(){
+
+  document.getElementById(
+    "monetizationFormContainer"
+  ).innerHTML = "";
+
+  editingMonetizationId = null;
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHtml(value){
+
+  if(value === null || value === undefined)
+    return "";
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function attr(value){
+
+  return escapeHtml(
+    value === null ||
+    value === undefined
+      ? ""
+      : value
+  );
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+checkSession();
+
+</script>
+
+</body>
+</html>
