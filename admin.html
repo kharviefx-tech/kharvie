@@ -13,14 +13,14 @@
 :root{
   --bg:#050505;
   --panel:rgba(255,255,255,.055);
+  --panel2:rgba(255,255,255,.08);
   --border:rgba(255,255,255,.12);
-  --border-light:rgba(255,255,255,.2);
   --text:#fff;
-  --muted:#999;
+  --muted:#aaa;
+  --accent:#fff;
   --danger:#ff4d67;
-  --success:#55e69a;
-  --shadow:0 20px 70px rgba(0,0,0,.4);
-  --radius:22px;
+  --success:#48d597;
+  --radius:20px;
 }
 
 *{
@@ -34,17 +34,19 @@ html{
 }
 
 body{
-  min-height:100vh;
   background:
-    radial-gradient(circle at 15% 10%,rgba(255,255,255,.075),transparent 30%),
-    radial-gradient(circle at 85% 80%,rgba(255,255,255,.045),transparent 30%),
-    #050505;
-  color:#fff;
-  font-family:Inter,Arial,Helvetica,sans-serif;
-  overflow-x:hidden;
+    radial-gradient(circle at top left,rgba(255,255,255,.06),transparent 30%),
+    radial-gradient(circle at bottom right,rgba(255,255,255,.035),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
 }
 
-button,input,textarea,select{
+button,
+input,
+select,
+textarea{
   font:inherit;
 }
 
@@ -56,14 +58,6 @@ button{
   display:none!important;
 }
 
-.glass{
-  background:var(--panel);
-  border:1px solid var(--border);
-  backdrop-filter:blur(24px) saturate(150%);
-  -webkit-backdrop-filter:blur(24px) saturate(150%);
-  box-shadow:var(--shadow);
-}
-
 /* LOGIN */
 
 #loginScreen{
@@ -71,93 +65,64 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:22px;
-  position:relative;
-  overflow:hidden;
-}
-
-#loginScreen::before,
-#loginScreen::after{
-  content:"";
-  position:absolute;
-  width:320px;
-  height:320px;
-  border-radius:50%;
-  background:rgba(255,255,255,.035);
-  filter:blur(30px);
-  pointer-events:none;
-}
-
-#loginScreen::before{
-  top:-120px;
-  left:-100px;
-}
-
-#loginScreen::after{
-  right:-100px;
-  bottom:-120px;
+  padding:25px;
 }
 
 .login-box{
-  width:min(430px,100%);
-  padding:36px;
-  border-radius:28px;
-  position:relative;
-  z-index:2;
+  width:100%;
+  max-width:430px;
+  padding:35px;
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--border);
+  border-radius:26px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
 }
 
-.brand-mark{
+.logo{
   text-align:center;
-  font-size:12px;
-  letter-spacing:5px;
-  color:#aaa;
-  margin-bottom:10px;
-}
-
-.login-box h1{
-  text-align:center;
-  font-size:32px;
+  font-size:28px;
+  font-weight:900;
   letter-spacing:3px;
   margin-bottom:8px;
 }
 
-.login-subtitle{
+.login-sub{
   text-align:center;
-  color:#999;
-  font-size:14px;
-  margin-bottom:28px;
+  color:var(--muted);
+  margin-bottom:30px;
+  font-size:13px;
 }
+
+/* INPUTS */
 
 .form-group{
   margin-bottom:16px;
 }
 
-label{
+.form-group label{
   display:block;
   font-size:12px;
-  color:#aaa;
+  color:#bbb;
   margin-bottom:7px;
 }
 
 input,
-textarea,
-select{
+select,
+textarea{
   width:100%;
-  border:1px solid var(--border);
-  background:rgba(0,0,0,.3);
+  background:rgba(0,0,0,.45);
   color:#fff;
-  border-radius:13px;
+  border:1px solid var(--border);
+  border-radius:12px;
   padding:13px 14px;
   outline:none;
-  transition:.2s ease;
 }
 
 input:focus,
-textarea:focus,
-select:focus{
-  border-color:var(--border-light);
-  background:rgba(255,255,255,.055);
-  box-shadow:0 0 0 3px rgba(255,255,255,.035);
+select:focus,
+textarea:focus{
+  border-color:rgba(255,255,255,.4);
 }
 
 textarea{
@@ -170,269 +135,177 @@ select option{
   color:#fff;
 }
 
-input[type="file"]{
-  padding:10px;
-  cursor:pointer;
-}
-
-input[type="file"]::file-selector-button{
-  border:1px solid rgba(255,255,255,.15);
-  background:#fff;
-  color:#000;
-  padding:8px 11px;
-  border-radius:9px;
-  margin-right:10px;
-  cursor:pointer;
-  font-weight:700;
-}
-
 .btn{
-  border:1px solid rgba(255,255,255,.18);
+  border:0;
+  border-radius:12px;
+  padding:12px 17px;
   background:#fff;
   color:#000;
-  padding:12px 17px;
-  border-radius:13px;
   font-weight:700;
-  transition:.2s ease;
+  transition:.2s;
 }
 
 .btn:hover{
   transform:translateY(-1px);
-  box-shadow:0 10px 30px rgba(255,255,255,.08);
+  opacity:.9;
 }
 
-.btn:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-  transform:none;
-}
-
-.btn-secondary{
-  background:rgba(255,255,255,.06);
+.btn.secondary{
+  background:rgba(255,255,255,.08);
   color:#fff;
+  border:1px solid var(--border);
 }
 
-.btn-danger{
+.btn.danger{
   background:rgba(255,77,103,.12);
-  color:#ff7d8f;
-  border-color:rgba(255,77,103,.22);
+  color:#ff7184;
+  border:1px solid rgba(255,77,103,.25);
 }
 
-.login-error{
-  color:#ff7d8f;
-  font-size:13px;
-  margin-top:12px;
-  min-height:18px;
+.btn.success{
+  background:rgba(72,213,151,.12);
+  color:#62e5a8;
+  border:1px solid rgba(72,213,151,.25);
+}
+
+.btn.full{
+  width:100%;
 }
 
 /* APP */
 
-#adminApp{
+#app{
+  display:none;
+}
+
+.layout{
+  display:flex;
   min-height:100vh;
 }
 
+/* SIDEBAR */
+
 .sidebar{
+  width:240px;
   position:fixed;
-  z-index:50;
-  left:18px;
-  top:18px;
-  bottom:18px;
-  width:235px;
-  border-radius:26px;
-  padding:22px 14px;
-  overflow-y:auto;
+  left:0;
+  top:0;
+  bottom:0;
+  padding:25px 15px;
+  border-right:1px solid var(--border);
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(20px);
+  z-index:20;
 }
 
-.sidebar-brand{
-  padding:8px 12px 24px;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  margin-bottom:16px;
-}
-
-.sidebar-brand strong{
-  display:block;
+.brand{
   font-size:21px;
-  letter-spacing:3px;
-}
-
-.sidebar-brand span{
-  display:block;
-  color:#777;
-  font-size:10px;
+  font-weight:900;
   letter-spacing:2px;
-  margin-top:5px;
+  padding:8px 12px 25px;
 }
 
 .nav{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.nav button{
   width:100%;
-  display:flex;
-  align-items:center;
-  gap:11px;
-  border:0;
-  background:transparent;
-  color:#999;
-  padding:12px 13px;
-  margin-bottom:5px;
-  border-radius:13px;
   text-align:left;
-  transition:.2s ease;
-}
-
-.nav:hover{
-  color:#fff;
-  background:rgba(255,255,255,.055);
-}
-
-.nav.active{
-  color:#fff;
-  background:rgba(255,255,255,.1);
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.nav-icon{
-  width:24px;
-  text-align:center;
-}
-
-.logout{
-  margin-top:22px;
-  color:#ff7d8f;
-}
-
-.view-site{
-  margin-top:6px;
+  background:transparent;
+  border:1px solid transparent;
   color:#aaa;
-  text-decoration:none;
-  display:flex;
-  align-items:center;
-  gap:11px;
-  padding:12px 13px;
-  border-radius:13px;
-  font-size:14px;
+  padding:12px 14px;
+  border-radius:12px;
+  transition:.2s;
 }
 
-.view-site:hover{
-  background:rgba(255,255,255,.055);
+.nav button:hover,
+.nav button.active{
+  background:rgba(255,255,255,.07);
+  border-color:var(--border);
   color:#fff;
 }
+
+.nav-divider{
+  height:1px;
+  background:var(--border);
+  margin:12px 0;
+}
+
+/* MAIN */
 
 .main{
-  margin-left:275px;
-  padding:34px 34px 70px;
-  max-width:1700px;
+  margin-left:240px;
+  width:calc(100% - 240px);
+  padding:30px;
 }
 
 .topbar{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:20px;
   margin-bottom:30px;
 }
 
-.topbar h1{
-  font-size:clamp(27px,4vw,42px);
-  letter-spacing:-1px;
+.page-title{
+  font-size:28px;
+  font-weight:800;
 }
 
-.topbar p{
-  color:#777;
-  margin-top:6px;
-  font-size:14px;
+.page-subtitle{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:5px;
 }
-
-.status-pill{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:9px 13px;
-  border:1px solid var(--border);
-  background:var(--panel);
-  border-radius:999px;
-  color:#aaa;
-  font-size:12px;
-}
-
-.status-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--success);
-  box-shadow:0 0 12px rgba(85,230,154,.6);
-}
-
-/* SECTIONS */
 
 .section{
   display:none;
-  animation:sectionIn .35s ease both;
 }
 
 .section.active{
   display:block;
 }
 
-.section-title{
-  margin-bottom:18px;
-}
+/* DASHBOARD */
 
-.section-title h2{
-  font-size:25px;
-}
-
-.section-title p{
-  color:#777;
-  margin-top:6px;
-  font-size:13px;
-}
-
-/* STATS */
-
-.stats-grid{
+.stats{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:repeat(4,1fr);
   gap:15px;
-  margin-bottom:24px;
+  margin-bottom:25px;
 }
 
-.stat-card{
+.stat{
   padding:22px;
-  border-radius:20px;
-  min-height:130px;
-  position:relative;
-  overflow:hidden;
-}
-
-.stat-card::after{
-  content:"";
-  position:absolute;
-  width:90px;
-  height:90px;
-  right:-30px;
-  bottom:-35px;
-  border-radius:50%;
-  background:rgba(255,255,255,.035);
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:18px;
 }
 
 .stat-label{
-  color:#858585;
+  color:#999;
   font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:1.2px;
+  margin-bottom:9px;
 }
 
 .stat-value{
-  font-size:36px;
-  font-weight:700;
-  margin-top:14px;
+  font-size:28px;
+  font-weight:800;
 }
 
 /* CARDS */
 
 .card{
-  border-radius:22px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
   padding:22px;
   margin-bottom:20px;
+  backdrop-filter:blur(15px);
 }
 
 .card-header{
@@ -440,324 +313,262 @@ input[type="file"]::file-selector-button{
   align-items:center;
   justify-content:space-between;
   gap:15px;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
-.card-header h3{
-  font-size:17px;
-}
-
-.card-header p{
-  color:#777;
-  font-size:12px;
-  margin-top:4px;
-}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:15px;
-}
-
-.form-full{
-  grid-column:1/-1;
-}
-
-.form-actions{
-  display:flex;
-  gap:9px;
-  margin-top:8px;
-  flex-wrap:wrap;
-}
-
-.form-actions .btn{
-  width:auto;
-}
-
-.upload-help{
-  color:#666;
-  font-size:11px;
-  line-height:1.5;
-  margin-top:6px;
-}
-
-.current-file{
-  color:#55e69a;
-  font-size:11px;
-  margin-top:7px;
-  word-break:break-all;
+.card-title{
+  font-size:18px;
+  font-weight:800;
 }
 
 /* TABLE */
 
 .table-wrap{
+  width:100%;
   overflow-x:auto;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.07);
 }
 
 table{
   width:100%;
-  min-width:650px;
   border-collapse:collapse;
-}
-
-th{
-  color:#777;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  font-weight:600;
-  background:rgba(255,255,255,.025);
+  min-width:700px;
 }
 
 th,
 td{
-  padding:14px;
   text-align:left;
+  padding:13px 12px;
   border-bottom:1px solid rgba(255,255,255,.07);
-  vertical-align:middle;
+  font-size:13px;
+}
+
+th{
+  color:#999;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
 }
 
 td{
   color:#ddd;
-  font-size:13px;
-}
-
-tr:last-child td{
-  border-bottom:0;
-}
-
-td.muted{
-  color:#777;
 }
 
 .actions{
-  white-space:nowrap;
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
 }
 
-.actions button{
-  margin-right:6px;
-}
-
-.action-btn{
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.055);
-  color:#fff;
-  border-radius:9px;
-  padding:7px 10px;
+.actions .btn{
+  padding:8px 11px;
   font-size:11px;
 }
 
-.action-btn:hover{
-  background:rgba(255,255,255,.1);
+/* FORM */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
 }
 
-.action-btn.delete{
-  color:#ff7d8f;
-  border-color:rgba(255,77,103,.18);
+.form-grid .full-width{
+  grid-column:1/-1;
 }
 
-.empty{
-  padding:35px;
-  text-align:center;
-  color:#666;
-  border:1px dashed rgba(255,255,255,.1);
-  border-radius:16px;
+.form-actions{
+  display:flex;
+  gap:10px;
+  margin-top:8px;
 }
 
-.image-preview{
-  width:64px;
-  height:64px;
-  border-radius:12px;
-  object-fit:cover;
-  background:#111;
+/* PLATFORM MANAGER */
+
+.platform-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.platform-row{
+  display:grid;
+  grid-template-columns:170px 1fr auto;
+  gap:10px;
+  align-items:center;
+}
+
+.platform-name{
+  background:rgba(255,255,255,.06);
+}
+
+.remove-platform{
+  width:42px;
+  height:42px;
+  border-radius:10px;
+  border:1px solid rgba(255,77,103,.2);
+  background:rgba(255,77,103,.08);
+  color:#ff7184;
+}
+
+.add-platform{
+  margin-top:12px;
+}
+
+/* RELEASE TRACKS */
+
+.track-builder{
   border:1px solid var(--border);
+  background:rgba(255,255,255,.025);
+  border-radius:16px;
+  padding:18px;
 }
 
-.thumb-cell{
-  width:80px;
+.track-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
 }
 
-/* TOAST */
+.track-number{
+  max-width:180px;
+}
 
-#toast{
+.platform-preview{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.platform-badge{
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  border:1px solid var(--border);
+  color:#ccc;
+  font-size:11px;
+}
+
+/* MESSAGE */
+
+.message{
   position:fixed;
-  z-index:200;
-  right:22px;
-  bottom:22px;
-  max-width:340px;
-  padding:13px 17px;
-  border-radius:14px;
-  background:rgba(20,20,20,.94);
-  border:1px solid rgba(255,255,255,.13);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+  right:20px;
+  bottom:20px;
+  max-width:350px;
+  padding:14px 18px;
+  border-radius:13px;
+  background:#151515;
+  border:1px solid var(--border);
   box-shadow:0 20px 50px rgba(0,0,0,.4);
-  transform:translateY(20px);
-  opacity:0;
-  pointer-events:none;
-  transition:.25s ease;
+  z-index:100;
   font-size:13px;
 }
 
-#toast.show{
-  opacity:1;
-  transform:translateY(0);
+.message.success{
+  border-color:rgba(72,213,151,.35);
 }
 
-#toast.error{
-  border-color:rgba(255,77,103,.3);
-  color:#ff9baa;
-}
-
-#toast.success{
-  color:#b8ffd8;
-}
-
-/* LOADING */
-
-.loading{
-  color:#777;
-  padding:25px 0;
-}
-
-.spinner{
-  width:17px;
-  height:17px;
-  border:2px solid rgba(255,255,255,.15);
-  border-top-color:#fff;
-  border-radius:50%;
-  display:inline-block;
-  animation:spin .7s linear infinite;
-  vertical-align:middle;
-  margin-right:7px;
+.message.error{
+  border-color:rgba(255,77,103,.35);
 }
 
 /* MOBILE */
 
+.mobile-nav{
+  display:none;
+}
+
 @media(max-width:1000px){
-  .stats-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
-  .sidebar{
-    width:205px;
-  }
-
-  .main{
-    margin-left:235px;
+  .stats{
+    grid-template-columns:repeat(2,1fr);
   }
 }
 
-@media(max-width:760px){
+@media(max-width:800px){
+
   .sidebar{
-    position:fixed;
-    top:auto;
-    left:10px;
-    right:10px;
-    bottom:10px;
-    width:auto;
-    height:70px;
-    padding:7px;
-    border-radius:20px;
-    display:flex;
-    align-items:center;
-    gap:4px;
-    overflow-x:auto;
-    overflow-y:hidden;
-  }
-
-  .sidebar-brand,
-  .logout,
-  .view-site{
     display:none;
-  }
-
-  .nav{
-    flex:0 0 auto;
-    width:auto;
-    min-width:62px;
-    height:56px;
-    margin:0;
-    padding:7px 10px;
-    flex-direction:column;
-    justify-content:center;
-    gap:3px;
-    font-size:9px;
-    text-align:center;
-  }
-
-  .nav-icon{
-    width:auto;
-    font-size:15px;
   }
 
   .main{
     margin-left:0;
-    padding:20px 14px 105px;
+    width:100%;
+    padding:20px 15px 90px;
   }
 
   .topbar{
-    align-items:flex-start;
+    margin-bottom:22px;
   }
 
-  .status-pill{
-    display:none;
+  .page-title{
+    font-size:23px;
   }
 
-  .stats-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:10px;
-  }
-
-  .stat-card{
-    min-height:110px;
-    padding:17px;
-  }
-
-  .stat-value{
-    font-size:28px;
+  .stats{
+    grid-template-columns:repeat(2,1fr);
   }
 
   .form-grid{
     grid-template-columns:1fr;
   }
 
-  .form-full{
-    grid-column:auto;
+  .track-info{
+    grid-template-columns:1fr;
+  }
+
+  .platform-row{
+    grid-template-columns:1fr;
+  }
+
+  .mobile-nav{
+    position:fixed;
+    display:flex;
+    left:10px;
+    right:10px;
+    bottom:10px;
+    z-index:50;
+    background:rgba(10,10,10,.88);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:8px;
+    backdrop-filter:blur(20px);
+    overflow-x:auto;
+    gap:4px;
+  }
+
+  .mobile-nav button{
+    flex:1;
+    min-width:72px;
+    background:transparent;
+    color:#999;
+    border:0;
+    border-radius:10px;
+    padding:9px 5px;
+    font-size:10px;
+  }
+
+  .mobile-nav button.active{
+    background:rgba(255,255,255,.08);
+    color:#fff;
+  }
+}
+
+@media(max-width:500px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stat{
+    padding:16px;
+  }
+
+  .stat-value{
+    font-size:22px;
   }
 
   .card{
     padding:16px;
-    border-radius:18px;
   }
-}
-
-@media(prefers-reduced-motion:reduce){
-  *,
-  *::before,
-  *::after{
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    scroll-behavior:auto!important;
-    transition-duration:.01ms!important;
-  }
-}
-
-@keyframes sectionIn{
-  from{
-    opacity:0;
-    transform:translateY(7px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
 }
 </style>
 </head>
@@ -767,441 +578,492 @@ td.muted{
 <!-- LOGIN -->
 
 <div id="loginScreen">
-
-  <div class="login-box glass">
-
-    <div class="brand-mark">OFFICIAL</div>
-
-    <h1>KHARVIE</h1>
-
-    <div class="login-subtitle">
-      Secure Artist Administration
-    </div>
+  <div class="login-box">
+    <div class="logo">KHARVIE® ADMIN</div>
+    <div class="login-sub">Official administration dashboard</div>
 
     <form id="loginForm">
-
       <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          autocomplete="email"
-          placeholder="Admin email"
-          required
-        >
+        <label>Email</label>
+        <input type="email" id="loginEmail" required autocomplete="email">
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          autocomplete="current-password"
-          placeholder="Password"
-          required
-        >
+        <label>Password</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password">
       </div>
 
-      <button
-        id="loginButton"
-        class="btn"
-        type="submit"
-        style="width:100%"
-      >
-        Sign In
-      </button>
-
-      <div id="loginMsg" class="login-error"></div>
-
+      <button class="btn full" type="submit">Sign In</button>
     </form>
+  </div>
+</div>
+
+
+<!-- APP -->
+
+<div id="app">
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <div class="brand">KHARVIE®</div>
+
+      <nav class="nav">
+
+        <button data-section="dashboard" class="active">
+          Dashboard
+        </button>
+
+        <button data-section="songs">
+          Songs
+        </button>
+
+        <button data-section="releases">
+          Releases
+        </button>
+
+        <button data-section="releaseTracks">
+          Release Tracks
+        </button>
+
+        <button data-section="videos">
+          Videos
+        </button>
+
+        <button data-section="gallery">
+          Gallery
+        </button>
+
+        <button data-section="news">
+          News
+        </button>
+
+        <button data-section="events">
+          Events
+        </button>
+
+        <button data-section="monetization">
+          Monetization
+        </button>
+
+        <div class="nav-divider"></div>
+
+        <button onclick="window.open('index.html','_blank')">
+          View Website
+        </button>
+
+        <button id="logoutBtn">
+          Logout
+        </button>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+      <div class="topbar">
+        <div>
+          <div class="page-title" id="pageTitle">Dashboard</div>
+          <div class="page-subtitle">
+            Kharvie official administration
+          </div>
+        </div>
+      </div>
+
+
+      <!-- DASHBOARD -->
+
+      <section id="dashboard" class="section active">
+
+        <div class="stats">
+
+          <div class="stat">
+            <div class="stat-label">Songs</div>
+            <div class="stat-value" id="countSongs">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Releases</div>
+            <div class="stat-value" id="countReleases">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Release Tracks</div>
+            <div class="stat-value" id="countReleaseTracks">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Videos</div>
+            <div class="stat-value" id="countVideos">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Gallery Photos</div>
+            <div class="stat-value" id="countGallery">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">News Posts</div>
+            <div class="stat-value" id="countNews">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Events</div>
+            <div class="stat-value" id="countEvents">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Monetization</div>
+            <div class="stat-value" id="countMonetization">0</div>
+          </div>
+
+        </div>
+
+        <div class="card">
+          <div class="card-title">Welcome to Kharvie Admin</div>
+          <p style="color:#999;margin-top:8px;font-size:13px;line-height:1.7">
+            Manage Kharvie's music, releases, release tracks, videos,
+            gallery, news, events and monetization from one place.
+          </p>
+        </div>
+
+      </section>
+
+
+      <!-- SONGS -->
+
+      <section id="songs" class="section">
+
+        <div class="card">
+
+          <div class="card-header">
+            <div class="card-title">Songs</div>
+            <button class="btn" onclick="openSongForm()">Add Song</button>
+          </div>
+
+          <div id="songFormContainer"></div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Artist</th>
+                  <th>Genre</th>
+                  <th>Release Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="songsTable"></tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- RELEASES -->
+
+      <section id="releases" class="section">
+
+        <div class="card">
+
+          <div class="card-header">
+            <div class="card-title">Releases</div>
+            <button class="btn" onclick="openReleaseForm()">Add Release</button>
+          </div>
+
+          <div id="releaseFormContainer"></div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="releasesTable"></tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- RELEASE TRACKS -->
+
+      <section id="releaseTracks" class="section">
+
+        <div class="card">
+
+          <div class="card-header">
+            <div>
+              <div class="card-title">Release Tracks</div>
+              <div style="color:#999;font-size:12px;margin-top:5px">
+                Connect songs to releases and manage their streaming links.
+              </div>
+            </div>
+
+            <button class="btn" onclick="openReleaseTrackForm()">
+              Add Track
+            </button>
+          </div>
+
+          <div id="releaseTrackFormContainer"></div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Release</th>
+                  <th>Song</th>
+                  <th>Streaming Platforms</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="releaseTracksTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- VIDEOS -->
+
+      <section id="videos" class="section">
+
+        <div class="card">
+
+          <div class="card-header">
+            <div class="card-title">Videos</div>
+            <button class="btn" onclick="openVideoForm()">Add Video</button>
+          </div>
+
+          <div id="videoFormContainer"></div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Platform</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="videosTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- GALLERY -->
+
+      <section id="gallery" class="section">
+
+        <div class="card">
+
+          <div class="card-header">
+            <div class="card-title">Gallery</div>
+            <button class="btn" onclick="openGalleryForm()">Add Photo</button>
+          </div>
+
+          <div id="galleryFormContainer"></div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Image</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="galleryTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- NEWS -->
+
+      <section id="news" class="section">
+
+        <div class="card">
+
+          <div class="card-header">
+            <div class="card-title">News</div>
+            <button class="btn" onclick="openNewsForm()">Add News</button>
+          </div>
+
+          <div id="newsFormContainer"></div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Published</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="newsTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- EVENTS -->
+
+      <section id="events" class="section">
+
+        <div class="card">
+
+          <div class="card-header">
+            <div class="card-title">Events</div>
+            <button class="btn" onclick="openEventForm()">Add Event</button>
+          </div>
+
+          <div id="eventFormContainer"></div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Date</th>
+                  <th>Venue</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="eventsTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- MONETIZATION -->
+
+      <section id="monetization" class="section">
+
+        <div class="card">
+
+          <div class="card-header">
+            <div class="card-title">Monetization</div>
+            <button class="btn" onclick="openMonetizationForm()">
+              Add Entry
+            </button>
+          </div>
+
+          <div id="monetizationFormContainer"></div>
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Source</th>
+                  <th>Total Earnings</th>
+                  <th>Pending</th>
+                  <th>Paid</th>
+                  <th>Streams</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="monetizationTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
 
   </div>
 
+
+  <!-- MOBILE NAV -->
+
+  <nav class="mobile-nav">
+
+    <button data-section="dashboard" class="active">Home</button>
+    <button data-section="songs">Songs</button>
+    <button data-section="releases">Releases</button>
+    <button data-section="releaseTracks">Tracks</button>
+    <button data-section="videos">Videos</button>
+    <button data-section="gallery">Gallery</button>
+    <button data-section="news">News</button>
+    <button data-section="events">Events</button>
+    <button data-section="monetization">Money</button>
+
+  </nav>
+
 </div>
 
 
-<!-- ADMIN -->
-
-<div id="adminApp" class="hidden">
-
-  <aside class="sidebar glass">
-
-    <div class="sidebar-brand">
-      <strong>KHARVIE</strong>
-      <span>ADMINISTRATION</span>
-    </div>
-
-    <button class="nav active" data-section="dashboard">
-      <span class="nav-icon">⌂</span>
-      <span>Dashboard</span>
-    </button>
-
-    <button class="nav" data-section="songs">
-      <span class="nav-icon">♫</span>
-      <span>Songs</span>
-    </button>
-
-    <button class="nav" data-section="releases">
-      <span class="nav-icon">◈</span>
-      <span>Releases</span>
-    </button>
-
-    <button class="nav" data-section="videos">
-      <span class="nav-icon">▶</span>
-      <span>Videos</span>
-    </button>
-
-    <button class="nav" data-section="gallery">
-      <span class="nav-icon">▧</span>
-      <span>Gallery</span>
-    </button>
-
-    <button class="nav" data-section="posts">
-      <span class="nav-icon">▤</span>
-      <span>News</span>
-    </button>
-
-    <button class="nav" data-section="events">
-      <span class="nav-icon">◷</span>
-      <span>Events</span>
-    </button>
-
-    <button class="nav" data-section="monetization">
-      <span class="nav-icon">₦</span>
-      <span>Monetization</span>
-    </button>
-
-    <a
-      class="view-site"
-      href="index.html"
-      target="_blank"
-      rel="noopener"
-    >
-      <span class="nav-icon">↗</span>
-      <span>View Website</span>
-    </a>
-
-    <button id="logoutButton" class="nav logout">
-      <span class="nav-icon">↪</span>
-      <span>Logout</span>
-    </button>
-
-  </aside>
-
-
-  <main class="main">
-
-    <header class="topbar">
-
-      <div>
-        <h1 id="pageTitle">Dashboard</h1>
-        <p id="pageSubtitle">
-          Manage Kharvie's official website.
-        </p>
-      </div>
-
-      <div class="status-pill">
-        <span class="status-dot"></span>
-        Supabase Connected
-      </div>
-
-    </header>
-
-
-    <!-- DASHBOARD -->
-
-    <section id="dashboard" class="section active">
-
-      <div class="stats-grid">
-
-        <div class="stat-card glass">
-          <div class="stat-label">Songs</div>
-          <div id="statSongs" class="stat-value">—</div>
-        </div>
-
-        <div class="stat-card glass">
-          <div class="stat-label">Releases</div>
-          <div id="statReleases" class="stat-value">—</div>
-        </div>
-
-        <div class="stat-card glass">
-          <div class="stat-label">Videos</div>
-          <div id="statVideos" class="stat-value">—</div>
-        </div>
-
-        <div class="stat-card glass">
-          <div class="stat-label">Gallery</div>
-          <div id="statGallery" class="stat-value">—</div>
-        </div>
-
-        <div class="stat-card glass">
-          <div class="stat-label">News</div>
-          <div id="statPosts" class="stat-value">—</div>
-        </div>
-
-        <div class="stat-card glass">
-          <div class="stat-label">Events</div>
-          <div id="statEvents" class="stat-value">—</div>
-        </div>
-
-        <div class="stat-card glass">
-          <div class="stat-label">Monetization</div>
-          <div id="statMoney" class="stat-value">—</div>
-        </div>
-
-      </div>
-
-      <div class="card glass">
-
-        <div class="card-header">
-          <div>
-            <h3>Admin Center</h3>
-            <p>
-              Manage Kharvie's website content from one place.
-            </p>
-          </div>
-        </div>
-
-        <p style="color:#777;font-size:13px;line-height:1.7">
-          Add music, releases, videos, photographs, news,
-          events and monetization records.
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- SONGS -->
-
-    <section id="songs" class="section">
-
-      <div class="section-title">
-        <h2>Songs</h2>
-        <p>Upload music directly to the Kharvie media library.</p>
-      </div>
-
-      <div id="songFormCard"></div>
-
-      <div class="card glass">
-
-        <div class="card-header">
-          <div>
-            <h3>Music Library</h3>
-            <p>Tracks available for the official website.</p>
-          </div>
-
-          <button class="btn" data-add="song">
-            + Add Song
-          </button>
-        </div>
-
-        <div id="songsList">
-          <div class="loading">
-            <span class="spinner"></span>
-            Loading songs...
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- RELEASES -->
-
-    <section id="releases" class="section">
-
-      <div class="section-title">
-        <h2>Releases</h2>
-        <p>Manage singles, EPs, albums and mixtapes.</p>
-      </div>
-
-      <div id="releaseFormCard"></div>
-
-      <div class="card glass">
-
-        <div class="card-header">
-          <div>
-            <h3>Release Library</h3>
-            <p>Official release information.</p>
-          </div>
-
-          <button class="btn" data-add="release">
-            + Add Release
-          </button>
-        </div>
-
-        <div id="releasesList"></div>
-
-      </div>
-
-    </section>
-
-
-    <!-- VIDEOS -->
-
-    <section id="videos" class="section">
-
-      <div class="section-title">
-        <h2>Videos</h2>
-        <p>Manage official video links.</p>
-      </div>
-
-      <div id="videoFormCard"></div>
-
-      <div class="card glass">
-
-        <div class="card-header">
-          <div>
-            <h3>Video Library</h3>
-            <p>YouTube and other video platforms.</p>
-          </div>
-
-          <button class="btn" data-add="video">
-            + Add Video
-          </button>
-        </div>
-
-        <div id="videosList"></div>
-
-      </div>
-
-    </section>
-
-
-    <!-- GALLERY -->
-
-    <section id="gallery" class="section">
-
-      <div class="section-title">
-        <h2>Gallery</h2>
-        <p>Upload official Kharvie photography.</p>
-      </div>
-
-      <div id="galleryFormCard"></div>
-
-      <div class="card glass">
-
-        <div class="card-header">
-          <div>
-            <h3>Photo Gallery</h3>
-            <p>Images displayed on the website.</p>
-          </div>
-
-          <button class="btn" data-add="gallery">
-            + Add Photo
-          </button>
-        </div>
-
-        <div id="galleryList"></div>
-
-      </div>
-
-    </section>
-
-
-    <!-- NEWS -->
-
-    <section id="posts" class="section">
-
-      <div class="section-title">
-        <h2>News</h2>
-        <p>Publish official Kharvie news and announcements.</p>
-      </div>
-
-      <div id="postFormCard"></div>
-
-      <div class="card glass">
-
-        <div class="card-header">
-          <div>
-            <h3>News Posts</h3>
-            <p>Manage website articles and announcements.</p>
-          </div>
-
-          <button class="btn" data-add="post">
-            + Add News
-          </button>
-        </div>
-
-        <div id="postsList"></div>
-
-      </div>
-
-    </section>
-
-
-    <!-- EVENTS -->
-
-    <section id="events" class="section">
-
-      <div class="section-title">
-        <h2>Events</h2>
-        <p>Manage performances and appearances.</p>
-      </div>
-
-      <div id="eventFormCard"></div>
-
-      <div class="card glass">
-
-        <div class="card-header">
-          <div>
-            <h3>Events</h3>
-            <p>Upcoming Kharvie events.</p>
-          </div>
-
-          <button class="btn" data-add="event">
-            + Add Event
-          </button>
-        </div>
-
-        <div id="eventsList"></div>
-
-      </div>
-
-    </section>
-
-
-    <!-- MONETIZATION -->
-
-    <section id="monetization" class="section">
-
-      <div class="section-title">
-        <h2>Monetization</h2>
-        <p>Track music revenue and streaming performance.</p>
-      </div>
-
-      <div id="moneyFormCard"></div>
-
-      <div class="card glass">
-
-        <div class="card-header">
-          <div>
-            <h3>Monetization Records</h3>
-            <p>Revenue and streaming information.</p>
-          </div>
-
-          <button class="btn" data-add="money">
-            + Add Record
-          </button>
-        </div>
-
-        <div id="moneyList"></div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-</div>
-
-<div id="toast"></div>
+<div id="message" class="message hidden"></div>
 
 
 <script>
-"use strict";
 
 /* =========================================================
    SUPABASE
@@ -1213,256 +1075,50 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
 
-const STORAGE_BUCKET =
-  "kharvie-media";
+const STORAGE_BUCKET = "kharvie-media";
 
-const db =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+const db = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 
 /* =========================================================
-   GLOBALS
+   GLOBAL STATE
 ========================================================= */
-
-const $ = id =>
-  document.getElementById(id);
 
 let currentUser = null;
-let editingId = null;
-let editingTable = null;
-let toastTimer = null;
+
+let songsCache = [];
+let releasesCache = [];
+let releaseTracksCache = [];
+
+let editingSongId = null;
+let editingReleaseId = null;
+let editingReleaseTrackId = null;
+let editingVideoId = null;
+let editingGalleryId = null;
+let editingNewsId = null;
+let editingEventId = null;
+let editingMonetizationId = null;
 
 
 /* =========================================================
-   HELPERS
+   MESSAGE
 ========================================================= */
 
-function escapeHTML(input){
+function showMessage(text, type = "success"){
 
-  if(input === null || input === undefined){
-    return "";
-  }
+  const el = document.getElementById("message");
 
-  return String(input)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
+  el.textContent = text;
+  el.className = "message " + type;
 
+  clearTimeout(window.messageTimer);
 
-function value(input,fallback="—"){
-
-  if(
-    input === null ||
-    input === undefined ||
-    String(input).trim() === ""
-  ){
-    return fallback;
-  }
-
-  return escapeHTML(input);
-}
-
-
-function showToast(message,type="success"){
-
-  const toast = $("toast");
-
-  clearTimeout(toastTimer);
-
-  toast.textContent = message;
-  toast.className = "";
-  toast.classList.add("show",type);
-
-  toastTimer =
-    setTimeout(()=>{
-      toast.classList.remove("show");
-    },3500);
-}
-
-
-function showLoading(element,message="Loading..."){
-
-  element.innerHTML =
-    `<div class="loading">
-      <span class="spinner"></span>
-      ${escapeHTML(message)}
-    </div>`;
-}
-
-
-function emptyBox(message){
-
-  return `
-    <div class="empty">
-      ${escapeHTML(message)}
-    </div>
-  `;
-}
-
-
-function errorBox(message){
-
-  return `
-    <div class="empty">
-      <strong style="color:#ff7d8f">
-        Database error
-      </strong>
-
-      <p style="margin-top:8px;color:#777;font-size:12px">
-        ${escapeHTML(message)}
-      </p>
-    </div>
-  `;
-}
-
-
-function updateStat(id,count){
-
-  const element = $(id);
-
-  if(element){
-
-    element.textContent =
-      Number(count || 0).toLocaleString();
-
-  }
-
-}
-
-
-function formatDate(date){
-
-  if(!date){
-    return "—";
-  }
-
-  try{
-
-    return new Date(date).toLocaleDateString(
-      undefined,
-      {
-        year:"numeric",
-        month:"short",
-        day:"numeric"
-      }
-    );
-
-  }catch{
-
-    return date;
-
-  }
-
-}
-
-
-function money(amount){
-
-  const number =
-    Number(amount);
-
-  if(Number.isNaN(number)){
-    return "₦0.00";
-  }
-
-  return "₦" +
-    number.toLocaleString(
-      "en-NG",
-      {
-        minimumFractionDigits:2,
-        maximumFractionDigits:2
-      }
-    );
-
-}
-
-
-/* =========================================================
-   STORAGE UPLOAD
-========================================================= */
-
-function cleanFileName(name){
-
-  return String(name || "file")
-    .trim()
-    .replace(/[^\w.\-]+/g,"-")
-    .replace(/-+/g,"-")
-    .replace(/^-|-$/g,"");
-
-}
-
-
-async function uploadMedia(file,folder){
-
-  if(!file){
-    return null;
-  }
-
-  if(!currentUser){
-    throw new Error("You must be signed in to upload files.");
-  }
-
-  const safeName =
-    cleanFileName(file.name);
-
-  const extension =
-    safeName.includes(".")
-      ? safeName.split(".").pop()
-      : "";
-
-  const uniqueName =
-    `${crypto.randomUUID()}${extension ? "." + extension : ""}`;
-
-  const path =
-    `${folder}/${uniqueName}`;
-
-  const {
-    data,
-    error
-  } =
-    await db.storage
-      .from(STORAGE_BUCKET)
-      .upload(
-        path,
-        file,
-        {
-          cacheControl:"3600",
-          upsert:false,
-          contentType:
-            file.type ||
-            "application/octet-stream"
-        }
-      );
-
-  if(error){
-    throw error;
-  }
-
-  const publicResult =
-    db.storage
-      .from(STORAGE_BUCKET)
-      .getPublicUrl(data.path);
-
-  if(
-    !publicResult ||
-    !publicResult.data ||
-    !publicResult.data.publicUrl
-  ){
-
-    throw new Error(
-      "File uploaded but a public URL could not be created."
-    );
-
-  }
-
-  return publicResult.data.publicUrl;
-
+  window.messageTimer = setTimeout(()=>{
+    el.className = "message hidden";
+  },3500);
 }
 
 
@@ -1470,142 +1126,108 @@ async function uploadMedia(file,folder){
    AUTH
 ========================================================= */
 
-async function initializeAuth(){
+async function checkSession(){
 
   const {
-    data,
-    error
-  } =
-    await db.auth.getSession();
+    data:{
+      session
+    }
+  } = await db.auth.getSession();
 
-  if(error){
+  if(!session){
 
-    console.error(error);
     showLogin();
     return;
 
   }
 
-  if(data.session){
+  currentUser = session.user;
 
-    currentUser =
-      data.session.user;
+  const {
+    data:admin,
+    error
+  } = await db
+    .from("admin_users")
+    .select("user_id")
+    .eq("user_id",currentUser.id)
+    .maybeSingle();
 
-    await showApp();
+  if(error || !admin){
 
-  }else{
+    await db.auth.signOut();
 
     showLogin();
 
+    showMessage(
+      "This account is not authorized as an admin.",
+      "error"
+    );
+
+    return;
   }
 
-}
-
-
-db.auth.onAuthStateChange(
-  async (event,session)=>{
-
-    if(session){
-
-      currentUser =
-        session.user;
-
-      if(event === "SIGNED_IN"){
-
-        await showApp();
-
-      }
-
-    }else{
-
-      currentUser = null;
-
-      showLogin();
-
-    }
-
-  }
-);
-
-
-function showLogin(){
-
-  $("loginScreen")
-    .classList.remove("hidden");
-
-  $("adminApp")
-    .classList.add("hidden");
-
-}
-
-
-async function showApp(){
-
-  $("loginScreen")
-    .classList.add("hidden");
-
-  $("adminApp")
-    .classList.remove("hidden");
+  showApp();
 
   await loadAll();
 
 }
 
 
-$("loginForm").addEventListener(
+function showLogin(){
+
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("app").style.display = "none";
+
+}
+
+
+function showApp(){
+
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+
+}
+
+
+document.getElementById("loginForm").addEventListener(
   "submit",
-  async event=>{
+  async function(e){
 
-    event.preventDefault();
+    e.preventDefault();
 
-    const button =
-      $("loginButton");
+    const email =
+      document.getElementById("loginEmail").value.trim();
 
-    const message =
-      $("loginMsg");
-
-    message.textContent = "";
-
-    button.disabled = true;
-    button.textContent = "Signing In...";
+    const password =
+      document.getElementById("loginPassword").value;
 
     const {
       error
-    } =
-      await db.auth.signInWithPassword({
-
-        email:
-          $("email").value.trim(),
-
-        password:
-          $("password").value
-
-      });
-
-    button.disabled = false;
-    button.textContent = "Sign In";
+    } = await db.auth.signInWithPassword({
+      email,
+      password
+    });
 
     if(error){
 
-      message.textContent =
-        error.message;
-
+      showMessage(error.message,"error");
       return;
 
     }
 
-    $("email").value = "";
-    $("password").value = "";
+    await checkSession();
 
   }
 );
 
 
-$("logoutButton").addEventListener(
+document.getElementById("logoutBtn").addEventListener(
   "click",
-  async ()=>{
+  async function(){
 
     await db.auth.signOut();
+
+    location.reload();
 
   }
 );
@@ -1615,2881 +1237,61 @@ $("logoutButton").addEventListener(
    NAVIGATION
 ========================================================= */
 
-const pageInfo = {
-
-  dashboard:{
-    title:"Dashboard",
-    subtitle:"Manage Kharvie's official website."
-  },
-
-  songs:{
-    title:"Songs",
-    subtitle:"Manage songs and direct listening."
-  },
-
-  releases:{
-    title:"Releases",
-    subtitle:"Manage official music releases."
-  },
-
-  videos:{
-    title:"Videos",
-    subtitle:"Manage official video content."
-  },
-
-  gallery:{
-    title:"Gallery",
-    subtitle:"Manage official photography."
-  },
-
-  posts:{
-    title:"News",
-    subtitle:"Manage official news and announcements."
-  },
-
-  events:{
-    title:"Events",
-    subtitle:"Manage performances and appearances."
-  },
-
-  monetization:{
-    title:"Monetization",
-    subtitle:"Track revenue and streaming performance."
-  }
-
+const sectionTitles = {
+  dashboard:"Dashboard",
+  songs:"Songs",
+  releases:"Releases",
+  releaseTracks:"Release Tracks",
+  videos:"Videos",
+  gallery:"Gallery",
+  news:"News",
+  events:"Events",
+  monetization:"Monetization"
 };
 
 
-document
-.querySelectorAll(".nav[data-section]")
-.forEach(button=>{
+function openSection(name){
 
-  button.addEventListener(
-    "click",
-    ()=>{
+  document.querySelectorAll(".section")
+    .forEach(section=>{
+      section.classList.remove("active");
+    });
 
-      const section =
-        button.dataset.section;
+  const target =
+    document.getElementById(name);
 
-      document
-        .querySelectorAll(".nav[data-section]")
-        .forEach(item=>{
-          item.classList.remove("active");
-        });
+  if(target){
+    target.classList.add("active");
+  }
 
-      document
-        .querySelectorAll(".section")
-        .forEach(item=>{
-          item.classList.remove("active");
-        });
+  document.querySelectorAll(
+    ".nav button[data-section], .mobile-nav button[data-section]"
+  ).forEach(button=>{
 
-      button.classList.add("active");
+    button.classList.toggle(
+      "active",
+      button.dataset.section === name
+    );
 
-      $(section)
-        .classList.add("active");
+  });
 
-      $("pageTitle").textContent =
-        pageInfo[section].title;
+  document.getElementById("pageTitle").textContent =
+    sectionTitles[name] || "Dashboard";
 
-      $("pageSubtitle").textContent =
-        pageInfo[section].subtitle;
+}
 
-    }
-  );
+
+document.querySelectorAll(
+  ".nav button[data-section], .mobile-nav button[data-section]"
+).forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    openSection(button.dataset.section);
+
+  });
 
 });
-
-
-/* =========================================================
-   FORM SYSTEM
-========================================================= */
-
-function createFormCard(
-  container,
-  title,
-  fields,
-  submitText,
-  cancelFunction
-){
-
-  const card =
-    document.createElement("div");
-
-  card.className =
-    "card glass";
-
-  card.innerHTML = `
-
-    <div class="card-header">
-      <div>
-        <h3>${escapeHTML(title)}</h3>
-        <p>Complete the information below.</p>
-      </div>
-    </div>
-
-    <form>
-
-      <div class="form-grid">
-
-        ${fields.map(field=>{
-
-          const full =
-            field.full
-              ? "form-full"
-              : "";
-
-          if(field.type === "textarea"){
-
-            return `
-              <div class="form-group ${full}">
-                <label>${escapeHTML(field.label)}</label>
-
-                <textarea
-                  name="${escapeHTML(field.name)}"
-                  placeholder="${escapeHTML(field.placeholder || "")}"
-                  ${field.required ? "required":""}
-                ></textarea>
-              </div>
-            `;
-
-          }
-
-          if(field.type === "select"){
-
-            return `
-              <div class="form-group ${full}">
-                <label>${escapeHTML(field.label)}</label>
-
-                <select
-                  name="${escapeHTML(field.name)}"
-                  ${field.required ? "required":""}
-                >
-                  ${field.options.map(option=>`
-                    <option value="${escapeHTML(option.value)}">
-                      ${escapeHTML(option.label)}
-                    </option>
-                  `).join("")}
-                </select>
-              </div>
-            `;
-
-          }
-
-          if(field.type === "file"){
-
-            return `
-              <div class="form-group ${full}">
-                <label>${escapeHTML(field.label)}</label>
-
-                <input
-                  type="file"
-                  name="${escapeHTML(field.name)}"
-                  accept="${escapeHTML(field.accept || "")}"
-                  ${field.required ? "required":""}
-                >
-
-                ${
-                  field.help
-                  ?
-                  `<div class="upload-help">
-                    ${escapeHTML(field.help)}
-                  </div>`
-                  :
-                  ""
-                }
-
-                <div
-                  class="current-file"
-                  data-current-file="${escapeHTML(field.name)}"
-                ></div>
-
-              </div>
-            `;
-
-          }
-
-          return `
-            <div class="form-group ${full}">
-              <label>${escapeHTML(field.label)}</label>
-
-              <input
-                type="${escapeHTML(field.type || "text")}"
-                name="${escapeHTML(field.name)}"
-                placeholder="${escapeHTML(field.placeholder || "")}"
-                ${field.required ? "required":""}
-              >
-            </div>
-          `;
-
-        }).join("")}
-
-      </div>
-
-      <div class="form-actions">
-
-        <button
-          type="submit"
-          class="btn"
-        >
-          ${escapeHTML(submitText)}
-        </button>
-
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-cancel
-        >
-          Cancel
-        </button>
-
-      </div>
-
-    </form>
-  `;
-
-  container.innerHTML = "";
-
-  container.appendChild(card);
-
-  const form =
-    card.querySelector("form");
-
-  card
-    .querySelector("[data-cancel]")
-    .addEventListener(
-      "click",
-      cancelFunction
-    );
-
-  return form;
-
-}
-
-
-/* =========================================================
-   FORM DATA
-========================================================= */
-
-function formToObject(form){
-
-  const data = {};
-
-  const formData =
-    new FormData(form);
-
-  formData.forEach(
-    (value,key)=>{
-      data[key] = value;
-    }
-  );
-
-  return data;
-
-}
-
-
-function fillForm(form,data){
-
-  Object.entries(data)
-    .forEach(([key,inputValue])=>{
-
-      const field =
-        form.elements.namedItem(key);
-
-      if(!field){
-        return;
-      }
-
-      if(field.type === "file"){
-        return;
-      }
-
-      if(
-        field.type === "date" &&
-        inputValue
-      ){
-
-        field.value =
-          String(inputValue).slice(0,10);
-
-        return;
-
-      }
-
-      field.value =
-        inputValue ?? "";
-
-    });
-
-}
-
-
-/* =========================================================
-   SONGS
-========================================================= */
-
-const songFields = [
-
-  {
-    label:"Title",
-    name:"title",
-    required:true,
-    placeholder:"Song title"
-  },
-
-  {
-    label:"Artist",
-    name:"artist",
-    placeholder:"Kharvie"
-  },
-
-  {
-    label:"Genre",
-    name:"genre",
-    placeholder:"Afrobeats"
-  },
-
-  {
-    label:"Release Date",
-    name:"release_date",
-    type:"date"
-  },
-
-  {
-    label:"Audio File",
-    name:"audio_file",
-    type:"file",
-    accept:"audio/mpeg,audio/mp3,audio/*",
-    help:"Upload the MP3/audio file directly."
-  },
-
-  {
-    label:"Cover Image",
-    name:"cover_file",
-    type:"file",
-    accept:"image/jpeg,image/png,image/webp,image/*",
-    help:"Upload JPG, PNG or WebP cover artwork."
-  },
-
-  {
-    label:"Spotify",
-    name:"spotify_url",
-    placeholder:"Spotify URL"
-  },
-
-  {
-    label:"Apple Music",
-    name:"apple_music_url",
-    placeholder:"Apple Music URL"
-  },
-
-  {
-    label:"YouTube",
-    name:"youtube_url",
-    placeholder:"YouTube URL"
-  },
-
-  {
-    label:"Audiomack",
-    name:"audiomack_url",
-    placeholder:"Audiomack URL"
-  }
-
-];
-
-
-function openSongForm(song=null){
-
-  editingId =
-    song ? song.id : null;
-
-  editingTable =
-    "songs";
-
-  const form =
-    createFormCard(
-      $("songFormCard"),
-      song
-        ? "Edit Song"
-        : "Add Song",
-      songFields,
-      song
-        ? "Update Song"
-        : "Save Song",
-      closeSongForm
-    );
-
-  if(song){
-
-    fillForm(
-      form,
-      song
-    );
-
-    const audioStatus =
-      form.querySelector(
-        '[data-current-file="audio_file"]'
-      );
-
-    const coverStatus =
-      form.querySelector(
-        '[data-current-file="cover_file"]'
-      );
-
-    if(audioStatus && song.audio_url){
-
-      audioStatus.textContent =
-        "Current audio: " + song.audio_url;
-
-    }
-
-    if(coverStatus && song.cover_url){
-
-      coverStatus.textContent =
-        "Current cover: " + song.cover_url;
-
-    }
-
-  }
-
-  $("songFormCard")
-    .scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
-
-}
-
-
-function closeSongForm(){
-
-  $("songFormCard").innerHTML = "";
-
-  editingId = null;
-  editingTable = null;
-
-}
-
-
-async function saveSong(form){
-
-  const data =
-    formToObject(form);
-
-  const audioFile =
-    data.audio_file instanceof File &&
-    data.audio_file.size > 0
-      ? data.audio_file
-      : null;
-
-  const coverFile =
-    data.cover_file instanceof File &&
-    data.cover_file.size > 0
-      ? data.cover_file
-      : null;
-
-  const submitButton =
-    form.querySelector(
-      'button[type="submit"]'
-    );
-
-  if(submitButton){
-
-    submitButton.disabled = true;
-    submitButton.innerHTML =
-      '<span class="spinner"></span>Uploading...';
-
-  }
-
-  try{
-
-    let audioUrl = null;
-    let coverUrl = null;
-
-    if(audioFile){
-
-      audioUrl =
-        await uploadMedia(
-          audioFile,
-          "audio"
-        );
-
-    }
-
-    if(coverFile){
-
-      coverUrl =
-        await uploadMedia(
-          coverFile,
-          "covers"
-        );
-
-    }
-
-    if(submitButton){
-      submitButton.innerHTML =
-        '<span class="spinner"></span>Saving...';
-    }
-
-    const payload = {
-
-      title:
-        data.title,
-
-      artist:
-        data.artist || "Kharvie",
-
-      genre:
-        data.genre || null,
-
-      release_date:
-        data.release_date || null,
-
-      audio_url:
-        audioUrl ||
-        (editingId
-          ? await getExistingValue(
-              "songs",
-              editingId,
-              "audio_url"
-            )
-          : null),
-
-      cover_url:
-        coverUrl ||
-        (editingId
-          ? await getExistingValue(
-              "songs",
-              editingId,
-              "cover_url"
-            )
-          : null),
-
-      spotify_url:
-        data.spotify_url || null,
-
-      apple_music_url:
-        data.apple_music_url || null,
-
-      youtube_url:
-        data.youtube_url || null,
-
-      audiomack_url:
-        data.audiomack_url || null
-
-    };
-
-    await saveRecord(
-      "songs",
-      payload,
-      form,
-      closeSongForm,
-      loadSongs
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      error.message ||
-      "Upload failed.",
-      "error"
-    );
-
-    if(submitButton){
-
-      submitButton.disabled = false;
-      submitButton.textContent =
-        editingId
-          ? "Update Song"
-          : "Save Song";
-
-    }
-
-  }
-
-}
-
-
-async function loadSongs(){
-
-  const list =
-    $("songsList");
-
-  showLoading(
-    list,
-    "Loading songs..."
-  );
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("songs")
-      .select("*")
-      .order("id",{ascending:false});
-
-  if(error){
-
-    list.innerHTML =
-      errorBox(error.message);
-
-    return;
-
-  }
-
-  updateStat(
-    "statSongs",
-    data?.length || 0
-  );
-
-  if(!data?.length){
-
-    list.innerHTML =
-      emptyBox("No songs added yet.");
-
-    return;
-
-  }
-
-  list.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Cover</th>
-            <th>Title</th>
-            <th>Artist</th>
-            <th>Genre</th>
-            <th>Audio</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          ${data.map(song=>`
-
-            <tr>
-
-              <td class="thumb-cell">
-
-                ${
-                  song.cover_url
-                  ?
-                  `<img
-                    class="image-preview"
-                    src="${escapeHTML(song.cover_url)}"
-                    alt=""
-                    loading="lazy"
-                    onerror="this.style.display='none'"
-                  >`
-                  :
-                  "—"
-                }
-
-              </td>
-
-              <td>
-                ${value(song.title)}
-              </td>
-
-              <td>
-                ${value(song.artist)}
-              </td>
-
-              <td>
-                ${value(song.genre)}
-              </td>
-
-              <td>
-                ${
-                  song.audio_url
-                  ?
-                  `<span style="color:#55e69a">Available</span>`
-                  :
-                  `<span style="color:#666">None</span>`
-                }
-              </td>
-
-              <td class="actions">
-
-                <button
-                  class="action-btn"
-                  data-edit-table="songs"
-                  data-edit-id="${escapeHTML(song.id)}"
-                >
-                  Edit
-                </button>
-
-                <button
-                  class="action-btn delete"
-                  data-delete-table="songs"
-                  data-delete-id="${escapeHTML(song.id)}"
-                >
-                  Delete
-                </button>
-
-              </td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   RELEASES
-========================================================= */
-
-const releaseFields = [
-
-  {
-    label:"Title",
-    name:"title",
-    required:true,
-    placeholder:"Release title"
-  },
-
-  {
-    label:"Release Type",
-    name:"release_type",
-    type:"select",
-    options:[
-      {value:"Single",label:"Single"},
-      {value:"EP",label:"EP"},
-      {value:"Album",label:"Album"},
-      {value:"Mixtape",label:"Mixtape"}
-    ]
-  },
-
-  {
-    label:"Release Date",
-    name:"release_date",
-    type:"date"
-  },
-
-  {
-    label:"Cover Image",
-    name:"cover_file",
-    type:"file",
-    accept:"image/jpeg,image/png,image/webp,image/*",
-    help:"Upload release artwork directly."
-  },
-
-  {
-    label:"Description",
-    name:"description",
-    type:"textarea",
-    full:true,
-    placeholder:"Release description..."
-  },
-
-  {
-    label:"Spotify",
-    name:"spotify_url",
-    placeholder:"Spotify URL"
-  },
-
-  {
-    label:"Apple Music",
-    name:"apple_music_url",
-    placeholder:"Apple Music URL"
-  },
-
-  {
-    label:"YouTube",
-    name:"youtube_url",
-    placeholder:"YouTube URL"
-  },
-
-  {
-    label:"Audiomack",
-    name:"audiomack_url",
-    placeholder:"Audiomack URL"
-  }
-
-];
-
-
-function openReleaseForm(item=null){
-
-  editingId =
-    item ? item.id : null;
-
-  editingTable =
-    "releases";
-
-  const form =
-    createFormCard(
-      $("releaseFormCard"),
-      item
-        ? "Edit Release"
-        : "Add Release",
-      releaseFields,
-      item
-        ? "Update Release"
-        : "Save Release",
-      closeReleaseForm
-    );
-
-  if(item){
-
-    fillForm(form,item);
-
-    const status =
-      form.querySelector(
-        '[data-current-file="cover_file"]'
-      );
-
-    if(status && item.cover_url){
-      status.textContent =
-        "Current cover: " + item.cover_url;
-    }
-
-  }
-
-}
-
-
-function closeReleaseForm(){
-
-  $("releaseFormCard").innerHTML = "";
-
-  editingId = null;
-  editingTable = null;
-
-}
-
-
-async function saveRelease(form){
-
-  const data =
-    formToObject(form);
-
-  const file =
-    data.cover_file instanceof File &&
-    data.cover_file.size > 0
-      ? data.cover_file
-      : null;
-
-  const button =
-    form.querySelector(
-      'button[type="submit"]'
-    );
-
-  if(button){
-
-    button.disabled = true;
-    button.innerHTML =
-      '<span class="spinner"></span>Saving...';
-
-  }
-
-  try{
-
-    let coverUrl = null;
-
-    if(file){
-
-      if(button){
-        button.innerHTML =
-          '<span class="spinner"></span>Uploading...';
-      }
-
-      coverUrl =
-        await uploadMedia(
-          file,
-          "covers"
-        );
-
-    }
-
-    const payload = {
-
-      title:
-        data.title,
-
-      release_type:
-        data.release_type || "Single",
-
-      release_date:
-        data.release_date || null,
-
-      cover_url:
-        coverUrl ||
-        (editingId
-          ? await getExistingValue(
-              "releases",
-              editingId,
-              "cover_url"
-            )
-          : null),
-
-      description:
-        data.description || null,
-
-      spotify_url:
-        data.spotify_url || null,
-
-      apple_music_url:
-        data.apple_music_url || null,
-
-      youtube_url:
-        data.youtube_url || null,
-
-      audiomack_url:
-        data.audiomack_url || null
-
-    };
-
-    await saveRecord(
-      "releases",
-      payload,
-      form,
-      closeReleaseForm,
-      loadReleases
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      error.message ||
-      "Unable to save release.",
-      "error"
-    );
-
-    if(button){
-
-      button.disabled = false;
-      button.textContent =
-        editingId
-          ? "Update Release"
-          : "Save Release";
-
-    }
-
-  }
-
-}
-
-
-async function loadReleases(){
-
-  const list =
-    $("releasesList");
-
-  showLoading(
-    list,
-    "Loading releases..."
-  );
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("releases")
-      .select("*")
-      .order("id",{ascending:false});
-
-  if(error){
-
-    list.innerHTML =
-      errorBox(error.message);
-
-    return;
-
-  }
-
-  updateStat(
-    "statReleases",
-    data?.length || 0
-  );
-
-  if(!data?.length){
-
-    list.innerHTML =
-      emptyBox("No releases added yet.");
-
-    return;
-
-  }
-
-  list.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Cover</th>
-            <th>Title</th>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          ${data.map(item=>`
-
-            <tr>
-
-              <td class="thumb-cell">
-
-                ${
-                  item.cover_url
-                  ?
-                  `<img
-                    class="image-preview"
-                    src="${escapeHTML(item.cover_url)}"
-                    alt=""
-                    loading="lazy"
-                    onerror="this.style.display='none'"
-                  >`
-                  :
-                  "—"
-                }
-
-              </td>
-
-              <td>${value(item.title)}</td>
-
-              <td>${value(item.release_type)}</td>
-
-              <td>${formatDate(item.release_date)}</td>
-
-              <td class="actions">
-
-                <button
-                  class="action-btn"
-                  data-edit-table="releases"
-                  data-edit-id="${escapeHTML(item.id)}"
-                >
-                  Edit
-                </button>
-
-                <button
-                  class="action-btn delete"
-                  data-delete-table="releases"
-                  data-delete-id="${escapeHTML(item.id)}"
-                >
-                  Delete
-                </button>
-
-              </td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   VIDEOS
-========================================================= */
-
-const videoFields = [
-
-  {
-    label:"Title",
-    name:"title",
-    required:true,
-    placeholder:"Video title"
-  },
-
-  {
-    label:"Platform",
-    name:"platform",
-    type:"select",
-    options:[
-      {value:"YouTube",label:"YouTube"},
-      {value:"TikTok",label:"TikTok"},
-      {value:"Instagram",label:"Instagram"},
-      {value:"Other",label:"Other"}
-    ]
-  },
-
-  {
-    label:"Video URL",
-    name:"video_url",
-    required:true,
-    placeholder:"Video URL"
-  },
-
-  {
-    label:"Release Date",
-    name:"release_date",
-    type:"date"
-  }
-
-];
-
-
-function openVideoForm(item=null){
-
-  editingId =
-    item ? item.id : null;
-
-  editingTable =
-    "videos";
-
-  const form =
-    createFormCard(
-      $("videoFormCard"),
-      item
-        ? "Edit Video"
-        : "Add Video",
-      videoFields,
-      item
-        ? "Update Video"
-        : "Save Video",
-      closeVideoForm
-    );
-
-  if(item){
-    fillForm(form,item);
-  }
-
-}
-
-
-function closeVideoForm(){
-
-  $("videoFormCard").innerHTML = "";
-
-  editingId = null;
-  editingTable = null;
-
-}
-
-
-async function saveVideo(form){
-
-  const data =
-    formToObject(form);
-
-  const payload = {
-
-    title:
-      data.title,
-
-    platform:
-      data.platform || "YouTube",
-
-    video_url:
-      data.video_url,
-
-    release_date:
-      data.release_date || null
-
-  };
-
-  await saveRecord(
-    "videos",
-    payload,
-    form,
-    closeVideoForm,
-    loadVideos
-  );
-
-}
-
-
-async function loadVideos(){
-
-  const list =
-    $("videosList");
-
-  showLoading(
-    list,
-    "Loading videos..."
-  );
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("videos")
-      .select("*")
-      .order("id",{ascending:false});
-
-  if(error){
-
-    list.innerHTML =
-      errorBox(error.message);
-
-    return;
-
-  }
-
-  updateStat(
-    "statVideos",
-    data?.length || 0
-  );
-
-  if(!data?.length){
-
-    list.innerHTML =
-      emptyBox("No videos added yet.");
-
-    return;
-
-  }
-
-  list.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Platform</th>
-            <th>URL</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          ${data.map(item=>`
-
-            <tr>
-
-              <td>${value(item.title)}</td>
-
-              <td>${value(item.platform)}</td>
-
-              <td class="muted">
-                ${value(item.video_url)}
-              </td>
-
-              <td class="actions">
-
-                <button
-                  class="action-btn"
-                  data-edit-table="videos"
-                  data-edit-id="${escapeHTML(item.id)}"
-                >
-                  Edit
-                </button>
-
-                <button
-                  class="action-btn delete"
-                  data-delete-table="videos"
-                  data-delete-id="${escapeHTML(item.id)}"
-                >
-                  Delete
-                </button>
-
-              </td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   GALLERY
-========================================================= */
-
-const galleryFields = [
-
-  {
-    label:"Title",
-    name:"title",
-    required:true,
-    placeholder:"Photo title"
-  },
-
-  {
-    label:"Image File",
-    name:"image_file",
-    type:"file",
-    accept:"image/jpeg,image/png,image/webp,image/*",
-    required:true,
-    help:"Upload the gallery image directly."
-  }
-
-];
-
-
-function openGalleryForm(item=null){
-
-  editingId =
-    item ? item.id : null;
-
-  editingTable =
-    "gallery";
-
-  const fields =
-    item
-      ? galleryFields.map(field=>(
-          field.name === "image_file"
-            ? {
-                ...field,
-                required:false
-              }
-            : field
-        ))
-      : galleryFields;
-
-  const form =
-    createFormCard(
-      $("galleryFormCard"),
-      item
-        ? "Edit Photo"
-        : "Add Photo",
-      fields,
-      item
-        ? "Update Photo"
-        : "Save Photo",
-      closeGalleryForm
-    );
-
-  if(item){
-
-    fillForm(form,item);
-
-    const status =
-      form.querySelector(
-        '[data-current-file="image_file"]'
-      );
-
-    if(status && item.image_url){
-
-      status.textContent =
-        "Current image: " + item.image_url;
-
-    }
-
-  }
-
-}
-
-
-function closeGalleryForm(){
-
-  $("galleryFormCard").innerHTML = "";
-
-  editingId = null;
-  editingTable = null;
-
-}
-
-
-async function saveGallery(form){
-
-  const data =
-    formToObject(form);
-
-  const file =
-    data.image_file instanceof File &&
-    data.image_file.size > 0
-      ? data.image_file
-      : null;
-
-  const button =
-    form.querySelector(
-      'button[type="submit"]'
-    );
-
-  if(!file && !editingId){
-
-    showToast(
-      "Please choose an image.",
-      "error"
-    );
-
-    return;
-
-  }
-
-  if(button){
-
-    button.disabled = true;
-    button.innerHTML =
-      '<span class="spinner"></span>Uploading...';
-
-  }
-
-  try{
-
-    let imageUrl = null;
-
-    if(file){
-
-      imageUrl =
-        await uploadMedia(
-          file,
-          "gallery"
-        );
-
-    }
-
-    const payload = {
-
-      title:
-        data.title,
-
-      image_url:
-        imageUrl ||
-        (editingId
-          ? await getExistingValue(
-              "gallery",
-              editingId,
-              "image_url"
-            )
-          : null)
-
-    };
-
-    await saveRecord(
-      "gallery",
-      payload,
-      form,
-      closeGalleryForm,
-      loadGallery
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      error.message ||
-      "Unable to save photo.",
-      "error"
-    );
-
-    if(button){
-
-      button.disabled = false;
-      button.textContent =
-        editingId
-          ? "Update Photo"
-          : "Save Photo";
-
-    }
-
-  }
-
-}
-
-
-async function loadGallery(){
-
-  const list =
-    $("galleryList");
-
-  showLoading(
-    list,
-    "Loading gallery..."
-  );
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("gallery")
-      .select("*")
-      .order("id",{ascending:false});
-
-  if(error){
-
-    list.innerHTML =
-      errorBox(error.message);
-
-    return;
-
-  }
-
-  updateStat(
-    "statGallery",
-    data?.length || 0
-  );
-
-  if(!data?.length){
-
-    list.innerHTML =
-      emptyBox("No gallery photos added yet.");
-
-    return;
-
-  }
-
-  list.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Photo</th>
-            <th>Title</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          ${data.map(item=>`
-
-            <tr>
-
-              <td class="thumb-cell">
-
-                <img
-                  class="image-preview"
-                  src="${escapeHTML(item.image_url || "")}"
-                  alt=""
-                  loading="lazy"
-                  onerror="this.style.display='none'"
-                >
-
-              </td>
-
-              <td>
-                ${value(item.title)}
-              </td>
-
-              <td class="actions">
-
-                <button
-                  class="action-btn"
-                  data-edit-table="gallery"
-                  data-edit-id="${escapeHTML(item.id)}"
-                >
-                  Edit
-                </button>
-
-                <button
-                  class="action-btn delete"
-                  data-delete-table="gallery"
-                  data-delete-id="${escapeHTML(item.id)}"
-                >
-                  Delete
-                </button>
-
-              </td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   NEWS
-========================================================= */
-
-const postFields = [
-
-  {
-    label:"Title",
-    name:"title",
-    required:true,
-    placeholder:"News title"
-  },
-
-  {
-    label:"Excerpt",
-    name:"excerpt",
-    type:"textarea",
-    placeholder:"Short summary..."
-  },
-
-  {
-    label:"Full Content",
-    name:"content",
-    type:"textarea",
-    full:true,
-    placeholder:"Full article..."
-  },
-
-  {
-    label:"Published",
-    name:"is_published",
-    type:"select",
-    options:[
-      {value:"true",label:"Yes — Published"},
-      {value:"false",label:"No — Draft"}
-    ]
-  }
-
-];
-
-
-function openPostForm(item=null){
-
-  editingId =
-    item ? item.id : null;
-
-  editingTable =
-    "posts";
-
-  const form =
-    createFormCard(
-      $("postFormCard"),
-      item
-        ? "Edit News"
-        : "Add News",
-      postFields,
-      item
-        ? "Update News"
-        : "Save News",
-      closePostForm
-    );
-
-  if(item){
-
-    fillForm(
-      form,
-      {
-        ...item,
-        is_published:
-          String(item.is_published ?? true)
-      }
-    );
-
-  }
-
-}
-
-
-function closePostForm(){
-
-  $("postFormCard").innerHTML = "";
-
-  editingId = null;
-  editingTable = null;
-
-}
-
-
-async function savePost(form){
-
-  const data =
-    formToObject(form);
-
-  const payload = {
-
-    title:
-      data.title,
-
-    excerpt:
-      data.excerpt || null,
-
-    content:
-      data.content || null,
-
-    is_published:
-      data.is_published === "true"
-
-  };
-
-  await saveRecord(
-    "posts",
-    payload,
-    form,
-    closePostForm,
-    loadPosts
-  );
-
-}
-
-
-async function loadPosts(){
-
-  const list =
-    $("postsList");
-
-  showLoading(
-    list,
-    "Loading news..."
-  );
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("posts")
-      .select("*")
-      .order("id",{ascending:false});
-
-  if(error){
-
-    list.innerHTML =
-      errorBox(error.message);
-
-    return;
-
-  }
-
-  updateStat(
-    "statPosts",
-    data?.length || 0
-  );
-
-  if(!data?.length){
-
-    list.innerHTML =
-      emptyBox("No news posts added yet.");
-
-    return;
-
-  }
-
-  list.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Excerpt</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          ${data.map(item=>`
-
-            <tr>
-
-              <td>${value(item.title)}</td>
-
-              <td>${value(item.excerpt)}</td>
-
-              <td>
-
-                ${
-                  item.is_published
-                  ?
-                  `<span style="color:#55e69a">Published</span>`
-                  :
-                  `<span style="color:#777">Draft</span>`
-                }
-
-              </td>
-
-              <td class="actions">
-
-                <button
-                  class="action-btn"
-                  data-edit-table="posts"
-                  data-edit-id="${escapeHTML(item.id)}"
-                >
-                  Edit
-                </button>
-
-                <button
-                  class="action-btn delete"
-                  data-delete-table="posts"
-                  data-delete-id="${escapeHTML(item.id)}"
-                >
-                  Delete
-                </button>
-
-              </td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   EVENTS
-========================================================= */
-
-const eventFields = [
-
-  {
-    label:"Title",
-    name:"title",
-    required:true,
-    placeholder:"Event title"
-  },
-
-  {
-    label:"Date",
-    name:"event_date",
-    type:"date"
-  },
-
-  {
-    label:"Time",
-    name:"event_time",
-    type:"time"
-  },
-
-  {
-    label:"Venue",
-    name:"venue",
-    placeholder:"Venue"
-  },
-
-  {
-    label:"City",
-    name:"city",
-    placeholder:"City"
-  },
-
-  {
-    label:"Country",
-    name:"country",
-    placeholder:"Nigeria"
-  },
-
-  {
-    label:"Ticket URL",
-    name:"ticket_url",
-    placeholder:"Ticket link"
-  },
-
-  {
-    label:"Description",
-    name:"description",
-    type:"textarea",
-    full:true,
-    placeholder:"Event description..."
-  }
-
-];
-
-
-function openEventForm(item=null){
-
-  editingId =
-    item ? item.id : null;
-
-  editingTable =
-    "events";
-
-  const form =
-    createFormCard(
-      $("eventFormCard"),
-      item
-        ? "Edit Event"
-        : "Add Event",
-      eventFields,
-      item
-        ? "Update Event"
-        : "Save Event",
-      closeEventForm
-    );
-
-  if(item){
-    fillForm(form,item);
-  }
-
-}
-
-
-function closeEventForm(){
-
-  $("eventFormCard").innerHTML = "";
-
-  editingId = null;
-  editingTable = null;
-
-}
-
-
-async function saveEvent(form){
-
-  const data =
-    formToObject(form);
-
-  const payload = {
-
-    title:
-      data.title,
-
-    event_date:
-      data.event_date || null,
-
-    event_time:
-      data.event_time || null,
-
-    venue:
-      data.venue || null,
-
-    city:
-      data.city || null,
-
-    country:
-      data.country || "Nigeria",
-
-    ticket_url:
-      data.ticket_url || null,
-
-    description:
-      data.description || null
-
-  };
-
-  await saveRecord(
-    "events",
-    payload,
-    form,
-    closeEventForm,
-    loadEvents
-  );
-
-}
-
-
-async function loadEvents(){
-
-  const list =
-    $("eventsList");
-
-  showLoading(
-    list,
-    "Loading events..."
-  );
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("events")
-      .select("*")
-      .order("id",{ascending:false});
-
-  if(error){
-
-    list.innerHTML =
-      errorBox(error.message);
-
-    return;
-
-  }
-
-  updateStat(
-    "statEvents",
-    data?.length || 0
-  );
-
-  if(!data?.length){
-
-    list.innerHTML =
-      emptyBox("No events added yet.");
-
-    return;
-
-  }
-
-  list.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Venue</th>
-            <th>City</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          ${data.map(item=>`
-
-            <tr>
-
-              <td>${value(item.title)}</td>
-
-              <td>${formatDate(item.event_date)}</td>
-
-              <td>${value(item.venue)}</td>
-
-              <td>${value(item.city)}</td>
-
-              <td class="actions">
-
-                <button
-                  class="action-btn"
-                  data-edit-table="events"
-                  data-edit-id="${escapeHTML(item.id)}"
-                >
-                  Edit
-                </button>
-
-                <button
-                  class="action-btn delete"
-                  data-delete-table="events"
-                  data-delete-id="${escapeHTML(item.id)}"
-                >
-                  Delete
-                </button>
-
-              </td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   MONETIZATION
-========================================================= */
-
-const moneyFields = [
-
-  {
-    label:"Platform / Source",
-    name:"platform",
-    required:true,
-    placeholder:"Spotify, Apple Music, YouTube..."
-  },
-
-  {
-    label:"Period",
-    name:"period",
-    placeholder:"September 2026"
-  },
-
-  {
-    label:"Total Earnings",
-    name:"total_earnings",
-    type:"number",
-    placeholder:"0"
-  },
-
-  {
-    label:"Pending Earnings",
-    name:"pending_earnings",
-    type:"number",
-    placeholder:"0"
-  },
-
-  {
-    label:"Paid Earnings",
-    name:"paid_earnings",
-    type:"number",
-    placeholder:"0"
-  },
-
-  {
-    label:"Streams",
-    name:"streams",
-    type:"number",
-    placeholder:"0"
-  }
-
-];
-
-
-function openMoneyForm(item=null){
-
-  editingId =
-    item ? item.id : null;
-
-  editingTable =
-    "monetization";
-
-  const form =
-    createFormCard(
-      $("moneyFormCard"),
-      item
-        ? "Edit Monetization Record"
-        : "Add Monetization Record",
-      moneyFields,
-      item
-        ? "Update Record"
-        : "Save Record",
-      closeMoneyForm
-    );
-
-  if(item){
-    fillForm(form,item);
-  }
-
-}
-
-
-function closeMoneyForm(){
-
-  $("moneyFormCard").innerHTML = "";
-
-  editingId = null;
-  editingTable = null;
-
-}
-
-
-async function saveMoney(form){
-
-  const data =
-    formToObject(form);
-
-  const payload = {
-
-    platform:
-      data.platform,
-
-    period:
-      data.period || null,
-
-    total_earnings:
-      Number(data.total_earnings || 0),
-
-    pending_earnings:
-      Number(data.pending_earnings || 0),
-
-    paid_earnings:
-      Number(data.paid_earnings || 0),
-
-    streams:
-      Number(data.streams || 0)
-
-  };
-
-  await saveRecord(
-    "monetization",
-    payload,
-    form,
-    closeMoneyForm,
-    loadMoney
-  );
-
-}
-
-
-async function loadMoney(){
-
-  const list =
-    $("moneyList");
-
-  showLoading(
-    list,
-    "Loading monetization..."
-  );
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("monetization")
-      .select("*")
-      .order("id",{ascending:false});
-
-  if(error){
-
-    list.innerHTML =
-      errorBox(error.message);
-
-    updateStat("statMoney",0);
-
-    return;
-
-  }
-
-  updateStat(
-    "statMoney",
-    data?.length || 0
-  );
-
-  if(!data?.length){
-
-    list.innerHTML =
-      emptyBox(
-        "No monetization records added yet."
-      );
-
-    return;
-
-  }
-
-  list.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Platform</th>
-            <th>Period</th>
-            <th>Total</th>
-            <th>Pending</th>
-            <th>Paid</th>
-            <th>Streams</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          ${data.map(item=>`
-
-            <tr>
-
-              <td>${value(item.platform)}</td>
-
-              <td>${value(item.period)}</td>
-
-              <td>${money(item.total_earnings)}</td>
-
-              <td>${money(item.pending_earnings)}</td>
-
-              <td>${money(item.paid_earnings)}</td>
-
-              <td>
-                ${Number(item.streams || 0).toLocaleString()}
-              </td>
-
-              <td class="actions">
-
-                <button
-                  class="action-btn"
-                  data-edit-table="monetization"
-                  data-edit-id="${escapeHTML(item.id)}"
-                >
-                  Edit
-                </button>
-
-                <button
-                  class="action-btn delete"
-                  data-delete-table="monetization"
-                  data-delete-id="${escapeHTML(item.id)}"
-                >
-                  Delete
-                </button>
-
-              </td>
-
-            </tr>
-
-          `).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   EXISTING VALUE
-========================================================= */
-
-async function getExistingValue(
-  table,
-  id,
-  column
-){
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from(table)
-      .select(column)
-      .eq("id",id)
-      .single();
-
-  if(error){
-    throw error;
-  }
-
-  return data?.[column] || null;
-
-}
-
-
-/* =========================================================
-   DATABASE SAVE
-========================================================= */
-
-async function saveRecord(
-  table,
-  payload,
-  form,
-  closeFunction,
-  reloadFunction
-){
-
-  const submitButton =
-    form.querySelector(
-      'button[type="submit"]'
-    );
-
-  if(submitButton){
-
-    submitButton.disabled = true;
-
-    submitButton.innerHTML =
-      '<span class="spinner"></span>Saving...';
-
-  }
-
-  try{
-
-    let result;
-
-    if(editingId){
-
-      result =
-        await db
-          .from(table)
-          .update(payload)
-          .eq("id",editingId);
-
-    }else{
-
-      result =
-        await db
-          .from(table)
-          .insert(payload);
-
-    }
-
-    if(result.error){
-
-      throw result.error;
-
-    }
-
-    const wasEditing =
-      Boolean(editingId);
-
-    showToast(
-      wasEditing
-        ? "Updated successfully."
-        : "Saved successfully."
-    );
-
-    closeFunction();
-
-    await reloadFunction();
-
-    await loadStats();
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      error.message ||
-      "Something went wrong.",
-      "error"
-    );
-
-    if(submitButton){
-
-      submitButton.disabled = false;
-
-      submitButton.textContent =
-        editingId
-          ? "Update"
-          : "Save";
-
-    }
-
-  }
-
-}
-
-
-/* =========================================================
-   DELETE
-========================================================= */
-
-async function deleteRecord(
-  table,
-  id
-){
-
-  const confirmed =
-    confirm(
-      "Are you sure you want to delete this item?"
-    );
-
-  if(!confirmed){
-    return;
-  }
-
-  try{
-
-    const {
-      error
-    } =
-      await db
-        .from(table)
-        .delete()
-        .eq("id",id);
-
-    if(error){
-      throw error;
-    }
-
-    showToast(
-      "Deleted successfully."
-    );
-
-    await reloadTable(table);
-
-    await loadStats();
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      error.message ||
-      "Delete failed.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   RELOAD TABLE
-========================================================= */
-
-async function reloadTable(table){
-
-  switch(table){
-
-    case "songs":
-      await loadSongs();
-      break;
-
-    case "releases":
-      await loadReleases();
-      break;
-
-    case "videos":
-      await loadVideos();
-      break;
-
-    case "gallery":
-      await loadGallery();
-      break;
-
-    case "posts":
-      await loadPosts();
-      break;
-
-    case "events":
-      await loadEvents();
-      break;
-
-    case "monetization":
-      await loadMoney();
-      break;
-
-  }
-
-}
-
-
-/* =========================================================
-   EDIT
-========================================================= */
-
-async function editRecord(
-  table,
-  id
-){
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-      await db
-        .from(table)
-        .select("*")
-        .eq("id",id)
-        .single();
-
-    if(error){
-      throw error;
-    }
-
-    switch(table){
-
-      case "songs":
-        openSongForm(data);
-        break;
-
-      case "releases":
-        openReleaseForm(data);
-        break;
-
-      case "videos":
-        openVideoForm(data);
-        break;
-
-      case "gallery":
-        openGalleryForm(data);
-        break;
-
-      case "posts":
-        openPostForm(data);
-        break;
-
-      case "events":
-        openEventForm(data);
-        break;
-
-      case "monetization":
-        openMoneyForm(data);
-        break;
-
-    }
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      error.message ||
-      "Unable to load item.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   CLICK HANDLING
-========================================================= */
-
-document.addEventListener(
-  "click",
-  async event=>{
-
-    const editButton =
-      event.target.closest(
-        "[data-edit-table]"
-      );
-
-    if(editButton){
-
-      await editRecord(
-        editButton.dataset.editTable,
-        editButton.dataset.editId
-      );
-
-      return;
-
-    }
-
-    const deleteButton =
-      event.target.closest(
-        "[data-delete-table]"
-      );
-
-    if(deleteButton){
-
-      await deleteRecord(
-        deleteButton.dataset.deleteTable,
-        deleteButton.dataset.deleteId
-      );
-
-      return;
-
-    }
-
-    const addButton =
-      event.target.closest(
-        "[data-add]"
-      );
-
-    if(!addButton){
-      return;
-    }
-
-    const type =
-      addButton.dataset.add;
-
-    if(type === "song"){
-      openSongForm();
-    }
-
-    if(type === "release"){
-      openReleaseForm();
-    }
-
-    if(type === "video"){
-      openVideoForm();
-    }
-
-    if(type === "gallery"){
-      openGalleryForm();
-    }
-
-    if(type === "post"){
-      openPostForm();
-    }
-
-    if(type === "event"){
-      openEventForm();
-    }
-
-    if(type === "money"){
-      openMoneyForm();
-    }
-
-  }
-);
-
-
-/* =========================================================
-   FORM SUBMISSION
-========================================================= */
-
-document.addEventListener(
-  "submit",
-  async event=>{
-
-    const form =
-      event.target;
-
-    if(
-      form.closest("#loginScreen")
-    ){
-      return;
-    }
-
-    event.preventDefault();
-
-    if(form.closest("#songFormCard")){
-
-      await saveSong(form);
-      return;
-
-    }
-
-    if(form.closest("#releaseFormCard")){
-
-      await saveRelease(form);
-      return;
-
-    }
-
-    if(form.closest("#videoFormCard")){
-
-      await saveVideo(form);
-      return;
-
-    }
-
-    if(form.closest("#galleryFormCard")){
-
-      await saveGallery(form);
-      return;
-
-    }
-
-    if(form.closest("#postFormCard")){
-
-      await savePost(form);
-      return;
-
-    }
-
-    if(form.closest("#eventFormCard")){
-
-      await saveEvent(form);
-      return;
-
-    }
-
-    if(form.closest("#moneyFormCard")){
-
-      await saveMoney(form);
-      return;
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-async function countTable(table){
-
-  const {
-    count,
-    error
-  } =
-    await db
-      .from(table)
-      .select("*",{
-        count:"exact",
-        head:true
-      });
-
-  if(error){
-
-    console.warn(
-      `Unable to count ${table}:`,
-      error.message
-    );
-
-    return 0;
-
-  }
-
-  return count || 0;
-
-}
-
-
-async function loadStats(){
-
-  const results =
-    await Promise.all([
-
-      countTable("songs"),
-      countTable("releases"),
-      countTable("videos"),
-      countTable("gallery"),
-      countTable("posts"),
-      countTable("events"),
-      countTable("monetization")
-
-    ]);
-
-  updateStat(
-    "statSongs",
-    results[0]
-  );
-
-  updateStat(
-    "statReleases",
-    results[1]
-  );
-
-  updateStat(
-    "statVideos",
-    results[2]
-  );
-
-  updateStat(
-    "statGallery",
-    results[3]
-  );
-
-  updateStat(
-    "statPosts",
-    results[4]
-  );
-
-  updateStat(
-    "statEvents",
-    results[5]
-  );
-
-  updateStat(
-    "statMoney",
-    results[6]
-  );
-
-}
 
 
 /* =========================================================
@@ -4499,28 +1301,897 @@ async function loadStats(){
 async function loadAll(){
 
   await Promise.all([
-
     loadSongs(),
     loadReleases(),
+    loadReleaseTracks(),
     loadVideos(),
     loadGallery(),
-    loadPosts(),
+    loadNews(),
     loadEvents(),
-    loadMoney(),
-    loadStats()
-
+    loadMonetization()
   ]);
+
+  updateDashboard();
 
 }
 
 
 /* =========================================================
-   START
+   DASHBOARD
 ========================================================= */
 
-initializeAuth();
+function updateDashboard(){
 
-</script>
+  document.getElementById("countSongs").textContent =
+    songsCache.length;
 
-</body>
-</html>
+  document.getElementById("countReleases").textContent =
+    releasesCache.length;
+
+  document.getElementById("countReleaseTracks").textContent =
+    releaseTracksCache.length;
+
+}
+
+
+/* =========================================================
+   SONGS
+========================================================= */
+
+async function loadSongs(){
+
+  const {
+    data,
+    error
+  } = await db
+    .from("songs")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+
+    console.error(error);
+    return;
+
+  }
+
+  songsCache = data || [];
+
+  renderSongs();
+
+}
+
+
+function renderSongs(){
+
+  const tbody =
+    document.getElementById("songsTable");
+
+  tbody.innerHTML = "";
+
+  songsCache.forEach(song=>{
+
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${escapeHtml(song.title || "—")}</td>
+      <td>${escapeHtml(song.artist || "Kharvie")}</td>
+      <td>${escapeHtml(song.genre || "—")}</td>
+      <td>${escapeHtml(song.release_date || "—")}</td>
+
+      <td>
+        <div class="actions">
+
+          <button class="btn secondary"
+            onclick="editSong('${song.id}')">
+            Edit
+          </button>
+
+          <button class="btn danger"
+            onclick="deleteSong('${song.id}')">
+            Delete
+          </button>
+
+        </div>
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+
+  });
+
+}
+
+
+function openSongForm(song=null){
+
+  editingSongId = song ? song.id : null;
+
+  const s = song || {};
+
+  document.getElementById("songFormContainer").innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+        <div class="card-title">
+          ${song ? "Edit Song" : "Add Song"}
+        </div>
+
+        <button class="btn secondary"
+          onclick="closeSongForm()">
+          Close
+        </button>
+      </div>
+
+      <form id="songForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Title *</label>
+            <input name="title"
+              required
+              value="${attr(s.title)}">
+          </div>
+
+          <div class="form-group">
+            <label>Artist</label>
+            <input name="artist"
+              value="${attr(s.artist || "Kharvie")}">
+          </div>
+
+          <div class="form-group">
+            <label>Genre</label>
+            <input name="genre"
+              value="${attr(s.genre)}">
+          </div>
+
+          <div class="form-group">
+            <label>Release Date</label>
+            <input type="date"
+              name="release_date"
+              value="${attr(s.release_date)}">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Cover Image URL</label>
+            <input name="cover_url"
+              value="${attr(s.cover_url || s.cover_image_url)}">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Audio URL</label>
+            <input name="audio_url"
+              value="${attr(s.audio_url)}">
+          </div>
+
+          <div class="form-group">
+            <label>Spotify URL</label>
+            <input name="spotify_url"
+              value="${attr(s.spotify_url)}">
+          </div>
+
+          <div class="form-group">
+            <label>Apple Music URL</label>
+            <input name="apple_music_url"
+              value="${attr(s.apple_music_url)}">
+          </div>
+
+          <div class="form-group">
+            <label>YouTube URL</label>
+            <input name="youtube_url"
+              value="${attr(s.youtube_url)}">
+          </div>
+
+          <div class="form-group">
+            <label>Audiomack URL</label>
+            <input name="audiomack_url"
+              value="${attr(s.audiomack_url)}">
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+
+          <button class="btn" type="submit">
+            Save Song
+          </button>
+
+          <button
+            type="button"
+            class="btn secondary"
+            onclick="closeSongForm()">
+            Cancel
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  `;
+
+
+  document.getElementById("songForm")
+    .addEventListener("submit",saveSong);
+
+}
+
+
+async function saveSong(e){
+
+  e.preventDefault();
+
+  const form = e.target;
+
+  const data = Object.fromEntries(
+    new FormData(form).entries()
+  );
+
+  const payload = {
+    title:data.title,
+    artist:data.artist || "Kharvie",
+    genre:data.genre || null,
+    release_date:data.release_date || null,
+    cover_url:data.cover_url || null,
+    audio_url:data.audio_url || null,
+    spotify_url:data.spotify_url || null,
+    apple_music_url:data.apple_music_url || null,
+    youtube_url:data.youtube_url || null,
+    audiomack_url:data.audiomack_url || null
+  };
+
+  let result;
+
+  if(editingSongId){
+
+    result = await db
+      .from("songs")
+      .update(payload)
+      .eq("id",editingSongId);
+
+  }else{
+
+    result = await db
+      .from("songs")
+      .insert(payload);
+
+  }
+
+  if(result.error){
+
+    showMessage(result.error.message,"error");
+    return;
+
+  }
+
+  showMessage("Song saved successfully.");
+
+  closeSongForm();
+
+  await loadSongs();
+  updateDashboard();
+
+}
+
+
+function editSong(id){
+
+  const song =
+    songsCache.find(x=>String(x.id) === String(id));
+
+  if(song){
+    openSongForm(song);
+  }
+
+}
+
+
+async function deleteSong(id){
+
+  if(!confirm("Delete this song?")) return;
+
+  const {
+    error
+  } = await db
+    .from("songs")
+    .delete()
+    .eq("id",id);
+
+  if(error){
+
+    showMessage(error.message,"error");
+    return;
+
+  }
+
+  showMessage("Song deleted.");
+
+  await loadSongs();
+  await loadReleaseTracks();
+  updateDashboard();
+
+}
+
+
+function closeSongForm(){
+
+  document.getElementById("songFormContainer").innerHTML = "";
+
+  editingSongId = null;
+
+}
+
+
+/* =========================================================
+   RELEASES
+========================================================= */
+
+async function loadReleases(){
+
+  const {
+    data,
+    error
+  } = await db
+    .from("releases")
+    .select("*")
+    .order("release_date",{ascending:false});
+
+  if(error){
+
+    console.error(error);
+    return;
+
+  }
+
+  releasesCache = data || [];
+
+  renderReleases();
+
+}
+
+
+function renderReleases(){
+
+  const tbody =
+    document.getElementById("releasesTable");
+
+  tbody.innerHTML = "";
+
+  releasesCache.forEach(release=>{
+
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>${escapeHtml(release.title || "—")}</td>
+
+      <td>${escapeHtml(release.release_type || "—")}</td>
+
+      <td>${escapeHtml(release.release_date || "—")}</td>
+
+      <td>
+
+        <div class="actions">
+
+          <button class="btn secondary"
+            onclick="editRelease('${release.id}')">
+            Edit
+          </button>
+
+          <button class="btn danger"
+            onclick="deleteRelease('${release.id}')">
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+
+  });
+
+}
+
+
+function openReleaseForm(release=null){
+
+  editingReleaseId =
+    release ? release.id : null;
+
+  const r = release || {};
+
+  document.getElementById("releaseFormContainer").innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div class="card-title">
+          ${release ? "Edit Release" : "Add Release"}
+        </div>
+
+        <button class="btn secondary"
+          onclick="closeReleaseForm()">
+          Close
+        </button>
+
+      </div>
+
+      <form id="releaseForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Title *</label>
+            <input name="title"
+              required
+              value="${attr(r.title)}">
+          </div>
+
+          <div class="form-group">
+
+            <label>Type</label>
+
+            <select name="release_type">
+
+              <option value="Single"
+                ${r.release_type==="Single"?"selected":""}>
+                Single
+              </option>
+
+              <option value="EP"
+                ${r.release_type==="EP"?"selected":""}>
+                EP
+              </option>
+
+              <option value="Album"
+                ${r.release_type==="Album"?"selected":""}>
+                Album
+              </option>
+
+              <option value="Mixtape"
+                ${r.release_type==="Mixtape"?"selected":""}>
+                Mixtape
+              </option>
+
+            </select>
+
+          </div>
+
+          <div class="form-group">
+            <label>Release Date</label>
+            <input type="date"
+              name="release_date"
+              value="${attr(r.release_date)}">
+          </div>
+
+          <div class="form-group">
+            <label>Cover Image URL</label>
+            <input name="cover_url"
+              value="${attr(r.cover_url || r.cover_image_url)}">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Description</label>
+            <textarea name="description">${escapeHtml(r.description || "")}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Spotify URL</label>
+            <input name="spotify_url"
+              value="${attr(r.spotify_url)}">
+          </div>
+
+          <div class="form-group">
+            <label>Apple Music URL</label>
+            <input name="apple_music_url"
+              value="${attr(r.apple_music_url)}">
+          </div>
+
+          <div class="form-group">
+            <label>YouTube URL</label>
+            <input name="youtube_url"
+              value="${attr(r.youtube_url)}">
+          </div>
+
+          <div class="form-group">
+            <label>Audiomack URL</label>
+            <input name="audiomack_url"
+              value="${attr(r.audiomack_url)}">
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+
+          <button class="btn" type="submit">
+            Save Release
+          </button>
+
+          <button
+            type="button"
+            class="btn secondary"
+            onclick="closeReleaseForm()">
+            Cancel
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  `;
+
+
+  document.getElementById("releaseForm")
+    .addEventListener("submit",saveRelease);
+
+}
+
+
+async function saveRelease(e){
+
+  e.preventDefault();
+
+  const data =
+    Object.fromEntries(
+      new FormData(e.target).entries()
+    );
+
+  const payload = {
+    title:data.title,
+    release_type:data.release_type,
+    release_date:data.release_date || null,
+    cover_url:data.cover_url || null,
+    description:data.description || null,
+    spotify_url:data.spotify_url || null,
+    apple_music_url:data.apple_music_url || null,
+    youtube_url:data.youtube_url || null,
+    audiomack_url:data.audiomack_url || null
+  };
+
+  let result;
+
+  if(editingReleaseId){
+
+    result = await db
+      .from("releases")
+      .update(payload)
+      .eq("id",editingReleaseId);
+
+  }else{
+
+    result = await db
+      .from("releases")
+      .insert(payload);
+
+  }
+
+  if(result.error){
+
+    showMessage(result.error.message,"error");
+    return;
+
+  }
+
+  showMessage("Release saved.");
+
+  closeReleaseForm();
+
+  await loadReleases();
+
+  updateDashboard();
+
+}
+
+
+function editRelease(id){
+
+  const release =
+    releasesCache.find(
+      x=>String(x.id)===String(id)
+    );
+
+  if(release){
+    openReleaseForm(release);
+  }
+
+}
+
+
+async function deleteRelease(id){
+
+  if(!confirm(
+    "Delete this release? Related release tracks may also be affected."
+  )) return;
+
+  const {
+    error
+  } = await db
+    .from("releases")
+    .delete()
+    .eq("id",id);
+
+  if(error){
+
+    showMessage(error.message,"error");
+    return;
+
+  }
+
+  showMessage("Release deleted.");
+
+  await loadReleases();
+  await loadReleaseTracks();
+
+  updateDashboard();
+
+}
+
+
+function closeReleaseForm(){
+
+  document.getElementById(
+    "releaseFormContainer"
+  ).innerHTML = "";
+
+  editingReleaseId = null;
+
+}
+
+
+/* =========================================================
+   RELEASE TRACKS
+========================================================= */
+
+async function loadReleaseTracks(){
+
+  const {
+    data,
+    error
+  } = await db
+    .from("release_tracks")
+    .select("*")
+    .order("track_number",{ascending:true});
+
+  if(error){
+
+    console.error(error);
+    showMessage(
+      "Could not load release tracks: " + error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  releaseTracksCache = data || [];
+
+  renderReleaseTracks();
+
+}
+
+
+function getReleaseTitle(id){
+
+  const release =
+    releasesCache.find(
+      x=>String(x.id) === String(id)
+    );
+
+  return release
+    ? release.title
+    : "Unknown release";
+
+}
+
+
+function getSongTitle(id){
+
+  const song =
+    songsCache.find(
+      x=>String(x.id) === String(id)
+    );
+
+  return song
+    ? song.title
+    : "Unknown song";
+
+}
+
+
+function getPlatforms(value){
+
+  if(!value) return {};
+
+  if(typeof value === "object"){
+    return value;
+  }
+
+  try{
+    return JSON.parse(value);
+  }catch{
+    return {};
+  }
+
+}
+
+
+function renderReleaseTracks(){
+
+  const tbody =
+    document.getElementById("releaseTracksTable");
+
+  tbody.innerHTML = "";
+
+  if(!releaseTracksCache.length){
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5"
+          style="text-align:center;color:#777;padding:30px">
+          No release tracks yet.
+        </td>
+      </tr>
+    `;
+
+    return;
+
+  }
+
+
+  releaseTracksCache.forEach(track=>{
+
+    const platforms =
+      getPlatforms(track.streaming_platforms);
+
+    const badges =
+      Object.entries(platforms)
+        .filter(([name,url])=>url)
+        .map(([name])=>`
+          <span class="platform-badge">
+            ${escapeHtml(name)}
+          </span>
+        `)
+        .join("");
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>
+        ${escapeHtml(
+          track.track_number ?? "—"
+        )}
+      </td>
+
+      <td>
+        ${escapeHtml(
+          getReleaseTitle(track.release_id)
+        )}
+      </td>
+
+      <td>
+        ${escapeHtml(
+          getSongTitle(track.song_id)
+        )}
+      </td>
+
+      <td>
+
+        <div class="platform-preview">
+
+          ${
+            badges ||
+            '<span style="color:#777">No links</span>'
+          }
+
+        </div>
+
+      </td>
+
+      <td>
+
+        <div class="actions">
+
+          <button class="btn secondary"
+            onclick="editReleaseTrack('${track.id}')">
+            Edit
+          </button>
+
+          <button class="btn danger"
+            onclick="deleteReleaseTrack('${track.id}')">
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+
+  });
+
+}
+
+
+/* =========================================================
+   RELEASE TRACK FORM
+========================================================= */
+
+function openReleaseTrackForm(track=null){
+
+  editingReleaseTrackId =
+    track ? track.id : null;
+
+  const t = track || {};
+
+  const platforms =
+    getPlatforms(t.streaming_platforms);
+
+  document.getElementById(
+    "releaseTrackFormContainer"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div>
+
+          <div class="card-title">
+            ${track ? "Edit Release Track" : "Add Release Track"}
+          </div>
+
+          <div style="color:#999;font-size:12px;margin-top:5px">
+            Choose an existing release and song.
+          </div>
+
+        </div>
+
+        <button class="btn secondary"
+          onclick="closeReleaseTrackForm()">
+          Close
+        </button>
+
+      </div>
+
+
+      <form id="releaseTrackForm">
+
+        <div class="track-builder">
+
+          <div class="track-info">
+
+            <div class="form-group">
+
+              <label>Release *</label>
+
+              <select name="release_id" required>
+
+                <option value="">
+                  Select release
+                </option>
+
+                ${
+                  releasesCache.map(release=>`
+
+                    <option
+                      value="${attr(release.id)}"
+                      ${
+                        String(release.id) ===
+                        String(t.release_id)
+                        ? "selected"
+                        : ""
+                      }>
+
+                      ${
