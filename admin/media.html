@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Kharvie — Media Upload</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#070707;--panel:#121212;--line:#292929;--text:#fff;--muted:#999;--accent:#d7ff3f;--danger:#ff5570;--ok:#48d597}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}main{width:min(760px,92%);margin:auto;padding:35px 0 60px}h1{font-size:clamp(38px,8vw,64px);letter-spacing:-3px;margin:20px 0 8px}.muted{color:var(--muted)}.top{display:flex;justify-content:space-between;gap:15px;align-items:center}.btn{border:1px solid #fff;background:#fff;color:#000;padding:13px 18px;font-weight:800;text-decoration:none;display:inline-flex;cursor:pointer}.btn.secondary{background:transparent;color:#fff;border-color:#444}.btn:disabled{opacity:.45;cursor:not-allowed}.panel{background:var(--panel);border:1px solid var(--line);padding:24px;margin-top:25px;border-radius:18px}label{display:block;font-size:12px;font-weight:800;color:#aaa;margin:16px 0 8px;text-transform:uppercase;letter-spacing:1px}input,select{width:100%;background:#0a0a0a;border:1px solid #333;color:#fff;padding:14px;border-radius:8px}input[type=file]{padding:12px}.drop{border:1px dashed #555;padding:30px;text-align:center;border-radius:14px}.preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-top:18px}.item{border:1px solid #292929;background:#0c0c0c;padding:10px;border-radius:10px}.item img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:7px}.item p{font-size:11px;word-break:break-word;color:#aaa}.status{margin-top:15px;padding:12px;border-radius:8px;display:none}.status.show{display:block}.ok{background:#10271e;color:var(--ok)}.error{background:#32131a;color:#ff8b9e}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.small{font-size:12px;color:#777;margin-top:10px;line-height:1.5}
+</style>
+</head>
+<body>
+<main>
+<div class="top"><a class="btn secondary" href="../admin.html">← Dashboard</a><strong>KHARVIE</strong></div>
+<h1>UPLOAD MEDIA</h1><p class="muted">Choose photos directly from your phone storage or computer. Upload them to the Kharvie media library.</p>
+<div class="panel">
+<label>What are you uploading?</label>
+<select id="kind"><option value="gallery">Gallery photo</option><option value="cover">Song / release cover</option><option value="general">Other website image</option></select>
+<label>Choose image(s)</label>
+<div class="drop"><input id="files" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple><div class="small">On Android/iPhone, this opens your phone's Photos/Files picker. On computer, it opens your normal file browser.</div></div>
+<label>Gallery title (used when adding to Gallery)</label>
+<input id="title" placeholder="e.g. Kharvie studio portrait">
+<div id="preview" class="preview"></div>
+<div class="actions"><button id="upload" class="btn" disabled>Upload selected images</button><button id="clear" class="btn secondary" type="button">Clear</button></div>
+<div id="status" class="status"></div>
+</div>
+<div class="panel"><strong>How it works</strong><p class="small">For Gallery photos, the uploader can add the uploaded image to the Gallery table automatically. For covers and other images, the secure public image URL is shown with a Copy URL button so you can paste it into Song or Release → Cover Image URL.</p></div>
+</main>
+<script>
+const SUPABASE_URL="https://dprulohylwgzmetgrywj.supabase.co";
+const SUPABASE_KEY="sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4";
+const BUCKET="kharvie-media";
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const filesEl=document.getElementById('files'),preview=document.getElementById('preview'),upload=document.getElementById('upload'),status=document.getElementById('status'),kind=document.getElementById('kind');
+let selected=[];
+function msg(text,type='ok'){status.textContent=text;status.className='status show '+type}
+async function auth(){const {data:{session}}=await db.auth.getSession();if(!session){location.href='../admin.html';return null}const {data:admin}=await db.from('admin_users').select('user_id').eq('user_id',session.user.id).maybeSingle();if(!admin){await db.auth.signOut();location.href='../admin.html';return null}return session}
+auth();
+filesEl.addEventListener('change',()=>{selected=[...filesEl.files];render();upload.disabled=!selected.length});
+function render(){preview.innerHTML='';selected.forEach(f=>{const url=URL.createObjectURL(f);const d=document.createElement('div');d.className='item';d.innerHTML='<img src="'+url+'"><p>'+f.name+'</p>';preview.appendChild(d)})}
+document.getElementById('clear').onclick=()=>{selected=[];filesEl.value='';preview.innerHTML='';upload.disabled=true;status.className='status'};
+async function uploadOne(file,i){const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'');const safe=(file.name.replace(/[^a-zA-Z0-9._-]/g,'-').replace(/-+/g,'-').slice(0,80)||'image');const folder=kind.value;const path=folder+'/'+Date.now()+'-'+i+'-'+crypto.randomUUID()+'.'+ext;const up=await db.storage.from(BUCKET).upload(path,file,{cacheControl:'31536000',upsert:false,contentType:file.type});if(up.error)throw up.error;const {data}=db.storage.from(BUCKET).getPublicUrl(path);return {url:data.publicUrl,name:safe}}
+upload.onclick=async()=>{upload.disabled=true;msg('Uploading…');try{const session=await auth();if(!session)return;const title=document.getElementById('title').value.trim();const results=[];for(let i=0;i<selected.length;i++){const r=await uploadOne(selected[i],i);results.push(r);if(kind.value==='gallery'){const g=await db.from('gallery').insert({title:title||r.name,image_url:r.url});if(g.error)throw g.error}}
+preview.innerHTML=results.map(r=>'<div class="item"><img src="'+r.url+'"><p>'+r.name+'</p><button class="btn secondary copy" data-url="'+r.url+'" type="button">Copy URL</button></div>').join('');msg(results.length+' image(s) uploaded successfully. '+(kind.value==='gallery'?'Gallery entries added automatically.':'Copy the URL and paste it into your Song/Release image field.'));selected=[];filesEl.value='';}catch(e){console.error(e);msg(e.message||'Upload failed.','error')}finally{upload.disabled=false}};
+document.addEventListener('click',async e=>{if(e.target.classList.contains('copy')){await navigator.clipboard.writeText(e.target.dataset.url);e.target.textContent='Copied ✓';setTimeout(()=>e.target.textContent='Copy URL',1500)}});
+</script>
+</body>
+</html>
