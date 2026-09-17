@@ -1,0 +1,41 @@
+-- Kharvie site identity CMS
+-- Run this once in Supabase SQL Editor.
+
+create table if not exists public.site_settings (
+  id integer primary key default 1,
+  artist_name text,
+  real_name text,
+  profession text,
+  genre text,
+  origin text,
+  booking_email text,
+  short_bio text,
+  hero_intro text,
+  updated_at timestamptz default now()
+);
+
+insert into public.site_settings
+  (id, artist_name, real_name, profession, genre, origin, booking_email, short_bio, hero_intro)
+values
+  (1,
+   'Kharvie',
+   'Victor Avannah',
+   'Nigerian singer and songwriter',
+   'Afrobeats',
+   'Delta State, Nigeria',
+   'avannahvictor3@gmail.com',
+   'Victor Avannah, professionally known as Kharvie, is a Nigerian singer and songwriter from Delta State, Nigeria. Born on April 12, 2003, he is part of a new generation of Nigerian artists shaping the evolving sound of Afrobeats.',
+   'Kharvie is building a distinct Afrobeats identity from Delta State, blending melody, rhythm and modern Nigerian energy into music made to move.')
+on conflict (id) do nothing;
+
+alter table public.site_settings enable row level security;
+
+create policy "Public can read site settings"
+on public.site_settings for select
+using (true);
+
+create policy "Admins can manage site settings"
+on public.site_settings for all
+to authenticated
+using (auth.uid() in (select user_id from public.admin_users))
+with check (auth.uid() in (select user_id from public.admin_users));
