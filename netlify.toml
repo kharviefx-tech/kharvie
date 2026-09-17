@@ -1,0 +1,9 @@
+[build]
+  publish = "."
+  command = "sed -i 's#https://kharviefx-tech.github.io/kharvie#https://kharviemusic.netlify.app#g' index.html sitemap.xml robots.txt
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
