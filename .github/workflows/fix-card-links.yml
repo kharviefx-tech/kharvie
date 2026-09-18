@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Make all homepage action cards tappable
+      - name: Make all homepage action cards tappable and update SEO title
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -40,10 +40,13 @@ jobs:
           if script_end in s and 'document.querySelectorAll(\'.hub-action\')' not in s:
               s = s.replace(script_end, extra, 1)
 
+          s = s.replace('<title>Kharvie — Victor Avannah | Nigerian Singer & Songwriter</title>', '<title>Kharvie | Official Website</title>')
+          s = s.replace('<meta property="og:title" content="Kharvie — Victor Avannah">', '<meta property="og:title" content="Kharvie | Official Website">')
+
           p.write_text(s, encoding='utf-8')
           PY
 
-      - name: Commit homepage card fixes
+      - name: Commit homepage fixes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -51,6 +54,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes needed"
           else
-            git commit -m "Make all homepage action cards tappable"
+            git commit -m "Set Kharvie official website title"
             git push
           fi
