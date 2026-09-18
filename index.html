@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="assets/ui-v2.css?v=13">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://kharviefx-tech.github.io/kharvie/#website","url":"https://kharviefx-tech.github.io/kharvie/","name":"Kharvie (Victor Avannah) Official","alternateName":["Kharvie","Victor Avannah"],"publisher":{"@id":"https://kharviefx-tech.github.io/kharvie/#person"}},{"@type":"WebPage","@id":"https://kharviefx-tech.github.io/kharvie/#webpage","url":"https://kharviefx-tech.github.io/kharvie/","name":"Kharvie (Victor Avannah) | Official Website","isPartOf":{"@id":"https://kharviefx-tech.github.io/kharvie/#website"},"about":{"@id":"https://kharviefx-tech.github.io/kharvie/#person"}},{"@type":"Person","@id":"https://kharviefx-tech.github.io/kharvie/#person","name":"Kharvie","alternateName":"Victor Avannah","birthDate":"2003-04-12","birthPlace":{"@type":"Place","name":"Delta State, Nigeria"},"nationality":{"@type":"Country","name":"Nigeria"},"jobTitle":["Singer","Songwriter"],"url":"https://kharviefx-tech.github.io/kharvie/","image":["https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg","https://kharviefx-tech.github.io/kharvie/assets/IMG-20260912-WA0004.jpg"],"description":"Victor Avannah, professionally known as Kharvie, is a Nigerian singer and songwriter from Delta State, Nigeria.","sameAs":["https://www.youtube.com/@kharvie-m","https://www.instagram.com/kharvie__/","https://www.facebook.com/officialKharvie","https://www.tiktok.com/@iamkharvie","https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC","https://music.apple.com/ng/artist/kharvie/6781999179","https://audiomack.com/kharvie","https://www.boomplay.com/share/artist/133955596","https://www.deezer.com/en/artist/397699251","https://tidal.com/artist/81354709/u","https://music.amazon.com/artists/B0H62J7XW9/kharvie","https://www.shazam.com/artist/-/6781999179"]},{"@type":"MusicRecording","@id":"https://kharviefx-tech.github.io/kharvie/#sweet-love-recording","name":"Sweet Love","url":"https://kharviefx-tech.github.io/kharvie/releases/sweet-love.html","datePublished":"2026-09-11","genre":"Afrobeats","byArtist":{"@id":"https://kharviefx-tech.github.io/kharvie/#person"},"sameAs":["https://open.spotify.com/track/3a6qAo7biXN6Hu5LU1NocG"]}]}</script>
 <style>
 :root{--k-black:#050605;--k-ink:#10110f;--k-white:#f4f2ec;--k-muted:#9b9a92;--k-accent:#d8ff3e;--k-line:rgba(244,242,236,.14);--k-max:1500px}
@@ -222,6 +222,73 @@ body{background:var(--site-admin-bg);color:var(--site-admin-text)}
 .k-footer{background:#050705;border-top-color:var(--site-admin-line)}.k-footlinks a:hover{color:var(--site-admin-accent)}
 #kharvieLoader{background:var(--site-admin-bg)}.kl-line{background:#1b241d}.kl-line span{background:var(--site-admin-accent)}
 @media(max-width:900px){.k-links{background:rgba(5,7,5,.98)}}
+</style><style id="kharvie-superior-design">
+/* Kharvie Superior Design System — final public-site layer */
+:root{
+  --sx-bg:#050705;--sx-panel:#0d110e;--sx-panel2:#121813;--sx-line:#29352c;
+  --sx-text:#f6f7f2;--sx-muted:#b5bdb5;--sx-accent:#21c46b;--sx-accent2:#16a85a;
+  --sx-max:1440px;--sx-radius:18px
+}
+html{background:var(--sx-bg);scroll-padding-top:88px}
+body,.editorial-home{font-family:"Inter",Arial,sans-serif;letter-spacing:0}
+body{font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.k-wrap{width:min(var(--sx-max),90vw)}
+.k-nav{height:86px;background:rgba(5,7,5,.82);border-bottom:1px solid rgba(41,53,44,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.k-navin{min-height:86px}.k-logo{font-family:Inter,Arial,sans-serif;font-size:19px;font-weight:800;letter-spacing:.18em}
+.k-links{gap:30px}.k-links a{font-family:Inter,Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em}
+.k-links .k-primary{border-radius:999px;padding:13px 20px}
+.k-menu{border-radius:999px;font-weight:700}
+.hero-editorial{min-height:100svh;height:auto}
+.hero-shade{background:
+radial-gradient(circle at 76% 28%,rgba(33,196,107,.14),transparent 24%),
+radial-gradient(circle at 18% 78%,rgba(33,196,107,.06),transparent 30%),
+linear-gradient(135deg,#050705 0%,#09100b 48%,#050705 100%)}
+.hero-editorial:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(5,7,5,.22),transparent 60%),linear-gradient(0deg,rgba(5,7,5,.4),transparent 45%)}
+.hero-monogram{font-family:Inter,Arial,sans-serif;color:rgba(33,196,107,.055);filter:blur(.1px)}
+.hero-editorial-copy{padding-top:120px;padding-bottom:62px}
+.hero-topline{font-family:Inter,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em}
+.hero-bottom{align-items:end}.hero-bottom h1{font-family:Inter,Arial,sans-serif;font-weight:800;letter-spacing:-.085em;line-height:.82}
+.hero-bottom p{font-family:Inter,Arial,sans-serif;font-weight:500;line-height:1.45}
+.hero-enter{border-radius:999px;font-weight:700;transition:transform .25s,border-color .25s,background .25s}.hero-enter:hover{transform:translateY(-3px)}
+.statement-band{padding:34px 0;background:linear-gradient(90deg,var(--sx-panel2),var(--sx-panel));border-top:1px solid var(--sx-line);border-bottom:1px solid var(--sx-line)}
+.statement-band p{font-family:Inter,Arial,sans-serif;font-weight:500;line-height:1.45}
+.editorial-section{padding:125px 0;border-bottom:1px solid var(--sx-line)}
+.editorial-label{font-family:Inter,Arial,sans-serif;font-weight:600}
+.editorial-heading{font-family:Inter,Arial,sans-serif;font-weight:800;letter-spacing:-.085em;line-height:.82}
+.release-editorial{border-radius:var(--sx-radius);overflow:hidden;box-shadow:0 28px 80px rgba(0,0,0,.2)}
+.release-photo{min-height:680px}.release-photo img{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.release-info{padding:64px}.release-info h2{font-family:Inter,Arial,sans-serif;font-weight:800;letter-spacing:-.085em}
+.release-info p,.about-copy p,.contact-grid p{font-family:Inter,Arial,sans-serif;font-size:16px;line-height:1.75}
+.k-links-row a{border-radius:999px;font-family:Inter,Arial,sans-serif;font-weight:700;transition:all .2s}
+.k-cms-grid{gap:16px}.k-cms-grid>article,.k-cms-grid>.cms-card,.k-cms-grid>.cms-item,.k-cms-grid .cms-empty{border-radius:var(--sx-radius);min-height:180px}
+.k-cms-grid>article,.k-cms-grid>.cms-card,.k-cms-grid>.cms-item{transition:transform .25s,border-color .25s,background .25s;box-shadow:0 12px 35px rgba(0,0,0,.12)}
+.k-cms-grid>article:hover,.k-cms-grid>.cms-card:hover,.k-cms-grid>.cms-item:hover{transform:translateY(-5px)}
+.k-live-grid{gap:16px}.k-about{gap:7vw}.about-portrait{border-radius:var(--sx-radius);overflow:hidden}.about-copy h2,.contact-grid h2{font-family:Inter,Arial,sans-serif;font-weight:800;letter-spacing:-.085em}
+.k-facts{margin-top:42px}.k-fact{font-family:Inter,Arial,sans-serif;font-size:13px;min-height:50px;align-items:center}
+.k-btn{border-radius:999px;font-family:Inter,Arial,sans-serif;font-weight:700;min-height:50px;padding:0 22px;transition:transform .2s,background .2s,border-color .2s}
+.k-btn:hover{transform:translateY(-2px)}
+.contact-editorial{padding:135px 0}.contact-mail{font-family:Inter,Arial,sans-serif;font-weight:700}
+.k-footer{padding:68px 0}.k-foot-logo{font-family:Inter,Arial,sans-serif;font-weight:800}.k-footlinks{font-family:Inter,Arial,sans-serif;font-weight:600}
+#kharvieLoader{font-family:Inter,Arial,sans-serif}
+#kharvieConsent .kc-card{font-family:Inter,Arial,sans-serif;border-radius:var(--sx-radius)}
+#kharvieConsent .kc-card p{font-size:15px;line-height:1.7}
+@media(max-width:900px){
+ .k-nav{height:76px}.k-navin{min-height:76px}.k-links{top:76px;padding:22px 5vw;gap:8px;border-bottom:1px solid var(--sx-line);box-shadow:0 25px 50px rgba(0,0,0,.35)}
+ .k-links a{width:100%;padding:12px 4px;font-size:12px}.k-links .k-primary{width:auto;padding:13px 19px}
+ .hero-editorial{min-height:88svh}.hero-editorial-copy{padding-top:105px;padding-bottom:45px}
+ .editorial-section{padding:88px 0}.release-photo{min-height:55vh}.release-info{padding:40px 30px}
+ .k-cms-grid{grid-template-columns:1fr!important}.k-cms-grid>article,.k-cms-grid>.cms-card,.k-cms-grid>.cms-item{min-height:160px}
+}
+@media(max-width:560px){
+ body{font-size:15px}.k-wrap{width:min(92vw,520px)}
+ .hero-bottom h1{font-size:clamp(72px,21vw,104px);letter-spacing:-.09em}
+ .hero-bottom p{font-size:17px}.hero-editorial-copy{padding-top:92px}
+ .editorial-section{padding:72px 0}.editorial-heading{font-size:clamp(58px,18vw,82px)}
+ .release-photo{min-height:46vh}.release-info{padding:30px 24px}
+ .release-info h2{font-size:76px}.about-copy p,.contact-grid p{font-size:15px}
+ .k-fact{font-size:12px}.k-footer{padding:48px 0}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 </style></head>
 <body>
 <div id="kharvieLoader" role="status" aria-label="Loading Kharvie website"><div class="kl-mark">KHARVIE</div><div class="kl-line"><span></span></div><div style="font-size:9px;letter-spacing:.18em;color:#8f9b92">OFFICIAL WEBSITE / VICTOR AVANNAH</div></div>
