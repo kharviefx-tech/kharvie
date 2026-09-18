@@ -30,9 +30,9 @@ jobs:
           PERSON = SITE + '#person'
           WEBSITE = SITE + '#website'
 
-          # 1) One official social identity everywhere.
+          # 1) Keep the owner's current official social identities consistent.
           replacements = {
-              'https://www.tiktok.com/@iamkharvie': 'https://www.tiktok.com/@_kharvie',
+              'https://www.tiktok.com/@_kharvie': 'https://www.tiktok.com/@iamkharvie',
               'https://www.facebook.com/share/19RdXwa2nU/': 'https://www.facebook.com/officialKharvie',
           }
           for p in ROOT.rglob('*'):
@@ -53,7 +53,7 @@ jobs:
           # 2) Consolidate duplicate JSON-LD graph blocks on the homepage.
           p = ROOT / 'index.html'
           s = p.read_text(encoding='utf-8')
-          pattern = re.compile(r'<script type="application/ld\\+json">(.*?)</script>', re.S)
+          pattern = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
           blocks = list(pattern.finditer(s))
           parsed = []
           for m in blocks:
@@ -97,14 +97,7 @@ jobs:
           p = ROOT / 'press.html'
           if p.exists():
               s = p.read_text(encoding='utf-8')
-              s = re.sub(
-                  r'"mainEntity":\{"@type":"Person","@id":"' + re.escape(PERSON) + r'"[^}]*\}',
-                  '"mainEntity":{"@id":"' + PERSON + '"}',
-                  s,
-                  count=1
-              )
-              # If the compact replacement above did not match, at least add the canonical id to the existing entity.
-              if '"mainEntity":{"@id":"' + PERSON + '"}' not in s:
+              if '"@id":"' + PERSON + '"' not in s:
                   s = s.replace('"mainEntity":{"@type":"Person"', '"mainEntity":{"@id":"' + PERSON + '","@type":"Person"', 1)
               s = s.replace('"@type":"ProfilePage","name":"Kharvie Press Center & EPK"', '"@type":"ProfilePage","@id":"' + SITE + 'press.html#profilepage","name":"Kharvie Press Center & EPK","isPartOf":{"@id":"' + WEBSITE + '"}', 1)
               p.write_text(s, encoding='utf-8')
@@ -130,7 +123,7 @@ jobs:
           }
           (ROOT / 'site.webmanifest').write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
 
-          # 5) Rebuild the sitemap from actual public HTML files in the repository.
+          # 5) Rebuild a clean sitemap from public HTML pages only.
           urls = []
           for rel in sorted(ROOT.glob('**/*.html')):
               rels = rel.as_posix()
@@ -153,8 +146,10 @@ jobs:
           ET.parse('sitemap.xml')
           json.loads(Path('site.webmanifest').read_text(encoding='utf-8'))
           index = Path('index.html').read_text(encoding='utf-8')
-          assert 'https://www.tiktok.com/@iamkharvie' not in index
+          assert 'https://www.tiktok.com/@iamkharvie' in index
+          assert 'https://www.tiktok.com/@_kharvie' not in index
           assert 'https://www.facebook.com/share/19RdXwa2nU/' not in index
+          assert 'https://www.facebook.com/officialKharvie' in index
           assert 'https://kharviefx-tech.github.io/kharvie/' in index
           print('SEO/entity validation passed.')
           PY
@@ -167,6 +162,6 @@ jobs:
           if git diff --cached --quiet; then
             echo 'No SEO/entity changes required.'
           else
-            git commit -m 'Normalize Kharvie SEO entity signals'
+            git commit -m 'Keep Kharvie SEO entity and sitemap signals consistent'
             git push
           fi
