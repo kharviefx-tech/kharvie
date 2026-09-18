@@ -344,3 +344,33 @@ body{background:#050706!important;color:#eef3ee!important}
 .hq-card:hover,.cms-card:hover,.cms-release:hover,.cms-video:hover{border-color:#35d47b!important}
 /* Mobile: no oversized light blocks */
 @media(max-width:760px){.spotlight,.business,.bcard{background:#0b100d!important}.spotlight-copy,.bcard{padding:26px!important}}
+
+
+/* Kharvie UI v7 — final site-wide consistency layer */
+:root{--ui-bg:#050706;--ui-surface:#0b100d;--ui-surface-2:#101711;--ui-surface-3:#172019;--ui-text:#eef3ee;--ui-muted:#aeb8b0;--ui-line:#253229;--ui-accent:#35d47b;--ui-accent-2:#20b965;--ui-soft:#e8eee9;--ui-gold:#b7a06a}
+html,body{background:#050706!important;color:#eef3ee!important}
+body{font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;-webkit-font-smoothing:antialiased}
+body *{box-sizing:border-box}
+.nav,.nav.scrolled,.links,header{background:#070a08!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-color:#263229!important}
+.hero-bg:after{background:linear-gradient(90deg,rgba(5,7,5,.94),rgba(5,7,5,.68) 52%,rgba(5,7,5,.35)),linear-gradient(0deg,rgba(5,7,5,.92),transparent 58%)!important}
+section{border-color:#263229!important}
+.hq,.ticker,.footer{background:#070a08!important}
+.hq-card,.cms-card,.cms-release,.cms-video,.cms-event,.gallery-item,.portrait,.contactbox,.item,.card,.panel,.tile,.box,.surface{background:#0e130f!important;color:#eef3ee!important;border:1px solid #29372e!important;box-shadow:0 12px 34px rgba(0,0,0,.32)!important;backdrop-filter:none!important}
+.hq-card:hover,.cms-card:hover,.cms-release:hover,.cms-video:hover,.hub-card:hover{background:#121a14!important;border-color:#35d47b!important}
+.spotlight,.business,.bcard{background:#0b100d!important;color:#eef3ee!important;border-color:#2b3a30!important}
+.spotlight-copy,.bcard{background:#101711!important;color:#eef3ee!important}
+.spotlight-copy h2,.spotlight-copy p,.spotlight-copy a,.bcard h2,.bcard p,.bcard a{color:#eef3ee!important}
+.business .index,.business .section-copy,.section-copy,.about-copy p,.contactbox p,.bcard p{color:#aeb8b0!important}
+.btn:not(.dark),.email{background:#35d47b!important;color:#061008!important;border-color:#35d47b!important}
+.btn.dark,.button.alt{background:#0b110d!important;color:#eef3ee!important;border-color:#3a4b40!important}
+.btn.dark:hover,.button.alt:hover,.btn:not(.dark):hover,.email:hover{background:#35d47b!important;color:#061008!important;border-color:#35d47b!important}
+.platforms a,.socials a,.links a{background:#101610!important;color:#eef3ee!important;border-color:#354239!important}
+.platforms a:hover,.socials a:hover,.links a:hover{background:#35d47b!important;color:#061008!important;border-color:#35d47b!important}
+.index,.eyebrow,.label,.badge,.kicker,.tag,.pill{color:#35d47b!important}
+p,li,dd,dt,small,.muted,.sub,.meta,.description,.caption{color:#d7ddd7!important}
+h1,h2,h3,h4,h5,h6,strong,b{color:#fff!important}
+.field input,.field select,.field textarea,input,textarea,select{background:#080b09!important;color:#f7f8f4!important;border-color:#3a493d!important;box-shadow:none!important}
+input::placeholder,textarea::placeholder{color:#aeb8af!important;opacity:1!important}
+label{color:#e8ece7!important}
+footer,footer p,footer li,footer a{color:#cbd3cc!important}
+@media(max-width:760px){.spotlight,.business,.bcard{background:#0b100d!important}.spotlight-copy,.bcard,.contactbox{padding:26px!important}}
