@@ -147,7 +147,40 @@ linear-gradient(90deg,#070806 0%,#090a08 55%,#0d100b 100%)}
  .release-photo{min-height:44vh}
  .release-info{padding:34px}
 }
-</style></style></head>
+</style></style><style>
+/* Kharvie monochrome black & white artist redesign */
+:root{--mono-black:#050505;--mono-dark:#0b0b0b;--mono-panel:#111;--mono-white:#f7f7f5;--mono-soft:#deded9;--mono-muted:#989898;--mono-line:#292929}
+html{scroll-behavior:smooth}body{background:var(--mono-black);color:var(--mono-white)}
+.k-nav{height:82px;background:linear-gradient(180deg,rgba(5,5,5,.97),rgba(5,5,5,.82),transparent);border-bottom:1px solid transparent}
+.k-nav.scrolled{background:#050505;border-bottom-color:#292929}
+.k-logo{color:#fff;letter-spacing:.24em}.k-links a{color:#bdbdbd}.k-links a:hover{color:#fff}.k-links .k-primary{background:#fff;color:#050505}.k-menu{border-color:#555;color:#fff}
+.hero-editorial{height:92svh;min-height:680px;background:#050505;color:#fff;border-bottom:1px solid var(--mono-line)}
+.hero-shade{background:radial-gradient(circle at 78% 42%,rgba(255,255,255,.08),transparent 20%),linear-gradient(135deg,#050505,#0b0b0b 55%,#151515)}
+.hero-monogram{color:rgba(255,255,255,.035)}
+.hero-editorial:before{background:linear-gradient(90deg,transparent 0 24.9%,rgba(255,255,255,.035) 25%,transparent 25.1% 49.9%,rgba(255,255,255,.035) 50%,transparent 50.1% 74.9%,rgba(255,255,255,.035) 75%,transparent 75.1%)}
+.hero-topline{border-top-color:#414141;color:#bdbdbd}.hero-bottom p{color:#d6d6d2}.hero-bottom p em{color:#fff}.hero-enter{border-color:#5b5b5b;background:#0d0d0d}.hero-enter:hover{background:#fff;color:#050505;border-color:#fff}
+.statement-band{background:#fff;color:#050505;border-bottom:1px solid #fff}.statement-band p,.statement-band strong{color:#050505}
+.editorial-home{background:#050505;color:#f7f7f5}
+.editorial-section{background:#050505;color:#f7f7f5;border-bottom-color:#292929}
+.editorial-section.dark-panel,.about-editorial{background:#0a0a0a;color:#f7f7f5;border-color:#292929}
+.editorial-section.gallery-panel{background:#111;color:#f7f7f5}
+.editorial-label{color:#8e8e8e;border-top-color:#333}.editorial-label a{color:#fff}
+.editorial-heading,.editorial-heading em{color:#fff}.editorial-heading em,.release-info h2 em,.about-copy h2 em,.contact-grid h2 em{font-style:normal}
+.release-editorial{background:#101010;color:#fff;border-color:#303030}
+.release-photo{background:#080808}.release-photo img{filter:grayscale(1);opacity:.9}
+.release-info{background:#111;color:#fff}.release-info p{color:#a7a7a7}.release-number{color:#777}
+.k-links-row a{border-color:#444;color:#fff}.k-links-row a:first-child{background:#fff;border-color:#fff;color:#050505}.k-links-row a:hover{background:#fff;border-color:#fff;color:#050505}
+.k-cms-grid .cms-empty{background:#0b0b0b;border-color:#333;color:#777}
+.about-portrait{border-color:#333;background:#111}.about-portrait img{filter:grayscale(1)}
+.about-copy p{color:#aaa}.about-copy .k-facts,.about-copy .k-fact{border-color:#303030}.about-copy .k-fact span:first-child{color:#777}.editorial-home .k-fact span:last-child{color:#fff}
+.contact-editorial{background:#050505;color:#fff;border-top-color:#292929}.contact-grid p{color:#aaa}.contact-mail{color:#fff;border-color:#fff}
+.editorial-home .k-btn{background:#fff;border-color:#fff;color:#050505;border-radius:999px;box-shadow:none}.editorial-home .k-btn.alt{background:transparent;color:#fff;border-color:#555}.editorial-home .k-btn:hover{background:#dcdcd8;border-color:#dcdcd8;color:#050505}
+.k-footer{background:#030303;border-top:1px solid #202020}.k-foot-logo{color:#fff}.k-foot small,.k-footlinks{color:#777}.k-footlinks a:hover{color:#fff}
+#kharvieLoader{background:#050505;color:#fff}.kl-line{background:#252525}.kl-line span{background:#fff}
+.k-cms-grid>article,.k-cms-grid>.cms-card,.k-cms-grid>.cms-item{background:#0d0d0d;border-color:#292929}
+@media(max-width:900px){.hero-editorial{height:auto;min-height:88svh}.release-editorial{grid-template-columns:1fr}.release-photo{min-height:52vh}.release-info{min-height:460px}}
+@media(max-width:560px){.hero-bottom h1{font-size:76px}.hero-monogram{font-size:360px;right:-18vw}}
+</style></head>
 <body>
 <div id="kharvieLoader" role="status" aria-label="Loading Kharvie website"><div class="kl-mark">KHARVIE</div><div class="kl-line"><span></span></div><div style="font-size:9px;letter-spacing:.18em;color:#8f9b92">OFFICIAL WEBSITE / VICTOR AVANNAH</div></div>
 <header class="k-nav"><div class="k-wrap k-navin"><a class="k-logo" href="./">KHARVIE</a><nav class="k-links" id="navLinks"><a href="#music">Music</a><a href="#videos">Videos</a><a href="#events">Live</a><a href="#about">About</a><a href="#gallery">Photos</a><a href="#news">News</a><a class="k-primary" href="booking.html">Contact</a></nav><button class="k-menu" id="menuBtn" aria-label="Open menu" aria-expanded="false">MENU</button></div></header>
