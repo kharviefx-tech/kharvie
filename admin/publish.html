@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Kharvie — Quick Publish</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#050705;--panel:#0d110e;--panel2:#121813;--line:#29352c;--text:#f6f7f2;--muted:#b5bdb5;--accent:#21c46b;--accent2:#16a85a;--danger:#ff647c;--ok:#65e0a0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px Inter,Arial,sans-serif}.wrap{width:min(1050px,94%);margin:auto}.top{position:sticky;top:0;z-index:10;background:#050705;border-bottom:1px solid var(--line)}.topin{min-height:70px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-weight:900;letter-spacing:.16em}.actions,.tabs{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:12px 16px;border-radius:10px;font-weight:800;text-decoration:none;cursor:pointer}.btn.accent{background:var(--accent);border-color:var(--accent);color:#061008}.btn:disabled{opacity:.5;cursor:not-allowed}.hero{padding:42px 0 25px}.hero h1{font-size:clamp(44px,8vw,76px);line-height:.9;letter-spacing:-.07em;margin:0 0 14px}.muted{color:var(--muted);line-height:1.6}.tabs{margin:8px 0 22px}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:11px 14px;border-radius:999px;cursor:pointer}.tab.active{background:var(--accent);border-color:var(--accent);color:#061008;font-weight:900}.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-bottom:18px}.hidden{display:none!important}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.wide{grid-column:1/-1}.field{margin:0 0 2px}.field label{display:block;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:800;margin:0 0 7px}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:#080b09;color:var(--text);padding:13px;border-radius:10px;outline:none}.field textarea{min-height:180px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent)}.drop{border:1px dashed #3a493d;background:#090d0a;padding:22px;border-radius:14px;text-align:center}.drop input{width:100%;padding:10px}.preview{margin-top:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}.preview img,.preview video{width:100%;aspect-ratio:1;object-fit:cover;border-radius:9px;background:#000}.preview .file{border:1px solid var(--line);padding:8px;border-radius:10px}.small{font-size:12px;color:#7f8a81;line-height:1.5}.status{margin-top:14px;padding:12px;border-radius:10px;display:none}.status.show{display:block}.status.ok{color:var(--ok);border:1px solid #315f48;background:#0b1911}.status.error{color:#ff9baa;border:1px solid #5d2730;background:#231015}.section-title{font-size:26px;margin:0 0 7px}.note{padding:13px 15px;border:1px solid var(--line);background:#101611;border-radius:12px;margin-bottom:16px;color:var(--muted)}@media(max-width:720px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.topin{align-items:flex-start;padding:12px 0}.hero{padding-top:30px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap topin"><div class="brand">KHARVIE® CONTROL ROOM</div><div class="actions"><a class="btn" href="editor.html">Dashboard</a><a class="btn" href="../index.html">View site</a></div></div></header>
+<main class="wrap">
+<section class="hero"><h1>Publish without URLs.</h1><p class="muted">Pick a photo or video directly from your phone or computer. Kharvie's site will store it, publish it, and display it automatically.</p></section>
+<div class="tabs">
+<button class="tab active" data-tab="news">News</button>
+<button class="tab" data-tab="gallery">Image</button>
+<button class="tab" data-tab="video">Video</button>
+</div>
+
+<section id="news" class="panel">
+<h2 class="section-title">Publish news</h2><p class="muted">Write the update, choose a featured image if you want one, then press Publish News.</p>
+<div class="grid">
+<div class="field"><label>Headline</label><input id="newsTitle" placeholder="Kharvie announces a new release"></div>
+<div class="field"><label>Author</label><input id="newsAuthor" value="Kharvie"></div>
+<div class="field wide"><label>Short excerpt</label><textarea id="newsExcerpt" style="min-height:95px" placeholder="A short description shown on the homepage."></textarea></div>
+<div class="field wide"><label>News content</label><textarea id="newsContent" placeholder="Write the full announcement here..."></textarea></div>
+<div class="field wide"><label>Featured image (optional)</label><div class="drop"><input id="newsImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><div class="small">No URL needed. Select the image from your phone gallery or Files app.</div></div><div id="newsPreview" class="preview"></div></div>
+</div>
+<div class="actions"><button id="publishNews" class="btn accent">Publish News</button><button id="clearNews" class="btn">Clear</button></div><div id="newsStatus" class="status"></div>
+</section>
+
+<section id="gallery" class="panel hidden">
+<h2 class="section-title">Upload gallery image</h2><p class="muted">Select one or more photos. They are uploaded and added to the public Gallery automatically.</p>
+<div class="grid">
+<div class="field wide"><label>Title</label><input id="galleryTitle" placeholder="Kharvie studio portrait"></div>
+<div class="field"><label>Category</label><select id="galleryCategory"><option>Artist</option><option>Press</option><option>Performance</option><option>Studio</option><option>Artwork</option></select></div>
+<div class="field"><label>Featured?</label><select id="galleryFeatured"><option value="false">No</option><option value="true">Yes</option></select></div>
+<div class="field wide"><label>Choose photos</label><div class="drop"><input id="galleryFiles" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple><div class="small">No URL needed.</div></div><div id="galleryPreview" class="preview"></div></div>
+</div>
+<div class="actions"><button id="uploadGallery" class="btn accent" disabled>Upload to Gallery</button><button id="clearGallery" class="btn">Clear</button></div><div id="galleryStatus" class="status"></div>
+</section>
+
+<section id="video" class="panel hidden">
+<h2 class="section-title">Upload video</h2><p class="muted">Upload an MP4, WebM or MOV directly. The website will use the uploaded file as the video source—no YouTube or video URL required.</p>
+<div class="note">For reliability on the free Supabase plan, keep each video at or below 50 MB. Larger files can be added later with a larger storage plan.</div>
+<div class="grid">
+<div class="field wide"><label>Video title</label><input id="videoTitle" placeholder="Kharvie — Official Visualizer"></div>
+<div class="field"><label>Release date</label><input id="videoDate" type="date"></div>
+<div class="field"><label>Featured?</label><select id="videoFeatured"><option value="false">No</option><option value="true">Yes</option></select></div>
+<div class="field wide"><label>Description</label><textarea id="videoDescription" style="min-height:110px" placeholder="Short description"></textarea></div>
+<div class="field wide"><label>Video file</label><div class="drop"><input id="videoFile" type="file" accept="video/mp4,video/webm,video/quicktime"><div class="small">No URL needed. Pick the video from your phone or computer.</div></div><div id="videoPreview" class="preview"></div></div>
+<div class="field wide"><label>Thumbnail (optional)</label><div class="drop"><input id="videoThumb" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></div><div id="thumbPreview" class="preview"></div></div>
+</div>
+<div class="actions"><button id="publishVideo" class="btn accent" disabled>Upload & Publish Video</button><button id="clearVideo" class="btn">Clear</button></div><div id="videoStatus" class="status"></div>
+</section>
+</main>
+<script>
+const SUPABASE_URL='https://dprulohylwgzmetgrywj.supabase.co',SUPABASE_KEY='sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4',BUCKET='kharvie-media';
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+function msg(el,text,type='ok'){el.textContent=text;el.className='status show '+type}
+async function auth(){const {data:{session}}=await db.auth.getSession();if(!session){location.href='editor.html';return null}const {data:admin,error}=await db.from('admin_users').select('user_id').eq('user_id',session.user.id).maybeSingle();if(error||!admin){await db.auth.signOut();location.href='editor.html';return null}return session}
+auth();
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('main>section.panel').forEach(x=>x.classList.add('hidden'));$(b.dataset.tab).classList.remove('hidden')});
+function previewImage(input,target){target.innerHTML='';[...input.files].forEach(f=>{const d=document.createElement('div');d.className='file';const img=document.createElement('img');img.src=URL.createObjectURL(f);d.appendChild(img);target.appendChild(d)})}
+$('newsImage').onchange=()=>previewImage($('newsImage'),$('newsPreview'));
+$('galleryFiles').onchange=()=>{previewImage($('galleryFiles'),$('galleryPreview'));$('uploadGallery').disabled=!$('galleryFiles').files.length};
+$('videoFile').onchange=()=>{const f=$('videoFile').files[0];$('publishVideo').disabled=!f;$('videoPreview').innerHTML=f?'<div class="file"><video controls src="'+URL.createObjectURL(f)+'"></video></div>':''};
+$('videoThumb').onchange=()=>previewImage($('videoThumb'),$('thumbPreview'));
+function slugify(s){return s.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,100)}
+async function uploadFile(file,folder){if(!file)return null;const ext=(file.name.split('.').pop()||'bin').toLowerCase().replace(/[^a-z0-9]/g,'');const path=folder+'/'+Date.now()+'-'+crypto.randomUUID()+'.'+ext;const r=await db.storage.from(BUCKET).upload(path,file,{cacheControl:'31536000',upsert:false,contentType:file.type});if(r.error)throw r.error;return db.storage.from(BUCKET).getPublicUrl(path).data.publicUrl}
+$('publishNews').onclick=async()=>{const b=$('publishNews');b.disabled=true;msg($('newsStatus'),'Publishing news…');try{await auth();const title=$('newsTitle').value.trim();if(!title)throw new Error('Add a headline first.');const imageUrl=await uploadFile($('newsImage').files[0],'news');const now=new Date().toISOString();const r=await db.from('posts').insert({title,slug:slugify(title)+'-'+Date.now().toString().slice(-6),excerpt:$('newsExcerpt').value.trim(),content:$('newsContent').value.trim(),featured_image_url:imageUrl,author:$('newsAuthor').value.trim()||'Kharvie',published_at:now,is_published:true});if(r.error)throw r.error;msg($('newsStatus'),'News published. It will appear on the website automatically.','ok');$('newsTitle').value='';$('newsExcerpt').value='';$('newsContent').value='';$('newsImage').value='';$('newsPreview').innerHTML=''}catch(e){msg($('newsStatus'),e.message||'Could not publish news.','error')}finally{b.disabled=false}};
+$('clearNews').onclick=()=>['newsTitle','newsExcerpt','newsContent','newsImage'].forEach(id=>$(id).value='')||($('newsPreview').innerHTML='');
+$('uploadGallery').onclick=async()=>{const b=$('uploadGallery');b.disabled=true;msg($('galleryStatus'),'Uploading photos…');try{await auth();const files=[...$('galleryFiles').files];if(!files.length)throw new Error('Choose at least one photo.');for(const f of files){const url=await uploadFile(f,'gallery');const r=await db.from('gallery').insert({title:$('galleryTitle').value.trim()||f.name, image_url:url, category:$('galleryCategory').value, is_featured:$('galleryFeatured').value==='true', is_published:true});if(r.error)throw r.error}msg($('galleryStatus'),files.length+' photo(s) published to the website.','ok');$('galleryFiles').value='';$('galleryPreview').innerHTML=''}catch(e){msg($('galleryStatus'),e.message||'Upload failed.','error')}finally{b.disabled=!$('galleryFiles').files.length}};
+$('clearGallery').onclick=()=>{ $('galleryFiles').value='';$('galleryPreview').innerHTML='';$('galleryStatus').className='status';$('uploadGallery').disabled=true};
+$('publishVideo').onclick=async()=>{const b=$('publishVideo');b.disabled=true;msg($('videoStatus'),'Uploading video…');try{await auth();const f=$('videoFile').files[0];if(!f)throw new Error('Choose a video first.');if(f.size>50*1024*1024)throw new Error('This video is larger than 50 MB. Please use a smaller/compressed file.');const videoUrl=await uploadFile(f,'videos');const thumb=await uploadFile($('videoThumb').files[0],'video-thumbnails');const r=await db.from('videos').insert({title:$('videoTitle').value.trim()||f.name,description:$('videoDescription').value.trim(),video_url:videoUrl,thumbnail_url:thumb,platform:'Kharvie Website',release_date:$('videoDate').value||null,is_featured:$('videoFeatured').value==='true',is_published:true});if(r.error)throw r.error;msg($('videoStatus'),'Video published. It will appear on the website automatically.','ok');$('videoTitle').value='';$('videoDescription').value='';$('videoDate').value='';$('videoFile').value='';$('videoThumb').value='';$('videoPreview').innerHTML='';$('thumbPreview').innerHTML=''}catch(e){msg($('videoStatus'),e.message||'Video upload failed.','error')}finally{b.disabled=!$('videoFile').files.length}};
+$('clearVideo').onclick=()=>{['videoTitle','videoDescription','videoDate','videoFile','videoThumb'].forEach(id=>$(id).value='');$('videoPreview').innerHTML='';$('thumbPreview').innerHTML='';$('videoStatus').className='status';$('publishVideo').disabled=true};
+</script>
+</body>
+</html>
