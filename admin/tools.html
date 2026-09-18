@@ -47,4 +47,33 @@ document.getElementById('disableAll').onclick=()=>{tools.forEach(t=>saved[t.id]=
 document.getElementById('reset').onclick=()=>{if(confirm('Reset all 1,000 tool preferences to their defaults?')){localStorage.removeItem(key);location.reload()}};
 function routeFor(t){const n=t.name.toLowerCase(),cat=t.cat;if(/analytics|traffic|top pages|engagement|conversion/.test(n))return 'editor.html#analytics';if(cat.includes('Artist Identity'))return 'editor.html#identity';if(cat.includes('Songs'))return 'editor.html#songs';if(cat.includes('Music & Releases'))return 'editor.html#releases';if(cat.includes('Video'))return 'editor.html#videos';if(cat.includes('News')||cat.includes('Publishing'))return 'publish.html';if(cat.includes('Gallery')||cat.includes('Media'))return 'media.html';if(cat.includes('Events'))return 'editor.html#events';if(cat.includes('Booking'))return 'editor.html#messages';if(/revenue|income|expense|payment/.test(n))return 'revenue.html';if(cat.includes('EPK'))return '../press.html';if(cat.includes('SEO'))return '../sitemap.xml';return 'editor.html'}function showAction(t,state){const box=document.getElementById('toolAction');box.innerHTML='<b>'+t.name+' — '+state+'</b><span>Connected to the Kharvie admin workflow. Use Open to launch its live control.</span>';box.classList.add('show');setTimeout(()=>box.classList.remove('show'),4500)}function openTool(t){if(!on(t)){saved[t.id]=true;localStorage.setItem(key,JSON.stringify(saved))}location.href=routeFor(t)}
 render();
+</script><script>
+(function(){
+const pathMap={
+"Dashboard & Command Center":"editor.html",
+"Artist Identity & Knowledge Panel":"editor.html#identity",
+"Homepage Management":"../index.html",
+"Music & Releases":"editor.html#releases",
+"Songs & Catalog":"editor.html#songs",
+"Video Studio":"editor.html#videos",
+"News & Press Room":"publish.html",
+"Gallery & Photography":"media.html",
+"Events & Shows":"editor.html#events",
+"Booking & CRM":"editor.html#messages",
+"EPK & Media Room":"../press.html",
+"SEO & Google Search":"../sitemap.xml",
+"Analytics & Intelligence":"editor.html#analytics",
+"Revenue & Monetization":"revenue.html",
+"Social & Marketing":"../index.html",
+"Publishing & Workflow":"publish.html",
+"Media Library & Assets":"media.html",
+"Admin Security & System":"editor.html",
+"Design & Branding":"editor.html#identity",
+"Data, Backup & Reporting":"editor.html#analytics",
+"Accessibility & Quality":"editor.html",
+"Developer & Integrations":"editor.html",
+"Advanced Automation & AI":"editor.html"
+};
+window.kharvieToolRoutes=pathMap;
+})();
 </script></body></html>
