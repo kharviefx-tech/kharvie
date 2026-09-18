@@ -181,6 +181,15 @@ html{scroll-behavior:smooth}body{background:var(--mono-black);color:var(--mono-w
 @media(max-width:900px){.hero-editorial{height:auto;min-height:88svh}.release-editorial{grid-template-columns:1fr}.release-photo{min-height:52vh}.release-info{min-height:460px}}
 @media(max-width:560px){.hero-bottom h1{font-size:76px}.hero-monogram{font-size:360px;right:-18vw}}
 </style><style id="admin-visual-system">
+/* Single Kharvie front/back palette — intentionally matches admin/editor.html */
+:root{
+  --bg:#050705;--panel:#0d110e;--panel2:#121813;--line:#29352c;
+  --text:#f6f7f2;--muted:#b5bdb5;--accent:#21c46b;--accent2:#16a85a;
+  --danger:#ff647c;--ok:#65e0a0;
+  --site-admin-bg:var(--bg);--site-admin-panel:var(--panel);--site-admin-panel2:var(--panel2);
+  --site-admin-line:var(--line);--site-admin-text:var(--text);--site-admin-muted:var(--muted);
+  --site-admin-accent:var(--accent);--site-admin-accent2:var(--accent2)
+}
 /* Match the public website to the Kharvie Admin visual system */
 :root{--site-admin-bg:#050705;--site-admin-panel:#0d110e;--site-admin-panel2:#121813;--site-admin-line:#29352c;--site-admin-text:#f6f7f2;--site-admin-muted:#b5bdb5;--site-admin-accent:#21c46b;--site-admin-accent2:#16a85a}
 body{background:var(--site-admin-bg);color:var(--site-admin-text)}
