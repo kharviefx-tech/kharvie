@@ -18,8 +18,8 @@ jobs:
           fetch-depth: 0
       - name: Replace old TikTok profile everywhere
         run: |
-          old='https://www.tiktok.com/@iamkharvie'
-          new='https://www.tiktok.com/@_kharvie'
+          old='https://www.tiktok.com/@_kharvie'
+          new='https://www.tiktok.com/@iamkharvie'
           files=$(git grep -Il "$old" || true)
           if [ -n "$files" ]; then
             printf '%s\n' "$files" | xargs -r sed -i "s#${old}#${new}#g"
