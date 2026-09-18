@@ -1,0 +1,118 @@
+/* Kharvie UI v2 — readable, responsive, high-contrast design system */
+:root{
+  --ui-bg:#090908;
+  --ui-surface:#11110f;
+  --ui-surface-2:#171714;
+  --ui-paper:#f4f1e8;
+  --ui-text:#f7f4ec;
+  --ui-dark:#11110f;
+  --ui-muted:#aaa79e;
+  --ui-muted-2:#77736a;
+  --ui-line:rgba(247,244,236,.14);
+  --ui-accent:#d8ff3e;
+  --ui-accent-2:#bce51f;
+  --ui-radius:18px;
+  --ui-radius-sm:12px;
+  --ui-shadow:0 20px 60px rgba(0,0,0,.28);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif !important;
+  font-size:16px !important;
+  line-height:1.65 !important;
+  background:var(--ui-bg) !important;
+  color:var(--ui-text) !important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4,.logo,.section-title,.foot-logo,.hero h1,.spotlight-copy h2,.about-copy h2,.bcard h2,.contactbox h2{
+  font-family:"Manrope",system-ui,sans-serif !important;
+}
+p{max-width:70ch}
+a,button,input,select,textarea{font-size:inherit}
+a,button{touch-action:manipulation}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--ui-accent);
+  outline-offset:3px;
+}
+button,.btn,.button,.email,.back{
+  min-height:46px;
+  border-radius:999px !important;
+  transition:transform .18s ease,background-color .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease;
+}
+.btn,.button,.email{
+  padding:0 20px !important;
+  font-weight:800 !important;
+  letter-spacing:.07em;
+}
+.btn:hover,.button:hover,.email:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.18)}
+.btn.dark,.button.alt{border-color:rgba(247,244,236,.28) !important}
+section{scroll-margin-top:86px}
+.card,.hq-card,.cms-card,.cms-release,.cms-video,.cms-event,.bcard,.link,.item,.photo,.portrait,.contactbox,.spotlight{
+  border-radius:var(--ui-radius-sm);
+}
+.hq-card,.cms-card,.cms-release,.cms-video,.cms-event,.bcard,.card,.link,.item{
+  box-shadow:0 8px 30px rgba(0,0,0,.08);
+}
+.hq-card,.hub-card,.hub-action,.cms-card,.cms-release,.cms-video,.link,.item{
+  transition:transform .2s ease,border-color .2s ease,background-color .2s ease,box-shadow .2s ease;
+}
+.hq-card:hover,.hub-card:hover,.hub-action:hover,.cms-card:hover,.cms-release:hover,.cms-video:hover,.link:hover,.item:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--ui-shadow);
+}
+.platforms a,.socials a,.links a{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px !important;
+  padding:0 15px !important;
+}
+.hero-intro,.intro{font-size:clamp(17px,1.5vw,21px) !important;line-height:1.55 !important}
+.section-copy,.cms-card p,.cms-video p,.cms-release p,.about-copy p,.bcard p,.contactbox p,.hero p{
+  font-size:15px !important;
+  line-height:1.65 !important;
+}
+.section-title{line-height:.9 !important}
+.index,.label,.eyebrow,.kicker{
+  font-size:11px !important;
+  letter-spacing:.16em !important;
+}
+.spotlight{overflow:hidden;box-shadow:var(--ui-shadow)}
+.spotlight-copy{padding:clamp(30px,5vw,64px) !important}
+.cms-cover,.cms-release-art,.cms-video-thumb,.gallery-item{border-radius:var(--ui-radius-sm);overflow:hidden}
+.gallery-item img,.cms-cover img,.cms-release-art img,.cms-video-thumb img{transition:transform .45s ease}
+.gallery-item:hover img,.cms-card:hover .cms-cover img,.cms-release:hover .cms-release-art img{transform:scale(1.03)}
+.field input,.field select,.field textarea{
+  min-height:50px !important;
+  border-radius:12px !important;
+  background:#0d0d0b !important;
+  border-color:#373731 !important;
+  padding:12px 15px !important;
+}
+.field textarea{min-height:150px !important}
+.field label{font-size:12px !important;letter-spacing:.08em !important}
+.status{border-radius:12px !important}
+.nav,.navin,header{backdrop-filter:blur(18px)}
+@media(max-width:760px){
+  body{font-size:16px !important}
+  section{padding-top:78px !important;padding-bottom:78px !important}
+  .wrap{width:min(94vw,1180px) !important}
+  .nav{height:70px !important}
+  .logo{font-size:18px !important}
+  .hero h1{font-size:clamp(64px,22vw,120px) !important}
+  .section-title{font-size:clamp(48px,15vw,78px) !important}
+  .spotlight-copy,.bcard,.contactbox,.card{padding:28px !important}
+  .hero-actions{gap:10px}
+  .hero-actions .btn{width:100%}
+  .platforms a,.socials a,.links a{min-height:46px}
+}
+@media(max-width:480px){
+  .section-title{letter-spacing:-.065em !important}
+  .footlinks{gap:12px !important}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+}
