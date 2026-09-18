@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /kharvie/admin.html
-Disallow: /kharvie/admin/
-Disallow: /kharvie/dashboard/
+Disallow: /admin.html
+Disallow: /admin/
+Disallow: /dashboard/
 
 Sitemap: https://kharviefx-tech.github.io/kharvie/sitemap.xml
