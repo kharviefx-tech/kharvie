@@ -180,6 +180,39 @@ html{scroll-behavior:smooth}body{background:var(--mono-black);color:var(--mono-w
 .k-cms-grid>article,.k-cms-grid>.cms-card,.k-cms-grid>.cms-item{background:#0d0d0d;border-color:#292929}
 @media(max-width:900px){.hero-editorial{height:auto;min-height:88svh}.release-editorial{grid-template-columns:1fr}.release-photo{min-height:52vh}.release-info{min-height:460px}}
 @media(max-width:560px){.hero-bottom h1{font-size:76px}.hero-monogram{font-size:360px;right:-18vw}}
+</style><style id="admin-visual-system">
+/* Match the public website to the Kharvie Admin visual system */
+:root{--site-admin-bg:#050705;--site-admin-panel:#0d110e;--site-admin-panel2:#121813;--site-admin-line:#29352c;--site-admin-text:#f6f7f2;--site-admin-muted:#b5bdb5;--site-admin-accent:#21c46b;--site-admin-accent2:#16a85a}
+body{background:var(--site-admin-bg);color:var(--site-admin-text)}
+.editorial-home{background:var(--site-admin-bg);color:var(--site-admin-text)}
+.k-nav{background:rgba(5,7,5,.95);border-bottom:1px solid var(--site-admin-line);backdrop-filter:blur(16px)}
+.k-nav.scrolled{background:rgba(5,7,5,.98);border-bottom-color:var(--site-admin-line)}
+.k-links a{color:var(--site-admin-muted)}.k-links a:hover{color:#fff}.k-links .k-primary{background:var(--site-admin-accent);border-color:var(--site-admin-accent);color:#031108}
+.k-menu{border-color:#343434;background:#080808}
+.hero-editorial{background:var(--site-admin-bg);border-bottom-color:var(--site-admin-line)}
+.hero-shade{background:radial-gradient(circle at 78% 42%,rgba(33,196,107,.08),transparent 22%),linear-gradient(135deg,#050705,#0d110e 55%,#121813)}
+.hero-monogram{color:rgba(33,196,107,.045)}
+.hero-topline{border-top-color:var(--site-admin-line);color:var(--site-admin-muted)}
+.hero-bottom p{color:#d5ddd7}.hero-bottom p em{color:var(--site-admin-accent)}
+.hero-enter{border-color:#383838;background:#080808}.hero-enter:hover{background:var(--site-admin-accent);border-color:var(--site-admin-accent);color:#031108}
+.statement-band{background:var(--site-admin-panel2);color:var(--site-admin-text);border-block-color:var(--site-admin-line)}.statement-band p,.statement-band strong{color:var(--site-admin-text)}.statement-band span{color:var(--site-admin-accent)}
+.editorial-section{background:var(--site-admin-bg);color:var(--site-admin-text);border-bottom-color:var(--site-admin-line)}
+.editorial-section.dark-panel,.about-editorial{background:var(--site-admin-panel);color:var(--site-admin-text);border-color:var(--site-admin-line)}
+.editorial-section.gallery-panel{background:var(--site-admin-panel2);color:var(--site-admin-text)}
+.editorial-label{color:var(--site-admin-muted);border-top-color:var(--site-admin-line)}.editorial-label a{color:var(--site-admin-accent)}
+.editorial-heading,.editorial-heading em{color:var(--site-admin-text)}.editorial-heading em,.release-info h2 em,.about-copy h2 em,.contact-grid h2 em{color:var(--site-admin-accent);font-style:normal}
+.release-editorial{background:var(--site-admin-panel);color:var(--site-admin-text);border-color:var(--site-admin-line)}
+.release-photo{background:#080808}.release-photo img{filter:none;opacity:1}
+.release-info{background:linear-gradient(180deg,var(--site-admin-panel2),var(--site-admin-panel));color:var(--site-admin-text)}.release-info p{color:var(--site-admin-muted)}.release-number{color:#777}
+.k-links-row a{border-color:#343434;color:var(--site-admin-text)}.k-links-row a:first-child{background:var(--site-admin-accent);border-color:var(--site-admin-accent);color:#031108}.k-links-row a:hover{background:var(--site-admin-accent);border-color:var(--site-admin-accent);color:#031108}
+.k-cms-grid .cms-empty{background:var(--site-admin-panel);border-color:var(--site-admin-line);color:#777}
+.about-portrait{border-color:var(--site-admin-line);background:var(--site-admin-panel2)}.about-portrait img{filter:none}.about-copy p{color:var(--site-admin-muted)}.about-copy .k-facts,.about-copy .k-fact{border-color:var(--site-admin-line)}.about-copy .k-fact span:first-child{color:#777}.about-copy .k-fact span:last-child{color:var(--site-admin-text)}
+.contact-editorial{background:var(--site-admin-bg);color:var(--site-admin-text);border-top-color:var(--site-admin-line)}.contact-grid p{color:var(--site-admin-muted)}.contact-mail{color:var(--site-admin-accent);border-color:var(--site-admin-accent)}
+.editorial-home .k-btn{background:#fff;border-color:#fff;color:#000}.editorial-home .k-btn.alt{background:transparent;border-color:#383838;color:#fff}.editorial-home .k-btn:hover{background:var(--site-admin-accent);border-color:var(--site-admin-accent);color:#031108}
+.k-cms-grid>article,.k-cms-grid>.cms-card,.k-cms-grid>.cms-item{background:var(--site-admin-panel);border-color:var(--site-admin-line)}.k-cms-grid>article:hover,.k-cms-grid>.cms-card:hover,.k-cms-grid>.cms-item:hover{border-color:var(--site-admin-accent)}
+.k-footer{background:#050705;border-top-color:var(--site-admin-line)}.k-footlinks a:hover{color:var(--site-admin-accent)}
+#kharvieLoader{background:var(--site-admin-bg)}.kl-line{background:#1b241d}.kl-line span{background:var(--site-admin-accent)}
+@media(max-width:900px){.k-links{background:rgba(5,7,5,.98)}}
 </style></head>
 <body>
 <div id="kharvieLoader" role="status" aria-label="Loading Kharvie website"><div class="kl-mark">KHARVIE</div><div class="kl-line"><span></span></div><div style="font-size:9px;letter-spacing:.18em;color:#8f9b92">OFFICIAL WEBSITE / VICTOR AVANNAH</div></div>
