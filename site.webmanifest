@@ -1,15 +1,15 @@
 {
   "name": "Kharvie — Official Website",
   "short_name": "Kharvie",
-  "start_url": "/kharvie/",
-  "scope": "/kharvie/",
+  "start_url": "https://kharviefx-tech.github.io/kharvie/",
+  "scope": "https://kharviefx-tech.github.io/kharvie/",
   "display": "standalone",
   "background_color": "#070706",
   "theme_color": "#070706",
   "description": "Official website of Kharvie, professionally known as Victor Avannah.",
   "icons": [
     {
-      "src": "/kharvie/assets/kharvie.jpg",
+      "src": "https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg",
       "sizes": "any",
       "type": "image/jpeg",
       "purpose": "any maskable"
