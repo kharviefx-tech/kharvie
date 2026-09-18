@@ -283,3 +283,28 @@ section{border-bottom:1px solid #263229!important}
   .nav,.links{background:#070a08!important;box-shadow:0 18px 42px rgba(0,0,0,.48)!important}
   .hero h1{font-size:clamp(58px,21vw,108px)!important}
 }
+
+/* Kharvie UI v5 — readability pass: strong text/background separation */
+html,body{background:#050705!important;color:#f7f8f4!important}
+body,body *{text-shadow:none}
+p,li,dd,dt,small,.muted,.sub,.eyebrow,.meta,.description,.caption{color:#d7ddd7!important}
+h1,h2,h3,h4,h5,h6,strong,b,.title,.heading{color:#ffffff!important}
+a{color:#72e3a1!important}
+a:hover,a:focus{color:#a2f2c4!important}
+.nav a,.links a,.mobile-nav a{color:#f4f6f1!important}
+.nav a:hover,.links a:hover,.mobile-nav a:hover{color:#72e3a1!important}
+.card,.panel,.tile,.box,.surface,.cms-card,.cms-news,.cms-video,.cms-release,.cms-event,.cms-gallery-item{background:#0d110e!important;color:#f7f8f4!important;border-color:#29352c!important}
+.card p,.panel p,.tile p,.box p,.surface p,.cms-card p,.cms-news p,.cms-video p,.cms-release p,.cms-event p{color:#d7ddd7!important}
+.hero h1,.hero h2,.hero h3,.hero p,.hero .eyebrow{position:relative;z-index:2}
+.hero p,.hero .eyebrow{background:rgba(5,7,5,.88);padding:.3rem .55rem;border-radius:6px;width:max-content;max-width:100%}
+.hero:before,.hero:after{z-index:0!important}
+button,.btn{color:#071008!important}
+.btn.secondary,.btn.alt,.btn.ghost{color:#f7f8f4!important;background:#111712!important;border-color:#3a493d!important}
+input,textarea,select{background:#080b09!important;color:#f7f8f4!important;border-color:#3a493d!important}
+input::placeholder,textarea::placeholder{color:#aeb8af!important;opacity:1!important}
+label{color:#e8ece7!important}
+footer,footer p,footer li,footer a{color:#cbd3cc!important}
+.cms-index,.badge,.tag,.pill{color:#72e3a1!important}
+.cms-cover,.cms-video-thumb{background:#050705!important}
+/* Prevent text from sitting directly on busy artwork */
+.hero-copy,.hero-content,.hero-text,.overlay-copy{background:rgba(5,7,5,.9)!important;border:1px solid rgba(41,53,44,.9);border-radius:14px;padding:18px!important}
