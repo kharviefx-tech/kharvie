@@ -32,7 +32,7 @@ jobs:
 
           # 1) Keep the owner's current official social identities consistent.
           replacements = {
-              'https://www.tiktok.com/@_kharvie': 'https://www.tiktok.com/@iamkharvie',
+              'https://www.tiktok.com/@_kharvie': 'https://www.tiktok.com/@_kharvie',
               'https://www.facebook.com/share/19RdXwa2nU/': 'https://www.facebook.com/officialKharvie',
           }
           for p in ROOT.rglob('*'):
@@ -146,7 +146,7 @@ jobs:
           ET.parse('sitemap.xml')
           json.loads(Path('site.webmanifest').read_text(encoding='utf-8'))
           index = Path('index.html').read_text(encoding='utf-8')
-          assert 'https://www.tiktok.com/@iamkharvie' in index
+          assert 'https://www.tiktok.com/@_kharvie' in index
           assert 'https://www.tiktok.com/@_kharvie' not in index
           assert 'https://www.facebook.com/share/19RdXwa2nU/' not in index
           assert 'https://www.facebook.com/officialKharvie' in index
