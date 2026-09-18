@@ -1,0 +1,172 @@
+name: Kharvie SEO and Entity Consistency
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Normalize official identity, structured data, manifest and sitemap
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+          from datetime import date
+
+          ROOT = Path('.')
+          SITE = 'https://kharviefx-tech.github.io/kharvie/'
+          PERSON = SITE + '#person'
+          WEBSITE = SITE + '#website'
+
+          # 1) One official social identity everywhere.
+          replacements = {
+              'https://www.tiktok.com/@iamkharvie': 'https://www.tiktok.com/@_kharvie',
+              'https://www.facebook.com/share/19RdXwa2nU/': 'https://www.facebook.com/officialKharvie',
+          }
+          for p in ROOT.rglob('*'):
+              if not p.is_file() or '.git' in p.parts:
+                  continue
+              if p.suffix.lower() not in {'.html', '.txt', '.json', '.xml', '.yml', '.yaml'}:
+                  continue
+              try:
+                  s = p.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              original = s
+              for old, new in replacements.items():
+                  s = s.replace(old, new)
+              if s != original:
+                  p.write_text(s, encoding='utf-8')
+
+          # 2) Consolidate duplicate JSON-LD graph blocks on the homepage.
+          p = ROOT / 'index.html'
+          s = p.read_text(encoding='utf-8')
+          pattern = re.compile(r'<script type="application/ld\\+json">(.*?)</script>', re.S)
+          blocks = list(pattern.finditer(s))
+          parsed = []
+          for m in blocks:
+              try:
+                  parsed.append(json.loads(m.group(1)))
+              except Exception:
+                  pass
+          if len(parsed) > 1:
+              nodes = {}
+              order = []
+              for doc in parsed:
+                  graph = doc.get('@graph') if isinstance(doc, dict) else None
+                  if not isinstance(graph, list):
+                      continue
+                  for node in graph:
+                      if not isinstance(node, dict):
+                          continue
+                      key = node.get('@id') or ('__node__' + str(len(order)))
+                      if key not in nodes:
+                          nodes[key] = node
+                          order.append(key)
+                      else:
+                          existing = nodes[key]
+                          for k, v in node.items():
+                              if k == '@id':
+                                  continue
+                              if k not in existing:
+                                  existing[k] = v
+                              elif isinstance(existing[k], list) and isinstance(v, list):
+                                  for item in v:
+                                      if item not in existing[k]:
+                                          existing[k].append(item)
+              merged = {'@context': 'https://schema.org', '@graph': [nodes[k] for k in order]}
+              replacement = '<script type="application/ld+json">' + json.dumps(merged, separators=(',', ':')) + '</script>'
+              first_start, first_end = blocks[0].span()
+              last_start, last_end = blocks[-1].span()
+              s = s[:first_start] + replacement + s[last_end:]
+              p.write_text(s, encoding='utf-8')
+
+          # 3) Ensure the EPK uses the same canonical Person entity.
+          p = ROOT / 'press.html'
+          if p.exists():
+              s = p.read_text(encoding='utf-8')
+              s = re.sub(
+                  r'"mainEntity":\{"@type":"Person","@id":"' + re.escape(PERSON) + r'"[^}]*\}',
+                  '"mainEntity":{"@id":"' + PERSON + '"}',
+                  s,
+                  count=1
+              )
+              # If the compact replacement above did not match, at least add the canonical id to the existing entity.
+              if '"mainEntity":{"@id":"' + PERSON + '"}' not in s:
+                  s = s.replace('"mainEntity":{"@type":"Person"', '"mainEntity":{"@id":"' + PERSON + '","@type":"Person"', 1)
+              s = s.replace('"@type":"ProfilePage","name":"Kharvie Press Center & EPK"', '"@type":"ProfilePage","@id":"' + SITE + 'press.html#profilepage","name":"Kharvie Press Center & EPK","isPartOf":{"@id":"' + WEBSITE + '"}', 1)
+              p.write_text(s, encoding='utf-8')
+
+          # 4) Make the manifest unambiguous on GitHub Pages by using the full canonical origin.
+          manifest = {
+              'name': 'Kharvie — Official Website',
+              'short_name': 'Kharvie',
+              'start_url': SITE,
+              'scope': SITE,
+              'display': 'standalone',
+              'background_color': '#070706',
+              'theme_color': '#070706',
+              'description': 'Official website of Kharvie, professionally known as Victor Avannah.',
+              'icons': [
+                  {
+                      'src': SITE + 'assets/kharvie.jpg',
+                      'sizes': 'any',
+                      'type': 'image/jpeg',
+                      'purpose': 'any maskable'
+                  }
+              ]
+          }
+          (ROOT / 'site.webmanifest').write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+
+          # 5) Rebuild the sitemap from actual public HTML files in the repository.
+          urls = []
+          for rel in sorted(ROOT.glob('**/*.html')):
+              rels = rel.as_posix()
+              if rels == '404.html' or rels == 'admin.html' or rels.startswith('admin/') or rels.startswith('dashboard/'):
+                  continue
+              urls.append(SITE if rels == 'index.html' else SITE + rels)
+          today = date.today().isoformat()
+          xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+          for url in urls:
+              xml += ['  <url>', f'    <loc>{url}</loc>', f'    <lastmod>{today}</lastmod>', '  </url>']
+          xml.append('</urlset>')
+          (ROOT / 'sitemap.xml').write_text('\n'.join(xml) + '\n', encoding='utf-8')
+          PY
+
+      - name: Validate critical files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, xml.etree.ElementTree as ET
+          ET.parse('sitemap.xml')
+          json.loads(Path('site.webmanifest').read_text(encoding='utf-8'))
+          index = Path('index.html').read_text(encoding='utf-8')
+          assert 'https://www.tiktok.com/@iamkharvie' not in index
+          assert 'https://www.facebook.com/share/19RdXwa2nU/' not in index
+          assert 'https://kharviefx-tech.github.io/kharvie/' in index
+          print('SEO/entity validation passed.')
+          PY
+
+      - name: Commit normalized site
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No SEO/entity changes required.'
+          else
+            git commit -m 'Normalize Kharvie SEO entity signals'
+            git push
+          fi
