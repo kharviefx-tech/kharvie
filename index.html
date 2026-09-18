@@ -22,7 +22,7 @@
 <link rel="canonical" href="https://kharviefx-tech.github.io/kharvie/">
 <link rel="icon" href="assets/kharvie.jpg">
 <link rel="alternate" type="application/rss+xml" title="Kharvie News" href="rss.xml">
-<link rel="stylesheet" href="assets/ui-v2.css?v=11">
+<link rel="stylesheet" href="assets/ui-v2.css?v=12">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -54,7 +54,7 @@
 </style></head>
 <body>
 <div id="kharvieLoader" role="status" aria-label="Loading Kharvie website"><div class="kl-mark">KHARVIE</div><div class="kl-line"><span></span></div><div style="font-size:9px;letter-spacing:.18em;color:#8f9b92">OFFICIAL WEBSITE / VICTOR AVANNAH</div></div>
-<header class="k-nav"><div class="k-wrap k-navin"><a class="k-logo" href="./">KHARVIE</a><nav class="k-links" id="navLinks"><a href="#music">Music</a><a href="#videos">Videos</a><a href="#events">Live</a><a href="#about">About</a><a href="press.html">EPK</a><a href="professional-suite.html">Professional</a><a class="k-primary" href="booking.html">Enquiries</a></nav><button class="k-menu" id="menuBtn" aria-label="Open menu" aria-expanded="false">MENU</button></div></header>
+<header class="k-nav"><div class="k-wrap k-navin"><a class="k-logo" href="./">KHARVIE</a><nav class="k-links" id="navLinks"><a href="#music">Music</a><a href="#videos">Videos</a><a href="#events">Live</a><a href="#about">About</a><a href="#gallery">Photos</a><a href="#news">News</a><a class="k-primary" href="booking.html">Contact</a></nav><button class="k-menu" id="menuBtn" aria-label="Open menu" aria-expanded="false">MENU</button></div></header>
 
 <main class="editorial-home">
 <section class="hero-editorial">
@@ -72,9 +72,9 @@
 
 <section class="statement-band"><div class="k-wrap"><span>01</span><p>The official digital home of <strong>Kharvie</strong> — music, visuals, live appearances, news and professional enquiries.</p></div></section>
 
-<section id="music" class="editorial-section release-feature">
+<section id="music" class="editorial-section release-feature"><div class="k-wrap" style="padding-bottom:0"><div class="editorial-label"><span>MUSIC</span><a href="#releases">SEE MORE RELEASES →</a></div></div>
  <div class="k-wrap">
-  <div class="editorial-label"><span>02 / LATEST MUSIC</span><a href="#releases">VIEW CATALOGUE →</a></div>
+  <div class="editorial-label"><span>02 / LATEST RELEASE</span><span>SWEET LOVE</span></div>
   <div class="release-editorial">
    <div class="release-photo"><img src="assets/kharvie.jpg" alt="Kharvie — Sweet Love"></div>
    <div class="release-info">
@@ -100,7 +100,7 @@
 
 <section class="contact-editorial"><div class="k-wrap contact-grid"><div><div class="k-index">09 / WORK WITH KHARVIE</div><h2>Bring the<br><em>sound.</em></h2></div><div><p>Bookings, collaborations, brand partnerships, media requests and professional opportunities.</p><div class="k-actions"><a class="k-btn" href="booking.html">Booking & enquiries</a><a class="k-btn alt" href="press.html">Open EPK</a></div><a class="contact-mail" href="mailto:avannahvictor3@gmail.com">avannahvictor3@gmail.com</a></div></div></section>
 </main>
-<footer class="k-footer"><div class="k-wrap k-foot"><div><div class="k-foot-logo">KHARVIE</div><small>© 2026 Kharvie. All Rights Reserved.</small></div><div class="k-footlinks"><a href="#music">Music</a><a href="#videos">Videos</a><a href="#events">Live</a><a href="#gallery">Gallery</a><a href="press.html">EPK</a><a href="about.html">About</a><a href="booking.html">Booking</a><a href="professional-suite.html">Professional</a><a href="terms-of-use.html">Terms</a><a href="privacy-policy.html">Privacy</a><a href="cookie-policy.html">Cookies</a><button type="button" onclick="try{localStorage.removeItem('kharvie_website_consent_v1');location.reload()}catch(e){}" style="background:none;border:0;color:#cbd3cc;cursor:pointer;font:inherit;text-transform:uppercase;letter-spacing:.1em">Cookie Settings</button><a href="admin.html">Admin</a></div></div></footer>
+<footer class="k-footer"><div class="k-wrap k-foot"><div><div class="k-foot-logo">KHARVIE</div><small>© 2026 Kharvie. All Rights Reserved.</small></div><div class="k-footlinks"><a href="#music">Music</a><a href="#videos">Videos</a><a href="#events">Live</a><a href="#about">About</a><a href="#gallery">Photos</a><a href="#news">News</a><a href="booking.html">Contact</a><a href="press.html">EPK</a><a href="professional-suite.html">Professional</a><a href="terms-of-use.html">Terms</a><a href="privacy-policy.html">Privacy</a><a href="cookie-policy.html">Cookies</a><button type="button" onclick="try{localStorage.removeItem('kharvie_website_consent_v1');location.reload()}catch(e){}" style="background:none;border:0;color:#cbd3cc;cursor:pointer;font:inherit;text-transform:uppercase;letter-spacing:.1em">Cookie Settings</button><a href="admin.html">Admin</a></div></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="assets/cms.js" defer></script>
 <script>
 const nav=document.getElementById('navLinks'),menu=document.getElementById('menuBtn');menu?.addEventListener('click',()=>{const o=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(o));menu.textContent=o?'CLOSE':'MENU'});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu?.setAttribute('aria-expanded','false');menu.textContent='MENU'}));addEventListener('scroll',()=>document.querySelector('.k-nav')?.classList.toggle('scrolled',scrollY>25));
