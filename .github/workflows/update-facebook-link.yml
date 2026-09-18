@@ -14,8 +14,8 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          old='https://www.facebook.com/officialKharvie'
-          new='https://www.facebook.com/share/19RdXwa2nU/'
+          old='https://www.facebook.com/share/19RdXwa2nU/'
+          new='https://www.facebook.com/officialKharvie'
           for p in Path('.').rglob('*'):
               if p.is_file() and '.git' not in p.parts and p.suffix in {'.html','.txt','.json','.xml'}:
                   try:
@@ -31,5 +31,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           git diff --cached --quiet && exit 0
-          git commit -m 'Update official Facebook link'
+          git commit -m 'Fix official Facebook profile link'
           git push

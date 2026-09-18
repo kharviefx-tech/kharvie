@@ -9,22 +9,21 @@ permissions:
 
 jobs:
   update-tiktok:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Replace old TikTok profile everywhere
         run: |
           old='https://www.tiktok.com/@iamkharvie'
-          new='https://www.tiktok.com/@iamkharvie'
+          new='https://www.tiktok.com/@_kharvie'
           files=$(git grep -Il "$old" || true)
           if [ -n "$files" ]; then
             printf '%s\n' "$files" | xargs -r sed -i "s#${old}#${new}#g"
           fi
-
       - name: Commit updated TikTok links
         run: |
           git config user.name 'github-actions[bot]'
