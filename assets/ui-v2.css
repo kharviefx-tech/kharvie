@@ -308,3 +308,39 @@ footer,footer p,footer li,footer a{color:#cbd3cc!important}
 .cms-cover,.cms-video-thumb{background:#050705!important}
 /* Prevent text from sitting directly on busy artwork */
 .hero-copy,.hero-content,.hero-text,.overlay-copy{background:rgba(5,7,5,.9)!important;border:1px solid rgba(41,53,44,.9);border-radius:14px;padding:18px!important}
+
+/* Kharvie UI v6 — premium dark editorial palette; restrained soft-white accents */
+:root{
+ --ui-bg:#050706;--ui-surface:#0b100d;--ui-surface-2:#101711;--ui-surface-3:#172019;
+ --ui-text:#eef3ee;--ui-muted:#aeb8b0;--ui-line:#253229;--ui-accent:#35d47b;--ui-accent-2:#20b965;
+ --ui-soft:#e8eee9;--ui-warm:#c8d0c9;--ui-gold:#b7a06a;
+}
+body{background:#050706!important;color:#eef3ee!important}
+/* Replace bright white panels with deep editorial surfaces */
+.spotlight{background:#101611!important;color:#eef3ee!important;border-color:#2b3a30!important}
+.spotlight-copy{background:#101611!important;color:#eef3ee!important}
+.spotlight-copy h2,.spotlight-copy p,.spotlight-copy a{color:#eef3ee!important}
+.business{background:#0a0f0c!important;color:#eef3ee!important;border-bottom-color:#253229!important}
+.business .index,.business .section-copy{color:#aeb8b0!important}
+.bcard{background:#101711!important;color:#eef3ee!important;border-color:#2b3a30!important}
+.bcard h2,.bcard p,.bcard a{color:#eef3ee!important}
+.bcard.dark{background:#070a08!important;color:#eef3ee!important;border-color:#26342b!important}
+.bcard.dark h2,.bcard.dark p,.bcard.dark a{color:#eef3ee!important}
+/* Use soft-white only for primary actions, never as large page backgrounds */
+.btn:not(.dark),.email{background:#35d47b!important;color:#061008!important;border-color:#35d47b!important}
+.btn.dark{background:#0b110d!important;color:#eef3ee!important;border-color:#3a4b40!important}
+.platforms a,.socials a{background:#111812!important;color:#eef3ee!important;border-color:#334238!important}
+.platforms a:hover,.socials a:hover{background:#35d47b!important;color:#061008!important;border-color:#35d47b!important}
+.hero-intro{color:#e4eae5!important}
+.section-copy{color:#aeb8b0!important}
+.spotlight-copy p,.bcard p,.contactbox p,.about-copy p{color:#aeb8b0!important}
+.index,.eyebrow,.label{color:#35d47b!important}
+.hq-card strong,.cms-card h3,.cms-video h3,.cms-release h3,.cms-news h3{color:#f3f6f3!important}
+/* Editorial hierarchy: emerald for labels, warm gray for secondary metadata */
+.fact span:first-child,.cms-index,.event-date,.gallery-item figcaption{color:#88948b!important}
+.fact span:last-child{color:#eef3ee!important}
+/* Reduce visual noise and make cards feel intentional */
+.hq-card,.cms-card,.cms-release,.cms-video,.cms-event,.gallery-item,.contactbox,.portrait{box-shadow:0 12px 34px rgba(0,0,0,.32)!important}
+.hq-card:hover,.cms-card:hover,.cms-release:hover,.cms-video:hover{border-color:#35d47b!important}
+/* Mobile: no oversized light blocks */
+@media(max-width:760px){.spotlight,.business,.bcard{background:#0b100d!important}.spotlight-copy,.bcard{padding:26px!important}}
