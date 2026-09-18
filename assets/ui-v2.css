@@ -116,3 +116,73 @@ section{scroll-margin-top:86px}
   html{scroll-behavior:auto}
   *,*:before,*:after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
 }
+
+/* Kharvie UI v3 — premium solid surfaces, clearer hierarchy, stronger layout */
+:root{
+  --ui-bg:#080807;
+  --ui-surface:#121210;
+  --ui-surface-2:#191916;
+  --ui-surface-3:#22221d;
+  --ui-text:#faf8f1;
+  --ui-muted:#aaa79e;
+  --ui-line:#30302b;
+  --ui-accent:#d8ff3e;
+  --ui-paper:#f3efe5;
+  --ui-dark:#10100e;
+  --ui-radius:20px;
+}
+body{background:var(--ui-bg)!important;color:var(--ui-text)!important}
+.nav{background:#080807!important;border-bottom:1px solid #292923!important;backdrop-filter:none!important}
+.nav.scrolled{background:#080807!important;backdrop-filter:none!important}
+.links{background:#080807!important}
+.hero-bg:after{
+  background:linear-gradient(90deg,rgba(0,0,0,.90) 0%,rgba(0,0,0,.58) 52%,rgba(0,0,0,.25)),
+             linear-gradient(0deg,rgba(0,0,0,.88),transparent 55%)!important;
+}
+section{border-bottom:1px solid #292923!important}
+.hq{background:#0d0d0b!important}
+.hq-card,.cms-card,.cms-release,.cms-video{
+  background:#151512!important;
+  border:1px solid #33332d!important;
+  opacity:1!important;
+}
+.hq-card:hover,.hub-card:hover,.cms-card:hover,.cms-release:hover,.cms-video:hover{
+  background:#1b1b17!important;
+  border-color:#55554a!important;
+}
+.spotlight{
+  background:#eeeae0!important;
+  border:1px solid #c9c4b9!important;
+  box-shadow:0 24px 70px rgba(0,0,0,.32)!important;
+}
+.spotlight-copy{background:#eeeae0!important}
+.release-grid,.video-grid,.live-grid,.news-grid{align-items:stretch}
+.cms-release,.cms-video{min-height:100%}
+.cms-release-art,.cms-video-thumb,.cms-cover{background:#20201b!important}
+.business{background:#ded9ce!important;border-bottom-color:#c2bdb2!important}
+.bcard{background:#f0ece2!important;border:1px solid #c3beb3!important;box-shadow:0 18px 50px rgba(0,0,0,.10)!important}
+.bcard.dark{background:#11110f!important;border-color:#11110f!important}
+.contactbox{background:#141411!important;border:1px solid #34342e!important;box-shadow:0 18px 55px rgba(0,0,0,.25)!important}
+.portrait{background:#151512!important;border-color:#33332d!important}
+.item{background:#151512!important;border-color:#33332d!important}
+.field input,.field select,.field textarea{background:#11110f!important;border-color:#3b3b34!important}
+.field input::placeholder,.field textarea::placeholder{color:#77756e!important}
+.btn.dark{background:#11110f!important;color:#fff!important;border-color:#55554d!important}
+.btn.dark:hover{background:var(--ui-accent)!important;color:#080807!important;border-color:var(--ui-accent)!important}
+.btn:not(.dark),.email{background:#f7f4ec!important;color:#0b0b09!important;border-color:#f7f4ec!important}
+.btn:not(.dark):hover,.email:hover{background:var(--ui-accent)!important;border-color:var(--ui-accent)!important}
+.platforms a,.socials a{background:#f7f4ec!important;color:#11110f!important;border-color:#c8c4ba!important}
+.platforms a:hover,.socials a:hover{background:#11110f!important;color:#fff!important;border-color:#11110f!important}
+.gallery-item{background:#151512!important;border-color:#33332d!important}
+.cms-empty{background:#121210!important;border-color:#3a3a33!important}
+.ticker{background:#0c0c0a!important;border-color:#292923!important}
+.footer{background:#080807!important}
+@media(max-width:950px){
+  .links{box-shadow:0 18px 40px rgba(0,0,0,.45)!important}
+  .hero-bottom{max-width:720px}
+}
+@media(max-width:560px){
+  .spotlight{border-radius:18px!important}
+  .spotlight-art{min-height:52vh}
+  .cms-release,.cms-video,.hq-card,.bcard,.contactbox{border-radius:16px!important}
+}
