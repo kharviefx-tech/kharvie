@@ -80,7 +80,74 @@
 .editorial-home .k-index{color:#77736a}
 .editorial-home .k-fact span:last-child{color:#faf8f1}
 @media(max-width:900px){.statement-band .k-wrap{grid-template-columns:45px 1fr}}
-</style></head>
+<style>
+/* Kharvie professional artist / WordPress-inspired editorial redesign */
+:root{--wp-black:#070806;--wp-panel:#10110f;--wp-panel2:#151612;--wp-line:#2c2e28;--wp-white:#f7f6f0;--wp-muted:#98988f;--wp-lime:#d8ff3e}
+body{background:var(--wp-black)}
+.k-nav{height:82px;background:linear-gradient(180deg,rgba(7,8,6,.96),rgba(7,8,6,.72),transparent)}
+.k-navin{width:min(1440px,90vw)}
+.k-logo{font-size:19px;letter-spacing:.24em}
+.k-links{gap:30px}.k-links a{font-size:9px;letter-spacing:.15em}.k-links .k-primary{padding:13px 18px;background:var(--wp-lime)}
+.hero-editorial{min-height:92svh;height:92svh;background:#070806;border-bottom:1px solid var(--wp-line)}
+.hero-shade{background:
+radial-gradient(circle at 78% 42%,rgba(216,255,62,.08),transparent 22%),
+linear-gradient(90deg,#070806 0%,#090a08 55%,#0d100b 100%)}
+.hero-monogram{right:2vw;top:49%;font-size:clamp(260px,43vw,720px);color:rgba(216,255,62,.035);line-height:.7}
+.hero-editorial:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,transparent 0 24.9%,rgba(255,255,255,.035) 25%,transparent 25.1% 49.9%,rgba(255,255,255,.035) 50%,transparent 50.1% 74.9%,rgba(255,255,255,.035) 75%,transparent 75.1%)}
+.hero-editorial-copy{padding-top:110px;padding-bottom:54px}
+.hero-topline{border-top:1px solid #3a3b35;color:#aaa99f}
+.hero-bottom{align-items:end}
+.hero-bottom h1{font-size:clamp(82px,15vw,220px);letter-spacing:-.115em;margin:13px 0 18px}
+.hero-bottom p{font-size:clamp(17px,1.8vw,25px);color:#d0cec5}
+.hero-bottom p em{color:var(--wp-lime)}
+.hero-enter{border-color:#55574e;background:rgba(216,255,62,.06);transition:.25s}
+.hero-enter:hover{background:var(--wp-lime);color:#070806;border-color:var(--wp-lime)}
+.statement-band{padding:34px 0;border-bottom:1px solid #a8c62c}
+.statement-band .k-wrap{max-width:1440px}
+.statement-band p{font-weight:600;letter-spacing:-.025em}
+.editorial-section{padding:120px 0;border-bottom:1px solid var(--wp-line)}
+.editorial-label{border-top-color:#363830;color:#8e8d84;margin-bottom:36px}
+.editorial-label a{color:var(--wp-lime)}
+.editorial-heading{font-size:clamp(64px,9.5vw,145px);margin-bottom:48px}
+.release-editorial{grid-template-columns:1.15fr .85fr;min-height:560px;border:1px solid var(--wp-line);background:var(--wp-panel)}
+.release-photo{min-height:560px;background:#0b0c0a}
+.release-photo img{object-position:center;filter:saturate(.7) contrast(1.05)}
+.release-info{padding:58px;background:linear-gradient(145deg,#151713,#10110f)}
+.release-info h2{font-size:clamp(64px,7.5vw,118px)}
+.release-info h2 em{font-style:normal;color:var(--wp-lime)}
+.release-info p{font-size:14px;max-width:430px}
+.k-links-row a{border-color:#383a32;padding:11px 14px}
+.k-links-row a:first-child{background:var(--wp-lime);border-color:var(--wp-lime);color:#070806}
+.k-cms-grid{gap:14px}.k-cms-grid .cms-empty{min-height:120px;display:grid;place-items:center;background:#0b0c0a}
+.about-editorial{background:#0a0b09}
+.about-grid{gap:7vw}.about-portrait{background:#10110f}.about-copy h2{font-size:clamp(62px,7.5vw,120px)}
+.contact-editorial{background:#0a0b09;padding:130px 0;border-top:1px solid var(--wp-line)}
+.contact-grid h2{font-size:clamp(68px,9vw,140px)}
+.k-footer{background:#050604;padding:62px 0}
+.k-foot-logo{color:var(--wp-white)}
+.k-footlinks a:hover{color:var(--wp-lime)}
+/* Make content feel like a real artist CMS rather than empty placeholders */
+.k-cms-grid>article,.k-cms-grid>.cms-card,.k-cms-grid>.cms-item{border:1px solid var(--wp-line);background:var(--wp-panel);transition:transform .25s,border-color .25s}
+.k-cms-grid>article:hover,.k-cms-grid>.cms-card:hover,.k-cms-grid>.cms-item:hover{transform:translateY(-3px);border-color:#59614a}
+@media(max-width:900px){
+ .hero-editorial{height:auto;min-height:88svh}
+ .hero-editorial-copy{padding-top:100px;padding-bottom:42px}
+ .hero-monogram{right:-10vw;opacity:.75}
+ .release-editorial{grid-template-columns:1fr}
+ .release-photo{min-height:52vh}
+ .release-info{min-height:460px}
+ .editorial-section{padding:88px 0}
+}
+@media(max-width:560px){
+ .k-nav{height:70px}.k-links{top:70px}
+ .hero-editorial-copy{padding-top:88px}
+ .hero-bottom h1{font-size:76px}
+ .hero-monogram{font-size:360px;right:-18vw}
+ .statement-band{padding:26px 0}
+ .release-photo{min-height:44vh}
+ .release-info{padding:34px}
+}
+</style></style></head>
 <body>
 <div id="kharvieLoader" role="status" aria-label="Loading Kharvie website"><div class="kl-mark">KHARVIE</div><div class="kl-line"><span></span></div><div style="font-size:9px;letter-spacing:.18em;color:#8f9b92">OFFICIAL WEBSITE / VICTOR AVANNAH</div></div>
 <header class="k-nav"><div class="k-wrap k-navin"><a class="k-logo" href="./">KHARVIE</a><nav class="k-links" id="navLinks"><a href="#music">Music</a><a href="#videos">Videos</a><a href="#events">Live</a><a href="#about">About</a><a href="#gallery">Photos</a><a href="#news">News</a><a class="k-primary" href="booking.html">Contact</a></nav><button class="k-menu" id="menuBtn" aria-label="Open menu" aria-expanded="false">MENU</button></div></header>
