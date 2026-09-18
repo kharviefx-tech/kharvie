@@ -1,0 +1,35 @@
+name: Update Facebook link
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace Facebook URLs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          old='https://www.facebook.com/officialKharvie'
+          new='https://www.facebook.com/share/19RdXwa2nU/'
+          for p in Path('.').rglob('*'):
+              if p.is_file() and '.git' not in p.parts and p.suffix in {'.html','.txt','.json','.xml'}:
+                  try:
+                      s=p.read_text(encoding='utf-8')
+                  except UnicodeDecodeError:
+                      continue
+                  if old in s:
+                      p.write_text(s.replace(old,new),encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m 'Update official Facebook link'
+          git push
