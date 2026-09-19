@@ -54,3 +54,8 @@
 #cmsVideos .cms-video .btn{min-height:40px!important;padding:0 14px!important;font-size:9px!important}
 @media(max-width:900px){#cmsVideos{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:560px){#cmsVideos{grid-template-columns:1fr!important}#cmsVideos .cms-video{max-height:330px!important;padding:14px!important}#cmsVideos .cms-video-thumb{height:150px!important;max-height:150px!important}#cmsVideos .cms-video h3{font-size:21px!important}}
+
+/* KHARVIE MASTER BRAND SYSTEM */
+:root{--kh-bg:#050705;--kh-surface:#0d110e;--kh-surface2:#121813;--kh-line:#29352c;--kh-text:#f6f7f2;--kh-muted:#b5bdb5;--kh-green:#21c46b}
+html,body{background:var(--kh-bg)!important;color:var(--kh-text)!important;font-family:"Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important}body{font-weight:500;line-height:1.6}
+h1,h2,h3,h4,h5,h6,.brand,.logo,.section-title,.hero h1,.k-title,.k-logo{font-family:"Manrope",system-ui,sans-serif!important;color:var(--kh-text)!important}button,input,textarea,select{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important}
