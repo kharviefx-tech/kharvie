@@ -1,81 +1,82 @@
 {
   "artist": "Kharvie",
-  "updatedAt": "2026-09-19T13:07:52.481Z",
-  "source": "Kharvie distribution catalog + verified Audiomack artwork",
+  "updatedAt": "2026-09-19T13:20:14.402327+00:00",
+  "source": "Apple/iTunes Search",
   "releases": [
     {
       "title": "Sweet Love",
       "artist": "Kharvie",
-      "releaseDate": "2026-09-11",
-      "genre": "Afrobeats",
-      "artwork": "https://i.audiomack.com/kharvie/bfdde3fc9c.webp?width=416",
-      "appleUrl": "https://music.apple.com/ng/artist/kharvie/6781999179",
-      "previewUrl": "",
+      "releaseDate": "2026-07-01",
+      "genre": "Afro-Beat",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/de/12/34/de1234cf-31cf-ba5a-e8e3-a6cb5bfdefd4/artwork.jpg/1200x1200bb.jpg",
+      "appleUrl": "https://music.apple.com/ng/album/sweet-love/6798936702?i=6798936703&uo=4",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a6/59/7e/a6597e25-1224-c513-60fb-02e0633cdc79/mzaf_2062765515888869497.plus.aac.p.m4a",
       "explicit": false,
       "links": {
         "spotify": "https://open.spotify.com/track/3a6qAo7biXN6Hu5LU1NocG",
-        "apple": "https://music.apple.com/ng/artist/kharvie/6781999179",
+        "apple": "https://music.apple.com/ng/album/sweet-love/6798936702?i=6798936703&uo=4",
         "youtube": "https://www.youtube.com/@kharvie-m",
-        "audiomack": "https://audiomack.com/kharvie",
+        "audiomack": "https://audiomack.com/kharvie/song/sweet-love-1",
         "smartLink": "https://ffm.to/kharvie",
         "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/sweet-love/"
       }
     },
     {
-      "title": "Imole",
-      "artist": "Kharvie",
-      "releaseDate": "",
-      "genre": "Afrobeats",
-      "artwork": "https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F12186636--D5DDC893-E37C-48A0-A776BDFD12319E4E--0--221708--IMG1113.jpeg?fm=jpg&q=75&w=800&s=d2a9ea8e7c24f5063fe081a558411d34",
-      "appleUrl": "",
-      "previewUrl": "",
-      "explicit": false,
-      "links": {
-        "audiomack": "https://audiomack.com/kharvie",
-        "smartLink": "https://audiomack.com/kharvie",
-        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/imole/"
-      }
-    },
-    {
       "title": "Popsy",
       "artist": "Kharvie",
-      "releaseDate": "",
-      "genre": "Afrobeats",
-      "artwork": "https://i.audiomack.com/kharvie/6add7ef6f3.webp?width=416",
-      "appleUrl": "",
-      "previewUrl": "",
+      "releaseDate": "2026-07-01",
+      "genre": "Afro-Beat",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/77/13/1d/77131d13-ce20-b0a6-384f-f4b5958a54bf/artwork.jpg/1200x1200bb.jpg",
+      "appleUrl": "https://music.apple.com/ng/album/popsy/6810794705?i=6810794706&uo=4",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/68/d4/7b/68d47b18-2c52-88be-2f73-55b6c08e389c/mzaf_6929865271144758350.plus.aac.p.m4a",
       "explicit": false,
       "links": {
         "audiomack": "https://audiomack.com/imkharvie",
         "smartLink": "https://audiomack.com/imkharvie",
-        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/popsy/"
-      }
-    },
-    {
-      "title": "Holla",
-      "artist": "Kharvie",
-      "releaseDate": "",
-      "genre": "Afrobeats",
-      "artwork": "https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F12186636--AD2DAC01-5F04-4F48-9448C2861EB1DF3D--0--2748811--78FDFE43AD6C4DACB8731358A16C3B53.png?fm=jpg&q=75&w=800&s=2757e8e054b84fd19720a8ccb65b4fac",
-      "appleUrl": "",
-      "previewUrl": "",
-      "explicit": false,
-      "links": {
-        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/holla/"
+        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/popsy/",
+        "apple": "https://music.apple.com/ng/album/popsy/6810794705?i=6810794706&uo=4"
       }
     },
     {
       "title": "Romeo and Juliet",
       "artist": "Kharvie",
       "releaseDate": "",
-      "genre": "Afrobeats",
-      "artwork": "https://i.audiomack.com/kharvie/2ec69313da.webp?width=416",
+      "genre": "",
+      "artwork": "",
       "appleUrl": "",
       "previewUrl": "",
       "explicit": false,
       "links": {
         "audiomack": "https://audiomack.com/kharvie/song/romeo-and-juliet",
         "smartLink": "https://audiomack.com/kharvie/song/romeo-and-juliet"
+      }
+    },
+    {
+      "title": "Imole",
+      "artist": "Kharvie",
+      "releaseDate": "",
+      "genre": "",
+      "artwork": "https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F12186636--D5DDC893-E37C-48A0-A776BDFD12319E4E--0--221708--IMG1113.jpeg?fm=jpg&q=75&w=800&s=d2a9ea8e7c24f5063fe081a558411d34",
+      "appleUrl": "",
+      "previewUrl": "",
+      "explicit": false,
+      "links": {
+        "audiomack": "https://audiomack.com/kharvie/song/imole-1",
+        "smartLink": "https://audiomack.com/kharvie/song/imole-1",
+        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/imole/"
+      }
+    },
+    {
+      "title": "Holla",
+      "artist": "Kharvie",
+      "releaseDate": "",
+      "genre": "",
+      "artwork": "https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F12186636--AD2DAC01-5F04-4F48-9448C2861EB1DF3D--0--2748811--78FDFE43AD6C4DACB8731358A16C3B53.png?fm=jpg&q=75&w=800&s=2757e8e054b84fd19720a8ccb65b4fac",
+      "appleUrl": "",
+      "previewUrl": "",
+      "explicit": false,
+      "links": {
+        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/holla/"
       }
     }
   ]
