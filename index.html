@@ -377,5 +377,5 @@ const nav=document.getElementById('navLinks'),menu=document.getElementById('menu
    if(links.smartLink)items.push('<a href="'+links.smartLink+'" target="_blank" rel="noopener">Smart Link</a>');
    return '<article class="featured-release-card"><div class="featured-release-art"><img src="'+artwork+'" alt="Kharvie — '+r.title+' artwork" loading="'+(i<3?'eager':'lazy')+'"></div><div class="featured-release-body"><div class="featured-release-meta">'+String(i+1).padStart(2,'0')+' / '+date+'</div><h3>'+r.title+'</h3><p>Official Kharvie release · '+(r.genre||'Afrobeats')+'</p><div class="featured-release-links">'+items.join('')+'</div></div></article>';
  }).join('');
-} }catch(e){console.warn('Kharvie featured releases unavailable',e)}})();
+}catch(e){console.warn('Kharvie featured releases unavailable',e)}})();
 </script></body></html>
