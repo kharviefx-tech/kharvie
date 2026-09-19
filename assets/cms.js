@@ -8,7 +8,37 @@ const link=v=>{if(!v)return'#';try{const u=new URL(v,location.href);return['http
 const dateText=v=>{if(!v)return'';try{return new Date(v).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}catch(e){return String(v)}};
 const image=v=>v?`<img src="${esc(link(v))}" alt="" loading="lazy" onerror="this.style.display='none'">`:'';const empty=m=>`<div class="cms-empty">${esc(m)}</div>`;
 async function get(t,o){let q=client.from(t).select('*').eq('is_published',true);if(o)q=q.order(o,{ascending:false,nullsFirst:false});const r=await q;if(r.error){console.warn('Kharvie CMS:',t,r.error.message);return[]}return r.data||[]}
-function applyIdentity(s){Object.assign(state.identity,s||{});const set=(sel,val)=>{const e=document.querySelector(sel);if(e&&val)e.textContent=val};if(s.hero_intro)set('.hero-intro',s.hero_intro);if(s.short_bio)set('.about-copy p',s.short_bio);if(s.booking_email)document.querySelectorAll('.contact-email').forEach(e=>{e.textContent=s.booking_email;e.href='mailto:'+s.booking_email});const facts={artist_name:'artist',real_name:'real name',profession:'profession',origin:'origin',genre:'genre'};document.querySelectorAll('.fact').forEach(row=>{const label=(row.querySelector('span:first-child')?.textContent||'').toLowerCase(),value=row.querySelector('span:last-child');if(!value)return;for(const[k,name]of Object.entries(facts))if(label.includes(name)&&s[k])value.textContent=s[k]});const title=document.querySelector('title');if(title&&s.artist_name&&s.profession)title.textContent=s.artist_name+' — '+(s.real_name||'')+' | '+s.profession;const meta=document.querySelector('meta[name="description"]');if(meta&&s.short_bio)meta.content=s.short_bio+' Music, releases, videos, live, EPK and bookings.';const urls={spotify_url:'Spotify',apple_music_url:'Apple Music',youtube_url:'YouTube',instagram_url:'Instagram',tiktok_url:'TikTok',facebook_url:'Facebook',audiomack_url:'Audiomack',boomplay_url:'Boomplay',deezer_url:'Deezer',tidal_url:'TIDAL',amazon_music_url:'Amazon Music',shazam_url:'Shazam'};document.querySelectorAll('a').forEach(a=>{const text=(a.textContent||'').trim().toLowerCase();for(const[key,label]of Object.entries(urls))if(text===label.toLowerCase()&&s[key])a.href=link(s[key]);if(/official playlist/i.test(a.textContent||'')&&s.youtube_playlist_url)a.href=link(s.youtube_playlist_url)});const ld=document.querySelector('script[type="application/ld+json"]');if(ld)try{const j=JSON.parse(ld.textContent),person=j['@type']==='Person'?j:(j['@graph']||[]).find(x=>x['@type']==='Person');if(person){if(s.artist_name)person.name=s.artist_name;if(s.real_name)person.alternateName=s.real_name;if(s.profession)person.jobTitle=s.profession.split(/\s+and\s+/i).map(x=>x.trim()).filter(Boolean);if(s.short_bio)person.description=s.short_bio}ld.textContent=JSON.stringify(j)}catch(e){}}
+function applyIdentity(s){
+Object.assign(state.identity,s||{});
+const setText=(sel,val)=>{const e=document.querySelector(sel);if(e&&val)e.textContent=val};
+if(s.artist_name){setText('.k-logo',s.artist_name.toUpperCase());setText('.hero-bottom h1',s.artist_name);}
+if(s.artist_role||s.profession)setText('.hero-bottom p',s.artist_role||s.profession);
+if(s.hero_intro)setText('.statement-band p',s.hero_intro);
+if(s.short_bio)setText('.about-copy p',s.short_bio);
+if(s.booking_email)document.querySelectorAll('.contact-mail,.contact-email').forEach(e=>{e.textContent=s.booking_email;e.href='mailto:'+s.booking_email});
+const facts={artist_name:'artist',real_name:'real name',profession:'profession',origin:'from',genre:'genre'};
+document.querySelectorAll('.k-fact').forEach(row=>{
+ const label=(row.querySelector('span:first-child')?.textContent||'').trim().toLowerCase();
+ const value=row.querySelector('span:last-child'); if(!value)return;
+ for(const[k,name] of Object.entries(facts)) if(label===name||label.includes(name)){if(s[k])value.textContent=s[k];}
+});
+const urls={
+ spotify_url:'spotify.com',apple_music_url:'music.apple.com',youtube_url:'youtube.com',
+ instagram_url:'instagram.com',tiktok_url:'tiktok.com',facebook_url:'facebook.com',
+ audiomack_url:'audiomack.com',boomplay_url:'boomplay.com',deezer_url:'deezer.com',
+ tidal_url:'tidal.com',amazon_music_url:'music.amazon.com',shazam_url:'shazam.com'
+};
+document.querySelectorAll('a[href]').forEach(a=>{
+ const href=(a.getAttribute('href')||'').toLowerCase(),text=(a.textContent||'').trim().toLowerCase();
+ for(const[key,domain] of Object.entries(urls)){
+   const label=key.replace('_url','').replaceAll('_',' ');
+   if(href.includes(domain)||text===label||text===key.replace('_url','').replaceAll('_',' ')){
+     if(s[key])a.href=link(s[key]);
+   }
+ }
+ if(/official playlist|playlist/i.test(text)&&s.youtube_playlist_url)a.href=link(s.youtube_playlist_url);
+});
+};
 async function loadIdentity(){const r=await client.from('site_settings').select('setting_key,setting_value');if(!r.error){const s={};(r.data||[]).forEach(x=>s[x.setting_key]=x.setting_value);applyIdentity(s)}}
 function renderSongs(){const el=document.getElementById('cmsSongs');if(!el)return;if(!state.songs.length){el.innerHTML=empty('No songs have been published yet.');return}el.innerHTML=state.songs.slice(0,8).map((s,i)=>{const t=first(s,['title'],'Untitled Song'),c=first(s,['cover_url','image_url']),u=first(s,['spotify_url','apple_music_url','youtube_url','audiomack_url']);return`<article class="cms-card">${c?`<div class="cms-cover">${image(c)}</div>`:''}<div class="cms-index">${String(i+1).padStart(2,'0')} · SONG</div><h3>${esc(t)}</h3><p>${esc(first(s,['artist'],'Kharvie'))} · ${esc(first(s,['genre'],'Afrobeats'))}</p>${u?`<a class="btn cms-track-click" data-track-name="${esc(t)}" href="${esc(link(u))}" target="_blank" rel="noopener">Listen</a>`:''}</article>`}).join('')}
 function renderReleases(){const el=document.getElementById('cmsReleases');if(!el)return;if(!state.releases.length){el.innerHTML=empty('No official releases are currently available.');return}el.innerHTML=state.releases.slice(0,12).map((r,i)=>{const t=first(r,['title'],'Untitled Release'),c=first(r,['cover_url','image_url','artwork']),d=first(r,['release_date','releaseDate','date']),u=first(r,['spotify_url','apple_music_url','youtube_url','audiomack_url','appleUrl']),links=r.links||{},urls=[['Spotify',links.spotify||r.spotify_url],['Apple Music',links.apple||r.apple_music_url||r.appleUrl],['YouTube',links.youtube||r.youtube_url],['Audiomack',links.audiomack||r.audiomack_url],['Smart Link',links.smartLink]].filter(x=>x[1]);return`<article class="cms-release">${c?`<div class="cms-release-art">${image(c)}</div>`:''}<div><div class="cms-index">${String(i+1).padStart(2,'0')} / RELEASE</div><h3>${esc(t)}</h3><p>${esc(dateText(d)||'Official release')}</p><p>${esc(first(r,['description','summary','excerpt','genre'],'Kharvie official release'))}</p><div class="cms-release-links">${urls.map(x=>`<a class="text-link cms-track-click" data-track-name="${esc(t)}" href="${esc(link(x[1]))}" target="_blank" rel="noopener">${x[0]} →</a>`).join('')}</div></div></article>`}).join('')}
