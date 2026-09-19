@@ -1,0 +1,31 @@
+{
+  "artist": "Kharvie",
+  "platforms": {
+    "spotify": "https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC",
+    "appleMusic": "https://music.apple.com/ng/artist/kharvie/6781999179",
+    "youtube": "https://www.youtube.com/@kharvie-m",
+    "audiomack": "https://audiomack.com/kharvie",
+    "tiktok": "https://www.tiktok.com/@iamkharvie",
+    "instagram": "https://www.instagram.com/kharvie__/"
+  },
+  "releases": {
+    "Sweet Love": {
+      "spotify": "https://open.spotify.com/track/3a6qAo7biXN6Hu5LU1NocG",
+      "apple": "https://music.apple.com/ng/artist/kharvie/6781999179",
+      "youtube": "https://www.youtube.com/@kharvie-m",
+      "audiomack": "https://audiomack.com/kharvie"
+    },
+    "Romeo and Juliet": {
+      "audiomack": "https://audiomack.com/kharvie/song/romeo-and-juliet"
+    },
+    "RELATE": {
+      "audiomack": "https://audiomack.com/imkharvie/song/relate"
+    },
+    "Imole": {
+      "audiomack": "https://audiomack.com/kharvie"
+    },
+    "Popsy": {
+      "audiomack": "https://audiomack.com/imkharvie"
+    }
+  }
+}
