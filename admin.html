@@ -11,7 +11,8 @@
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font:14px Inter,Arial,sans-serif;display:grid;place-items:center;padding:20px}
 .login{width:min(440px,100%);background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 24px 70px #0008}
 .brand{font-weight:900;letter-spacing:.18em;color:var(--green)}h1{font-size:clamp(42px,10vw,70px);line-height:.9;letter-spacing:-.07em;margin:25px 0 10px}p{color:var(--muted);line-height:1.65}
-.field{display:grid;gap:7px;margin:16px 0}.field label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#aeb8af}.field input{width:100%;min-height:52px;padding:13px 14px;border:1px solid #39473d;border-radius:11px;background:#080b09;color:#fff;outline:none}.field input:focus{border-color:var(--green);box-shadow:0 0 0 3px #21c46b2e}
+.field{display:grid;gap:7px;margin:16px 0}.field label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#aeb8af}.passwordWrap{position:relative}.passwordWrap input{padding-right:58px}.field input{width:100%;min-height:52px;padding:13px 14px;border:1px solid #39473d;border-radius:11px;background:#080b09;color:#fff;outline:none}.field input:focus{border-color:var(--green);box-shadow:0 0 0 3px #21c46b2e}
+.showPass{position:absolute;right:7px;top:7px;height:38px;padding:0 10px;border:1px solid #39473d;border-radius:8px;background:#111712;color:#f6f7f2;font-weight:700;font-size:11px;cursor:pointer}.showPass:hover{border-color:var(--green)}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.btn{min-height:48px;padding:0 17px;border-radius:11px;border:1px solid #445248;background:#0b100c;color:#f6f7f2;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}.btn.green{background:var(--green);border-color:var(--green);color:#061008}.full{width:100%}.status{display:none;margin-top:13px;padding:12px;border:1px solid #5d2730;border-radius:10px;color:#ff9baa;line-height:1.5}.status.show{display:block}.status.ok{border-color:#315f48;color:#65e0a0}.small{font-size:11px;color:#778178;margin-top:22px}
 #resetBox{display:none;margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:14px;background:#080b09}#resetBox.show{display:block}.resetTitle{font-weight:800;margin-bottom:5px}.resetHint{font-size:12px;color:var(--muted);margin:0 0 12px}
 </style>
@@ -23,7 +24,7 @@
 <p>Sign in to manage Kharvie's public website, music, releases, media, news, bookings, analytics and professional tools.</p>
 <form id="login">
 <div class="field"><label for="email">Admin email</label><input id="email" type="email" autocomplete="username" required></div>
-<div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+<div class="field"><label for="password">Password</label><div class="passwordWrap"><input id="password" type="password" autocomplete="current-password" required><button id="togglePassword" class="showPass" type="button" aria-label="Show password" aria-pressed="false">Show</button></div></div>
 <button class="btn green full" type="submit">Sign in to admin</button>
 </form>
 <div class="actions"><button id="reset" class="btn" type="button">Forgot password?</button><a class="btn" href="index.html">View website</a></div>
@@ -38,21 +39,15 @@
 </main>
 <script>
 const db=supabase.createClient('https://dprulohylwgzmetgrywj.supabase.co','sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4');
-const status=document.getElementById('status');
-const email=document.getElementById('email');
-const password=document.getElementById('password');
-const resetEmail=document.getElementById('resetEmail');
+const status=document.getElementById('status'),email=document.getElementById('email'),password=document.getElementById('password'),resetEmail=document.getElementById('resetEmail');
 function msg(t,ok=false){status.textContent=t;status.className='status show'+(ok?' ok':'')}
 async function authorised(){const {data:{session}}=await db.auth.getSession();if(!session)return false;const {data,error}=await db.from('admin_users').select('user_id').eq('user_id',session.user.id).maybeSingle();if(error||!data){await db.auth.signOut();return false}return true}
-async function boot(){if(await authorised()) location.replace('admin/editor.html')}
-
+async function boot(){if(await authorised())location.replace('admin/editor.html')}
+document.getElementById('togglePassword').addEventListener('click',()=>{const b=document.getElementById('togglePassword');const visible=password.type==='text';password.type=visible?'password':'text';b.textContent=visible?'Show':'Hide';b.setAttribute('aria-label',visible?'Show password':'Hide password');b.setAttribute('aria-pressed',String(!visible))});
 document.getElementById('login').addEventListener('submit',async e=>{e.preventDefault();msg('Signing in…',true);const r=await db.auth.signInWithPassword({email:email.value.trim(),password:password.value});if(r.error){msg(r.error.message);return}if(await authorised())location.replace('admin/editor.html');else msg('This account is not authorised for Kharvie admin.')});
-
 document.getElementById('reset').addEventListener('click',()=>{document.getElementById('resetBox').classList.toggle('show');resetEmail.value=email.value.trim();resetEmail.focus()});
-
 document.getElementById('sendReset').addEventListener('click',async()=>{const e=resetEmail.value.trim();if(!e){msg('Enter your existing admin email.');return}const button=document.getElementById('sendReset');button.disabled=true;button.textContent='Sending…';const redirect=new URL('admin.html',location.href);redirect.searchParams.set('reset','1');const r=await db.auth.resetPasswordForEmail(e,{redirectTo:redirect.toString()});button.disabled=false;button.textContent='Send password reset email';if(r.error){msg(r.error.message);return}msg('Password reset email sent. Open the email and use the secure link to choose a new password.',true)});
-
-const params=new URLSearchParams(location.search);if(params.get('reset')==='1'){msg('Recovery link accepted. Set your new password from the recovery page. If you have not received the email, check spam/junk.',true)}
+const params=new URLSearchParams(location.search);if(params.get('reset')==='1')msg('Recovery link accepted. Set your new password from the recovery page. If you have not received the email, check spam/junk.',true);
 boot();
 </script>
 </body>
