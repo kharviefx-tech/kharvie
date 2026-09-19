@@ -54,13 +54,15 @@ jobs:
                   'explicit': x.get('trackExplicitness') == 'explicit'
               })
 
-          # Preserve manually verified links from the other Kharvie platforms.
+          # Preserve manually verified links AND exact artwork from release-links.json.
           for r in releases:
               extra=manual.get('releases',{}).get(r.get('title'),{})
-              r['links']={**extra, 'apple': r.get('appleUrl','') or extra.get('apple','')}
+              if extra.get('artwork'):
+                  r['artwork']=extra['artwork']
+              r['links']={k:v for k,v in {**extra, 'apple': r.get('appleUrl','') or extra.get('apple','')}.items() if k != 'artwork'}
           for title, extra in manual.get('releases',{}).items():
               if not any(r.get('title','').lower()==title.lower() for r in releases):
-                  releases.append({'title':title,'artist':'Kharvie','releaseDate':'','genre':'','artwork':'','appleUrl':extra.get('apple',''),'previewUrl':'','explicit':False,'links':extra})
+                  releases.append({'title':title,'artist':'Kharvie','releaseDate':'','genre':'','artwork':extra.get('artwork',''),'appleUrl':extra.get('apple',''),'previewUrl':'','explicit':False,'links':{k:v for k,v in extra.items() if k != 'artwork'}})
           releases.sort(key=lambda x: x.get('releaseDate',''), reverse=True)
           Path('releases.json').write_text(json.dumps({
               'artist':'Kharvie',
