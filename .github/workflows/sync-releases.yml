@@ -43,6 +43,9 @@ jobs:
               if artist != 'kharvie':
                   continue
               name=x.get('trackName') or x.get('collectionName')
+              # Popsy was explicitly removed from Kharvie's website catalogue.
+              if (name or '').strip().lower() == 'popsy':
+                  continue
               if not name:
                   continue
               key=(name.lower(), x.get('releaseDate','')[:10])
