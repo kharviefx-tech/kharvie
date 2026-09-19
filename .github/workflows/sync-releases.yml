@@ -26,6 +26,7 @@ jobs:
           from pathlib import Path
 
           src=json.loads(Path('/tmp/itunes.json').read_text())
+          manual=json.loads(Path('release-links.json').read_text()) if Path('release-links.json').exists() else {'releases':{}}
           releases=[]
           seen=set()
 
@@ -53,6 +54,13 @@ jobs:
                   'explicit': x.get('trackExplicitness') == 'explicit'
               })
 
+          # Preserve manually verified links from the other Kharvie platforms.
+          for r in releases:
+              extra=manual.get('releases',{}).get(r.get('title'),{})
+              r['links']={**extra, 'apple': r.get('appleUrl','') or extra.get('apple','')}
+          for title, extra in manual.get('releases',{}).items():
+              if not any(r.get('title','').lower()==title.lower() for r in releases):
+                  releases.append({'title':title,'artist':'Kharvie','releaseDate':'','genre':'','artwork':'','appleUrl':extra.get('apple',''),'previewUrl':'','explicit':False,'links':extra})
           releases.sort(key=lambda x: x.get('releaseDate',''), reverse=True)
           Path('releases.json').write_text(json.dumps({
               'artist':'Kharvie',
