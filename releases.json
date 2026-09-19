@@ -1,6 +1,6 @@
 {
   "artist": "Kharvie",
-  "updatedAt": "2026-09-19T13:20:14.402327+00:00",
+  "updatedAt": "2026-09-19T13:35:51.110072+00:00",
   "source": "Apple/iTunes Search",
   "releases": [
     {
@@ -24,15 +24,17 @@
     {
       "title": "Romeo and Juliet",
       "artist": "Kharvie",
-      "releaseDate": "2026-08-06",
-      "genre": "Afrosounds",
+      "releaseDate": "",
+      "genre": "",
       "artwork": "https://i.audiomack.com/kharvie/2ec69313da.webp?width=800",
       "appleUrl": "",
       "previewUrl": "",
       "explicit": false,
       "links": {
         "audiomack": "https://audiomack.com/kharvie/song/romeo-and-juliet",
-        "smartLink": "https://audiomack.com/kharvie/song/romeo-and-juliet"
+        "smartLink": "https://audiomack.com/kharvie/song/romeo-and-juliet",
+        "releaseDate": "2026-08-06",
+        "genre": "Afrosounds"
       }
     },
     {
