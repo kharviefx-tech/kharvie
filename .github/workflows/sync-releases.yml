@@ -1,0 +1,77 @@
+name: Sync Kharvie releases
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch Kharvie catalog from Apple
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 "https://itunes.apple.com/search?term=Kharvie&country=ng&media=music&entity=song&limit=100" -o /tmp/itunes.json
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          src=json.loads(Path('/tmp/itunes.json').read_text())
+          releases=[]
+          seen=set()
+
+          for x in src.get('results', []):
+              artist=(x.get('artistName') or '').strip().lower()
+              if artist != 'kharvie':
+                  continue
+              name=x.get('trackName') or x.get('collectionName')
+              if not name:
+                  continue
+              key=(name.lower(), x.get('releaseDate','')[:10])
+              if key in seen:
+                  continue
+              seen.add(key)
+              art=x.get('artworkUrl100') or ''
+              art=art.replace('100x100', '1200x1200')
+              releases.append({
+                  'title': name,
+                  'artist': x.get('artistName','Kharvie'),
+                  'releaseDate': (x.get('releaseDate') or '')[:10],
+                  'genre': x.get('primaryGenreName',''),
+                  'artwork': art,
+                  'appleUrl': x.get('trackViewUrl') or x.get('collectionViewUrl') or '',
+                  'previewUrl': x.get('previewUrl') or '',
+                  'explicit': x.get('trackExplicitness') == 'explicit'
+              })
+
+          releases.sort(key=lambda x: x.get('releaseDate',''), reverse=True)
+          Path('releases.json').write_text(json.dumps({
+              'artist':'Kharvie',
+              'updatedAt':__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat(),
+              'source':'Apple/iTunes Search',
+              'releases':releases
+          }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(f'Synced {len(releases)} Kharvie releases')
+          PY
+
+      - name: Commit catalog changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add releases.json
+          if git diff --cached --quiet; then
+            echo "No catalog changes."
+            exit 0
+          fi
+          git commit -m "Auto-sync Kharvie music catalog"
+          git push
