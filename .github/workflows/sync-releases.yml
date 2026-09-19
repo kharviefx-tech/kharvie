@@ -64,9 +64,11 @@ jobs:
                   'explicit': x.get('trackExplicitness') == 'explicit'
               })
 
-          # Preserve manually verified links AND exact artwork from release-links.json.
+          # Preserve manually verified links AND manually verified artwork from release-links.json.
           for r in releases:
               extra=manual.get('releases',{}).get(r.get('title'),{})
+              if extra.get('artwork'):
+                  r['artwork']=extra['artwork']
               r['links']={k:v for k,v in {**extra, 'apple': r.get('appleUrl','') or extra.get('apple','')}.items() if k != 'artwork'}
           for title, extra in manual.get('releases',{}).items():
               if not any(r.get('title','').lower()==title.lower() for r in releases):
