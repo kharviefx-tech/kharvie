@@ -1,0 +1,21 @@
+{
+  "name": "kharvie-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Official Kharvie music app for iOS and Android.",
+  "scripts": {
+    "sync": "npx cap sync",
+    "android": "npx cap open android",
+    "ios": "npx cap open ios",
+    "build:web": "mkdir -p www && cp app.html www/index.html && cp manifest.json www/manifest.json && cp sw.js www/sw.js",
+    "build": "npm run build:web && npm run sync"
+  },
+  "dependencies": {
+    "@capacitor/android": "latest",
+    "@capacitor/core": "latest",
+    "@capacitor/ios": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "latest"
+  }
+}
