@@ -32,7 +32,8 @@
     },
     "Popsy": {
       "audiomack": "https://audiomack.com/imkharvie",
-      "smartLink": "https://audiomack.com/imkharvie"
+      "smartLink": "https://audiomack.com/imkharvie",
+      "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/popsy/"
     }
   }
 }
