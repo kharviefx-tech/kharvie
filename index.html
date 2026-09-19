@@ -343,7 +343,8 @@ linear-gradient(135deg,#050705 0%,#09100b 48%,#050705 100%)}
       <a href="#gallery">Photos</a>
       <a href="#news">News</a>
       <a href="booking.html">Contact</a>
-      <a href="press.html">EPK</a>\n      <a href="#website-settings">Settings</a>
+      <a href="press.html">EPK</a>
+      <a href="#website-settings">Settings</a>
     </div>
     <div class="k-foot-tools" aria-label="Professional and website tools">
       <a href="professional-suite.html">Professional</a>
@@ -355,6 +356,8 @@ linear-gradient(135deg,#050705 0%,#09100b 48%,#050705 100%)}
     </div>
   </nav>
 </div>
+
+</footer>
 <section id="website-settings" class="editorial-section" aria-labelledby="website-settings-title">
 <div class="k-wrap">
 <div class="section-kicker">KHARVIE / CONTROL</div>
@@ -371,7 +374,6 @@ linear-gradient(135deg,#050705 0%,#09100b 48%,#050705 100%)}
 <p class="muted" style="margin-top:16px;font-size:12px">Admin pages require authorized sign-in where applicable.</p>
 </div>
 </section>
-</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="assets/cms.js" defer></script>
 <script>
 const nav=document.getElementById('navLinks'),menu=document.getElementById('menuBtn');menu?.addEventListener('click',()=>{const o=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(o));menu.textContent=o?'CLOSE':'MENU'});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu?.setAttribute('aria-expanded','false');menu.textContent='MENU'}));addEventListener('scroll',()=>document.querySelector('.k-nav')?.classList.toggle('scrolled',scrollY>25));
