@@ -1,0 +1,14 @@
+{
+  "artist": "Kharvie",
+  "updatedAt": "2026-09-19T00:00:00+01:00",
+  "gallery": [
+    {
+      "title": "Kharvie — Official Portrait",
+      "image_url": "assets/IMG-20260912-WA0004.jpg"
+    },
+    {
+      "title": "Kharvie — Official Artist Image",
+      "image_url": "assets/kharvie.jpg"
+    }
+  ]
+}
