@@ -1,0 +1,14 @@
+{
+  "artist": "Kharvie",
+  "updatedAt": "2026-09-19T00:00:00+01:00",
+  "videos": [
+    {
+      "title": "Official Kharvie Videos",
+      "artist": "Kharvie",
+      "video_url": "https://youtube.com/@kharvie-m",
+      "youtube_url": "https://youtube.com/@kharvie-m",
+      "thumbnail_url": "assets/kharvie.jpg",
+      "platform": "YouTube"
+    }
+  ]
+}
