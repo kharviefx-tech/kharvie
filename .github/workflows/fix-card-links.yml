@@ -40,8 +40,7 @@ jobs:
           if script_end in s and 'document.querySelectorAll(\'.hub-action\')' not in s:
               s = s.replace(script_end, extra, 1)
 
-          s = s.replace('<title>Kharvie — Victor Avannah | Nigerian Singer & Songwriter</title>', '<title>Kharvie | Official Website</title>')
-          s = s.replace('<title>Kharvie (Victor Avannah) | Official Website</title>', '<title>Kharvie | Official Website</title>')
+          s = s.replace('<title>Kharvie | Official Website</title>', '<title>Kharvie | Official Website</title>')
           s = s.replace('<meta name="author" content="Kharvie (Victor Avannah)">', '<meta name="author" content="Kharvie">')
           s = s.replace('<meta property="og:site_name" content="Kharvie (Victor Avannah) Official">', '<meta property="og:site_name" content="Kharvie">')
           s = s.replace('<meta property="og:title" content="Kharvie — Victor Avannah">', '<meta property="og:title" content="Kharvie | Official Website">')
