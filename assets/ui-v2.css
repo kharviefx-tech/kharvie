@@ -43,3 +43,14 @@
  .k-cms-grid .cms-release{grid-template-columns:88px minmax(0,1fr)!important}
  .k-cms-grid .cms-release-art,.k-cms-grid .cms-release-art img{width:88px!important;height:88px!important;max-height:88px!important}
 }
+
+/* KHARVIE VIDEO CARD SIZE FIX */
+#cmsVideos{grid-template-columns:repeat(3,minmax(0,1fr))!important;align-items:stretch!important}
+#cmsVideos .cms-video{min-width:0!important;min-height:0!important;height:auto!important;max-height:360px!important;overflow:hidden!important;padding:18px!important}
+#cmsVideos .cms-video-thumb{width:100%!important;height:180px!important;max-height:180px!important;overflow:hidden!important;border-radius:12px!important}
+#cmsVideos .cms-video-thumb img,#cmsVideos .cms-video-thumb video{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:cover!important}
+#cmsVideos .cms-video h3{font-size:24px!important;line-height:1.05!important;margin:7px 0!important}
+#cmsVideos .cms-video p{font-size:12px!important;line-height:1.4!important;margin:5px 0!important}
+#cmsVideos .cms-video .btn{min-height:40px!important;padding:0 14px!important;font-size:9px!important}
+@media(max-width:900px){#cmsVideos{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:560px){#cmsVideos{grid-template-columns:1fr!important}#cmsVideos .cms-video{max-height:330px!important;padding:14px!important}#cmsVideos .cms-video-thumb{height:150px!important;max-height:150px!important}#cmsVideos .cms-video h3{font-size:21px!important}}
