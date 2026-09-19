@@ -1,55 +1,68 @@
 {
   "artist": "Kharvie",
-  "updatedAt": "2026-09-19T20:10:44.876432+00:00",
-  "source": "Apple/iTunes Search",
+  "artistId": "6781999179",
+  "updatedAt": "2026-09-19T20:34:05.690431+00:00",
+  "source": "Apple/iTunes catalogue sync for DistroKid-distributed releases",
   "releases": [
-    {
-      "title": "Sweet Love",
-      "artist": "Kharvie",
-      "releaseDate": "2026-07-01",
-      "genre": "Afro-Beat",
-      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/de/12/34/de1234cf-31cf-ba5a-e8e3-a6cb5bfdefd4/artwork.jpg/1200x1200bb.jpg",
-      "appleUrl": "https://music.apple.com/ng/album/sweet-love/6798936702?i=6798936703&uo=4",
-      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a6/59/7e/a6597e25-1224-c513-60fb-02e0633cdc79/mzaf_2062765515888869497.plus.aac.p.m4a",
-      "explicit": false,
-      "links": {
-        "spotify": "https://open.spotify.com/track/3a6qAo7biXN6Hu5LU1NocG",
-        "apple": "https://music.apple.com/ng/album/sweet-love/6798936702?i=6798936703&uo=4",
-        "youtube": "https://www.youtube.com/@kharvie-m",
-        "audiomack": "https://audiomack.com/kharvie/song/sweet-love-1",
-        "smartLink": "https://ffm.to/kharvie",
-        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/sweet-love/"
-      }
-    },
     {
       "title": "Romeo and Juliet",
       "artist": "Kharvie",
-      "releaseDate": "",
-      "genre": "",
+      "releaseDate": "2026-08-06",
+      "genre": "Afrosounds",
       "artwork": "https://i.audiomack.com/kharvie/2ec69313da.webp?width=800",
       "appleUrl": "",
       "previewUrl": "",
       "explicit": false,
       "links": {
         "audiomack": "https://audiomack.com/kharvie/song/romeo-and-juliet",
-        "smartLink": "https://audiomack.com/kharvie/song/romeo-and-juliet",
-        "releaseDate": "2026-08-06",
-        "genre": "Afrosounds"
+        "smartLink": "https://audiomack.com/kharvie/song/romeo-and-juliet"
       }
     },
     {
       "title": "Imole",
       "artist": "Kharvie",
-      "releaseDate": "",
-      "genre": "",
+      "releaseDate": "2026-08-04",
+      "genre": "Afro-Beat",
       "artwork": "https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F12186636--D5DDC893-E37C-48A0-A776BDFD12319E4E--0--221708--IMG1113.jpeg?fm=jpg&q=75&w=800&s=d2a9ea8e7c24f5063fe081a558411d34",
-      "appleUrl": "",
-      "previewUrl": "",
-      "explicit": false,
+      "appleUrl": "https://music.apple.com/us/album/imole/6798143559?i=6798143560&uo=4",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/75/26/11/7526117b-7240-552d-a0c7-84d5c383fa0c/mzaf_8451903369453321551.plus.aac.p.m4a",
+      "explicit": true,
       "links": {
         "audiomack": "https://audiomack.com/kharvie/song/imole-1",
         "smartLink": "https://audiomack.com/kharvie/song/imole-1",
-        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/imole/"
+        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/imole/",
+        "apple": "https://music.apple.com/us/album/imole/6798143559?i=6798143560&uo=4"
+      }
+    },
+    {
+      "title": "Sweet Love",
+      "artist": "Kharvie",
+      "releaseDate": "2026-07-01",
+      "genre": "Afro-Beat",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/de/12/34/de1234cf-31cf-ba5a-e8e3-a6cb5bfdefd4/artwork.jpg/1200x1200bb.jpg",
+      "appleUrl": "https://music.apple.com/us/album/sweet-love/6798936702?i=6798936703&uo=4",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a6/59/7e/a6597e25-1224-c513-60fb-02e0633cdc79/mzaf_2062765515888869497.plus.aac.p.m4a",
+      "explicit": false,
+      "links": {
+        "spotify": "https://open.spotify.com/track/3a6qAo7biXN6Hu5LU1NocG",
+        "youtube": "https://www.youtube.com/@kharvie-m",
+        "audiomack": "https://audiomack.com/kharvie/song/sweet-love-1",
+        "smartLink": "https://ffm.to/kharvie",
+        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/sweet-love/",
+        "apple": "https://music.apple.com/us/album/sweet-love/6798936702?i=6798936703&uo=4"
+      }
+    },
+    {
+      "title": "Popsy",
+      "artist": "Kharvie",
+      "releaseDate": "2026-07-01",
+      "genre": "Afro-Beat",
+      "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/77/13/1d/77131d13-ce20-b0a6-384f-f4b5958a54bf/artwork.jpg/1200x1200bb.jpg",
+      "appleUrl": "https://music.apple.com/us/album/popsy/6810794705?i=6810794706&uo=4",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/68/d4/7b/68d47b18-2c52-88be-2f73-55b6c08e389c/mzaf_6929865271144758350.plus.aac.p.m4a",
+      "explicit": false,
+      "links": {
+        "apple": "https://music.apple.com/us/album/popsy/6810794705?i=6810794706&uo=4"
       }
     },
     {
