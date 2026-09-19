@@ -15,6 +15,9 @@ if(s.artist_name){setText('.k-logo',s.artist_name.toUpperCase());setText('.hero-
 if(s.artist_role||s.profession)setText('.hero-bottom p',s.artist_role||s.profession);
 if(s.hero_intro)setText('.statement-band p',s.hero_intro);
 if(s.short_bio)setText('.about-copy p',s.short_bio);
+if(s.site_title){const title=document.querySelector('title');if(title)title.textContent=s.site_title;}
+if(s.meta_description){const meta=document.querySelector('meta[name="description"]');if(meta)meta.setAttribute('content',s.meta_description);}
+if(s.canonical_url){const canonical=document.querySelector('link[rel="canonical"]');if(canonical)canonical.setAttribute('href',s.canonical_url);}
 if(s.booking_email)document.querySelectorAll('.contact-mail,.contact-email').forEach(e=>{e.textContent=s.booking_email;e.href='mailto:'+s.booking_email});
 const facts={artist_name:'artist',real_name:'real name',profession:'profession',origin:'from',genre:'genre'};
 document.querySelectorAll('.k-fact').forEach(row=>{
