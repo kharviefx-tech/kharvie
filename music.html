@@ -3,7 +3,7 @@
  const res=await fetch('releases.json?v='+Date.now(),{cache:'no-store'}); if(!res.ok)return;
  const data=await res.json(); const list=Array.isArray(data.releases)?data.releases:[]; const root=document.querySelector('#release-list'); if(!root)return;
  const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const platformNames={spotify:'Spotify',apple:'Apple Music',youtube:'YouTube',audiomack:'Audiomack',tidal:'TIDAL',deezer:'Deezer',amazon:'Amazon Music',pandora:'Pandora'};
+ const platformNames={smartLink:'All platforms',spotify:'Spotify',apple:'Apple Music',youtube:'YouTube',audiomack:'Audiomack',tidal:'TIDAL',deezer:'Deezer',amazon:'Amazon Music',pandora:'Pandora'};
  root.innerHTML=list.map((r,i)=>{
    const links=r.links||{};
    const hrefs=Object.entries(links).filter(([k,v])=>v&&platformNames[k]).map(([k,v])=>'<a href="'+esc(v)+'" target="_blank" rel="noopener">'+platformNames[k]+'</a>').join('');
