@@ -20,15 +20,23 @@ jobs:
         run: |
           set -euo pipefail
           curl -fsSL --retry 3 "https://itunes.apple.com/search?term=Kharvie&country=ng&media=music&entity=song&limit=100" -o /tmp/itunes.json
+          curl -fsSL --retry 3 "https://itunes.apple.com/search?term=Kharvie&country=ng&media=music&entity=album&limit=100" -o /tmp/itunes-albums.json
 
           python - <<'PY'
           import json
           from pathlib import Path
 
           src=json.loads(Path('/tmp/itunes.json').read_text())
+          albums=json.loads(Path('/tmp/itunes-albums.json').read_text())
           manual=json.loads(Path('release-links.json').read_text()) if Path('release-links.json').exists() else {'releases':{}}
           releases=[]
           seen=set()
+          album_art={}
+          for x in albums.get('results', []):
+              if (x.get('artistName') or '').strip().lower() == 'kharvie':
+                  name=x.get('collectionName') or x.get('trackName')
+                  art=(x.get('artworkUrl100') or '').replace('100x100','1200x1200')
+                  if name and art: album_art[name.strip().lower()]=art
 
           for x in src.get('results', []):
               artist=(x.get('artistName') or '').strip().lower()
@@ -43,6 +51,8 @@ jobs:
               seen.add(key)
               art=x.get('artworkUrl100') or ''
               art=art.replace('100x100', '1200x1200')
+              if not art:
+                  art=album_art.get((x.get('collectionName') or '').strip().lower(),'')
               releases.append({
                   'title': name,
                   'artist': x.get('artistName','Kharvie'),
@@ -57,8 +67,6 @@ jobs:
           # Preserve manually verified links AND exact artwork from release-links.json.
           for r in releases:
               extra=manual.get('releases',{}).get(r.get('title'),{})
-              if extra.get('artwork'):
-                  r['artwork']=extra['artwork']
               r['links']={k:v for k,v in {**extra, 'apple': r.get('appleUrl','') or extra.get('apple','')}.items() if k != 'artwork'}
           for title, extra in manual.get('releases',{}).items():
               if not any(r.get('title','').lower()==title.lower() for r in releases):
