@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kharvie | News & Updates</title>
+<meta name="description" content="Official Kharvie news, announcements, releases, appearances and artist updates.">
+<link rel="canonical" href="https://kharviefx-tech.github.io/kharvie/news.html">
+<link rel="stylesheet" href="assets/ui-v2.css?v=13">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+body{background:#070a08!important}.news-page{width:min(1180px,92vw);margin:0 auto;padding:120px 0 90px}.news-top{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:55px}.news-kicker{font-size:10px;letter-spacing:.18em;color:#21c46b;text-transform:uppercase}.news-title{font:800 clamp(56px,10vw,130px)/.82 Manrope,sans-serif;letter-spacing:-.09em;margin:14px 0 0}.news-intro{max-width:430px;color:#b5bdb5}.news-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.news-card{background:#0e130f;border:1px solid #29372e;border-radius:18px;overflow:hidden;box-shadow:0 14px 36px rgba(0,0,0,.28)}.news-card-media{aspect-ratio:16/9;background:#151c17;overflow:hidden}.news-card-media img{width:100%;height:100%;object-fit:cover;display:block}.news-card-body{padding:25px}.news-date{font-size:9px;letter-spacing:.15em;color:#21c46b;text-transform:uppercase}.news-card h2{font-size:28px;line-height:1.05;margin:10px 0 12px}.news-card p{color:#b5bdb5;line-height:1.65}.news-card a{display:inline-flex;margin-top:12px;color:#21c46b;font-weight:800}.empty{padding:40px;border:1px dashed #3a493d;color:#b5bdb5;text-align:center;grid-column:1/-1}
+.back{display:inline-flex;align-items:center;margin-bottom:28px;color:#b5bdb5}.back:hover{color:#21c46b}
+@media(max-width:700px){.news-page{padding-top:100px}.news-top{display:block}.news-intro{margin-top:18px}.news-grid{grid-template-columns:1fr}.news-card-body{padding:20px}}
+</style>
+</head>
+<body>
+<main class="news-page">
+<a class="back" href="index.html">← Back to Kharvie</a>
+<div class="news-top"><div><div class="news-kicker">08 / Official Updates</div><h1 class="news-title">What's <em>new.</em></h1></div><p class="news-intro">Official Kharvie announcements, releases, appearances, media updates and artist news.</p></div>
+<section id="newsGrid" class="news-grid" aria-live="polite"><div class="empty">Loading official news…</div></section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/cms.js" defer></script>
+<script>
+(function(){
+const grid=document.getElementById('newsGrid');
+const esc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const date=v=>{if(!v)return'';try{return new Date(v).toLocaleDateString('en-NG',{year:'numeric',month:'short',day:'numeric'})}catch(e){return String(v)}};
+const first=(o,keys)=>{for(const k of keys)if(o&&o[k]!==undefined&&o[k]!==null&&o[k]!=='')return o[k];return''};
+function render(items){
+ if(!items.length){grid.innerHTML='<div class="empty">No official news has been published yet.</div>';return}
+ grid.innerHTML=items.slice(0,30).map(n=>{
+  const title=first(n,['title'])||'Kharvie Update',body=first(n,['excerpt','summary','content','body']),d=first(n,['published_at','published_date','date','created_at']),u=first(n,['url','link']),img=first(n,['featured_image_url','image_url','cover_url']);
+  return '<article class="news-card">'+(img?'<div class="news-card-media"><img src="'+esc(img)+'" alt="" loading="lazy"></div>':'')+'<div class="news-card-body"><div class="news-date">'+esc(date(d))+'</div><h2>'+esc(title)+'</h2>'+(body?'<p>'+esc(String(body).slice(0,500))+(String(body).length>500?'…':'')+'</p>':'')+(u?'<a href="'+esc(u)+'" target="_blank" rel="noopener">Read more →</a>':'')+'</div></article>'
+ }).join('');
+}
+async function load(){
+ try{
+  const r=await fetch('https://dprulohylwgzmetgrywj.supabase.co/rest/v1/posts?select=*&is_published=eq.true&order=published_at.desc',{headers:{apikey:'sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4'}});
+  if(!r.ok)throw new Error('News feed unavailable');
+  const data=await r.json();render(Array.isArray(data)?data:[]);
+ }catch(e){console.warn(e);render([])}
+}
+load();
+})();
+</script>
+</body>
+</html>
