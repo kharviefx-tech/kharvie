@@ -104,7 +104,7 @@ jobs:
 
           # 4) Make the manifest unambiguous on GitHub Pages by using the full canonical origin.
           manifest = {
-              'name': 'Kharvie — Official Website',
+              'name': 'Kharvie | Official Website',
               'short_name': 'Kharvie',
               'start_url': SITE,
               'scope': SITE,
