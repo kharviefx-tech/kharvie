@@ -10,30 +10,33 @@
   },
   "releases": {
     "Sweet Love": {
+      "artwork": "https://i.audiomack.com/kharvie/bfdde3fc9c.webp?width=416",
       "spotify": "https://open.spotify.com/track/3a6qAo7biXN6Hu5LU1NocG",
       "apple": "https://music.apple.com/ng/artist/kharvie/6781999179",
       "youtube": "https://www.youtube.com/@kharvie-m",
-      "audiomack": "https://audiomack.com/kharvie",
+      "audiomack": "https://audiomack.com/kharvie/song/sweet-love-1",
       "smartLink": "https://ffm.to/kharvie",
       "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/sweet-love/"
     },
     "Romeo and Juliet": {
+      "artwork": "https://i.audiomack.com/kharvie/2ec69313da.webp?width=416",
       "audiomack": "https://audiomack.com/kharvie/song/romeo-and-juliet",
       "smartLink": "https://audiomack.com/kharvie/song/romeo-and-juliet"
     },
-    "RELATE": {
-      "audiomack": "https://audiomack.com/imkharvie/song/relate",
-      "smartLink": "https://audiomack.com/imkharvie/song/relate"
-    },
     "Imole": {
-      "audiomack": "https://audiomack.com/kharvie",
-      "smartLink": "https://audiomack.com/kharvie",
+      "artwork": "https://i.audiomack.com/kharvie/6add7ef6f3.webp?width=416",
+      "audiomack": "https://audiomack.com/kharvie/song/imole-1",
+      "smartLink": "https://audiomack.com/kharvie/song/imole-1",
       "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/imole/"
     },
     "Popsy": {
+      "artwork": "https://i.audiomack.com/kharvie/6add7ef6f3.webp?width=416",
       "audiomack": "https://audiomack.com/imkharvie",
       "smartLink": "https://audiomack.com/imkharvie",
       "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/popsy/"
+    },
+    "Holla": {
+      "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/holla/"
     }
   }
 }
