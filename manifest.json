@@ -1,0 +1,16 @@
+{
+  "name": "Kharvie — Official Artist App",
+  "short_name": "Kharvie",
+  "description": "Official Kharvie (Victor Avannah) music, videos, live dates, news, EPK and professional enquiries.",
+  "start_url": "./app.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050705",
+  "theme_color": "#050705",
+  "orientation": "portrait-primary",
+  "icons": [
+    {"src":"assets/kharvie.jpg","sizes":"192x192","type":"image/jpeg","purpose":"any maskable"},
+    {"src":"assets/kharvie.jpg","sizes":"512x512","type":"image/jpeg","purpose":"any maskable"}
+  ],
+  "categories": ["music", "entertainment", "lifestyle"]
+}
