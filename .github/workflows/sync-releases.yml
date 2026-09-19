@@ -2,7 +2,7 @@ name: Sync Kharvie releases
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -15,16 +15,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fetch Kharvie catalog from Apple
+      - name: Fetch Kharvie catalogue from Apple Music
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL --retry 3 "https://itunes.apple.com/search?term=Kharvie&country=ng&media=music&entity=song&limit=100" -o /tmp/itunes.json
-          curl -fsSL --retry 3 "https://itunes.apple.com/search?term=Kharvie&country=ng&media=music&entity=album&limit=100" -o /tmp/itunes-albums.json
+          curl -fsSL --retry 3 "https://itunes.apple.com/lookup?id=6781999179&entity=song&limit=200" -o /tmp/itunes.json
+          curl -fsSL --retry 3 "https://itunes.apple.com/lookup?id=6781999179&entity=album&limit=200" -o /tmp/itunes-albums.json
 
           python - <<'PY'
           import json
           from pathlib import Path
+          from datetime import datetime, timezone
 
           src=json.loads(Path('/tmp/itunes.json').read_text())
           albums=json.loads(Path('/tmp/itunes-albums.json').read_text())
@@ -32,27 +33,28 @@ jobs:
           releases=[]
           seen=set()
           album_art={}
+
           for x in albums.get('results', []):
-              if (x.get('artistName') or '').strip().lower() == 'kharvie':
-                  name=x.get('collectionName') or x.get('trackName')
-                  art=(x.get('artworkUrl100') or '').replace('100x100','1200x1200')
-                  if name and art: album_art[name.strip().lower()]=art
+              if x.get('wrapperType') != 'collection':
+                  continue
+              name=x.get('collectionName')
+              art=(x.get('artworkUrl100') or '').replace('100x100','1200x1200')
+              if name and art:
+                  album_art[name.strip().lower()]=art
 
           for x in src.get('results', []):
-              artist=(x.get('artistName') or '').strip().lower()
-              if artist != 'kharvie':
+              if x.get('wrapperType') != 'track':
+                  continue
+              if str(x.get('artistId')) != '6781999179':
                   continue
               name=x.get('trackName') or x.get('collectionName')
-              if (name or '').strip().lower() == 'pop' + 'sy':
-                  continue
               if not name:
                   continue
-              key=(name.lower(), x.get('releaseDate','')[:10])
+              key=(name.strip().lower(), (x.get('releaseDate') or '')[:10])
               if key in seen:
                   continue
               seen.add(key)
-              art=x.get('artworkUrl100') or ''
-              art=art.replace('100x100', '1200x1200')
+              art=(x.get('artworkUrl100') or '').replace('100x100','1200x1200')
               if not art:
                   art=album_art.get((x.get('collectionName') or '').strip().lower(),'')
               releases.append({
@@ -66,34 +68,54 @@ jobs:
                   'explicit': x.get('trackExplicitness') == 'explicit'
               })
 
-          # Preserve manually verified links AND manually verified artwork from release-links.json.
+          # Keep verified Spotify, YouTube, Audiomack, Smart Link and HyperFollow URLs.
           for r in releases:
               extra=manual.get('releases',{}).get(r.get('title'),{})
               if extra.get('artwork'):
                   r['artwork']=extra['artwork']
-              r['links']={k:v for k,v in {**extra, 'apple': r.get('appleUrl','') or extra.get('apple','')}.items() if k != 'artwork'}
+              if extra.get('releaseDate'):
+                  r['releaseDate']=extra['releaseDate']
+              if extra.get('genre'):
+                  r['genre']=extra['genre']
+              links={k:v for k,v in extra.items() if k not in {'artwork','releaseDate','genre','apple'}}
+              links['apple']=r.get('appleUrl','') or extra.get('apple','')
+              r['links']={k:v for k,v in links.items() if v}
+
+          # Keep manually maintained pre-release / non-Apple catalogue entries visible.
           for title, extra in manual.get('releases',{}).items():
               if not any(r.get('title','').lower()==title.lower() for r in releases):
-                  releases.append({'title':title,'artist':'Kharvie','releaseDate':'','genre':'','artwork':extra.get('artwork',''),'appleUrl':extra.get('apple',''),'previewUrl':'','explicit':False,'links':{k:v for k,v in extra.items() if k != 'artwork'}})
+                  releases.append({
+                      'title':title,
+                      'artist':'Kharvie',
+                      'releaseDate':extra.get('releaseDate',''),
+                      'genre':extra.get('genre',''),
+                      'artwork':extra.get('artwork',''),
+                      'appleUrl':extra.get('apple',''),
+                      'previewUrl':'',
+                      'explicit':False,
+                      'links':{k:v for k,v in extra.items() if k not in {'artwork','releaseDate','genre'}}
+                  })
+
           releases.sort(key=lambda x: x.get('releaseDate',''), reverse=True)
           Path('releases.json').write_text(json.dumps({
               'artist':'Kharvie',
-              'updatedAt':__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat(),
-              'source':'Apple/iTunes Search',
+              'artistId':'6781999179',
+              'updatedAt':datetime.now(timezone.utc).isoformat(),
+              'source':'Apple/iTunes catalogue sync for DistroKid-distributed releases',
               'releases':releases
           }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print(f'Synced {len(releases)} Kharvie releases')
+          print(f'Synced {len(releases)} Kharvie catalogue entries')
           PY
 
-      - name: Commit catalog changes
+      - name: Commit catalogue changes
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add releases.json
           if git diff --cached --quiet; then
-            echo "No catalog changes."
+            echo "No catalogue changes."
             exit 0
           fi
-          git commit -m "Auto-sync Kharvie music catalog"
+          git commit -m "Auto-sync Kharvie music catalogue"
           git push
