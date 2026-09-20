@@ -17,6 +17,7 @@ Disallow: /app-settings.html
 Disallow: /supabase/
 
 Sitemap: https://kharviefx-tech.github.io/kharvie/sitemap.xml
+# Public pages are crawlable; private/admin areas remain excluded.
 # Allow Google AdSense crawlers
 User-agent: Mediapartners-Google
 Allow: /
