@@ -1,4 +1,5 @@
 /* Kharvie Site Core: shared runtime safeguards for public pages. */
+/* Final homepage entity normalization trigger. */
 (function(){
   'use strict';
   const OFFICIAL='Kharvie | Official Website';
