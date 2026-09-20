@@ -1,5 +1,4 @@
 /* Kharvie Site Core: shared runtime safeguards for public pages. */
-/* Entity sync trigger: homepage identity remains Kharvie / Victor Avannah. */
 (function(){
   'use strict';
   const OFFICIAL='Kharvie | Official Website';
@@ -15,6 +14,30 @@
       const meta=document.querySelector('meta[property="og:title"]'); if(meta) meta.content=OFFICIAL;
       const tw=document.querySelector('meta[name="twitter:title"]'); if(tw) tw.content=OFFICIAL;
     }
+  }
+  function normalizeEntity(){
+    if(!(location.pathname==='/' || location.pathname.endsWith('/index.html') || location.pathname.endsWith('/kharvie/'))) return;
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(script=>{
+      try{
+        const data=JSON.parse(script.textContent);
+        if(!Array.isArray(data['@graph'])) return;
+        const artist=data['@graph'].find(x=>x && x['@id'] && x['@id'].endsWith('#artist'));
+        if(!artist) return;
+        artist['@type']='Person';
+        artist.name='Kharvie';
+        artist.alternateName=['Victor Avannah','Kharvie (Victor Avannah)'];
+        delete artist.member;
+        delete artist.foundingLocation;
+        delete artist.foundingDate;
+        delete artist.genre;
+        delete artist.disambiguatingDescription;
+        const page=data['@graph'].find(x=>x && x['@type']==='WebPage');
+        if(page){page.mainEntity={'@id':artist['@id']};page.about={'@id':artist['@id']};}
+        const website=data['@graph'].find(x=>x && x['@type']==='WebSite');
+        if(website) website.publisher={'@id':artist['@id']};
+        script.textContent=JSON.stringify(data);
+      }catch(_){}
+    });
   }
   function repairLinks(){
     document.querySelectorAll('a[href]').forEach(a=>{
@@ -42,7 +65,7 @@
       card.querySelectorAll('img,video').forEach(media=>{media.style.width='100%';media.style.height=h+'px';media.style.maxWidth='100%';media.style.maxHeight=h+'px';media.style.objectFit='cover';});
     });
   }
-  function run(){ensureTitle();repairLinks();repairArchive();}
+  function run(){ensureTitle();normalizeEntity();repairLinks();repairArchive();}
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',run,{once:true}); else run();
   addEventListener('load',run,{once:true});
   addEventListener('resize',repairArchive,{passive:true});
