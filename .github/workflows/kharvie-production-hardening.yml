@@ -55,7 +55,7 @@ jobs:
           if match:
               data = json.loads(match.group(1))
               graph = data.get('@graph', [])
-              artist = next((x for x in graph if isinstance(x, dict) and x.get('@id') == 'https://kharviefx-tech.github.io/kharvie/#artist'), None)
+              artist = next((x for x in graph if isinstance(x, dict) and x.get('@id') == 'https://kharviefx-tech.github.io/kharvie/#person'), None)
               if artist:
                   artist['@type'] = 'Person'
                   artist['name'] = 'Kharvie'
