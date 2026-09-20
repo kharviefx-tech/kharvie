@@ -1,82 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/about.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
+    <loc>https://kharviefx-tech.github.io/kharvie/admin-portal.html</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://kharviefx-tech.github.io/kharvie/app-settings.html</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://kharviefx-tech.github.io/kharvie/app.html</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/artist-profile.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/booking.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/catalogue.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/contact.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/cookie-policy.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/discography.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/google-site-verification.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/listen.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/live.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
+    <loc>https://kharviefx-tech.github.io/kharvie/media/index.html</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/music-catalogue.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/music.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/news.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/photos.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/press.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/privacy-policy.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
+    <loc>https://kharviefx-tech.github.io/kharvie/professional-suite.html</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://kharviefx-tech.github.io/kharvie/professional-system.html</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://kharviefx-tech.github.io/kharvie/professional-upgrades.html</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/releases/sweet-love.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/terms-of-use.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://kharviefx-tech.github.io/kharvie/videos.html</loc>
     <lastmod>2026-09-20</lastmod>
   </url>
