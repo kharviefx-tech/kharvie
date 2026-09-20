@@ -7,6 +7,7 @@ on:
       - 'sw.js'
       - 'app.html'
       - 'app-settings.html'
+      - 'assets/link-fix.js'
       - '.github/workflows/enable-pwa.yml'
       - 'index.html'
 permissions:
@@ -17,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Inject PWA hooks into index
+      - name: Inject PWA and public link hooks into index
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -25,13 +26,16 @@ jobs:
           s=p.read_text(encoding='utf-8')
           manifest='<link rel="manifest" href="manifest.json">'
           sw='<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(console.warn));}</script>'
+          links='<script src="assets/link-fix.js" defer></script>'
           if 'rel="manifest" href="manifest.json"' not in s:
               s=s.replace('<link rel="icon" href="assets/kharvie.jpg">','<link rel="icon" href="assets/kharvie.jpg">'+manifest,1)
           if 'serviceWorker.register("sw.js")' not in s:
               s=s.replace('</body>',sw+'</body>',1)
+          if 'assets/link-fix.js' not in s:
+              s=s.replace('</body>',links+'</body>',1)
           p.write_text(s,encoding='utf-8')
           PY
-      - name: Commit PWA hooks
+      - name: Commit PWA and link hooks
         run: |
           git config user.name 'Kharvie App Builder'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
