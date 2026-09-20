@@ -32,6 +32,11 @@ jobs:
             echo 'TikTok links are already correct.'
             exit 0
           fi
-          git add -A
+          changed=$(git diff --name-only | grep -v '^\.github/workflows/' || true)
+          if [ -z "$changed" ]; then
+            echo 'Only protected workflow files changed; nothing to commit.'
+            exit 0
+          fi
+          printf '%s\n' "$changed" | xargs -r git add --
           git commit -m 'Set official TikTok profile to iamkharvie'
           git push
