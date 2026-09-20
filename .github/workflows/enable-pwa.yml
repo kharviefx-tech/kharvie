@@ -18,6 +18,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Keep private admin controls out of public index
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          start=s.find('<section id="website-settings"')
+          if start != -1:
+              depth=0
+              end=None
+              for m in re.finditer(r'</?section\b[^>]*>',s[start:],re.I):
+                  tag=m.group(0)
+                  if tag.startswith('</'):
+                      depth-=1
+                      if depth==0:
+                          end=start+m.end()
+                          break
+                  else:
+                      depth+=1
+              if end:
+                  s=s[:start]+s[end:]
+          s=re.sub(r'\s*<a[^>]+href=["\']#website-settings["\'][^>]*>\s*Settings\s*</a>','',s,flags=re.I)
+          p.write_text(s,encoding='utf-8')
+          PY
       - name: Inject PWA and public link hooks into index
         run: |
           python - <<'PY'
@@ -35,7 +60,12 @@ jobs:
               s=s.replace('</body>',links+'</body>',1)
           p.write_text(s,encoding='utf-8')
           PY
-      - name: Commit PWA and link hooks
+      - name: Validate public index
+        run: |
+          ! grep -q 'id="website-settings"' index.html
+          ! grep -q 'href="#website-settings"' index.html
+          grep -q 'Kharvie | Official Website' index.html
+      - name: Commit PWA and public cleanup
         run: |
           git config user.name 'Kharvie App Builder'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
