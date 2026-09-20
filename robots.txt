@@ -1,7 +1,19 @@
 User-agent: *
 Allow: /
+Disallow: /admin
 Disallow: /admin.html
 Disallow: /admin/
+Disallow: /dashboard
 Disallow: /dashboard/
+Disallow: /media/
+Disallow: /editor/
+Disallow: /tools/
+Disallow: /revenue/
+Disallow: /analytics/
+Disallow: /bookings/
+Disallow: /professional-audit/
+Disallow: /settings/
+Disallow: /app-settings.html
+Disallow: /supabase/
 
 Sitemap: https://kharviefx-tech.github.io/kharvie/sitemap.xml
