@@ -58,8 +58,8 @@ jobs:
               artist = next((x for x in graph if isinstance(x, dict) and x.get('@id') == 'https://kharviefx-tech.github.io/kharvie/#person'), None)
               if artist:
                   artist['@type'] = 'Person'
-                  artist['name'] = 'Kharvie'
-                  artist['alternateName'] = ['Victor Avannah', 'Kharvie (Victor Avannah)']
+                  artist['name'] = 'Victor Avannah'
+                  artist['alternateName'] = ['Kharvie', 'Kharvie (Victor Avannah)']
                   for key in ('member','foundingLocation','foundingDate','genre','disambiguatingDescription'):
                       artist.pop(key, None)
                   page = next((x for x in graph if isinstance(x, dict) and x.get('@type') == 'WebPage'), None)
