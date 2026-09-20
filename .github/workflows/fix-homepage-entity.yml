@@ -23,8 +23,8 @@ jobs:
           a=next((x for x in g if x.get('@id','').endswith('#person')),None)
           if not a: raise SystemExit('Artist entity not found')
           a['@type']='Person'
-          a['name']='Kharvie'
-          a['alternateName']=['Victor Avannah','Kharvie (Victor Avannah)']
+          a['name']='Victor Avannah'
+          a['alternateName']=['Kharvie','Kharvie (Victor Avannah)']
           a.pop('member',None); a.pop('foundingLocation',None); a.pop('foundingDate',None); a.pop('genre',None); a.pop('disambiguatingDescription',None)
           page=next((x for x in g if x.get('@type')=='WebPage'),None)
           if page: page['mainEntity']={'@id':a['@id']}; page['about']={'@id':a['@id']}
