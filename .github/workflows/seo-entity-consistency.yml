@@ -96,8 +96,8 @@ jobs:
                   artist = next((x for x in graph if isinstance(x, dict) and x.get('@id') == PERSON), None)
                   if artist:
                       artist['@type'] = 'Person'
-                      artist['name'] = 'Kharvie'
-                      artist['alternateName'] = ['Victor Avannah', 'Kharvie (Victor Avannah)']
+                      artist['name'] = 'Victor Avannah'
+                      artist['alternateName'] = ['Kharvie', 'Kharvie (Victor Avannah)']
                       artist.pop('member', None)
                       artist.pop('foundingLocation', None)
                       artist.pop('foundingDate', None)
