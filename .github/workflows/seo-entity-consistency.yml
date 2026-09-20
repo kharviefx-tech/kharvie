@@ -87,6 +87,35 @@ jobs:
               replacement = '<script type="application/ld+json">' + json.dumps(merged, separators=(',', ':')) + '</script>'
               s = s[:blocks[0].start()] + replacement + s[blocks[-1].end():]
 
+          # Make the homepage artist entity one consistent Person: Kharvie.
+          blocks = list(pattern.finditer(s))
+          if blocks:
+              try:
+                  doc = json.loads(blocks[0].group(1))
+                  graph = doc.get('@graph', [])
+                  artist = next((x for x in graph if isinstance(x, dict) and x.get('@id') == PERSON), None)
+                  if artist:
+                      artist['@type'] = 'Person'
+                      artist['name'] = 'Kharvie'
+                      artist['alternateName'] = ['Victor Avannah', 'Kharvie (Victor Avannah)']
+                      artist.pop('member', None)
+                      artist.pop('foundingLocation', None)
+                      artist.pop('foundingDate', None)
+                      artist.pop('genre', None)
+                      artist.pop('disambiguatingDescription', None)
+                      page = next((x for x in graph if isinstance(x, dict) and x.get('@type') == 'WebPage'), None)
+                      if page:
+                          page['mainEntity'] = {'@id': PERSON}
+                          page['about'] = {'@id': PERSON}
+                      website = next((x for x in graph if isinstance(x, dict) and x.get('@type') == 'WebSite'), None)
+                      if website:
+                          website['publisher'] = {'@id': PERSON}
+                      doc['@graph'] = graph
+                      replacement = '<script type="application/ld+json">' + json.dumps(doc, separators=(',', ':'), ensure_ascii=False) + '</script>'
+                      s = s[:blocks[0].start()] + replacement + s[blocks[0].end():]
+              except Exception as e:
+                  print('Entity normalization skipped:', e)
+
           s = re.sub(r'<title>.*?</title>', '<title>Kharvie | Official Website</title>', s, count=1, flags=re.S)
           s = re.sub(r'<meta property="og:title"[^>]*>', '<meta property="og:title" content="Kharvie | Official Website">', s, count=1)
           s = re.sub(r'<meta name="twitter:title"[^>]*>', '<meta name="twitter:title" content="Kharvie | Official Website">', s, count=1)
