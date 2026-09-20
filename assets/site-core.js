@@ -26,7 +26,7 @@
       if(!a.textContent.trim()){
         const label=a.getAttribute('title')||a.dataset.label;
         if(label) a.textContent=label;
-        else { try { const h=new URL(a.href).hostname.replace(/^www\\./,''); if(LINKS[h]) a.textContent=LINKS[h]; } catch(_){} }
+        else { try { const h=new URL(a.href).hostname.replace(/^www\./,''); if(LINKS[h]) a.textContent=LINKS[h]; } catch(_){} }
       }
     });
   }
