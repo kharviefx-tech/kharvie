@@ -1,0 +1,43 @@
+name: Kharvie Homepage Entity
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  normalize:
+    if: ${{ !contains(github.event.head_commit.message, 'final homepage entity') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Normalize homepage entity
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          m=re.search(r'<script type="application/ld\\+json">(.*?)</script>',s,re.S)
+          if not m: raise SystemExit('No JSON-LD found')
+          d=json.loads(m.group(1)); g=d.get('@graph',[])
+          a=next((x for x in g if x.get('@id','').endswith('#artist')),None)
+          if not a: raise SystemExit('Artist entity not found')
+          a['@type']='Person'
+          a['name']='Kharvie'
+          a['alternateName']=['Victor Avannah','Kharvie (Victor Avannah)']
+          a.pop('member',None); a.pop('foundingLocation',None); a.pop('foundingDate',None); a.pop('genre',None); a.pop('disambiguatingDescription',None)
+          page=next((x for x in g if x.get('@type')=='WebPage'),None)
+          if page: page['mainEntity']={'@id':a['@id']}; page['about']={'@id':a['@id']}
+          site=next((x for x in g if x.get('@type')=='WebSite'),None)
+          if site: site['publisher']={'@id':a['@id']}
+          d['@graph']=g
+          new='<script type="application/ld+json">'+json.dumps(d,separators=(',',':'),ensure_ascii=False)+'</script>'
+          p.write_text(s[:m.start()]+new+s[m.end():],encoding='utf-8')
+          PY
+      - name: Commit final homepage entity
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'final homepage entity'
+          git push
