@@ -32,19 +32,9 @@ const grid=document.getElementById('newsGrid');
 const esc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const date=v=>{if(!v)return'';try{return new Date(v).toLocaleDateString('en-NG',{year:'numeric',month:'short',day:'numeric'})}catch(e){return String(v)}};
 const first=(o,keys)=>{for(const k of keys)if(o&&o[k]!==undefined&&o[k]!==null&&o[k]!=='')return o[k];return''};
-function render(items){
- if(!items.length){grid.innerHTML='<div class="empty">No official news has been published yet.</div>';return}
- grid.innerHTML=items.slice(0,30).map(n=>{
-  const title=first(n,['title'])||'Kharvie Update',body=first(n,['excerpt','summary','content','body']),d=first(n,['published_at','published_date','date','created_at']),u=first(n,['url','link']),img=first(n,['featured_image_url','image_url','cover_url']);
-  return '<article class="news-card">'+(img?'<div class="news-card-media"><img src="'+esc(img)+'" alt="" loading="lazy"></div>':'')+'<div class="news-card-body"><div class="news-date">'+esc(date(d))+'</div><h2>'+esc(title)+'</h2>'+(body?'<p>'+esc(String(body).slice(0,500))+(String(body).length>500?'…':'')+'</p>':'')+(u?'<a href="'+esc(u)+'" target="_blank" rel="noopener">Read more →</a>':'')+'</div></article>'
- }).join('');
+function render(items){ if(!items.length){grid.innerHTML='<div class="empty">No official news has been published yet.</div>';return} grid.innerHTML=items.slice(0,30).map(n=>{ const title=first(n,['title'])||'Kharvie Update',body=first(n,['excerpt','summary','content','body']),d=first(n,['published_at','published_date','date','created_at']),u=first(n,['url','link']),img=first(n,['featured_image_url','image_url','cover_url']); return '<article class="news-card">'+(img?'<div class="news-card-media"><img src="'+esc(img)+'" alt="" loading="lazy"></div>':'')+'<div class="news-card-body"><div class="news-date">'+esc(date(d))+'</div><h2>'+esc(title)+'</h2>'+(body?'<p>'+esc(String(body).slice(0,500))+(String(body).length>500?'…':'')+'</p>':'')+(u?'<a href="'+esc(u)+'" target="_blank" rel="noopener">Read more →</a>':'')+'</div></article>' }).join('');
 }
-async function load(){
- try{
-  const r=await fetch('https://dprulohylwgzmetgrywj.supabase.co/rest/v1/posts?select=*&is_published=eq.true&order=published_at.desc',{headers:{apikey:'sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4'}});
-  if(!r.ok)throw new Error('News feed unavailable');
-  const data=await r.json();render(Array.isArray(data)?data:[]);
- }catch(e){console.warn(e);render([])}
+async function load(){ try{ const r=await fetch('https://dprulohylwgzmetgrywj.supabase.co/rest/v1/posts?select=*&is_published=eq.true&order=published_at.desc',{headers:{apikey:'sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4'}}); if(!r.ok)throw new Error('News feed unavailable'); const data=await r.json();render(Array.isArray(data)?data:[]); }catch(e){console.warn(e);render([])}
 }
 load();
 })();
