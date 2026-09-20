@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfilePage","@id":"https://kharviefx-tech.github.io/kharvie/press.html#profilepage","name":"Kharvie Press Center & EPK","isPartOf":{"@id":"https://kharviefx-tech.github.io/kharvie/#website"},"url":"https://kharviefx-tech.github.io/kharvie/press.html","dateModified":"2026-09-20T19:00:00+00:00","mainEntity":{"@id":"https://kharviefx-tech.github.io/kharvie/#person","@type":"Person","name":"Victor Avannah","alternateName":["Kharvie","Kharvie"],"birthDate":"2003-04-12","birthPlace":{"@type":"Place","name":"Delta State, Nigeria"},"jobTitle":["Singer","Songwriter","Recording Artist"],"email":"mailto:avannahvictor3@gmail.com","url":"https://kharviefx-tech.github.io/kharvie/","image":["https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg","https://kharviefx-tech.github.io/kharvie/assets/IMG-20260912-WA0004.jpg"],"sameAs":["https://www.youtube.com/@kharvie-m","https://www.instagram.com/kharvie__/","https://www.facebook.com/officialKharvie","https://www.tiktok.com/@iamkharvie","https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC","https://music.apple.com/ng/artist/kharvie/6781999179","https://audiomack.com/kharvie","https://www.boomplay.com/share/artist/133955596"]}}
+{"@context":"https://schema.org","@type":"ProfilePage","@id":"https://kharviefx-tech.github.io/kharvie/press.html#profilepage","name":"Kharvie Press Center & EPK","isPartOf":{"@id":"https://kharviefx-tech.github.io/kharvie/#website"},"url":"https://kharviefx-tech.github.io/kharvie/press.html","dateModified":"2026-09-20T19:00:00+00:00","mainEntity":{"@id":"https://kharviefx-tech.github.io/kharvie/#person","@type":"Person","name":"Victor Avannah","alternateName":["Kharvie","Kharvie"],"birthDate":"2003-04-12","birthPlace":{"@type":"Place","name":"Delta State, "},"jobTitle":["Singer","Songwriter","Recording Artist"],"email":"mailto:avannahvictor3@gmail.com","url":"https://kharviefx-tech.github.io/kharvie/","image":["https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg","https://kharviefx-tech.github.io/kharvie/assets/IMG-20260912-WA0004.jpg"],"sameAs":["https://www.youtube.com/@kharvie-m","https://www.instagram.com/kharvie__/","https://www.facebook.com/officialKharvie","https://www.tiktok.com/@iamkharvie","https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC","https://music.apple.com/ng/artist/kharvie/6781999179","https://audiomack.com/kharvie","https://www.boomplay.com/share/artist/133955596"]}}
 </script>
 <link rel="stylesheet" href="assets/ui-v2.css?v=6">
 <style>
@@ -89,131 +89,23 @@ body.epk{margin:0;background:var(--epk-bg)!important;color:var(--epk-text)!impor
 .epk .contact-section .epk-btn.primary{background:#101510;border-color:#101510;color:#fff!important}
 .epk .contact-section .epk-btn:not(.primary){background:transparent;border-color:#8a958c;color:#101510!important}
 .epk footer{padding:32px 0;background:#050705;color:#aeb8af;border-top:1px solid var(--epk-line);font-size:12px}
-@media(max-width:760px){
- .epk .topbar-inner{min-height:64px}
- .epk .nav-actions .secondary{display:none}
- .epk .hero{padding:70px 0 58px}
- .epk .section{padding:62px 0}
- .epk .section-head,.epk .profile,.epk .grid-2,.epk .downloads,.epk .links,.epk .photos{grid-template-columns:1fr}
- .epk .section-head{gap:15px}
- .epk .fact{grid-template-columns:115px 1fr}
- .epk .hero-copy{font-size:16px}
- .epk .epk-btn{width:100%}
- .epk .actions{display:grid}
+@media(max-width:760px){ .epk .topbar-inner{min-height:64px} .epk .nav-actions .secondary{display:none} .epk .hero{padding:70px 0 58px} .epk .section{padding:62px 0} .epk .section-head,.epk .profile,.epk .grid-2,.epk .downloads,.epk .links,.epk .photos{grid-template-columns:1fr} .epk .section-head{gap:15px} .epk .fact{grid-template-columns:115px 1fr} .epk .hero-copy{font-size:16px} .epk .epk-btn{width:100%} .epk .actions{display:grid}
 }
-@media print{
- .epk .topbar,.epk .actions,.epk .downloads,.epk .contact-section, .epk footer{display:none!important}
- .epk{background:#fff!important;color:#111!important}
- .epk .section{padding:30px 0;border-color:#ddd}
- .epk .card,.epk .portrait,.epk .photo,.epk .social-link{background:#fff!important;border-color:#ddd!important;box-shadow:none}
- .epk h1,.epk h2,.epk h3,.epk strong{color:#111!important}
- .epk p,.epk .section-head p,.epk .bio p{color:#444!important}
+@media print{ .epk .topbar,.epk .actions,.epk .downloads,.epk .contact-section, .epk footer{display:none!important} .epk{background:#fff!important;color:#111!important} .epk .section{padding:30px 0;border-color:#ddd} .epk .card,.epk .portrait,.epk .photo,.epk .social-link{background:#fff!important;border-color:#ddd!important;box-shadow:none} .epk h1,.epk h2,.epk h3,.epk strong{color:#111!important} .epk p,.epk .section-head p,.epk .bio p{color:#444!important}
 }
 </style>
 </head>
 <body class="epk">
-<header class="topbar">
- <div class="wrap topbar-inner">
-  <a class="brand" href="index.html">KHARVIE</a>
-  <nav class="nav-actions" aria-label="EPK navigation">
-   <a class="epk-btn secondary" href="index.html">Website</a>
-   <a class="epk-btn secondary" href="booking.html">Bookings</a>
-   <a class="epk-btn primary" href="javascript:window.print()">Print / Save PDF</a>
-  </nav>
- </div>
-</header>
-
-<main>
-<section class="hero">
- <div class="wrap">
-  <div class="eyebrow">Official press center · electronic press kit</div>
-  <h1>Kharvie, <em>for the record.</em></h1>
-  <p class="hero-copy">The official information hub for journalists, DJs, promoters, event organisers, collaborators, brands and music industry professionals.</p>
-  <div class="actions">
-   <a class="epk-btn primary" href="#bio">Biography</a>
-   <a class="epk-btn secondary" href="#photos">Press photos</a>
-   <a class="epk-btn secondary" href="mailto:avannahvictor3@gmail.com?subject=Kharvie%20Press%20%2F%20Media%20Enquiry">Media contact</a>
-  </div>
- </div>
+<header class="topbar"> <div class="wrap topbar-inner"> <a class="brand" href="index.html">KHARVIE</a> <nav class="nav-actions" aria-label="EPK navigation"> <a class="epk-btn secondary" href="index.html">Website</a> <a class="epk-btn secondary" href="booking.html">Bookings</a> <a class="epk-btn primary" href="javascript:window.print()">Print / Save PDF</a> </nav> </div>
+</header> <main>
+<section class="hero"> <div class="wrap"> <div class="eyebrow">Official press center · electronic press kit</div> <h1>Kharvie, <em>for the record.</em></h1> <p class="hero-copy">The official information hub for journalists, DJs, promoters, event organisers, collaborators, brands and music industry professionals.</p> <div class="actions"> <a class="epk-btn primary" href="#bio">Biography</a> <a class="epk-btn secondary" href="#photos">Press photos</a> <a class="epk-btn secondary" href="mailto:avannahvictor3@gmail.com?subject=Kharvie%20Press%20%2F%20Media%20Enquiry">Media contact</a> </div> </div>
+</section> <section class="section" id="profile"> <div class="wrap"> <div class="section-head"><div><div class="eyebrow">01 · Artist profile</div><h2>The artist.</h2></div><p>Consistent identity information for publication and professional reference.</p></div> <div class="profile"> <div class="portrait"><img src="assets/kharvie.jpg" alt="Kharvie — Victor Avannah"></div> <div class="bio"> <h3>Kharvie</h3> <p id="shortBio">Victor Avannah, professionally known as Kharvie, is a singer and songwriter from Delta State, . Born on April 12, 2003, he is part of a new generation of artists shaping the evolving sound of Afrobeats.</p> <div class="facts"> <div class="fact"><span class="label">Artist</span><strong id="artistName">Kharvie</strong></div> <div class="fact"><span class="label">Real name</span><strong id="realName">Victor Avannah</strong></div> <div class="fact"><span class="label">Profession</span><strong id="profession">singer and songwriter</strong></div> <div class="fact"><span class="label">Genre</span><strong id="genre">Afrobeats</strong></div> <div class="fact"><span class="label">Origin</span><strong id="origin">Delta State, </strong></div> <div class="fact"><span class="label">Born</span><strong>April 12, 2003</strong></div> </div> </div> </div> </div>
+</section> <section class="section" id="bio"> <div class="wrap"> <div class="section-head"><div><div class="eyebrow">02 · Biography</div><h2>Ready to publish.</h2></div><p>Downloadable copy is provided for press, editorial and professional use.</p></div> <div class="grid-2"> <article class="card"><h3>Short bio</h3><p id="bioShort">Kharvie, whose real name is Victor Avannah, is a singer and songwriter from Delta State, . Born on April 12, 2003, he is part of a new generation of artists shaping the evolving sound of Afrobeats.</p></article> <article class="card"><h3>Extended bio</h3><p id="bioLong">Victor Avannah, professionally known as Kharvie, is a singer and songwriter from Delta State, . Born on April 12, 2003, Kharvie is part of a new generation of artists shaping the evolving sound of Afrobeats. His artistic direction centers on melody, rhythm and contemporary n energy, with a growing focus on music, visual identity, live performance and meaningful audience connection.</p></article> </div> <div class="downloads"> <a class="download-card" data-analytics="epk_download" href="press/kharvie-bio.txt" download><span>Download official bio</span><small>TXT ↗</small></a> <a class="download-card" data-analytics="epk_download" href="press/kharvie-press-notes.txt" download><span>Download press notes</span><small>TXT ↗</small></a> </div> </div>
+</section> <section class="section" id="music"> <div class="wrap"> <div class="section-head"><div><div class="eyebrow">03 · Official music & socials</div><h2>Listen & follow.</h2></div><p>Official destinations for music, social discovery and artist verification.</p></div> <div class="links"> <a class="social-link" href="https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC" target="_blank" rel="noopener"><span>Spotify</span><small>Artist ↗</small></a> <a class="social-link" href="https://music.apple.com/ng/artist/kharvie/6781999179" target="_blank" rel="noopener"><span>Apple Music</span><small>Artist ↗</small></a> <a class="social-link" href="https://www.youtube.com/@kharvie-m" target="_blank" rel="noopener"><span>YouTube</span><small>Official channel ↗</small></a> <a class="social-link" href="https://www.instagram.com/kharvie__/" target="_blank" rel="noopener"><span>Instagram</span><small>Official ↗</small></a> <a class="social-link" href="https://www.tiktok.com/@iamkharvie" target="_blank" rel="noopener"><span>TikTok</span><small>Official ↗</small></a> <a class="social-link" href="https://www.facebook.com/officialKharvie" target="_blank" rel="noopener"><span>Facebook</span><small>Official ↗</small></a> <a class="social-link" href="https://audiomack.com/kharvie" target="_blank" rel="noopener"><span>Audiomack</span><small>Artist ↗</small></a> <a class="social-link" href="https://www.boomplay.com/share/artist/133955596" target="_blank" rel="noopener"><span>Boomplay</span><small>Artist ↗</small></a> </div> </div>
+</section> <section class="section" id="photos"> <div class="wrap"> <div class="section-head"><div><div class="eyebrow">04 · Press photography</div><h2>Press-ready images.</h2></div><p>Official artist photography. Open or save the original image files for publication workflows.</p></div> <div class="photos"> <figure class="photo tall"><img src="assets/kharvie.jpg" alt="Kharvie press portrait"><figcaption class="photofoot"><span>Kharvie · Portrait</span><a data-analytics="epk_download" href="assets/kharvie.jpg" download>Save image ↗</a></figcaption></figure> <figure class="photo"><img src="assets/IMG-20260912-WA0004.jpg" alt="Kharvie artist photo"><figcaption class="photofoot"><span>Kharvie · Artist photo</span><a data-analytics="epk_download" href="assets/IMG-20260912-WA0004.jpg" download>Save image ↗</a></figcaption></figure> </div> </div>
+</section> <section class="section contact-section"> <div class="wrap"> <div class="eyebrow">05 · Professional contact</div> <h2>Need Kharvie?</h2> <p>For interviews, features, performances, collaborations, brand opportunities, licensing or professional enquiries, use the official business contact.</p> <div class="actions"> <a class="epk-btn primary" href="mailto:avannahvictor3@gmail.com?subject=Kharvie%20Professional%20Enquiry">avannahvictor3@gmail.com</a> <a class="epk-btn" href="booking.html">Open booking desk →</a> </div> </div>
 </section>
-
-<section class="section" id="profile">
- <div class="wrap">
-  <div class="section-head"><div><div class="eyebrow">01 · Artist profile</div><h2>The artist.</h2></div><p>Consistent identity information for publication and professional reference.</p></div>
-  <div class="profile">
-   <div class="portrait"><img src="assets/kharvie.jpg" alt="Kharvie — Victor Avannah"></div>
-   <div class="bio">
-    <h3>Kharvie</h3>
-    <p id="shortBio">Victor Avannah, professionally known as Kharvie, is a Nigerian singer and songwriter from Delta State, Nigeria. Born on April 12, 2003, he is part of a new generation of Nigerian artists shaping the evolving sound of Afrobeats.</p>
-    <div class="facts">
-     <div class="fact"><span class="label">Artist</span><strong id="artistName">Kharvie</strong></div>
-     <div class="fact"><span class="label">Real name</span><strong id="realName">Victor Avannah</strong></div>
-     <div class="fact"><span class="label">Profession</span><strong id="profession">Nigerian singer and songwriter</strong></div>
-     <div class="fact"><span class="label">Genre</span><strong id="genre">Afrobeats</strong></div>
-     <div class="fact"><span class="label">Origin</span><strong id="origin">Delta State, Nigeria</strong></div>
-     <div class="fact"><span class="label">Born</span><strong>April 12, 2003</strong></div>
-    </div>
-   </div>
-  </div>
- </div>
-</section>
-
-<section class="section" id="bio">
- <div class="wrap">
-  <div class="section-head"><div><div class="eyebrow">02 · Biography</div><h2>Ready to publish.</h2></div><p>Downloadable copy is provided for press, editorial and professional use.</p></div>
-  <div class="grid-2">
-   <article class="card"><h3>Short bio</h3><p id="bioShort">Kharvie, whose real name is Victor Avannah, is a Nigerian singer and songwriter from Delta State, Nigeria. Born on April 12, 2003, he is part of a new generation of Nigerian artists shaping the evolving sound of Afrobeats.</p></article>
-   <article class="card"><h3>Extended bio</h3><p id="bioLong">Victor Avannah, professionally known as Kharvie, is a Nigerian singer and songwriter from Delta State, Nigeria. Born on April 12, 2003, Kharvie is part of a new generation of Nigerian artists shaping the evolving sound of Afrobeats. His artistic direction centers on melody, rhythm and contemporary Nigerian energy, with a growing focus on music, visual identity, live performance and meaningful audience connection.</p></article>
-  </div>
-  <div class="downloads">
-   <a class="download-card" data-analytics="epk_download" href="press/kharvie-bio.txt" download><span>Download official bio</span><small>TXT ↗</small></a>
-   <a class="download-card" data-analytics="epk_download" href="press/kharvie-press-notes.txt" download><span>Download press notes</span><small>TXT ↗</small></a>
-  </div>
- </div>
-</section>
-
-<section class="section" id="music">
- <div class="wrap">
-  <div class="section-head"><div><div class="eyebrow">03 · Official music & socials</div><h2>Listen & follow.</h2></div><p>Official destinations for music, social discovery and artist verification.</p></div>
-  <div class="links">
-   <a class="social-link" href="https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC" target="_blank" rel="noopener"><span>Spotify</span><small>Artist ↗</small></a>
-   <a class="social-link" href="https://music.apple.com/ng/artist/kharvie/6781999179" target="_blank" rel="noopener"><span>Apple Music</span><small>Artist ↗</small></a>
-   <a class="social-link" href="https://www.youtube.com/@kharvie-m" target="_blank" rel="noopener"><span>YouTube</span><small>Official channel ↗</small></a>
-   <a class="social-link" href="https://www.instagram.com/kharvie__/" target="_blank" rel="noopener"><span>Instagram</span><small>Official ↗</small></a>
-   <a class="social-link" href="https://www.tiktok.com/@iamkharvie" target="_blank" rel="noopener"><span>TikTok</span><small>Official ↗</small></a>
-   <a class="social-link" href="https://www.facebook.com/officialKharvie" target="_blank" rel="noopener"><span>Facebook</span><small>Official ↗</small></a>
-   <a class="social-link" href="https://audiomack.com/kharvie" target="_blank" rel="noopener"><span>Audiomack</span><small>Artist ↗</small></a>
-   <a class="social-link" href="https://www.boomplay.com/share/artist/133955596" target="_blank" rel="noopener"><span>Boomplay</span><small>Artist ↗</small></a>
-  </div>
- </div>
-</section>
-
-<section class="section" id="photos">
- <div class="wrap">
-  <div class="section-head"><div><div class="eyebrow">04 · Press photography</div><h2>Press-ready images.</h2></div><p>Official artist photography. Open or save the original image files for publication workflows.</p></div>
-  <div class="photos">
-   <figure class="photo tall"><img src="assets/kharvie.jpg" alt="Kharvie press portrait"><figcaption class="photofoot"><span>Kharvie · Portrait</span><a data-analytics="epk_download" href="assets/kharvie.jpg" download>Save image ↗</a></figcaption></figure>
-   <figure class="photo"><img src="assets/IMG-20260912-WA0004.jpg" alt="Kharvie artist photo"><figcaption class="photofoot"><span>Kharvie · Artist photo</span><a data-analytics="epk_download" href="assets/IMG-20260912-WA0004.jpg" download>Save image ↗</a></figcaption></figure>
-  </div>
- </div>
-</section>
-
-<section class="section contact-section">
- <div class="wrap">
-  <div class="eyebrow">05 · Professional contact</div>
-  <h2>Need Kharvie?</h2>
-  <p>For interviews, features, performances, collaborations, brand opportunities, licensing or professional enquiries, use the official business contact.</p>
-  <div class="actions">
-   <a class="epk-btn primary" href="mailto:avannahvictor3@gmail.com?subject=Kharvie%20Professional%20Enquiry">avannahvictor3@gmail.com</a>
-   <a class="epk-btn" href="booking.html">Open booking desk →</a>
-  </div>
- </div>
-</section>
-</main>
-
-<footer><div class="wrap">© 2026 Kharvie · Official Press Center</div></footer>
-
-<script>
+</main> <footer><div class="wrap">© 2026 Kharvie · Official Press Center</div></footer> <script>
 const db=supabase.createClient('https://dprulohylwgzmetgrywj.supabase.co','sb_publishable_gNWkc787SxA7U76No3A4kg_XHP0x2j4');
 async function track(n,m={}){try{let s=localStorage.getItem('kharvie_session');if(!s){s=crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random();localStorage.setItem('kharvie_session',s)}await db.from('analytics_events').insert({event_name:n,page_path:location.pathname,metadata:m,session_id:s})}catch(e){}}
 async function load(){try{const r=await db.from('site_settings').select('setting_key,setting_value');const s={};(r.data||[]).forEach(x=>s[x.setting_key]=x.setting_value);if(s.artist_name)document.getElementById('artistName').textContent=s.artist_name;if(s.real_name)document.getElementById('realName').textContent=s.real_name;if(s.profession)document.getElementById('profession').textContent=s.profession;if(s.genre)document.getElementById('genre').textContent=s.genre;if(s.origin)document.getElementById('origin').textContent=s.origin;if(s.short_bio){document.getElementById('shortBio').textContent=s.short_bio;document.getElementById('bioShort').textContent=s.short_bio}}catch(e){}}
