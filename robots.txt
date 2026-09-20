@@ -17,3 +17,9 @@ Disallow: /app-settings.html
 Disallow: /supabase/
 
 Sitemap: https://kharviefx-tech.github.io/kharvie/sitemap.xml
+# Allow Google AdSense crawlers
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Google-Display-Ads-Bot
+Allow: /
