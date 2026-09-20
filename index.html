@@ -319,7 +319,31 @@ body{font-weight:500!important}
 .hero-editorial,.hero-shade{background:#070a08!important}
 .statement-band{background:#101711!important;color:#f6f7f2!important;border-color:#29352c!important}
 .statement-band p{color:#f6f7f2!important}.statement-band span{color:#21c46b!important}
-</style></head>
+</style>
+<!-- KHARVIE RELEASE LINK FIX -->
+<style id="kharvie-release-link-fix">
+#featuredReleases a,#cmsReleases a,.featured-release-links a,.cms-release-links a{pointer-events:auto!important;touch-action:manipulation!important;position:relative!important;z-index:20!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;visibility:visible!important;opacity:1!important;color:#f6f7f2!important;background:#101610!important;border:1px solid #445248!important;border-radius:10px!important;min-height:40px!important;min-width:72px!important;padding:9px 13px!important;font-size:11px!important;line-height:1.2!important;font-weight:800!important;text-decoration:none!important;cursor:pointer!important;-webkit-tap-highlight-color:rgba(33,196,107,.28)!important}
+#featuredReleases a:hover,#cmsReleases a:hover{background:#21c46b!important;color:#061008!important;border-color:#21c46b!important}
+#featuredReleases,.k-cms-grid{position:relative!important;z-index:2!important}
+</style>
+<script>
+(function(){
+  function repair(){
+    document.querySelectorAll('#featuredReleases a,#cmsReleases a,.featured-release-links a,.cms-release-links a').forEach(function(a){
+      a.style.pointerEvents='auto';
+      a.style.visibility='visible';
+      a.style.opacity='1';
+      if(!a.textContent.trim()){
+        var h=(a.hostname||'').toLowerCase();
+        a.textContent=h.includes('spotify')?'Spotify':h.includes('apple')?'Apple Music':h.includes('youtube')?'YouTube':h.includes('audiomack')?'Audiomack':h.includes('distrokid')?'DistroKid':'Open';
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded',repair);
+  new MutationObserver(repair).observe(document.documentElement,{subtree:true,childList:true});
+})();
+</script>
+</head>
 <body>
 <div id="kharvieLoader" role="status" aria-label="Loading Kharvie website"><div class="kl-mark">KHARVIE</div><div class="kl-line"><span></span></div><div style="font-size:9px;letter-spacing:.18em;color:#8f9b92">OFFICIAL WEBSITE / VICTOR AVANNAH</div></div>
 <header class="k-nav"><div class="k-wrap k-navin"><a class="k-logo" href="./">KHARVIE</a><nav class="k-links" id="navLinks"><a href="#music">Music</a><a href="#videos">Videos</a><a href="#events">Live</a><a href="#about">About</a><a href="#gallery">Photos</a><a href="#news">News</a><a class="k-primary" href="booking.html">Contact</a></nav><button class="k-menu" id="menuBtn" aria-label="Open menu" aria-expanded="false">MENU</button></div></header>
