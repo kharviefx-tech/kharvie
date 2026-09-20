@@ -28,6 +28,30 @@
 <style>
 body{background:#050705;color:#f6f7f2}.site-nav{position:sticky;top:0;z-index:100;background:#070a08;border-bottom:1px solid #29352c}.nav-inner{max-width:1180px;margin:auto;padding:0 20px;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font:800 20px Manrope,sans-serif;letter-spacing:.18em}.nav-links{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.nav-links a{padding:9px 12px;border-radius:10px;font-size:11px;color:#f6f7f2;border:1px solid transparent}.nav-links a:hover{border-color:#21c46b;color:#21c46b}.wrap{max-width:1180px;margin:auto;padding:0 20px}.hero{padding:86px 0}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}.kicker{color:#21c46b;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}.hero h1{font:800 clamp(64px,10vw,120px)/.88 Manrope,sans-serif;letter-spacing:-.07em;margin:15px 0 25px}.hero h1 span{color:#21c46b}.hero p{max-width:650px;color:#b5bdb5;font-size:18px}.hero-image{border-radius:24px;overflow:hidden;border:1px solid #29352c;box-shadow:0 24px 70px rgba(0,0,0,.35)}.hero-image img{width:100%;aspect-ratio:4/5;object-fit:cover}.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border-radius:12px;background:#21c46b;color:#061008;font-weight:800;font-size:11px}.button.alt{background:#0b100c;color:#f6f7f2;border:1px solid #445248}.section{padding:80px 0;border-top:1px solid #29352c}.section h2{font:800 clamp(42px,6vw,76px)/1 Manrope,sans-serif;letter-spacing:-.06em;margin:8px 0 20px}.muted{color:#b5bdb5}.bio-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:55px;align-items:center}.bio-image{border-radius:20px;overflow:hidden;border:1px solid #29352c}.bio-image img{width:100%;aspect-ratio:4/5;object-fit:cover}.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:25px}.fact{padding:16px;background:#0e130f;border:1px solid #29352c;border-radius:12px}.fact small{display:block;color:#21c46b;font-size:9px;text-transform:uppercase;letter-spacing:.12em}.fact strong{font-size:14px}.platform-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.platform{padding:20px;background:#0e130f;border:1px solid #29352c;border-radius:14px}.platform a{font-weight:800}.platform p{font-size:12px;color:#b5bdb5}.footer{padding:45px 0;border-top:1px solid #29352c}.footer-row{display:flex;justify-content:space-between;gap:25px;align-items:flex-start}.footer-links{display:flex;flex-wrap:wrap;gap:12px}.footer-links a{font-size:11px;color:#b5bdb5}.footer-links a:hover{color:#21c46b}@media(max-width:800px){.hero-grid,.bio-grid{grid-template-columns:1fr}.nav-links{display:none}.platform-grid{grid-template-columns:1fr 1fr}.hero{padding:55px 0}.footer-row{display:block}.footer-links{margin-top:20px}}@media(max-width:500px){.wrap{padding:0 14px}.platform-grid,.facts{grid-template-columns:1fr}.hero h1{font-size:60px}}
 </style>
+
+<!-- KHARVIE RELEASE LINK FIX -->
+<style id="kharvie-release-link-fix">
+#featuredReleases a,#cmsReleases a,.featured-release-links a,.cms-release-links a{pointer-events:auto!important;touch-action:manipulation!important;position:relative!important;z-index:20!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;visibility:visible!important;opacity:1!important;color:#f6f7f2!important;background:#101610!important;border:1px solid #445248!important;border-radius:10px!important;min-height:40px!important;min-width:72px!important;padding:9px 13px!important;font-size:11px!important;line-height:1.2!important;font-weight:800!important;text-decoration:none!important;cursor:pointer!important;-webkit-tap-highlight-color:rgba(33,196,107,.28)!important}
+#featuredReleases a:hover,#cmsReleases a:hover{background:#21c46b!important;color:#061008!important;border-color:#21c46b!important}
+#featuredReleases,.k-cms-grid{position:relative!important;z-index:2!important}
+</style>
+<script>
+(function(){
+  function repair(){
+    document.querySelectorAll('#featuredReleases a,#cmsReleases a,.featured-release-links a,.cms-release-links a').forEach(function(a){
+      a.style.pointerEvents='auto';
+      a.style.visibility='visible';
+      a.style.opacity='1';
+      if(!a.textContent.trim()){
+        var h=(a.hostname||'').toLowerCase();
+        a.textContent=h.includes('spotify')?'Spotify':h.includes('apple')?'Apple Music':h.includes('youtube')?'YouTube':h.includes('audiomack')?'Audiomack':h.includes('distrokid')?'DistroKid':'Open';
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded',repair);
+  new MutationObserver(repair).observe(document.documentElement,{subtree:true,childList:true});
+})();
+</script>
 </head>
 <body>
 <header class="site-nav"><div class="nav-inner"><a class="brand" href="./">KHARVIE</a><nav class="nav-links" aria-label="Main navigation"><a href="#music">Music</a><a href="#about">About</a><a href="music.html">All Music</a><a href="videos.html">Videos</a><a href="news.html">News</a><a href="press.html">EPK</a><a href="booking.html">Booking</a></nav></div></header>
