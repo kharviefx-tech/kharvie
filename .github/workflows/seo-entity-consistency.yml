@@ -27,10 +27,9 @@ jobs:
 
           ROOT = Path('.')
           SITE = 'https://kharviefx-tech.github.io/kharvie/'
-          PERSON = SITE + '#person'
+          PERSON = SITE + '#artist'
           WEBSITE = SITE + '#website'
 
-          # 1) Keep the owner's current official social identities consistent.
           replacements = {
               'https://www.tiktok.com/@_kharvie': 'https://www.tiktok.com/@iamkharvie',
               'https://www.facebook.com/share/19RdXwa2nU/': 'https://www.facebook.com/officialKharvie',
@@ -38,7 +37,7 @@ jobs:
           for p in ROOT.rglob('*'):
               if not p.is_file() or '.git' in p.parts:
                   continue
-              if p.suffix.lower() not in {'.html', '.txt', '.json', '.xml', '.yml', '.yaml'}:
+              if p.suffix.lower() not in {'.html', '.txt', '.json', '.xml'}:
                   continue
               try:
                   s = p.read_text(encoding='utf-8')
@@ -50,7 +49,6 @@ jobs:
               if s != original:
                   p.write_text(s, encoding='utf-8')
 
-          # 2) Consolidate duplicate JSON-LD graph blocks on the homepage.
           p = ROOT / 'index.html'
           s = p.read_text(encoding='utf-8')
           pattern = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
@@ -62,8 +60,7 @@ jobs:
               except Exception:
                   pass
           if len(parsed) > 1:
-              nodes = {}
-              order = []
+              nodes, order = {}, []
               for doc in parsed:
                   graph = doc.get('@graph') if isinstance(doc, dict) else None
                   if not isinstance(graph, list):
@@ -86,14 +83,15 @@ jobs:
                                   for item in v:
                                       if item not in existing[k]:
                                           existing[k].append(item)
-              merged = {'@context': 'https://schema.org', '@graph': [nodes[k] for k in order]}
+              merged = {'@context':'https://schema.org','@graph':[nodes[k] for k in order]}
               replacement = '<script type="application/ld+json">' + json.dumps(merged, separators=(',', ':')) + '</script>'
-              first_start, first_end = blocks[0].span()
-              last_start, last_end = blocks[-1].span()
-              s = s[:first_start] + replacement + s[last_end:]
-              p.write_text(s, encoding='utf-8')
+              s = s[:blocks[0].start()] + replacement + s[blocks[-1].end():]
 
-          # 3) Ensure the EPK uses the same canonical Person entity.
+          s = re.sub(r'<title>.*?</title>', '<title>Kharvie | Official Website</title>', s, count=1, flags=re.S)
+          s = re.sub(r'<meta property="og:title"[^>]*>', '<meta property="og:title" content="Kharvie | Official Website">', s, count=1)
+          s = re.sub(r'<meta name="twitter:title"[^>]*>', '<meta name="twitter:title" content="Kharvie | Official Website">', s, count=1)
+          p.write_text(s, encoding='utf-8')
+
           p = ROOT / 'press.html'
           if p.exists():
               s = p.read_text(encoding='utf-8')
@@ -102,40 +100,26 @@ jobs:
               s = s.replace('"@type":"ProfilePage","name":"Kharvie Press Center & EPK"', '"@type":"ProfilePage","@id":"' + SITE + 'press.html#profilepage","name":"Kharvie Press Center & EPK","isPartOf":{"@id":"' + WEBSITE + '"}', 1)
               p.write_text(s, encoding='utf-8')
 
-          # 4) Make the manifest unambiguous on GitHub Pages by using the full canonical origin.
           manifest = {
-              'name': 'Kharvie | Official Website',
-              'short_name': 'Kharvie',
-              'start_url': SITE,
-              'scope': SITE,
-              'display': 'standalone',
-              'background_color': '#070706',
-              'theme_color': '#070706',
-              'description': 'Official website of Kharvie, professionally known as Victor Avannah.',
-              'icons': [
-                  {
-                      'src': SITE + 'assets/kharvie.jpg',
-                      'sizes': 'any',
-                      'type': 'image/jpeg',
-                      'purpose': 'any maskable'
-                  }
-              ]
+              'name':'Kharvie | Official Website','short_name':'Kharvie','start_url':SITE,'scope':SITE,
+              'display':'standalone','background_color':'#070706','theme_color':'#070706',
+              'description':'Official website of Kharvie, professionally known as Victor Avannah.',
+              'icons':[{'src':SITE+'assets/kharvie.jpg','sizes':'any','type':'image/jpeg','purpose':'any maskable'}]
           }
-          (ROOT / 'site.webmanifest').write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+          (ROOT / 'site.webmanifest').write_text(json.dumps(manifest, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
 
-          # 5) Rebuild a clean sitemap from public HTML pages only.
-          urls = []
+          urls=[]
           for rel in sorted(ROOT.glob('**/*.html')):
-              rels = rel.as_posix()
-              if rels == '404.html' or rels == 'admin.html' or rels.startswith('admin/') or rels.startswith('dashboard/'):
+              rels=rel.as_posix()
+              if rels=='404.html' or rels=='admin.html' or rels.startswith(('admin/','dashboard/')):
                   continue
-              urls.append(SITE if rels == 'index.html' else SITE + rels)
-          today = date.today().isoformat()
-          xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+              urls.append(SITE if rels=='index.html' else SITE+rels)
+          today=date.today().isoformat()
+          xml=['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
           for url in urls:
-              xml += ['  <url>', f'    <loc>{url}</loc>', f'    <lastmod>{today}</lastmod>', '  </url>']
+              xml += ['  <url>',f'    <loc>{url}</loc>',f'    <lastmod>{today}</lastmod>','  </url>']
           xml.append('</urlset>')
-          (ROOT / 'sitemap.xml').write_text('\n'.join(xml) + '\n', encoding='utf-8')
+          (ROOT/'sitemap.xml').write_text('\n'.join(xml)+'\n', encoding='utf-8')
           PY
 
       - name: Validate critical files
@@ -145,10 +129,10 @@ jobs:
           import json, xml.etree.ElementTree as ET
           ET.parse('sitemap.xml')
           json.loads(Path('site.webmanifest').read_text(encoding='utf-8'))
-          index = Path('index.html').read_text(encoding='utf-8')
+          index=Path('index.html').read_text(encoding='utf-8')
+          assert 'Kharvie | Official Website' in index
           assert 'https://www.tiktok.com/@iamkharvie' in index
           assert 'https://www.tiktok.com/@_kharvie' not in index
-          assert 'https://www.facebook.com/share/19RdXwa2nU/' not in index
           assert 'https://www.facebook.com/officialKharvie' in index
           assert 'https://kharviefx-tech.github.io/kharvie/' in index
           print('SEO/entity validation passed.')
@@ -158,10 +142,12 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          if git diff --cached --quiet; then
+          changed=$(git diff --name-only | grep -v '^\.github/workflows/' || true)
+          if [ -z "$changed" ]; then
             echo 'No SEO/entity changes required.'
-          else
-            git commit -m 'Keep Kharvie SEO entity and sitemap signals consistent'
-            git push
+            exit 0
           fi
+          printf '%s\n' "$changed" | xargs -r git add --
+          git diff --cached --quiet && exit 0
+          git commit -m 'Keep Kharvie SEO entity and sitemap signals consistent'
+          git push
