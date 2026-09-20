@@ -17,7 +17,7 @@ jobs:
           import json,re
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          m=re.search(r'<script type="application/ld\\+json">(.*?)</script>',s,re.S)
+          m=re.search(r'<script type="application/ld\+json">(.*?)</script>',s,re.S)
           if not m: raise SystemExit('No JSON-LD found')
           d=json.loads(m.group(1)); g=d.get('@graph',[])
           a=next((x for x in g if x.get('@id','').endswith('#artist')),None)
