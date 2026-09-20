@@ -20,7 +20,7 @@ jobs:
           m=re.search(r'<script type="application/ld\+json">(.*?)</script>',s,re.S)
           if not m: raise SystemExit('No JSON-LD found')
           d=json.loads(m.group(1)); g=d.get('@graph',[])
-          a=next((x for x in g if x.get('@id','').endswith('#artist')),None)
+          a=next((x for x in g if x.get('@id','').endswith('#person')),None)
           if not a: raise SystemExit('Artist entity not found')
           a['@type']='Person'
           a['name']='Kharvie'
