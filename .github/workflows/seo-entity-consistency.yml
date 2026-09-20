@@ -27,7 +27,7 @@ jobs:
 
           ROOT = Path('.')
           SITE = 'https://kharviefx-tech.github.io/kharvie/'
-          PERSON = SITE + '#artist'
+          PERSON = SITE + '#person'
           WEBSITE = SITE + '#website'
 
           replacements = {
