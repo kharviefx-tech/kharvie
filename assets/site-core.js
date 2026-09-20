@@ -1,4 +1,5 @@
 /* Kharvie Site Core: shared runtime safeguards for public pages. */
+/* Entity sync trigger: homepage identity remains Kharvie / Victor Avannah. */
 (function(){
   'use strict';
   const OFFICIAL='Kharvie | Official Website';
