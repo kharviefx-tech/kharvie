@@ -1,23 +1,9 @@
 {
   "artist": "Kharvie",
   "artistId": "6781999179",
-  "updatedAt": "2026-09-20T20:34:11.833252+00:00",
+  "updatedAt": "2026-09-20T20:46:34.271883+00:00",
   "source": "Apple/iTunes catalogue sync for DistroKid-distributed releases",
   "releases": [
-    {
-      "title": "Holla",
-      "artist": "Kharvie",
-      "releaseDate": "2026-09-19",
-      "genre": "Afro-Beat",
-      "artwork": "https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F12186636--AD2DAC01-5F04-4F48-9448C2861EB1DF3D--0--2748811--78FDFE43AD6C4DACB8731358A16C3B53.png?fm=jpg&q=75&w=800&s=2757e8e054b84fd19720a8ccb65b4fac",
-      "appleUrl": "https://music.apple.com/us/album/holla/6814172464?i=6814172465&uo=4",
-      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ef/48/fd/ef48fd91-7961-7a72-1e7f-131876e4724b/mzaf_5924994522225147153.plus.aac.p.m4a",
-      "explicit": false,
-      "links": {
-        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/holla/",
-        "apple": "https://music.apple.com/us/album/holla/6814172464?i=6814172465&uo=4"
-      }
-    },
     {
       "title": "Romeo and Juliet",
       "artist": "Kharvie",
@@ -77,6 +63,19 @@
       "explicit": false,
       "links": {
         "apple": "https://music.apple.com/us/album/popsy/6810794705?i=6810794706&uo=4"
+      }
+    },
+    {
+      "title": "Holla",
+      "artist": "Kharvie",
+      "releaseDate": "",
+      "genre": "",
+      "artwork": "https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F12186636--AD2DAC01-5F04-4F48-9448C2861EB1DF3D--0--2748811--78FDFE43AD6C4DACB8731358A16C3B53.png?fm=jpg&q=75&w=800&s=2757e8e054b84fd19720a8ccb65b4fac",
+      "appleUrl": "",
+      "previewUrl": "",
+      "explicit": false,
+      "links": {
+        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/holla/"
       }
     }
   ]
