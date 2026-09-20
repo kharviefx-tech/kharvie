@@ -140,7 +140,7 @@ jobs:
           urls=[]
           for rel in sorted(ROOT.glob('**/*.html')):
               rels=rel.as_posix()
-              if rels=='404.html' or rels=='admin.html' or rels.startswith(('admin/','dashboard/')):
+              if rels in {'404.html','admin.html','admin-portal.html','app.html','app-settings.html','google-site-verification.html','professional-suite.html','professional-system.html','professional-upgrades.html','music-catalogue.html'} or rels.startswith(('admin/','dashboard/','media/','professional-audit/','settings/','tools/','analytics/','revenue/','bookings/','editor/','supabase/')):
                   continue
               urls.append(SITE if rels=='index.html' else SITE+rels)
           today=date.today().isoformat()
