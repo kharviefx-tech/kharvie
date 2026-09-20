@@ -1,0 +1,49 @@
+name: Global profession consistency
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/global-profession-fix.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    if: ${{ !contains(github.event.head_commit.message, 'chore: globally correct profession') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore full homepage and normalize profession globally
+        run: |
+          git checkout ad5fd5e840c31e52fd68d50ca62b0bab2f8accd1 -- index.html
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+          root=Path('.')
+          for p in root.rglob('*'):
+              if not p.is_file() or '.git' in p.parts or p.suffix.lower() not in {'.html','.txt','.json','.md','.js','.sql','.xml'}:
+                  continue
+              try: s=p.read_text(encoding='utf-8')
+              except Exception: continue
+              old=s
+              replacements={
+                'Nigerian singer-songwriter and recording artist':'Nigerian singer and songwriter',
+                'singer-songwriter and recording artist':'Nigerian singer and songwriter',
+                'singer-songwriter':'Nigerian singer and songwriter',
+                'Singer &amp; songwriter':'Nigerian Singer and Songwriter',
+                'Singer & songwriter':'Nigerian Singer and Songwriter',
+                '"jobTitle":["Singer","Songwriter","Recording Artist"]':'"jobTitle":"Nigerian Singer and Songwriter"',
+                '"jobTitle":["Singer","Songwriter"]':'"jobTitle":"Nigerian Singer and Songwriter"',
+                '"jobTitle":["Singer","Songwriter","Recording Artist"]':'"jobTitle":"Nigerian Singer and Songwriter"',
+                'Profession: Nigerian singer and songwriter':'Profession: Nigerian Singer and Songwriter',
+                'Occupation</b><span>Singer and songwriter':'Occupation</b><span>Nigerian Singer and Songwriter',
+                'Occupation</b><span>Singer &amp; songwriter':'Occupation</b><span>Nigerian Singer and Songwriter',
+              }
+              for a,b in replacements.items(): s=s.replace(a,b)
+              if s!=old: p.write_text(s,encoding='utf-8')
+          PY
+          rm -f .github/workflows/global-profession-fix.yml
+          git config user.name 'Kharvie App Builder'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'chore: globally correct profession' || exit 0
+          git push
