@@ -395,7 +395,6 @@ body{font-weight:500!important}
       <a href="#news">News</a>
       <a href="booking.html">Contact</a>
       <a href="press.html">EPK</a>
-      <a href="#website-settings">Settings</a>
     </div>
     <div class="k-foot-tools" aria-label="Professional and website tools">
       <a href="professional-suite.html">Professional</a>
@@ -409,22 +408,7 @@ body{font-weight:500!important}
 </div>
 
 </footer>
-<section id="website-settings" class="editorial-section" aria-labelledby="website-settings-title">
-<div class="k-wrap">
-<div class="section-kicker">KHARVIE / CONTROL</div>
-<h2 id="website-settings-title" class="editorial-heading">Website <em>settings.</em></h2>
-<p class="muted">Professional website controls, publishing tools, analytics and administration are available here.</p>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:24px">
-<a class="k-btn" href="admin/editor.html">Control Room</a>
-<a class="k-btn" href="admin/settings.html">Settings</a>
-<a class="k-btn" href="admin/tools.html">1,200+ Pro Tools</a>
-<a class="k-btn" href="admin/publish.html">Quick Publish</a>
-<a class="k-btn" href="admin/media.html">Media Library</a>
-<a class="k-btn" href="admin/revenue.html">Revenue Center</a>
-</div>
-<p class="muted" style="margin-top:16px;font-size:12px">Admin pages require authorized sign-in where applicable.</p>
-</div>
-</section>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="assets/cms.js" defer></script>
 <script>
 const nav=document.getElementById('navLinks'),menu=document.getElementById('menuBtn');menu?.addEventListener('click',()=>{const o=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(o));menu.textContent=o?'CLOSE':'MENU'});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu?.setAttribute('aria-expanded','false');menu.textContent='MENU'}));addEventListener('scroll',()=>document.querySelector('.k-nav')?.classList.toggle('scrolled',scrollY>25));
