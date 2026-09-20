@@ -15,6 +15,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Repair public release links
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          marker='<!-- KHARVIE RELEASE LINK FIX -->'
+          if marker not in s:
+              fix='''\n<!-- KHARVIE RELEASE LINK FIX -->\n<style id="kharvie-release-link-fix">\n#featuredReleases a,#cmsReleases a,.featured-release-links a,.cms-release-links a{pointer-events:auto!important;touch-action:manipulation!important;position:relative!important;z-index:20!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;visibility:visible!important;opacity:1!important;color:#f6f7f2!important;background:#101610!important;border:1px solid #445248!important;border-radius:10px!important;min-height:40px!important;min-width:72px!important;padding:9px 13px!important;font-size:11px!important;line-height:1.2!important;font-weight:800!important;text-decoration:none!important;cursor:pointer!important;-webkit-tap-highlight-color:rgba(33,196,107,.28)!important}\n#featuredReleases a:hover,#cmsReleases a:hover{background:#21c46b!important;color:#061008!important;border-color:#21c46b!important}\n#featuredReleases,.k-cms-grid{position:relative!important;z-index:2!important}\n</style>\n<script>\n(function(){\n  function repair(){\n    document.querySelectorAll('#featuredReleases a,#cmsReleases a,.featured-release-links a,.cms-release-links a').forEach(function(a){\n      a.style.pointerEvents='auto';\n      a.style.visibility='visible';\n      a.style.opacity='1';\n      if(!a.textContent.trim()){\n        var h=(a.hostname||'').toLowerCase();\n        a.textContent=h.includes('spotify')?'Spotify':h.includes('apple')?'Apple Music':h.includes('youtube')?'YouTube':h.includes('audiomack')?'Audiomack':h.includes('distrokid')?'DistroKid':'Open';\n      }\n    });\n  }\n  document.addEventListener('DOMContentLoaded',repair);\n  new MutationObserver(repair).observe(document.documentElement,{subtree:true,childList:true});\n})();\n</script>\n'''
+              s=s.replace('</head>',fix+'</head>',1)
+              p.write_text(s,encoding='utf-8')
+          PY
+
       - name: Fetch Kharvie catalogue from Apple Music
         shell: bash
         run: |
@@ -68,7 +83,6 @@ jobs:
                   'explicit': x.get('trackExplicitness') == 'explicit'
               })
 
-          # Keep verified Spotify, YouTube, Audiomack, Smart Link and HyperFollow URLs.
           for r in releases:
               extra=manual.get('releases',{}).get(r.get('title'),{})
               if extra.get('artwork'):
@@ -81,7 +95,6 @@ jobs:
               links['apple']=r.get('appleUrl','') or extra.get('apple','')
               r['links']={k:v for k,v in links.items() if v}
 
-          # Keep manually maintained pre-release / non-Apple catalogue entries visible.
           for title, extra in manual.get('releases',{}).items():
               if not any(r.get('title','').lower()==title.lower() for r in releases):
                   releases.append({
@@ -107,15 +120,15 @@ jobs:
           print(f'Synced {len(releases)} Kharvie catalogue entries')
           PY
 
-      - name: Commit catalogue changes
+      - name: Commit catalogue and website fixes
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add releases.json
+          git add releases.json index.html
           if git diff --cached --quiet; then
-            echo "No catalogue changes."
+            echo "No catalogue or website changes."
             exit 0
           fi
-          git commit -m "Auto-sync Kharvie music catalogue"
+          git commit -m "Fix release links and sync Kharvie catalogue"
           git push
