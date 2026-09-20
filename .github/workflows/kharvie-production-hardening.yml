@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Normalize homepage identity
+      - name: Normalize homepage identity and hide admin controls
         shell: bash
         run: |
           python - <<'PY'
@@ -26,6 +26,30 @@ jobs:
 
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
+
+          # Keep the public artist homepage public. Remove the private control
+          # section entirely; all management tools live under /admin/.
+          start = s.find('<section id="website-settings"')
+          if start != -1:
+              depth = 0
+              tag_re = re.compile(r'</?section\b[^>]*>', re.I)
+              end = None
+              for m in tag_re.finditer(s, start):
+                  if m.group(0).startswith('</'):
+                      depth -= 1
+                      if depth == 0:
+                          end = m.end()
+                          break
+                  elif not m.group(0).rstrip().endswith('/>'):
+                      depth += 1
+              if end:
+                  s = s[:start] + s[end:]
+
+          # Remove any public footer/menu entry that points to the private
+          # settings section. Do not expose admin navigation to visitors.
+          s = re.sub(r'\s*<a[^>]+href=["\']#website-settings["\'][^>]*>\s*Settings\s*</a>', '', s, flags=re.I)
+          s = s.replace('href="#website-settings"', 'href="admin/settings.html"') if 'admin/settings.html' in s else s
+
           pattern = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
           match = pattern.search(s)
           if match:
@@ -63,6 +87,8 @@ jobs:
           grep -q '"@type":"Person"' index.html
           grep -q '"name":"Kharvie"' index.html
           grep -q 'https://www.tiktok.com/@iamkharvie' index.html
+          if grep -q 'id="website-settings"' index.html; then echo 'Private settings still exposed'; exit 1; fi
+          if grep -q 'href="#website-settings"' index.html; then echo 'Private settings link still exposed'; exit 1; fi
 
       - name: Commit production hardening
         run: |
