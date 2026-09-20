@@ -14,6 +14,12 @@ Disallow: /bookings/
 Disallow: /professional-audit/
 Disallow: /settings/
 Disallow: /app-settings.html
+Disallow: /admin-portal.html
+Disallow: /app.html
+Disallow: /professional-suite.html
+Disallow: /professional-system.html
+Disallow: /professional-upgrades.html
+Disallow: /google-site-verification.html
 Disallow: /supabase/
 
 Sitemap: https://kharviefx-tech.github.io/kharvie/sitemap.xml
