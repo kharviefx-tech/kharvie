@@ -56,14 +56,14 @@ jobs:
           def normalize_node(node):
               if not isinstance(node, dict):
                   return
-              if node.get('@id') == ENTITY:
+              if node.get('@id') == ENTITY and node.get('@type'):
                   node['@type'] = ['Person', 'MusicArtist']
                   node['name'] = 'Kharvie'
                   node['alternateName'] = ['Victor Avannah', 'Kharvie Official']
                   node.pop('member', None)
                   node['jobTitle'] = ['Singer', 'Songwriter']
                   node['url'] = SITE
-                  node['description'] = 'Kharvie is the professional artist name of Victor Avannah, a singer and songwriter from Delta State, Nigeria.'
+                  node['description'] = 'Kharvie is the professional artist name of Victor Avannah, a singer and songwriter from Delta State.'
               for v in node.values():
                   if isinstance(v, dict):
                       normalize_node(v)
@@ -117,6 +117,8 @@ jobs:
           assert '<title>Kharvie | Official Website</title>' in index
           assert '<meta name="robots" content="index,follow' in index
           assert 'https://kharviefx-tech.github.io/kharvie/#artist' in index
+          assert '#person' not in index
+          assert '#victor-avannah' not in index
           assert '"@type":["Person","MusicArtist"]' in index
           assert '"name":"Kharvie"' in index
           assert 'https://www.tiktok.com/@iamkharvie' in index
