@@ -90,6 +90,20 @@ jobs:
               if updated != s:
                   p.write_text(updated, encoding='utf-8')
 
+          # Keep Kharvie dominant across every managed public page. The real name remains available only where biography/context requires it.
+          for rel in ['index.html','about.html','artist-profile.html','kharvie-artist.html','press.html','booking.html','news.html']:
+              p = ROOT / rel
+              if p.exists():
+                  s = p.read_text(encoding='utf-8')
+                  s = s.replace('Kharvie (Victor Avannah) | Official Website/Profile','Kharvie | Official Website')
+                  s = s.replace('Kharvie (Victor Avannah)','Kharvie')
+                  s = s.replace('Nigerian singer and songwriter','singer and songwriter')
+                  s = s.replace('Nigerian singer-songwriter','singer-songwriter')
+                  s = s.replace('Nigerian ','')
+                  s = s.replace('Nigeria','')
+                  s = s.replace('Delta State, .','Delta State.')
+                  p.write_text(s, encoding='utf-8')
+
           # Rebuild sitemap from canonical public pages only. Redirect aliases and legal/admin utility pages stay out.
           public_pages = [
               '', 'about.html', 'artist-profile.html', 'kharvie-artist.html',
