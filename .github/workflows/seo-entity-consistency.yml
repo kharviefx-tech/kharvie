@@ -59,7 +59,7 @@ jobs:
               if node.get('@id') == ENTITY:
                   node['@type'] = ['Person', 'MusicArtist']
                   node['name'] = 'Kharvie'
-                  node['alternateName'] = ['Victor Avannah']
+                  node['alternateName'] = ['Victor Avannah', 'Kharvie Official']
                   node.pop('member', None)
                   node['jobTitle'] = ['Singer', 'Songwriter']
                   node['url'] = SITE
@@ -94,7 +94,7 @@ jobs:
           urls = []
           for rel in sorted(ROOT.glob('**/*.html')):
               rels = rel.as_posix()
-              if rels == '404.html' or rels == 'admin.html' or rels.startswith('admin/') or rels.startswith('dashboard/'):
+              if rels in {'404.html','admin.html','catalogue.html','music-catalogue.html'} or rels.startswith('admin/') or rels.startswith('dashboard/') or rels.startswith('media/'):
                   continue
               urls.append(SITE if rels == 'index.html' else SITE + rels)
           today = date.today().isoformat()
@@ -120,6 +120,7 @@ jobs:
           assert '"name":"Kharvie"' in index
           assert 'https://www.tiktok.com/@iamkharvie' in index
           assert 'https://www.tiktok.com/@_kharvie' not in index
+          assert 'https://kharviefx-tech.github.io/kharvie/#artist' in index
           assert 'https://www.facebook.com/officialKharvie' in index
           assert 'https://www.facebook.com/share/19RdXwa2nU/' not in index
           assert 'https://kharviefx-tech.github.io/kharvie/sitemap.xml' in Path('robots.txt').read_text(encoding='utf-8')
