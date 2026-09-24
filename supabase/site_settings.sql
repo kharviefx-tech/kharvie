@@ -6,12 +6,12 @@ insert into public.site_settings (setting_key, setting_value, updated_at)
 values
  ('artist_name','Kharvie',now()),
  ('real_name','Victor Avannah',now()),
- ('profession','Nigerian singer and songwriter',now()),
+ ('profession','Singer and songwriter',now()),
  ('genre','Afrobeats',now()),
- ('origin','Delta State, Nigeria',now()),
+ ('origin','Delta State',now()),
  ('booking_email','avannahvictor3@gmail.com',now()),
- ('short_bio','Victor Avannah, professionally known as Kharvie, is a Nigerian singer and songwriter from Delta State, Nigeria. Born on April 12, 2003, he is part of a new generation of Nigerian artists shaping the evolving sound of Afrobeats.',now()),
- ('hero_intro','Kharvie is building a distinct Afrobeats identity from Delta State, blending melody, rhythm and modern Nigerian energy into music made to move.',now())
+ ('short_bio','Victor Avannah, professionally known as Kharvie, is a singer and songwriter from Delta State. Born on April 12, 2003, he is part of a new generation of artists shaping the evolving sound of Afrobeats.',now()),
+ ('hero_intro','Kharvie is building a distinct Afrobeats identity from Delta State, blending melody, rhythm and modern energy into music made to move.',now())
 on conflict (setting_key) do update set setting_value=excluded.setting_value, updated_at=now();
 
 alter table public.site_settings enable row level security;
