@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Normalize official identity, structured data, manifest and sitemap
+      - name: Normalize Kharvie's canonical Google entity
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -27,14 +27,14 @@ jobs:
 
           ROOT = Path('.')
           SITE = 'https://kharviefx-tech.github.io/kharvie/'
-          PERSON = SITE + '#person'
-          WEBSITE = SITE + '#website'
+          ENTITY = SITE + '#artist'
 
-          # 1) Keep the owner's current official social identities consistent.
           replacements = {
               'https://www.tiktok.com/@_kharvie': 'https://www.tiktok.com/@iamkharvie',
               'https://www.facebook.com/share/19RdXwa2nU/': 'https://www.facebook.com/officialKharvie',
+              SITE + '#person': ENTITY,
           }
+
           for p in ROOT.rglob('*'):
               if not p.is_file() or '.git' in p.parts:
                   continue
@@ -50,80 +50,45 @@ jobs:
               if s != original:
                   p.write_text(s, encoding='utf-8')
 
-          # 2) Consolidate duplicate JSON-LD graph blocks on the homepage.
-          p = ROOT / 'index.html'
-          s = p.read_text(encoding='utf-8')
-          pattern = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
-          blocks = list(pattern.finditer(s))
-          parsed = []
-          for m in blocks:
+          pattern = re.compile(r'<script type="application/ld\\+json">(.*?)</script>', re.S)
+
+          def normalize_node(node):
+              if not isinstance(node, dict):
+                  return
+              if node.get('@id') == ENTITY:
+                  node['@type'] = ['Person', 'MusicArtist']
+                  node['name'] = 'Kharvie'
+                  node['alternateName'] = ['Victor Avannah']
+                  node.pop('member', None)
+                  node.setdefault('jobTitle', ['Singer', 'Songwriter'])
+                  node.setdefault('description', 'Kharvie is the professional artist name of Victor Avannah, a singer and songwriter from Delta State, Nigeria.')
+                  node.setdefault('url', SITE)
+              for v in node.values():
+                  if isinstance(v, dict):
+                      normalize_node(v)
+                  elif isinstance(v, list):
+                      for item in v:
+                          if isinstance(item, dict):
+                              normalize_node(item)
+
+          for p in ROOT.rglob('*.html'):
               try:
-                  parsed.append(json.loads(m.group(1)))
-              except Exception:
-                  pass
-          if len(parsed) > 1:
-              nodes = {}
-              order = []
-              for doc in parsed:
-                  graph = doc.get('@graph') if isinstance(doc, dict) else None
-                  if not isinstance(graph, list):
-                      continue
-                  for node in graph:
-                      if not isinstance(node, dict):
-                          continue
-                      key = node.get('@id') or ('__node__' + str(len(order)))
-                      if key not in nodes:
-                          nodes[key] = node
-                          order.append(key)
-                      else:
-                          existing = nodes[key]
-                          for k, v in node.items():
-                              if k == '@id':
-                                  continue
-                              if k not in existing:
-                                  existing[k] = v
-                              elif isinstance(existing[k], list) and isinstance(v, list):
-                                  for item in v:
-                                      if item not in existing[k]:
-                                          existing[k].append(item)
-              merged = {'@context': 'https://schema.org', '@graph': [nodes[k] for k in order]}
-              replacement = '<script type="application/ld+json">' + json.dumps(merged, separators=(',', ':')) + '</script>'
-              first_start, first_end = blocks[0].span()
-              last_start, last_end = blocks[-1].span()
-              s = s[:first_start] + replacement + s[last_end:]
-              p.write_text(s, encoding='utf-8')
+                  s = p.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
 
-          # 3) Ensure the EPK uses the same canonical Person entity.
-          p = ROOT / 'press.html'
-          if p.exists():
-              s = p.read_text(encoding='utf-8')
-              if '"@id":"' + PERSON + '"' not in s:
-                  s = s.replace('"mainEntity":{"@type":"Person"', '"mainEntity":{"@id":"' + PERSON + '","@type":"Person"', 1)
-              s = s.replace('"@type":"ProfilePage","name":"Kharvie Press Center & EPK"', '"@type":"ProfilePage","@id":"' + SITE + 'press.html#profilepage","name":"Kharvie Press Center & EPK","isPartOf":{"@id":"' + WEBSITE + '"}', 1)
-              p.write_text(s, encoding='utf-8')
+              def replace_ld(match):
+                  try:
+                      doc = json.loads(match.group(1))
+                  except Exception:
+                      return match.group(0)
+                  normalize_node(doc)
+                  return '<script type="application/ld+json">' + json.dumps(doc, separators=(',', ':'), ensure_ascii=False) + '</script>'
 
-          # 4) Make the manifest unambiguous on GitHub Pages by using the full canonical origin.
-          manifest = {
-              'name': 'Kharvie | Official Website',
-              'short_name': 'Kharvie',
-              'start_url': SITE,
-              'scope': SITE,
-              'display': 'standalone',
-              'background_color': '#070706',
-              'theme_color': '#070706',
-              'description': 'Official website of Kharvie, professionally known as Victor Avannah.',
-              'icons': [
-                  {
-                      'src': SITE + 'assets/kharvie.jpg',
-                      'sizes': 'any',
-                      'type': 'image/jpeg',
-                      'purpose': 'any maskable'
-                  }
-              ]
-          }
-          (ROOT / 'site.webmanifest').write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+              updated = pattern.sub(replace_ld, s)
+              if updated != s:
+                  p.write_text(updated, encoding='utf-8')
 
-          # 5) Rebuild a clean sitemap from public HTML pages only.
           urls = []
           for rel in sorted(ROOT.glob('**/*.html')):
               rels = rel.as_posix()
@@ -138,7 +103,7 @@ jobs:
           (ROOT / 'sitemap.xml').write_text('\n'.join(xml) + '\n', encoding='utf-8')
           PY
 
-      - name: Validate critical files
+      - name: Validate SEO files and structured data
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -146,22 +111,25 @@ jobs:
           ET.parse('sitemap.xml')
           json.loads(Path('site.webmanifest').read_text(encoding='utf-8'))
           index = Path('index.html').read_text(encoding='utf-8')
+          assert '<title>Kharvie | Official Website</title>' in index
+          assert '<meta name="robots" content="index,follow' in index
+          assert 'https://kharviefx-tech.github.io/kharvie/#artist' in index
           assert 'https://www.tiktok.com/@iamkharvie' in index
           assert 'https://www.tiktok.com/@_kharvie' not in index
-          assert 'https://www.facebook.com/share/19RdXwa2nU/' not in index
           assert 'https://www.facebook.com/officialKharvie' in index
-          assert 'https://kharviefx-tech.github.io/kharvie/' in index
-          print('SEO/entity validation passed.')
+          assert 'https://www.facebook.com/share/19RdXwa2nU/' not in index
+          assert 'https://kharviefx-tech.github.io/kharvie/sitemap.xml' in Path('robots.txt').read_text(encoding='utf-8')
+          print('Kharvie SEO/entity validation passed.')
           PY
 
       - name: Commit normalized site
         run: |
           git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.email '41898282+users.noreply.github.com'
           git add -A
           if git diff --cached --quiet; then
             echo 'No SEO/entity changes required.'
           else
-            git commit -m 'Keep Kharvie SEO entity and sitemap signals consistent'
+            git commit -m 'Strengthen Kharvie canonical Google entity signals'
             git push
           fi
