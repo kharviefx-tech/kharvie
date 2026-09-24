@@ -59,7 +59,7 @@ jobs:
               if node.get('@id') == ENTITY and node.get('@type'):
                   node['@type'] = ['Person', 'MusicArtist']
                   node['name'] = 'Kharvie'
-                  node['alternateName'] = ['Victor Avannah', 'Kharvie Official']
+                  node['alternateName'] = ['Victor Avannah']
                   node.pop('member', None)
                   node['jobTitle'] = ['Singer', 'Songwriter']
                   node['url'] = SITE
