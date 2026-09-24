@@ -90,19 +90,20 @@ jobs:
               if updated != s:
                   p.write_text(updated, encoding='utf-8')
 
-          # Rebuild sitemap from public HTML pages only.
-          urls = []
-          for rel in sorted(ROOT.glob('**/*.html')):
-              rels = rel.as_posix()
-              if rels in {'404.html','admin.html','catalogue.html','music-catalogue.html'} or rels.startswith('admin/') or rels.startswith('dashboard/') or rels.startswith('media/'):
-                  continue
-              urls.append(SITE if rels == 'index.html' else SITE + rels)
+          # Rebuild sitemap from canonical public pages only. Redirect aliases and legal/admin utility pages stay out.
+          public_pages = [
+              '', 'about.html', 'artist-profile.html', 'kharvie-artist.html',
+              'music.html', 'discography.html', 'listen.html', 'press.html',
+              'booking.html', 'news.html', 'releases/sweet-love.html',
+              'professional-suite.html'
+          ]
           today = date.today().isoformat()
           xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-          for url in urls:
+          for rel in public_pages:
+              url = SITE if not rel else SITE + rel
               xml += ['  <url>', f'    <loc>{url}</loc>', f'    <lastmod>{today}</lastmod>', '  </url>']
           xml.append('</urlset>')
-          (ROOT / 'sitemap.xml').write_text('\n'.join(xml) + '\n', encoding='utf-8')
+          (ROOT / 'sitemap.xml').write_text('\\n'.join(xml) + '\\n', encoding='utf-8')
           PY
 
       - name: Validate SEO files and structured data
