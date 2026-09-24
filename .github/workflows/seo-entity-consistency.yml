@@ -50,7 +50,8 @@ jobs:
               if s != original:
                   p.write_text(s, encoding='utf-8')
 
-          pattern = re.compile(r'<script type="application/ld\\+json">(.*?)</script>', re.S)
+          # Parse and normalize every JSON-LD block so Kharvie has one canonical entity.
+          pattern = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
 
           def normalize_node(node):
               if not isinstance(node, dict):
@@ -60,9 +61,9 @@ jobs:
                   node['name'] = 'Kharvie'
                   node['alternateName'] = ['Victor Avannah']
                   node.pop('member', None)
-                  node.setdefault('jobTitle', ['Singer', 'Songwriter'])
-                  node.setdefault('description', 'Kharvie is the professional artist name of Victor Avannah, a singer and songwriter from Delta State, Nigeria.')
-                  node.setdefault('url', SITE)
+                  node['jobTitle'] = ['Singer', 'Songwriter']
+                  node['url'] = SITE
+                  node['description'] = 'Kharvie is the professional artist name of Victor Avannah, a singer and songwriter from Delta State, Nigeria.'
               for v in node.values():
                   if isinstance(v, dict):
                       normalize_node(v)
@@ -89,6 +90,7 @@ jobs:
               if updated != s:
                   p.write_text(updated, encoding='utf-8')
 
+          # Rebuild sitemap from public HTML pages only.
           urls = []
           for rel in sorted(ROOT.glob('**/*.html')):
               rels = rel.as_posix()
@@ -107,13 +109,15 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import json, xml.etree.ElementTree as ET
+          import json, re, xml.etree.ElementTree as ET
           ET.parse('sitemap.xml')
           json.loads(Path('site.webmanifest').read_text(encoding='utf-8'))
           index = Path('index.html').read_text(encoding='utf-8')
           assert '<title>Kharvie | Official Website</title>' in index
           assert '<meta name="robots" content="index,follow' in index
           assert 'https://kharviefx-tech.github.io/kharvie/#artist' in index
+          assert '"@type":["Person","MusicArtist"]' in index
+          assert '"name":"Kharvie"' in index
           assert 'https://www.tiktok.com/@iamkharvie' in index
           assert 'https://www.tiktok.com/@_kharvie' not in index
           assert 'https://www.facebook.com/officialKharvie' in index
@@ -125,7 +129,7 @@ jobs:
       - name: Commit normalized site
         run: |
           git config user.name 'github-actions[bot]'
-          git config user.email '41898282+users.noreply.github.com'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           if git diff --cached --quiet; then
             echo 'No SEO/entity changes required.'
