@@ -322,7 +322,7 @@ linear-gradient(135deg,#050705 0%,#09100b 48%,#050705 100%)}
 
 <section id="gallery" class="editorial-section gallery-panel"><div class="k-wrap"><div class="editorial-label"><span>06 / PHOTOS</span><span>KHARVIE — VISUAL ARCHIVE</span></div><h2 class="editorial-heading">The <em>visual archive.</em></h2><div id="cmsGallery" class="k-visual-grid"><div class="cms-empty">Official Kharvie photos and visual archive.</div></div></div></section>
 
-<section id="about" class="editorial-section about-editorial"><div class="k-wrap"><div class="editorial-label"><span>07 / ABOUT</span><span>VICTOR AVANNAH</span></div><div class="about-grid"><div class="about-portrait"><img src="assets/IMG-20260912-WA0004.jpg" alt="Kharvie (Victor Avannah) portrait"></div><div class="about-copy"><div class="k-index">KHARVIE</div><h2>Shaping the<br><em>next sound.</em></h2><p>Kharvie is a singer and songwriter from Delta State. His real name is Victor Avannah. He is part of a new generation of artists shaping the evolving sound of Afrobeats.</p><div class="k-facts"><div class="k-fact"><span>Artist</span><span>Kharvie</span></div><div class="k-fact"><span>Real name</span><span>Victor Avannah</span></div><div class="k-fact"><span>Born</span><span>April 12, 2003</span></div><div class="k-fact"><span>From</span><span>Delta State</span></div><div class="k-fact"><span>Genre</span><span>Afrobeats</span></div></div><a class="k-btn" href="about.html" style="margin-top:28px">Full artist profile</a></div></div></div></section>
+<section id="about" class="editorial-section about-editorial"><div class="k-wrap"><div class="editorial-label"><span>07 / ABOUT</span><span>KHARVIE</span></div><div class="about-grid"><div class="about-portrait"><img src="assets/IMG-20260912-WA0004.jpg" alt="Kharvie — official artist portrait"></div><div class="about-copy"><div class="k-index">KHARVIE</div><h2>Shaping the<br><em>next sound.</em></h2><p>Kharvie is a singer and songwriter from Delta State. His real name is Victor Avannah. He is part of a new generation of artists shaping the evolving sound of Afrobeats.</p><div class="k-facts"><div class="k-fact"><span>Artist</span><span>Kharvie</span></div><div class="k-fact"><span>Real name</span><span>Victor Avannah</span></div><div class="k-fact"><span>Born</span><span>April 12, 2003</span></div><div class="k-fact"><span>From</span><span>Delta State</span></div><div class="k-fact"><span>Genre</span><span>Afrobeats</span></div></div><a class="k-btn" href="about.html" style="margin-top:28px">Full artist profile</a></div></div></div></section>
 
 <section id="news" class="editorial-section"><div class="k-wrap"><div class="editorial-label"><span>08 / NEWS</span><span>OFFICIAL UPDATES</span></div><h2 class="editorial-heading">What's <em>new.</em></h2><div id="cmsNews" class="k-cms-grid"><div class="cms-empty">Official Kharvie news and updates.</div></div></div></section>
 
@@ -401,8 +401,8 @@ const nav=document.getElementById('navLinks'),menu=document.getElementById('menu
   async function load(){
     const box=document.getElementById('featuredReleases'),cat=document.getElementById('cmsReleases');
     if(!box&&!cat)return;
-    if(box)box.innerHTML='<div class="cms-empty">Loading official releases…</div>';
-    if(cat)cat.innerHTML='<div class="cms-empty">Loading official releases…</div>';
+    if(box)box.innerHTML='<div class="cms-empty">Official Kharvie releases.</div>';
+    if(cat)cat.innerHTML='<div class="cms-empty">Official Kharvie catalogue.</div>';
     try{const res=await fetch('releases.json?v='+Date.now(),{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();render(Array.isArray(data.releases)?data.releases:fallback);}catch(e){console.warn('Kharvie catalogue feed unavailable; using built-in catalogue',e);render(fallback);}
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',load,{once:true});else load();
