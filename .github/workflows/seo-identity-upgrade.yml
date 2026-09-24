@@ -23,124 +23,60 @@ jobs:
 
           root = Path(".")
 
-          # Keep the public brand name consistently Kharvie.
-          for name in ["index.html", "about.html", "artist-profile.html", "kharvie-artist.html"]:
+          # Keep the public brand name consistently Kharvie and remove outdated public wording.
+          public_pages = ["index.html", "about.html", "artist-profile.html", "kharvie-artist.html"]
+          for name in public_pages:
               p = root / name
               if not p.exists():
                   continue
               s = p.read_text(encoding="utf-8")
-              s = s.replace("Kharvie (Victor Avannah) | Official Website/Profile", "Kharvie | Official Website")
-              s = s.replace("KHARVIE / VICTOR AVANNAH / NIGERIA", "KHARVIE / OFFICIAL ARTIST")
-              s = s.replace("KHARVIE VICTOR AVANNAH NIGERIA / AFROBEATS", "KHARVIE / AFROBEATS")
-              s = s.replace("OFFICIAL WEBSITE / VICTOR AVANNAH", "OFFICIAL WEBSITE")
-              s = s.replace("is a Nigerian singer and songwriter from Delta State, Nigeria.", "is a singer and songwriter from Delta State.")
-              s = s.replace("is a Nigerian singer-songwriter from Delta State.", "is a singer-songwriter from Delta State.")
-              s = s.replace("new generation of Nigerian artists", "new generation of artists")
-              s = s.replace("Origin Delta State, Nigeria", "Origin Delta State")
-              s = s.replace("From Delta State, Nigeria", "From Delta State")
-              s = s.replace("Occupation Nigerian singer and songwriter", "Occupation Singer and songwriter")
+              replacements = {
+                  "Kharvie (Victor Avannah) | Official Website/Profile": "Kharvie | Official Website",
+                  "KHARVIE / VICTOR AVANNAH / NIGERIA": "KHARVIE / OFFICIAL ARTIST",
+                  "KHARVIE VICTOR AVANNAH NIGERIA / AFROBEATS": "KHARVIE / AFROBEATS",
+                  "OFFICIAL WEBSITE / VICTOR AVANNAH": "OFFICIAL WEBSITE",
+                  "is a Nigerian singer and songwriter from Delta State, Nigeria.": "is a singer and songwriter from Delta State.",
+                  "is a Nigerian singer-songwriter from Delta State.": "is a singer-songwriter from Delta State.",
+                  "new generation of Nigerian artists": "new generation of artists",
+                  "Origin Delta State, Nigeria": "Origin Delta State",
+                  "From Delta State, Nigeria": "From Delta State",
+                  "Occupation Nigerian singer and songwriter": "Occupation Singer and songwriter",
+                  "a Nigerian singer and songwriter": "a singer and songwriter",
+                  "Nigerian singer and songwriter": "singer and songwriter",
+                  "Nigerian singer-songwriter": "singer-songwriter",
+                  "Nigeria": ""
+              }
+              for old, new in replacements.items():
+                  s = s.replace(old, new)
+              # Remove accidental double spaces/punctuation left by the public-copy cleanup.
+              s = s.replace("Delta State, .", "Delta State.")
+              s = s.replace("Delta State, ", "Delta State ")
+              s = s.replace(" ,", ",")
               p.write_text(s, encoding="utf-8")
 
-          # Replace the homepage JSON-LD with clean, valid entity signals.
+          # Replace homepage JSON-LD with clean entity signals.
           p = root / "index.html"
           s = p.read_text(encoding="utf-8")
           graph = {
             "@context":"https://schema.org",
             "@graph":[
-              {
-                "@type":"WebSite",
-                "@id":"https://kharviefx-tech.github.io/kharvie/#website",
-                "url":"https://kharviefx-tech.github.io/kharvie/",
-                "name":"Kharvie",
-                "alternateName":"Kharvie | Official Website",
-                "publisher":{"@id":"https://kharviefx-tech.github.io/kharvie/#artist"}
-              },
-              {
-                "@type":"WebPage",
-                "@id":"https://kharviefx-tech.github.io/kharvie/#webpage",
-                "url":"https://kharviefx-tech.github.io/kharvie/",
-                "name":"Kharvie | Official Website",
-                "description":"Official website of Kharvie — music, releases, videos, artist profile and professional information.",
-                "isPartOf":{"@id":"https://kharviefx-tech.github.io/kharvie/#website"},
-                "mainEntity":{"@id":"https://kharviefx-tech.github.io/kharvie/#artist"}
-              },
-              {
-                "@type":"Person",
-                "@id":"https://kharviefx-tech.github.io/kharvie/#artist",
-                "name":"Kharvie",
-                "description":"Kharvie is a singer and songwriter whose official artist website features music, releases, videos and professional information.",
-                "url":"https://kharviefx-tech.github.io/kharvie/",
-                "image":[
-                  "https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg",
-                  "https://kharviefx-tech.github.io/kharvie/assets/IMG-20260912-WA0004.jpg"
-                ],
-                "jobTitle":["Singer","Songwriter"],
-                "genre":["Afrobeats","Afrobeat"],
-                "sameAs":[
-                  "https://www.youtube.com/@kharvie-m",
-                  "https://www.instagram.com/kharvie__/",
-                  "https://www.facebook.com/officialKharvie",
-                  "https://www.tiktok.com/@iamkharvie",
-                  "https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC",
-                  "https://music.apple.com/ng/artist/kharvie/6781999179",
-                  "https://audiomack.com/kharvie",
-                  "https://www.boomplay.com/share/artist/133955596",
-                  "https://www.deezer.com/en/artist/397699251",
-                  "https://tidal.com/artist/81354709/u",
-                  "https://music.amazon.com/artists/B0H62J7XW9/kharvie",
-                  "https://www.shazam.com/artist/-/6781999179"
-                ]
-              },
-              {
-                "@type":"MusicRecording",
-                "@id":"https://kharviefx-tech.github.io/kharvie/#sweet-love-recording",
-                "name":"Sweet Love",
-                "url":"https://kharviefx-tech.github.io/kharvie/releases/sweet-love.html",
-                "genre":"Afrobeats",
-                "byArtist":{"@id":"https://kharviefx-tech.github.io/kharvie/#artist"},
-                "sameAs":["https://open.spotify.com/track/3a6qAo7biXN6Hu5LU1NocG"]
-              }
+              {"@type":"WebSite","@id":"https://kharviefx-tech.github.io/kharvie/#website","url":"https://kharviefx-tech.github.io/kharvie/","name":"Kharvie","alternateName":"Kharvie | Official Website","publisher":{"@id":"https://kharviefx-tech.github.io/kharvie/#artist"}},
+              {"@type":"WebPage","@id":"https://kharviefx-tech.github.io/kharvie/#webpage","url":"https://kharviefx-tech.github.io/kharvie/","name":"Kharvie | Official Website","description":"Official website of Kharvie — music, releases, videos, artist profile and professional information.","isPartOf":{"@id":"https://kharviefx-tech.github.io/kharvie/#website"},"mainEntity":{"@id":"https://kharviefx-tech.github.io/kharvie/#artist"}},
+              {"@type":"Person","@id":"https://kharviefx-tech.github.io/kharvie/#artist","name":"Kharvie","description":"Kharvie is a singer and songwriter whose official artist website features music, releases, videos and professional information.","url":"https://kharviefx-tech.github.io/kharvie/","image":["https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg","https://kharviefx-tech.github.io/kharvie/assets/IMG-20260912-WA0004.jpg"],"jobTitle":["Singer","Songwriter"],"genre":["Afrobeats","Afrobeat"],"sameAs":["https://www.youtube.com/@kharvie-m","https://www.instagram.com/kharvie__/","https://www.facebook.com/officialKharvie","https://www.tiktok.com/@iamkharvie","https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC","https://music.apple.com/ng/artist/kharvie/6781999179","https://audiomack.com/kharvie","https://www.boomplay.com/share/artist/133955596","https://www.deezer.com/en/artist/397699251","https://tidal.com/artist/81354709/u","https://music.amazon.com/artists/B0H62J7XW9/kharvie","https://www.shazam.com/artist/-/6781999179"]},
+              {"@type":"MusicRecording","@id":"https://kharviefx-tech.github.io/kharvie/#sweet-love-recording","name":"Sweet Love","url":"https://kharviefx-tech.github.io/kharvie/releases/sweet-love.html","genre":"Afrobeats","byArtist":{"@id":"https://kharviefx-tech.github.io/kharvie/#artist"},"sameAs":["https://open.spotify.com/track/3a6qAo7biXN6Hu5LU1NocG"]}
             ]
           }
           new_json = '<script type="application/ld+json">' + json.dumps(graph, ensure_ascii=False, separators=(",",":")) + '</script>'
           s = re.sub(r'<script type="application/ld\+json">.*?</script>', new_json, s, count=1, flags=re.S)
-
-          # Tighten homepage metadata.
           s = re.sub(r'<meta name="keywords"[^>]*>\s*', '', s, count=1, flags=re.I)
           s = re.sub(r'<meta property="og:image:alt"[^>]*>', '<meta property="og:image:alt" content="Kharvie — official artist photo">', s, count=1, flags=re.I)
-          s = s.replace('<title>Kharvie | Official Website</title>', '<title>Kharvie | Official Website</title>')
           p.write_text(s, encoding="utf-8")
 
-          # Add a Google-understandable ProfilePage entity to the dedicated artist profile.
+          # Add a Google ProfilePage entity to the dedicated artist profile.
           p = root / "artist-profile.html"
           if p.exists():
               s = p.read_text(encoding="utf-8")
-              profile = {
-                "@context":"https://schema.org",
-                "@type":"ProfilePage",
-                "dateModified":"2026-09-24T20:09:00+01:00",
-                "mainEntity":{
-                  "@type":"Person",
-                  "@id":"https://kharviefx-tech.github.io/kharvie/#artist",
-                  "name":"Kharvie",
-                  "description":"Kharvie is a singer and songwriter. This is the official artist profile.",
-                  "image":[
-                    "https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg",
-                    "https://kharviefx-tech.github.io/kharvie/assets/IMG-20260912-WA0004.jpg"
-                  ],
-                  "url":"https://kharviefx-tech.github.io/kharvie/",
-                  "sameAs":[
-                    "https://www.youtube.com/@kharvie-m",
-                    "https://www.instagram.com/kharvie__/",
-                    "https://www.facebook.com/officialKharvie",
-                    "https://www.tiktok.com/@iamkharvie",
-                    "https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC",
-                    "https://music.apple.com/ng/artist/kharvie/6781999179",
-                    "https://audiomack.com/kharvie",
-                    "https://www.boomplay.com/share/artist/133955596"
-                  ]
-                }
-              }
+              profile = {"@context":"https://schema.org","@type":"ProfilePage","dateModified":"2026-09-24T20:09:00+01:00","mainEntity":{"@type":"Person","@id":"https://kharviefx-tech.github.io/kharvie/#artist","name":"Kharvie","description":"Kharvie is a singer and songwriter. This is the official artist profile.","image":["https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg","https://kharviefx-tech.github.io/kharvie/assets/IMG-20260912-WA0004.jpg"],"url":"https://kharviefx-tech.github.io/kharvie/","sameAs":["https://www.youtube.com/@kharvie-m","https://www.instagram.com/kharvie__/","https://www.facebook.com/officialKharvie","https://www.tiktok.com/@iamkharvie","https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC","https://music.apple.com/ng/artist/kharvie/6781999179","https://audiomack.com/kharvie","https://www.boomplay.com/share/artist/133955596"]}}
               tag = '<script type="application/ld+json">' + json.dumps(profile, ensure_ascii=False, separators=(",",":")) + '</script>'
               if re.search(r'<script type="application/ld\+json">', s):
                   s = re.sub(r'<script type="application/ld\+json">.*?</script>', tag, s, count=1, flags=re.S)
@@ -148,7 +84,22 @@ jobs:
                   s = s.replace('</head>', tag + '</head>', 1)
               p.write_text(s, encoding="utf-8")
 
-          # Refresh sitemap timestamp without adding unstable admin URLs.
+          # Keep Google-facing loading areas useful even before client-side CMS data renders.
+          p = root / "index.html"
+          s = p.read_text(encoding="utf-8")
+          s = s.replace('<div id="featuredReleases" class="featured-releases"><div class="cms-empty">Loading official releases…</div></div>',
+                        '<div id="featuredReleases" class="featured-releases"><div class="cms-empty">Official Kharvie releases: Sweet Love, Romeo and Juliet, Imole and Holla. Explore the full catalogue below.</div></div>')
+          s = s.replace('<div id="cmsReleases" class="k-cms-grid"><div class="cms-empty">Loading official releases…</div></div>',
+                        '<div id="cmsReleases" class="k-cms-grid"><div class="cms-empty">Official Kharvie catalogue — releases, tracks and listening links.</div></div>')
+          s = s.replace('<div id="cmsEvents" class="k-live-grid"><div class="cms-empty">Loading upcoming events…</div></div>',
+                        '<div id="cmsEvents" class="k-live-grid"><div class="cms-empty">No upcoming public events are currently listed.</div></div>')
+          s = s.replace('<div id="cmsGallery" class="k-visual-grid"><div class="cms-empty">Loading gallery…</div></div>',
+                        '<div id="cmsGallery" class="k-visual-grid"><div class="cms-empty">Official Kharvie photos and visual archive.</div></div>')
+          s = s.replace('<div id="cmsNews" class="k-cms-grid"><div class="cms-empty">Loading official news…</div></div>',
+                        '<div id="cmsNews" class="k-cms-grid"><div class="cms-empty">Official Kharvie news and updates.</div></div>')
+          p.write_text(s, encoding="utf-8")
+
+          # Refresh sitemap date.
           sp = root / "sitemap.xml"
           if sp.exists():
               s = sp.read_text(encoding="utf-8")
@@ -160,5 +111,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html about.html artist-profile.html kharvie-artist.html sitemap.xml
-          git diff --cached --quiet || git commit -m "SEO: strengthen Kharvie official artist identity"
+          git diff --cached --quiet || git commit -m "SEO: tighten Kharvie public identity"
           git push
