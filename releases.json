@@ -1,22 +1,8 @@
 {
   "artist": "Kharvie",
-  "updatedAt": "2026-09-26T20:46:25.312554+00:00",
+  "updatedAt": "2026-09-26T20:55:27.668548+00:00",
   "source": "Apple/iTunes Search",
   "releases": [
-    {
-      "title": "Holla",
-      "artist": "Kharvie",
-      "releaseDate": "2026-09-19",
-      "genre": "Afro-Beat",
-      "artwork": "https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F12186636--AD2DAC01-5F04-4F48-9448C2861EB1DF3D--0--2748811--78FDFE43AD6C4DACB8731358A16C3B53.png?fm=jpg&q=75&w=800&s=2757e8e054b84fd19720a8ccb65b4fac",
-      "appleUrl": "https://music.apple.com/ng/album/holla/6814172464?i=6814172465&uo=4",
-      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ef/48/fd/ef48fd91-7961-7a72-1e7f-131876e4724b/mzaf_5924994522225147153.plus.aac.p.m4a",
-      "explicit": false,
-      "links": {
-        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/holla/",
-        "apple": "https://music.apple.com/ng/album/holla/6814172464?i=6814172465&uo=4"
-      }
-    },
     {
       "title": "Sweet Love",
       "artist": "Kharvie",
@@ -33,6 +19,20 @@
         "audiomack": "https://audiomack.com/kharvie/song/sweet-love-1",
         "smartLink": "https://ffm.to/kharvie",
         "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/sweet-love/"
+      }
+    },
+    {
+      "title": "Holla",
+      "artist": "Kharvie",
+      "releaseDate": "2022-05-25",
+      "genre": "Afro-Beat",
+      "artwork": "https://distrokid.imgix.net/http%3A%2F%2Fgather.fandalism.com%2F12186636--AD2DAC01-5F04-4F48-9448C2861EB1DF3D--0--2748811--78FDFE43AD6C4DACB8731358A16C3B53.png?fm=jpg&q=75&w=800&s=2757e8e054b84fd19720a8ccb65b4fac",
+      "appleUrl": "https://music.apple.com/ng/album/holla/6814172464?i=6814172465&uo=4",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ef/48/fd/ef48fd91-7961-7a72-1e7f-131876e4724b/mzaf_5924994522225147153.plus.aac.p.m4a",
+      "explicit": false,
+      "links": {
+        "hyperFollow": "https://distrokid.com/hyperfollow/kharvie/holla/",
+        "apple": "https://music.apple.com/ng/album/holla/6814172464?i=6814172465&uo=4"
       }
     },
     {
