@@ -61,9 +61,9 @@ jobs:
                   node['name'] = 'Kharvie'
                   node['alternateName'] = ['Victor Avannah']
                   node.pop('member', None)
-                  node['jobTitle'] = ['Singer', 'Songwriter']
+                  node['jobTitle'] = ['Singer-songwriter']
                   node['url'] = SITE
-                  node['description'] = 'Kharvie is the professional artist name of Victor Avannah, a singer and songwriter from Delta State.'
+                  node['description'] = 'Kharvie is the professional artist name of Victor Avannah, a singer-songwriter from Delta State.'
               for v in node.values():
                   if isinstance(v, dict):
                       normalize_node(v)
@@ -97,8 +97,8 @@ jobs:
                   s = p.read_text(encoding='utf-8')
                   s = s.replace('Kharvie (Victor Avannah) | Official Website/Profile','Kharvie | Official Website')
                   s = s.replace('Kharvie (Victor Avannah)','Kharvie')
-                  s = s.replace('Nigerian singer and songwriter','singer and songwriter')
-                  s = s.replace('Nigerian singer-songwriter','singer-songwriter')
+                  s = s.replace('singer-songwriter','singer-songwriter')
+                  s = s.replace('singer-songwriter','singer-songwriter')
                   s = s.replace('Nigerian ','')
                   s = s.replace('Nigeria','')
                   s = s.replace('Delta State, .','Delta State.')
