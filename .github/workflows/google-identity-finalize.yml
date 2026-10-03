@@ -32,23 +32,23 @@ jobs:
             'KHARVIE / VICTOR AVANNAH':'KHARVIE',
             'Kharvie (Victor Avannah) | Official Website/Profile':'Kharvie | Official Website',
             'Kharvie (Victor Avannah)':'Kharvie',
-            'a Nigerian singer and songwriter from Delta State, Nigeria.':'a singer and songwriter from Delta State.',
-            'is a Nigerian singer and songwriter from Delta State, Nigeria.':'is a singer and songwriter from Delta State.',
-            'is a Nigerian singer-songwriter from Delta State.':'is a singer-songwriter from Delta State.',
-            'new generation of Nigerian artists':'new generation of artists',
-            'From Delta State, Nigeria':'From Delta State',
-            'Origin Delta State, Nigeria':'Origin Delta State',
-            'Occupation Nigerian singer and songwriter':'Occupation Singer and songwriter',
-            'Nigerian singer and songwriter':'singer and songwriter',
-            'Nigerian singer-songwriter':'singer-songwriter',
+            'a singer-songwriter from Delta State, Nigeria.':'a singer-songwriter from Delta State.',
+            'is a singer-songwriter from Delta State, Nigeria.':'is a singer-songwriter from Delta State.',
+            'is a singer-songwriter from Delta State.':'is a singer-songwriter from Delta State.',
+            'new generation of artists':'new generation of artists',
+            'From Delta State':'From Delta State',
+            'Origin Delta State':'Origin Delta State',
+            'Occupation singer-songwriter':'Occupation Singer-songwriter',
+            'singer-songwriter':'singer-songwriter',
+            'singer-songwriter':'singer-songwriter',
           }
           for name in pages:
             p=Path(name)
             if not p.exists(): continue
             s=p.read_text(encoding='utf-8')
             for old,new in replacements.items(): s=s.replace(old,new)
-            s=s.replace('Nigeria / AFROBEATS','AFROBEATS')
-            s=s.replace('Nigeria / Afrobeats','Afrobeats')
+            s=s.replace('AFROBEATS','AFROBEATS')
+            s=s.replace('Afrobeats','Afrobeats')
             p.write_text(s,encoding='utf-8')
 
           # Homepage is the sole primary site identity.
@@ -70,7 +70,7 @@ jobs:
               if isinstance(x,dict):
                 if x.get('@id')==SITE+'#artist':
                   x['@type']=['Person','MusicArtist']; x['name']='Kharvie'; x['alternateName']=['Victor Avannah']; x['url']=SITE
-                  x['jobTitle']=['Singer','Songwriter']
+                  x['jobTitle']=['Singer-songwriter']
                   x['sameAs']=list(dict.fromkeys(x.get('sameAs',[])))
                 for v in x.values(): walk(v)
               elif isinstance(x,list):
