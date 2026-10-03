@@ -35,15 +35,15 @@ jobs:
                   "KHARVIE / VICTOR AVANNAH / NIGERIA": "KHARVIE / OFFICIAL ARTIST",
                   "KHARVIE VICTOR AVANNAH NIGERIA / AFROBEATS": "KHARVIE / AFROBEATS",
                   "OFFICIAL WEBSITE / VICTOR AVANNAH": "OFFICIAL WEBSITE",
-                  "is a Nigerian singer and songwriter from Delta State, Nigeria.": "is a singer and songwriter from Delta State.",
-                  "is a Nigerian singer-songwriter from Delta State.": "is a singer-songwriter from Delta State.",
-                  "new generation of Nigerian artists": "new generation of artists",
-                  "Origin Delta State, Nigeria": "Origin Delta State",
-                  "From Delta State, Nigeria": "From Delta State",
-                  "Occupation Nigerian singer and songwriter": "Occupation Singer and songwriter",
-                  "a Nigerian singer and songwriter": "a singer and songwriter",
-                  "Nigerian singer and songwriter": "singer and songwriter",
-                  "Nigerian singer-songwriter": "singer-songwriter",
+                  "is a singer-songwriter from Delta State, Nigeria.": "is a singer-songwriter from Delta State.",
+                  "is a singer-songwriter from Delta State.": "is a singer-songwriter from Delta State.",
+                  "new generation of artists": "new generation of artists",
+                  "Origin Delta State": "Origin Delta State",
+                  "From Delta State": "From Delta State",
+                  "Occupation singer-songwriter": "Occupation Singer-songwriter",
+                  "a singer-songwriter": "a singer and songwriter",
+                  "singer-songwriter": "singer-songwriter",
+                  "singer-songwriter": "singer-songwriter",
                   "Nigeria": ""
               }
               for old, new in replacements.items():
@@ -76,7 +76,7 @@ jobs:
           p = root / "artist-profile.html"
           if p.exists():
               s = p.read_text(encoding="utf-8")
-              profile = {"@context":"https://schema.org","@type":"ProfilePage","dateModified":"2026-09-24T20:09:00+01:00","mainEntity":{"@type":"Person","@id":"https://kharviefx-tech.github.io/kharvie/#artist","name":"Kharvie","description":"Kharvie is a singer and songwriter. This is the official artist profile.","image":["https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg","https://kharviefx-tech.github.io/kharvie/assets/IMG-20260912-WA0004.jpg"],"url":"https://kharviefx-tech.github.io/kharvie/","sameAs":["https://www.youtube.com/@kharvie-m","https://www.instagram.com/kharvie__/","https://www.facebook.com/officialKharvie","https://www.tiktok.com/@iamkharvie","https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC","https://music.apple.com/ng/artist/kharvie/6781999179","https://audiomack.com/kharvie","https://www.boomplay.com/share/artist/133955596"]}}
+              profile = {"@context":"https://schema.org","@type":"ProfilePage","dateModified":"2026-09-24T20:09:00+01:00","mainEntity":{"@type":"Person","@id":"https://kharviefx-tech.github.io/kharvie/#artist","name":"Kharvie","description":"Kharvie is a singer-songwriter. This is the official artist profile.","image":["https://kharviefx-tech.github.io/kharvie/assets/kharvie.jpg","https://kharviefx-tech.github.io/kharvie/assets/IMG-20260912-WA0004.jpg"],"url":"https://kharviefx-tech.github.io/kharvie/","sameAs":["https://www.youtube.com/@kharvie-m","https://www.instagram.com/kharvie__/","https://www.facebook.com/officialKharvie","https://www.tiktok.com/@iamkharvie","https://open.spotify.com/artist/1bJPpG5oB0hNvNNDUs1uAC","https://music.apple.com/ng/artist/kharvie/6781999179","https://audiomack.com/kharvie","https://www.boomplay.com/share/artist/133955596"]}}
               tag = '<script type="application/ld+json">' + json.dumps(profile, ensure_ascii=False, separators=(",",":")) + '</script>'
               if re.search(r'<script type="application/ld\+json">', s):
                   s = re.sub(r'<script type="application/ld\+json">.*?</script>', tag, s, count=1, flags=re.S)
