@@ -6,11 +6,11 @@ insert into public.site_settings (setting_key, setting_value, updated_at)
 values
  ('artist_name','Kharvie',now()),
  ('real_name','Victor Avannah',now()),
- ('profession','Singer and songwriter',now()),
+ ('profession','Singer-songwriter',now()),
  ('genre','Afrobeats',now()),
  ('origin','Delta State',now()),
  ('booking_email','avannahvictor3@gmail.com',now()),
- ('short_bio','Kharvie is a singer and songwriter from Delta State. His real name is Victor Avannah. Born on April 12, 2003, Kharvie is part of a new generation of artists shaping the evolving sound of Afrobeats.',now()),
+ ('short_bio','Kharvie is a singer-songwriter from Delta State. His real name is Victor Avannah. Born on April 12, 2003, Kharvie is part of a new generation of artists shaping the evolving sound of Afrobeats.',now()),
  ('hero_intro','Kharvie is building a distinct Afrobeats identity from Delta State, blending melody, rhythm and modern energy into music made to move.',now())
 on conflict (setting_key) do update set setting_value=excluded.setting_value, updated_at=now();
 
