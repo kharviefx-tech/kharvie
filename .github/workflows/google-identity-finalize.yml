@@ -70,7 +70,7 @@ jobs:
               if isinstance(x,dict):
                 if x.get('@id')==SITE+'#artist':
                   x['@type']=['Person','MusicArtist']; x['name']='Kharvie'; x['alternateName']=['Victor Avannah']; x['url']=SITE
-                  x['jobTitle']=['Singer-songwriter']
+                  x['jobTitle']='Singer-songwriter'
                   x['sameAs']=list(dict.fromkeys(x.get('sameAs',[])))
                 for v in x.values(): walk(v)
               elif isinstance(x,list):
